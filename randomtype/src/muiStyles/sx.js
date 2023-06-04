@@ -8,4 +8,8 @@ const iconsStyle = {
     borderRadius: 0.5 
 }
 
-export {iconsStyle};
+const boxStyle ={
+    display:'flex',
+    alignItems:'flex-end'
+}
+export {iconsStyle, boxStyle};
