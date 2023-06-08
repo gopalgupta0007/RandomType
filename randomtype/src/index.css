@@ -13,6 +13,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: rgb(40,40,40);
+  /* background-color: #ffd000; */
   /* background-image: linear-gradient(45deg,rgb(138, 0, 0),red 20%, blue , lightgreen , green, yellow); */
 }
 
@@ -22,6 +23,6 @@ code {
 }
 
 .inputStyle{
-  width: 30vw;
-  color: white;
+  /* width: 100%; */
+  width: 35vw;
 }
