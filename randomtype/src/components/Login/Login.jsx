@@ -4,6 +4,9 @@ import MailRoundedIcon from '@mui/icons-material/MailRounded';
 import KeyRoundedIcon from '@mui/icons-material/KeyRounded';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { IconButton, Input, FormControl, InputLabel, InputAdornment, Box, TextField, Button } from '@mui/material'
+import axios from 'axios';
+
+
 const Registration = () => {
 
     const [showPassword, setShowPassword] = useState(false);
@@ -20,16 +23,26 @@ const Registration = () => {
 
     const handleInput = (e) => {
         setloginData({ ...loginData, [e.target.name]: e.target.value })
-        console.log(loginData);
     }
+
+    const verifyData = async(e) => {
+        try {
+            e.preventDefault();
+            const {email, password} = loginData;
+            const axiosPost = await axios.post("/users/login", {email, password})
+            console.log(axiosPost.data);
+        } catch (err) {
+            console.log(err);            
+        } 
+    } 
     return (
         <>
             <h1 className="text-center mt-5 text-white text-4xl">Login</h1>
-            <form method="post">
+            <form method="post" onSubmit={verifyData}>
                 <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', mt: 3, rowGap: 2 }}>
                     <Box sx={boxStyle}>
                         <MailRoundedIcon sx={iconsStyle} />
-                        <TextField className='inputStyle ' value={loginData.email} sx={{ input: { color: 'red' } }} onChange={handleInput} label="email" color='warning' InputLabelProps={labelStyle} name='email' variant='standard' autoComplete="off" />
+                        <TextField className='inputStyle ' value={loginData.email} sx={{ input: { color: 'white' } }} onChange={handleInput} label="email" color='warning' InputLabelProps={labelStyle} name='email' variant='standard' autoComplete="off" />
                     </Box>
                     <Box sx={boxStyle}>
                         <KeyRoundedIcon sx={iconsStyle} />
@@ -38,7 +51,7 @@ const Registration = () => {
                             <Input
                                 className='inputStyle'
                                 color='warning'
-                                sx={{ input: { color: 'red' } }}
+                                sx={{ input: { color: 'white' } }}
                                 id="standard-adornment-password"
                                 type={showPassword ? 'text' : 'password'}
                                 name="password"
@@ -58,7 +71,7 @@ const Registration = () => {
                             />
                         </FormControl>
                     </Box>
-                    <Button variant="contained" onClick={preventDefaultt} sx={btnSubmit} size="large">
+                    <Button variant="contained" type='submit' sx={btnSubmit} size="large">
                         Login
                     </Button>
                 </Box>

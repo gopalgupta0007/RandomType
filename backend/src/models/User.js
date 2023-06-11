@@ -60,7 +60,7 @@ const UserSchema = new mongoose.Schema({
 // this .generateAuthToken method are use to generate unique token. 
 UserSchema.methods.generateAuthToken = async function(){
     try {
-        const token = jwt.sign({_id: this._id}, process.env.SECRET_KEY);    //generate the token jwt.sign( user_id, JWT_Secret);
+        const token = await jwt.sign({_id: this._id}, process.env.SECRET_KEY);    //generate the token jwt.sign( user_id, JWT_Secret);
         this.tokens = this.tokens.concat({token:token});
         this.save();
         return token;

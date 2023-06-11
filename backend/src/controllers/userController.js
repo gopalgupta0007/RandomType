@@ -28,6 +28,7 @@ const signup = async (req, res) => {
 const login = async (req, res) => {
     try {
         let isPasswordCorrect;
+        console.log("1");
         const { email, password } = req.body;
         if (!email || !password) { res.status(400).json({ massage: "invalid input data" }); }
         const userFound = await Users.findOne({ email });
@@ -40,8 +41,7 @@ const login = async (req, res) => {
         console.log(userFound);
         //jwt => jsonwebtoken
         token = userFound.generateAuthToken();
-        console.log("generated token was => ", token);
-        res.cookie("jwt_token",token,{
+        res.cookie("jwtoken",token,{
             expires: new Date(Date.now()+604800000),     // (604800000 in millisecond == 7 day)
             httpOnly:true
         })

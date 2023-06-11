@@ -7,6 +7,7 @@ import KeyRoundedIcon from '@mui/icons-material/KeyRounded';
 import { AccountCircle, Visibility, VisibilityOff } from '@mui/icons-material';
 import { IconButton, Input, FormControl, InputLabel, InputAdornment, Box, TextField, Button } from '@mui/material';
 
+
 const Registration = () => {
 
     const [showPassword, setShowPassword] = useState(false);
@@ -27,18 +28,21 @@ const Registration = () => {
         setregisterdData({ ...registerdData, [e.target.name]: e.target.value })
     }
 
-    const sendDataToDB = (e) => {
-        e.preventDefault();
-        console.log("after sumbiting");
-        var { username, phoneno, email, password } = registerdData;
-        axios.post("/users/signup", { 
-            username, 
-            phoneno, 
-            email, 
-            password 
-        })
-        .then(res => console.log(res.data))
-        .catch(error => console.log(error))
+    const sendDataToDB = async (e) => {
+        try{
+            e.preventDefault();
+            console.log("after sumbiting");
+            const { username, phoneno, email, password } = registerdData;
+            const axiosPost = await axios.post("/users/signup", { 
+                username, 
+                phoneno, 
+                email, 
+                password 
+            })
+            console.log(axiosPost.data);
+        }catch(err) {
+            console.error(err)
+        }
     }
     return (
         <>
@@ -86,7 +90,7 @@ const Registration = () => {
                         </FormControl>
                     </Box>
                     <Button variant="contained" type='submit' sx={btnSubmit} size="large">
-                        Submit
+                        Register
                     </Button>
                 </Box>
             </form>
