@@ -28,7 +28,6 @@ const signup = async (req, res) => {
 const login = async (req, res) => {
     try {
         let isPasswordCorrect;
-        console.log("1");
         const { email, password } = req.body;
         if (!email || !password) { res.status(400).json({ massage: "invalid input data" }); }
         const userFound = await Users.findOne({ email });

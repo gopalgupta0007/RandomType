@@ -1,19 +1,16 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import { iconsStyle, boxStyle, btnSubmit, labelStyle } from './sx';
-import PhoneIphoneRoundedIcon from '@mui/icons-material/PhoneIphoneRounded';
 import MailRoundedIcon from '@mui/icons-material/MailRounded';
 import KeyRoundedIcon from '@mui/icons-material/KeyRounded';
-import { AccountCircle, Visibility, VisibilityOff } from '@mui/icons-material';
-import { IconButton, Input, FormControl, InputLabel, InputAdornment, Box, TextField, Button } from '@mui/material';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
+import { IconButton, Input, FormControl, InputLabel, InputAdornment, Box, TextField, Button } from '@mui/material'
+import axios from 'axios';
 
 
 const Registration = () => {
 
     const [showPassword, setShowPassword] = useState(false);
-    const [registerdData, setregisterdData] = useState({
-        username: "",
-        phoneno: "",
+    const [loginData, setloginData] = useState({
         email: "",
         password: ""
     })
@@ -25,42 +22,27 @@ const Registration = () => {
     };
 
     const handleInput = (e) => {
-        setregisterdData({ ...registerdData, [e.target.name]: e.target.value })
+        setloginData({ ...loginData, [e.target.name]: e.target.value })
     }
 
-    const sendDataToDB = async (e) => {
-        try{
+    const verifyData = async(e) => {
+        try {
             e.preventDefault();
-            console.log("after sumbiting");
-            const { username, phoneno, email, password } = registerdData;
-            const axiosPost = await axios.post("/users/signup", { 
-                username, 
-                phoneno, 
-                email, 
-                password 
-            })
-            console.log(axiosPost.data);
-        }catch(err) {
-            console.error(err)
-        }
-    }
+            const {email, password} = loginData;
+            const axiosPost = await axios.post("/users/login", {email, password})
+            alert(axiosPost.data);
+        } catch (err) {
+            console.log(err);            
+        } 
+    } 
     return (
         <>
-            <h1 className="text-center mt-5 text-white text-4xl">Registration</h1>
-
-            <form method="post" onSubmit={sendDataToDB}>
+            <h1 className="text-center mt-5 text-white text-4xl">Login</h1>
+            <form method="post" onSubmit={verifyData}>
                 <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', mt: 3, rowGap: 2 }}>
                     <Box sx={boxStyle}>
-                        <AccountCircle sx={iconsStyle} />
-                        <TextField className='inputStyle' value={registerdData.username} onChange={handleInput} label="Username" color='warning' sx={{ input: { color: 'white' } }} InputLabelProps={labelStyle} name='username' variant='standard' autoComplete="off" />
-                    </Box>
-                    <Box sx={boxStyle}>
-                        <PhoneIphoneRoundedIcon sx={iconsStyle} />
-                        <TextField className='inputStyle' value={registerdData.phoneno} onChange={handleInput} label="Phone Number" color='warning' sx={{ input: { color: 'white' } }} InputLabelProps={labelStyle} name='phoneno' variant='standard' autoComplete="off" />
-                    </Box>
-                    <Box sx={boxStyle}>
                         <MailRoundedIcon sx={iconsStyle} />
-                        <TextField className='inputStyle' value={registerdData.email} onChange={handleInput} label="email" color='warning' sx={{ input: { color: 'white' } }} InputLabelProps={labelStyle} name='email' variant='standard' autoComplete="off" />
+                        <TextField className='inputStyle ' value={loginData.email} sx={{ input: { color: 'white' } }} onChange={handleInput} label="email" color='warning' InputLabelProps={labelStyle} name='email' variant='standard' autoComplete="off" />
                     </Box>
                     <Box sx={boxStyle}>
                         <KeyRoundedIcon sx={iconsStyle} />
@@ -74,7 +56,7 @@ const Registration = () => {
                                 type={showPassword ? 'text' : 'password'}
                                 name="password"
                                 onChange={handleInput}
-                                value={registerdData.password}
+                                value={loginData.password}
                                 endAdornment={
                                     <InputAdornment position="end">
                                         <IconButton
@@ -90,7 +72,7 @@ const Registration = () => {
                         </FormControl>
                     </Box>
                     <Button variant="contained" type='submit' sx={btnSubmit} size="large">
-                        Register
+                        Login
                     </Button>
                 </Box>
             </form>

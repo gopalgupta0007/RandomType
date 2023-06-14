@@ -1,16 +1,19 @@
 import React, { useState } from 'react';
-import { iconsStyle, boxStyle, btnSubmit, labelStyle } from '../Registration/sx';
+import axios from 'axios';
+import { iconsStyle, boxStyle, btnSubmit, labelStyle } from './sx';
+import PhoneIphoneRoundedIcon from '@mui/icons-material/PhoneIphoneRounded';
 import MailRoundedIcon from '@mui/icons-material/MailRounded';
 import KeyRoundedIcon from '@mui/icons-material/KeyRounded';
-import { Visibility, VisibilityOff } from '@mui/icons-material';
-import { IconButton, Input, FormControl, InputLabel, InputAdornment, Box, TextField, Button } from '@mui/material'
-import axios from 'axios';
+import { AccountCircle, Visibility, VisibilityOff } from '@mui/icons-material';
+import { IconButton, Input, FormControl, InputLabel, InputAdornment, Box, TextField, Button } from '@mui/material';
 
 
 const Registration = () => {
 
     const [showPassword, setShowPassword] = useState(false);
-    const [loginData, setloginData] = useState({
+    const [registerdData, setregisterdData] = useState({
+        username: "",
+        phoneno: "",
         email: "",
         password: ""
     })
@@ -22,27 +25,42 @@ const Registration = () => {
     };
 
     const handleInput = (e) => {
-        setloginData({ ...loginData, [e.target.name]: e.target.value })
+        setregisterdData({ ...registerdData, [e.target.name]: e.target.value })
     }
 
-    const verifyData = async(e) => {
-        try {
+    const sendDataToDB = async (e) => {
+        try{
             e.preventDefault();
-            const {email, password} = loginData;
-            const axiosPost = await axios.post("/users/login", {email, password})
-            console.log(axiosPost.data);
-        } catch (err) {
-            console.log(err);            
-        } 
-    } 
+            console.log("after sumbiting");
+            const { username, phoneno, email, password } = registerdData;
+            const axiosPost = await axios.post("/users/signup", { 
+                username, 
+                phoneno, 
+                email, 
+                password 
+            })
+            alert(axiosPost.data);
+        }catch(err) {
+            console.error(err)
+        }
+    }
     return (
         <>
-            <h1 className="text-center mt-5 text-white text-4xl">Login</h1>
-            <form method="post" onSubmit={verifyData}>
+            <h1 className="text-center mt-5 text-white text-4xl">Registration</h1>
+
+            <form method="post" onSubmit={sendDataToDB}>
                 <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', mt: 3, rowGap: 2 }}>
                     <Box sx={boxStyle}>
+                        <AccountCircle sx={iconsStyle} />
+                        <TextField className='inputStyle' value={registerdData.username} onChange={handleInput} label="Username" color='warning' sx={{ input: { color: 'white' } }} InputLabelProps={labelStyle} name='username' variant='standard' autoComplete="off" />
+                    </Box>
+                    <Box sx={boxStyle}>
+                        <PhoneIphoneRoundedIcon sx={iconsStyle} />
+                        <TextField className='inputStyle' value={registerdData.phoneno} onChange={handleInput} label="Phone Number" color='warning' sx={{ input: { color: 'white' } }} InputLabelProps={labelStyle} name='phoneno' variant='standard' autoComplete="off" />
+                    </Box>
+                    <Box sx={boxStyle}>
                         <MailRoundedIcon sx={iconsStyle} />
-                        <TextField className='inputStyle ' value={loginData.email} sx={{ input: { color: 'white' } }} onChange={handleInput} label="email" color='warning' InputLabelProps={labelStyle} name='email' variant='standard' autoComplete="off" />
+                        <TextField className='inputStyle' value={registerdData.email} onChange={handleInput} label="email" color='warning' sx={{ input: { color: 'white' } }} InputLabelProps={labelStyle} name='email' variant='standard' autoComplete="off" />
                     </Box>
                     <Box sx={boxStyle}>
                         <KeyRoundedIcon sx={iconsStyle} />
@@ -56,7 +74,7 @@ const Registration = () => {
                                 type={showPassword ? 'text' : 'password'}
                                 name="password"
                                 onChange={handleInput}
-                                value={loginData.password}
+                                value={registerdData.password}
                                 endAdornment={
                                     <InputAdornment position="end">
                                         <IconButton
@@ -72,7 +90,7 @@ const Registration = () => {
                         </FormControl>
                     </Box>
                     <Button variant="contained" type='submit' sx={btnSubmit} size="large">
-                        Login
+                        Register
                     </Button>
                 </Box>
             </form>
