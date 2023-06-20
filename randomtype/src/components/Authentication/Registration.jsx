@@ -6,10 +6,11 @@ import MailRoundedIcon from '@mui/icons-material/MailRounded';
 import KeyRoundedIcon from '@mui/icons-material/KeyRounded';
 import { AccountCircle, Visibility, VisibilityOff } from '@mui/icons-material';
 import { IconButton, Input, FormControl, InputLabel, InputAdornment, Box, TextField, Button } from '@mui/material';
+import { useHistory } from "react-router-dom";
 
 
 const Registration = () => {
-
+    const history = useHistory();
     const [showPassword, setShowPassword] = useState(false);
     const [registerdData, setregisterdData] = useState({
         username: "",
@@ -40,6 +41,7 @@ const Registration = () => {
                 password 
             })
             alert(axiosPost.data);
+            history.push('/typing');
         }catch(err) {
             console.error(err)
         }

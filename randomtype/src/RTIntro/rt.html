@@ -12,11 +12,16 @@
         }
 
         body {
+            margin: 0;
+            padding: 0;
             background-color: var(--intro-bg);
             overflow: hidden;
             transition: all linear 1s;
         }
-
+        svg{
+            background-color: rgba(255, 255, 255, .2);
+            filter: blur(50%);
+        }
         #randomText {
             opacity: 0;
             transform: translate(0, 0);
@@ -28,7 +33,6 @@
             animation: incrementLine 1s linear 4s;
         }
 
-        /* Infinix X1 Slim Series Core i5 10th Gen - (16 GB/512 GB SSD/Windows 11 Home) XL21 Thin and Light Laptop  (14 Inch, Aurora Green, 1.24 kg) */
         .typingTest {
             opacity: 0.3;
             transform: translateY(-2%);
@@ -36,15 +40,36 @@
         }
 
         #keyborad {
-            transform: translate(20%, 7%) scale(1, 0.85);
             opacity: 0;
-            animation: introAnimationKeyboard 4s ease-in-out 1s/*delay*/;
+            transform: translate(20%, 7%) scale(1, 0.85);
+            animation: introAnimationKeyboard 4s ease-in-out 1s
+                /*delay*/
+            ;
             transition: 0s 1s all linear;
         }
 
-        #RTIntro{
-            stroke: red;
-            transform: translate(500px);
+        #keyborad>path{
+            fill: var(--text-color);
+        }
+
+        #RTIntro {
+            /*transform: translate(-17%, -20%) scale(0.5);*/    /*logo having on top left*/
+            transform: translate(0, 0) scale(1);
+            animation: RTIntroLogoAnimation 1s ease-in 6s;
+        }
+
+        #backgroundFrame{
+            opacity: 1;
+            transition: opacity 1s linear 1.2s;
+        }
+        
+        @keyframes RTIntroLogoAnimation {
+            from{
+                transform: translate(0, 0) scale(1);
+            }
+            to{
+                transform: translate(-17%, -20%) scale(0.5);
+            }
         }
 
         @keyframes bottomScaleText {
@@ -95,13 +120,15 @@
                 transform: translate(20%, 7%) scale(1, 0.85);
                 opacity: 1;
             }
-            80%{
+
+            80% {
                 transform: translate(-0.5%, 7%) scale(1, 0.85);
                 opacity: 1;
             }
-            100%{
-                transform: translate(0,0) scale(1);
-                opacity: 1;   
+
+            100% {
+                transform: translate(0, 0) scale(1);
+                opacity: 1;
             }
         }
     </style>
@@ -109,21 +136,21 @@
 
 <body>
     <svg width="100vw" height="100vh" viewBox="0 0 1440 970" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect id="backgroundFrame" width="1440" height="970" fill="var(--intro-bg)" />
         <g id="RTIntro" clip-path="url(#clip0_1_2)">
-            <rect id="backgroundFrame" width="1440" height="970" fill="var(--intro-bg)" />
             <g id="randomText">
                 <text id="Random ype" fill="black" xml:space="preserve" style="white-space: pre" font-family="Inter"
                     font-size="91" letter-spacing="-0.05em">
-                    <tspan x="548" y="556.091">RANDOM  YPE</tspan>
+                    <tspan x="548" y="556.091" fill="var(--text-color)">RANDOM  YPE</tspan>
                     <!--need to add double space in this line in tspan tag "RANDOM__YPE"-->
                 </text>
-                <rect id="t-horizontalSVG" x="548" y="474" width="584" height="9" rx="4.5" fill="black" />
+                <rect id="t-horizontalSVG" x="548" y="474" width="584" height="9" rx="4.5" fill="var(--text-color)" />
                 <path id="t-verticalSVG"
                     d="M943 481.039C943 476.74 946.72 473.385 950.996 473.827V473.827C954.692 474.209 957.5 477.323 957.5 481.039V572.461C957.5 576.76 953.78 580.115 949.504 579.673V579.673C945.808 579.291 943 576.177 943 572.461V481.039Z"
-                    fill="black" />
+                    fill="var(--text-color)" />
                 <text id=" Typing Test" class="typingTest" fill="black" xml:space="preserve" style="white-space: pre"
                     font-family="Inter" font-size="20" font-weight="500" letter-spacing="0.5em">
-                    <tspan x="709.307" y="575.273"> TYPING TEST</tspan>
+                    <tspan x="709.307" y="575.273" fill="var(--text-color)"> TYPING TEST</tspan>
                     <!--need to add space before TYPING TEST word eg => "_TYPING TEST"-->
                 </text>
             </g>
@@ -210,6 +237,8 @@
         const randomText = document.getElementById('randomText');
         const typingTest = document.querySelector('.typingTest');
         const keyborad = document.getElementById('keyborad');
+        const RTIntro = document.getElementById('RTIntro');
+        const bgFrame = document.getElementById('backgroundFrame');
 
         tVertical.addEventListener('animationend', function () {
             tVertical.style.transform = "translate(-0.5%,0) scaleY(1)";
@@ -226,6 +255,27 @@
             keyborad.style.transform = "translate(0,0) scale(1)";
             keyborad.style.opacity = "1";
         })
+        RTIntro.addEventListener('animationend',function(){
+            // RTIntro.style.transform="translate(-17%, -20%) scale(0.5);";
+            setTimeout(()=>{
+                RTIntro.style.setProperty('transform', 'translate(-17%, -20%) scale(0.5)', 'important');
+            },2350)
+        })
+        // RTIntro.addEventListener('animationend',function() {
+        //     (function setLogoTopLeft() {
+        //         window.addEventListener('resize', function () {
+        //             if (window.outerWidth <= 800) {
+        //                 RTIntro.style.transform = "scale(0.5) translate(-280px, -" + ((window.outerWidth / 2) - 200 + ((1200 - window.outerWidth) * 1.7) + ((800 - window.outerWidth) * 1.7)) + "px)";
+        //             } else if (window.outerWidth <= 1200) {
+        //                 RTIntro.style.transform = "scale(0.5) translate(-280px, -" + ((window.outerWidth / 2) - 200 + ((1200 - window.outerWidth) * 1.7)) + "px)";
+        //             } else {
+        //                 RTIntro.style.transform = "scale(0.5) translate(-480px, -380px)";
+        //             }
+        //         })
+        //     })();
+        // })
+        /* Infinix X1 Slim Series Core i5 10th Gen - (16 GB/512 GB SSD/Windows 11 Home) XL21 Thin and Light Laptop  (14 Inch, Aurora Green, 1.24 kg) */
+
     </script>
 </body>
 

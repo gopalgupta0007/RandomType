@@ -4,11 +4,12 @@ import MailRoundedIcon from '@mui/icons-material/MailRounded';
 import KeyRoundedIcon from '@mui/icons-material/KeyRounded';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { IconButton, Input, FormControl, InputLabel, InputAdornment, Box, TextField, Button } from '@mui/material'
+import { useHistory } from "react-router-dom";
 import axios from 'axios';
 
 
 const Registration = () => {
-
+    const history = useHistory();
     const [showPassword, setShowPassword] = useState(false);
     const [loginData, setloginData] = useState({
         email: "",
@@ -31,6 +32,7 @@ const Registration = () => {
             const {email, password} = loginData;
             const axiosPost = await axios.post("/users/login", {email, password})
             alert(axiosPost.data);
+            history.push('/typing');
         } catch (err) {
             console.log(err);            
         } 

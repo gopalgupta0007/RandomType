@@ -1,20 +1,23 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Tilt+Warp&display=swap');
-html{
+
+html {
   width: 100%;
 }
+
+:root {
+  --intro-bg: #FF0000;
+  --text-color: #000;
+}
+
 body {
   margin: 0;
   padding: 0;
   height: 100vh;
-  /* font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif; */
   font-family: "Roboto Mono", "Roboto Mono", "Vazirmatn";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: rgb(40,40,40);
-  /* background-color: #ffd000; */
-  /* background-image: linear-gradient(45deg,rgb(138, 0, 0),red 20%, blue , lightgreen , green, yellow); */
+  background-color: rgb(40,40,40);;
+  overflow-x: hidden;
 }
 
 code {
@@ -22,8 +25,133 @@ code {
     monospace;
 }
 
-.inputStyle{
-  /* width: 100%; */
+.inputStyle {
   width: 35vw;
 }
 
+svg#rtSVG {
+  position: absolute;
+  top: 0;
+  z-index: 2;
+  background-color: var(--intro-bg);
+  filter: blur(50%);
+}
+
+#randomText {
+  opacity: 0;
+  transform: translate(0, 0);
+  animation: introRtText 1.6s ease-in-out 3s;
+}
+
+#t-verticalSVG {
+  transform: translate(-0.5%, 10%) scaleY(0.8);
+  animation: incrementLine 1s linear 4s;
+}
+
+.typingTest {
+  opacity: 0.3;
+  transform: translateY(-2%);
+  animation: bottomScaleText 1s linear 4s;
+}
+
+#keyborad {
+  opacity: 0;
+  transform: translate(20%, 7%) scale(1, 0.85);
+  animation: introAnimationKeyboard 4s ease-in-out 1s/*delay*/;
+}
+
+#keyborad>path {
+  fill: var(--text-color);
+}
+
+#RTIntro {
+  /*transform: translate(-17%, -20%) scale(0.5);*/
+  /*logo having on top left*/
+  transform: translate(0, 0);
+  animation: RTIntroLogoAnimation 1s ease-in 6s;
+}
+
+#backgroundFrame {
+  opacity: 1;
+  transition: opacity 1s linear 1.2s;
+}
+
+@keyframes RTIntroLogoAnimation {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes bottomScaleText {
+  from {
+    opacity: 0.3;
+    transform: translateY(-2%);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0%);
+  }
+}
+
+@keyframes incrementLine {
+  from {
+    transform: translate(-0.5%, 10%) scaleY(0.8);
+  }
+
+  to {
+    transform: translate(-0.5%, 0%) scaleY(1);
+  }
+}
+
+@keyframes introRtText {
+  0% {
+    opacity: 0;
+    transform: translate(-10%, 0);
+  }
+
+  20% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+}
+
+@keyframes introAnimationKeyboard {
+  0% {
+    transform: translate(-129%, -257%) scale(6);
+    opacity: 0.01;
+  }
+
+  50% {
+    transform: translate(20%, 7%) scale(1, 0.85);
+    opacity: 1 ;
+  }
+  
+  80% {
+    transform: translate(-0.5%, 7%) scale(1, 0.85);
+    opacity: 1 ;
+  }
+  
+  100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 1 ;
+  }
+}
+
+::-webkit-scrollbar{
+  width: 5px;
+}
+::-webkit-scrollbar-track{
+  background-color: transparent;
+}
+::-webkit-scrollbar-thumb{
+  border-radius: 100vh;
+  background-color: #aaa;
+}
