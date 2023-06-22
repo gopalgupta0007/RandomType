@@ -2,11 +2,12 @@
 
 html {
   width: 100%;
+  font-size: 100%;
 }
 
 :root {
-  --intro-bg: #FF0000;
-  --text-color: #000;
+  --text-color: #f00;
+  --intro-bg: yellow;
 }
 
 body {
@@ -17,13 +18,23 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: rgb(40,40,40);;
-  overflow-x: hidden;
+  /* overflow-x: hidden; */
+  overflow: hidden;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+kbd{
+  color: white;
+  background-color: #555;
+  border-radius: 2px;
+}
+/* .active{
+  color: var(--text-color);
+} */
 
 .inputStyle {
   width: 35vw;
@@ -32,7 +43,7 @@ code {
 svg#rtSVG {
   position: absolute;
   top: 0;
-  z-index: 2;
+  z-index: 20;
   background-color: var(--intro-bg);
   filter: blur(50%);
 }
@@ -60,7 +71,8 @@ svg#rtSVG {
   animation: introAnimationKeyboard 4s ease-in-out 1s/*delay*/;
 }
 
-#keyborad>path {
+/* #keyborad>path, tspan, #randomText>path { */
+#RTIntro path, #keyboardOfLogo path, #keyboardOfLogoSM path, tspan{
   fill: var(--text-color);
 }
 

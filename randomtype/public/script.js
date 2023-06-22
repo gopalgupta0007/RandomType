@@ -5,6 +5,7 @@ const keyborad = document.getElementById('keyborad');
 const rtSVG = document.getElementById('rtSVG');
 const bgFrame = document.getElementById('backgroundFrame');
 
+
 tVertical.addEventListener('animationend', function () {
   tVertical.style.transform = "translate(-0.5%,0) scaleY(1)";
 })
