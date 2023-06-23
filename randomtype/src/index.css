@@ -14,6 +14,7 @@ body {
   margin: 0;
   padding: 0;
   height: 100vh;
+  box-sizing: border-box;
   font-family: "Roboto Mono", "Roboto Mono", "Vazirmatn";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -28,7 +29,6 @@ code {
 }
 
 kbd{
-  color: white;
   background-color: #555;
   border-radius: 2px;
 }
@@ -52,23 +52,39 @@ svg#rtSVG {
   opacity: 0;
   transform: translate(0, 0);
   animation: introRtText 1.6s ease-in-out 3s;
+  -webkit-animation: introRtText 1.6s ease-in-out 3s;
+  -moz-animation: introRtText 1.6s ease-in-out 3s;    
+  -o-animation: introRtText 1.6s ease-in-out 3s;
+  -ms-animation: introRtText 1.6s ease-in-out 3s;  
 }
 
 #t-verticalSVG {
   transform: translate(-0.5%, 10%) scaleY(0.8);
   animation: incrementLine 1s linear 4s;
+  -webkit-animation: incrementLine 1s linear 4s;
+  -moz-animation: incrementLine 1s linear 4s;    
+  -o-animation: incrementLine 1s linear 4s;
+  -ms-animation: incrementLine 1s linear 4s;  
 }
 
 .typingTest {
   opacity: 0.3;
   transform: translateY(-2%);
   animation: bottomScaleText 1s linear 4s;
+  -webkit-animation: bottomScaleText 1s linear 4s;
+  -moz-animation: bottomScaleText 1s linear 4s;    
+  -o-animation: bottomScaleText 1s linear 4s;
+  -ms-animation: bottomScaleText 1s linear 4s;  
 }
 
 #keyborad {
   opacity: 0;
   transform: translate(20%, 7%) scale(1, 0.85);
   animation: introAnimationKeyboard 4s ease-in-out 1s/*delay*/;
+  -webkit-animation: introAnimationKeyboard 4s ease-in-out 1s/*delay*/;
+  -moz-animation: introAnimationKeyboard 4s ease-in-out 1s/*delay*/;    
+  -o-animation: introAnimationKeyboard 4s ease-in-out 1s/*delay*/;
+  -ms-animation: introAnimationKeyboard 4s ease-in-out 1s/*delay*/;  
 }
 
 /* #keyborad>path, tspan, #randomText>path { */
@@ -81,11 +97,19 @@ svg#rtSVG {
   /*logo having on top left*/
   transform: translate(0, 0);
   animation: RTIntroLogoAnimation 1s ease-in 6s;
+  -webkit-animation: RTIntroLogoAnimation 1s ease-in 6s;
+  -moz-animation: RTIntroLogoAnimation 1s ease-in 6s;    
+  -o-animation: RTIntroLogoAnimation 1s ease-in 6s;
+  -ms-animation: RTIntroLogoAnimation 1s ease-in 6s;  
 }
 
 #backgroundFrame {
   opacity: 1;
   transition: opacity 1s linear 1.2s;
+  -webkit-transition: opacity 1s linear 1.2s;
+  -moz-transition: opacity 1s linear 1.2s;
+  -o-transition: opacity 1s linear 1.2s;
+  -ms-transition: opacity 1s linear 1.2s;
 }
 
 @keyframes RTIntroLogoAnimation {
@@ -166,4 +190,47 @@ svg#rtSVG {
 ::-webkit-scrollbar-thumb{
   border-radius: 100vh;
   background-color: #aaa;
+} 
+
+#typing{
+  position: relative;
+  color: orange;
+  font-size: 3rem;
+  word-break: break-all;
+}
+
+#typing::before, .correct{
+  content: attr(data-text);
+  width:0%;/**/
+  height: 4.5rem;
+  color: blue;
+  position: absolute;
+  word-wrap: break-word;
+  top: 0;
+  left: 0;
+  border-right: .3rem solid red;
+  word-break: break-all;
+  border-radius: 2px;
+  opacity: 1;
+  overflow: hidden;
+  animation: caretSmooth 5s linear infinite;
+}
+
+@keyframes caretSmooth {
+  0%{
+    width: 0%;
+  }
+  40%{
+    top: 0;
+    width: 100%;
+  }
+  41%{
+    width: 0%;
+    top: 60px;
+  }
+  100%{
+    width: 100%;
+    top: 60px;
+  }
+  
 }
