@@ -30,11 +30,11 @@ code {
 
 kbd{
   background-color: #555;
-  border-radius: 2px;
+  border: 2px solid white;
+  border-radius:5px;
+  margin: 0 5px;
+  padding:0 5pt;
 }
-/* .active{
-  color: var(--text-color);
-} */
 
 .inputStyle {
   width: 35vw;
@@ -192,45 +192,6 @@ svg#rtSVG {
   background-color: #aaa;
 } 
 
-#typing{
-  position: relative;
-  color: orange;
-  font-size: 3rem;
-  word-break: break-all;
-}
-
-#typing::before, .correct{
+textarea::before{
   content: attr(data-text);
-  width:0%;/**/
-  height: 4.5rem;
-  color: blue;
-  position: absolute;
-  word-wrap: break-word;
-  top: 0;
-  left: 0;
-  border-right: .3rem solid red;
-  word-break: break-all;
-  border-radius: 2px;
-  opacity: 1;
-  overflow: hidden;
-  animation: caretSmooth 5s linear infinite;
-}
-
-@keyframes caretSmooth {
-  0%{
-    width: 0%;
-  }
-  40%{
-    top: 0;
-    width: 100%;
-  }
-  41%{
-    width: 0%;
-    top: 60px;
-  }
-  100%{
-    width: 100%;
-    top: 60px;
-  }
-  
 }
