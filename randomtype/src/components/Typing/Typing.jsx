@@ -1,5 +1,5 @@
 import { Box } from '@mui/material'
-import React, { useState, useRef, useEffect, memo } from 'react';
+import React, { useState, useRef, useEffect, memo, useMemo } from 'react';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import normalText from "./storedText";
 import ReplayIcon from '@mui/icons-material/Replay';
@@ -50,6 +50,25 @@ const Typing = () => {
     //     console.log("changeval " + chars.join(""))
     //     return chars.join("");
     // }
+
+    const wpm = useMemo((words=0, timeTaken=1)=>{
+        return words/(timeTaken/60000);
+    },[Letter])
+
+    const accuracy = useMemo((characters=0, totalChar=1)=>{
+        return 100-((characters/totalChar)*100);
+    },[Letter])
+
+    (function(setTime=10){
+        let i = 0;
+        setInterval(() => {
+            console.log(++i);
+            if(i===setTime) {
+                clearInterval();
+            }
+        }, 1000);
+    }())
+
     console.log("start");
     function smoothCaretMotion(motion) {
         const caret = document.getElementById("caret");
@@ -65,7 +84,7 @@ const Typing = () => {
             //     console.log("yes i am in")
             //     setNum(preNum=>({...preNum, yVal: preNum.yVal-3}))
             //     caret.style.transform = `translate(${xvalue+1.8*Num.x}rem,${Num.yVal}rem)`;
-            // }q2
+            // }
         }else{
             setNum( preNum => ({...preNum,xVal:preNum.xVal+1 } ));
             caret.style.transform = `translate(${xvalue}rem,${Num.yVal}rem)`;
