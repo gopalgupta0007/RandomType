@@ -191,7 +191,3 @@ svg#rtSVG {
   border-radius: 100vh;
   background-color: #aaa;
 } 
-
-textarea::before{
-  content: attr(data-text);
-}

@@ -7,7 +7,7 @@ import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 // import { Translate } from '@mui/icons-material';
 
 const Typing = () => {
-    const [Num, setNum] = useState(1);
+    const [Num, setNum] = useState({xVal:1,yVal:0});
     const typingContainer = document.getElementById("typingContainer");
     const typing = document.getElementById("typing");
     const elementRef = useRef(null);
@@ -50,19 +50,62 @@ const Typing = () => {
     //     console.log("changeval " + chars.join(""))
     //     return chars.join("");
     // }
-
+    console.log("start");
     function smoothCaretMotion(motion) {
         const caret = document.getElementById("caret");
-        let xvalue = 1.8 * Num;
+        let xvalue = 1.8 * Num.xVal;
         if(motion=='Backspace'){
-            setNum(Num - 1);
-            caret.style.transform = `translate(${xvalue-3.6}rem,0)`;
+            setNum( preNum => ({...preNum,xVal:preNum.xVal-1 } ));
+            caret.style.transform = `translate(${xvalue-3.6}rem,${Num.yVal}rem)`;
+            // if(xvalue<=1.8 && Num.yVal>0){
+            //     console.log("yes i am in")
+            //     console.log("yes i am in")
+            //     console.log("yes i am in")
+            //     console.log("yes i am in")
+            //     console.log("yes i am in")
+            //     setNum(preNum=>({...preNum, yVal: preNum.yVal-3}))
+            //     caret.style.transform = `translate(${xvalue+1.8*Num.x}rem,${Num.yVal}rem)`;
+            // }q2
         }else{
-            setNum(Num + 1);
-            caret.style.transform = `translate(${xvalue}rem,0)`;
+            setNum( preNum => ({...preNum,xVal:preNum.xVal+1 } ));
+            caret.style.transform = `translate(${xvalue}rem,${Num.yVal}rem)`;
+            console.log("xvalue => "+ xvalue);
+            if((Math.round(typing.offsetWidth/16)+10) <= Math.round(xvalue)) { 
+                setNum( preNum => ({...preNum,xVal: 1} ));
+                setNum( preNum => ({...preNum,yVal: preNum.yVal+3 } ));
+                console.log("new line => "+ Math.round(typing.offsetWidth/16)+10)
+                caret.style.transform = `translate(${xvalue}rem,${Num.yVal}rem)`
+            }
         }
-        caret.style.transition = "transform 0.2s";
+        caret.style.transition = "transform 0.2s"; // The caret is moving smoothly due to its transition duration being set to 200ms.7
     }
+    console.log("end");
+
+    // console.log("start");
+    // let yvalue = 0;
+    // function smoothCaretMotion(motion) {
+    //     const caret = document.getElementById("caret");
+    //     let xvalue = 1.8 * Num;
+    //     if(motion=='Backspace'){
+    //         setNum(Num - 1);
+    //         console.log("yvalue => "+yvalue);
+    //         caret.style.transform = `translate(${xvalue-3.6}rem,${yvalue}rem)`;
+    //         console.log(xvalue-3.6);
+    //     }else{
+    //         setNum(Num + 1);
+    //         console.log("yvalue => "+yvalue);
+    //         caret.style.transform = `translate(${xvalue}rem,${yvalue}rem)`;
+    //         console.log("xvalue => "+ xvalue);
+    //         if((Math.round(typing.offsetWidth/16)+10) <= Math.round(xvalue)) { 
+    //             yvalue = yvalue + 3;
+    //             setNum(1);
+    //             console.log("new line => "+ Math.round(typing.offsetWidth/16)+10)
+    //             caret.style.transform = `translate(${xvalue}rem,${yvalue}rem)`
+    //         }
+    //     }
+    //     caret.style.transition = "transform 0.2s"; // The caret is moving smoothly due to its transition duration being set to 200ms.7
+    // }
+    // console.log("end");
     
     function compareToTyped(text1, text2 = 'Backspace') {
         if (text2[IndexNumber] == undefined && text2[IndexNumber] !== " ") {
