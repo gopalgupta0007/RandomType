@@ -1,5 +1,5 @@
 import { Box } from '@mui/material'
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, memo } from 'react';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import normalText from "./storedText";
 import ReplayIcon from '@mui/icons-material/Replay';
@@ -30,7 +30,7 @@ const Typing = () => {
         }
         if (event.ctrlKey && event.key == '?') {
             //if shift + enter key down restart-typing
-            // event.preventDefault(/); // Prevent default browser behavior
+            event.preventDefault(); // Prevent default browser behavior
             console.log("ctrl + ? hasbeen keydowned");
         }
     })
@@ -53,22 +53,17 @@ const Typing = () => {
 
     function smoothCaretMotion(motion) {
         const caret = document.getElementById("caret");
+        let xvalue = 1.8 * Num;
         if(motion=='Backspace'){
-            console.log("if start");
             setNum(Num - 1);
-            let xvalue = 1.8 * Num;
-            caret.style.transform = `translate(${xvalue}rem,0)`;
-            console.log("if end");
+            caret.style.transform = `translate(${xvalue-3.6}rem,0)`;
         }else{
-            console.log("else start");
             setNum(Num + 1);
-            let xvalue = 1.8 * Num;
             caret.style.transform = `translate(${xvalue}rem,0)`;
-            console.log("else end");
         }
         caret.style.transition = "transform 0.2s";
     }
-
+    
     function compareToTyped(text1, text2 = 'Backspace') {
         if (text2[IndexNumber] == undefined && text2[IndexNumber] !== " ") {
             smoothCaretMotion('Backspace');
@@ -134,4 +129,4 @@ const Typing = () => {
     )
 }
 
-export default Typing;
+export default memo(Typing);
