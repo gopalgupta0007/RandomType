@@ -1,5 +1,5 @@
 import { Box } from '@mui/material'
-import React, { useState, useRef, useEffect, memo, useMemo } from 'react';
+import React, { useState, useRef, useEffect, memo } from 'react';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import normalText from "./storedText";
 import ReplayIcon from '@mui/icons-material/Replay';
@@ -51,23 +51,23 @@ const Typing = () => {
     //     return chars.join("");
     // }
 
-    const wpm = useMemo((words=0, timeTaken=1)=>{
-        return words/(timeTaken/60000);
-    },[Letter])
+    // const wpm = useMemo((words=0, timeTaken=1)=>{
+    //     return words/(timeTaken/60000);
+    // },[Letter])
 
-    const accuracy = useMemo((characters=0, totalChar=1)=>{
-        return 100-((characters/totalChar)*100);
-    },[Letter])
+    // const accuracy = useMemo((characters=0, totalChar=1)=>{
+    //     return 100-((characters/totalChar)*100);
+    // },[Letter])
 
-    (function(setTime=10){
-        let i = 0;
-        setInterval(() => {
-            console.log(++i);
-            if(i===setTime) {
-                clearInterval();
-            }
-        }, 1000);
-    }())
+    // (function(setTime=10){
+    //     let i = 0;
+    //     setInterval(() => {
+    //         console.log(++i);
+    //         if(i===setTime) {
+    //             clearInterval();
+    //         }
+    //     }, 1000);
+    // }())
 
     console.log("start");
     function smoothCaretMotion(motion) {
@@ -76,15 +76,17 @@ const Typing = () => {
         if(motion=='Backspace'){
             setNum( preNum => ({...preNum,xVal:preNum.xVal-1 } ));
             caret.style.transform = `translate(${xvalue-3.6}rem,${Num.yVal}rem)`;
-            // if(xvalue<=1.8 && Num.yVal>0){
-            //     console.log("yes i am in")
-            //     console.log("yes i am in")
-            //     console.log("yes i am in")
-            //     console.log("yes i am in")
-            //     console.log("yes i am in")
-            //     setNum(preNum=>({...preNum, yVal: preNum.yVal-3}))
-            //     caret.style.transform = `translate(${xvalue+1.8*Num.x}rem,${Num.yVal}rem)`;
-            // }
+            if(xvalue<=3.6 && Num.yVal>0){
+                console.log("yes i am in")
+                console.log("yes i am in")
+                console.log("yes i am in")
+                console.log("yes i am in")
+                console.log("yes i am in")
+                setNum(preNum=>({...preNum, xVal: (preNum.xVal+(typing.offsetWidth/16))-29.6, yVal: preNum.yVal-3}))
+                // typing.offsetWidth/16
+                caret.style.transform = `translate(${xvalue-3.6}rem,${Num.yVal}rem)`;
+                console.log(`${Num.xVal+(typing.offsetWidth/16)-29.6}rem`)
+            }
         }else{
             setNum( preNum => ({...preNum,xVal:preNum.xVal+1 } ));
             caret.style.transform = `translate(${xvalue}rem,${Num.yVal}rem)`;
@@ -100,31 +102,6 @@ const Typing = () => {
     }
     console.log("end");
 
-    // console.log("start");
-    // let yvalue = 0;
-    // function smoothCaretMotion(motion) {
-    //     const caret = document.getElementById("caret");
-    //     let xvalue = 1.8 * Num;
-    //     if(motion=='Backspace'){
-    //         setNum(Num - 1);
-    //         console.log("yvalue => "+yvalue);
-    //         caret.style.transform = `translate(${xvalue-3.6}rem,${yvalue}rem)`;
-    //         console.log(xvalue-3.6);
-    //     }else{
-    //         setNum(Num + 1);
-    //         console.log("yvalue => "+yvalue);
-    //         caret.style.transform = `translate(${xvalue}rem,${yvalue}rem)`;
-    //         console.log("xvalue => "+ xvalue);
-    //         if((Math.round(typing.offsetWidth/16)+10) <= Math.round(xvalue)) { 
-    //             yvalue = yvalue + 3;
-    //             setNum(1);
-    //             console.log("new line => "+ Math.round(typing.offsetWidth/16)+10)
-    //             caret.style.transform = `translate(${xvalue}rem,${yvalue}rem)`
-    //         }
-    //     }
-    //     caret.style.transition = "transform 0.2s"; // The caret is moving smoothly due to its transition duration being set to 200ms.7
-    // }
-    // console.log("end");
     
     function compareToTyped(text1, text2 = 'Backspace') {
         if (text2[IndexNumber] == undefined && text2[IndexNumber] !== " ") {
