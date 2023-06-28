@@ -4,14 +4,16 @@ import { Helmet, HelmetProvider } from 'react-helmet-async';
 import normalText from "./storedText";
 import ReplayIcon from '@mui/icons-material/Replay';
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
+import KeyShortcut from '../keyboradShortcut/KeyShortcut';
 // import { Translate } from '@mui/icons-material';
 
 const Typing = () => {
-    const [Num, setNum] = useState({xVal:1,yVal:0});
+    // const [Num, setNum] = useState({ xVal: 1, yVal: 0 });
     const typingContainer = document.getElementById("typingContainer");
     const typing = document.getElementById("typing");
     const elementRef = useRef(null);
     const [Letter, setLatter] = useState("");
+    // const [Timer, setTimer] = useState(0);
     const [IndexNumber, setIndexNumber] = useState(0);
     const [placeholderText, setplaceholderText] = useState("");
 
@@ -51,70 +53,81 @@ const Typing = () => {
     //     return chars.join("");
     // }
 
-    // const wpm = useMemo((words=0, timeTaken=1)=>{
-    //     return words/(timeTaken/60000);
-    // },[Letter])
+    // const wpm = useMemo(() => {
+    //     console.log("wpm => " + Letter.split(" ").length / (10000 / 60000))
+    //     return Letter.split(" ").length / (10000 / 60000);
+    // }, [Letter])
 
     // const accuracy = useMemo((characters=0, totalChar=1)=>{
     //     return 100-((characters/totalChar)*100);
     // },[Letter])
 
-    // (function(setTime=10){
-    //     let i = 0;
-    //     setInterval(() => {
-    //         console.log(++i);
-    //         if(i===setTime) {
-    //             clearInterval();
-    //         }
-    //     }, 1000);
-    // }())
+    // function startTimer(setTimeout) {
+    //     for (let i = 0; i <= setTimeout; i++) {
+    //         useEffect(() => {
+    //             setInterval(() => {
+    //                 setTimer(Timer + 1)
+    //                 console.log("Timer =>" + Timer)
+    //             }, 1000)
+    //         }, [Timer])
+    //     }
+    // }
 
-    console.log("start");
+    // function smoothCaretMotion(motion) {
+    //     const caret = document.getElementById("caret");
+    //     let xvalue = 1.8 * Num.xVal;
+    //     if (motion == 'Backspace') {
+    //         setNum(preNum => ({ ...preNum, xVal: preNum.xVal - 1 }));
+    //         caret.style.transform = `translate(${xvalue - 3.6}rem,${Num.yVal}rem)`;
+    //         if (xvalue <= 3.6 && Num.yVal > 0) {
+    //             // after keydown backspace caret comes back to previous line
+    //             setNum(preNum => ({ ...preNum, xVal: (preNum.xVal + (typing.offsetWidth / 16)) - 29.6, yVal: preNum.yVal - 3 }))
+    //             // typing.offsetWidth/16
+    //             caret.style.transform = `translate(${xvalue - 3.6}rem,${Num.yVal}rem)`;
+    //             console.log(`${Num.xVal + (typing.offsetWidth / 16) - 29.6}rem`)
+    //         }
+    //     } else {
+    //         setNum(preNum => ({ ...preNum, xVal: preNum.xVal + 1 }));
+    //         caret.style.transform = `translate(${xvalue}rem,${Num.yVal}rem)`;
+    //         console.log("xvalue => " + xvalue);
+    //         if ((Math.round(typing.offsetWidth / 16) + 10) <= Math.round(xvalue)) {
+    //             // caret comes into the next line
+    //             setNum(preNum => ({ ...preNum, xVal: 1 }));
+    //             setNum(preNum => ({ ...preNum, yVal: preNum.yVal + 3 }));
+    //             // console.log("new line => " + (Math.round(typing.offsetWidth/16)) + 10)
+    //             console.log("new line => " + typing.offsetWidth/16+"rem")
+    //             caret.style.transform = `translate(${xvalue}rem,${Num.yVal}rem)`
+    //         }
+    //     }
+    //     caret.style.transition = "transform 0.2s"; // The caret is moving smoothly due to its transition duration being set to 200ms.7
+    //}
+
     function smoothCaretMotion(motion) {
         const caret = document.getElementById("caret");
-        let xvalue = 1.8 * Num.xVal;
-        if(motion=='Backspace'){
-            setNum( preNum => ({...preNum,xVal:preNum.xVal-1 } ));
-            caret.style.transform = `translate(${xvalue-3.6}rem,${Num.yVal}rem)`;
-            if(xvalue<=3.6 && Num.yVal>0){
-                console.log("yes i am in")
-                console.log("yes i am in")
-                console.log("yes i am in")
-                console.log("yes i am in")
-                console.log("yes i am in")
-                setNum(preNum=>({...preNum, xVal: (preNum.xVal+(typing.offsetWidth/16))-29.6, yVal: preNum.yVal-3}))
-                // typing.offsetWidth/16
-                caret.style.transform = `translate(${xvalue-3.6}rem,${Num.yVal}rem)`;
-                console.log(`${Num.xVal+(typing.offsetWidth/16)-29.6}rem`)
-            }
-        }else{
-            setNum( preNum => ({...preNum,xVal:preNum.xVal+1 } ));
-            caret.style.transform = `translate(${xvalue}rem,${Num.yVal}rem)`;
-            console.log("xvalue => "+ xvalue);
-            if((Math.round(typing.offsetWidth/16)+10) <= Math.round(xvalue)) { 
-                setNum( preNum => ({...preNum,xVal: 1} ));
-                setNum( preNum => ({...preNum,yVal: preNum.yVal+3 } ));
-                console.log("new line => "+ Math.round(typing.offsetWidth/16)+10)
-                caret.style.transform = `translate(${xvalue}rem,${Num.yVal}rem)`
-            }
-        }
+        // let xvalue = 1.8 * Num.xVal;
+        let xvalue = 1.8 * typing.selectionStart;
+        console.log(typing.offsetWidth / 16 + " || " + 1.8 * typing.selectionStart)
+        // if(typing.offsetWidth/16 < 1.8 * typing.selectionStart){
+        //     xvalue = xvalue - xvalue
+        // }else{
+        // }
+        caret.style.transform = `translate(${xvalue}rem,${0}rem)`;
+        console.log("xvalue => " + xvalue);
         caret.style.transition = "transform 0.2s"; // The caret is moving smoothly due to its transition duration being set to 200ms.7
     }
-    console.log("end");
 
-    
     function compareToTyped(text1, text2 = 'Backspace') {
         if (text2[IndexNumber] == undefined && text2[IndexNumber] !== " ") {
             smoothCaretMotion('Backspace');
             setIndexNumber(IndexNumber - 1)
             // remeber this if any use will be only press on Backspace it's working fine but not for ctrl + Backspace.  
-            console.log(text1[IndexNumber] + "||" + text2[IndexNumber] + " index => " + IndexNumber);
+            // console.log(text1[IndexNumber] + "||" + text2[IndexNumber] + " index => " + IndexNumber);
             console.log("Backspace");
             typing.classList.add("text-red-500");
         } else if (text1[IndexNumber] === text2[IndexNumber]) {
             smoothCaretMotion();
             setIndexNumber(IndexNumber + 1);
-            console.log(text1[IndexNumber] + "||" + text2[IndexNumber] + " index => " + IndexNumber);
+            // console.log(text1[IndexNumber] + "||" + text2[IndexNumber] + " index => " + IndexNumber);
             typing.classList.remove("text-red-500");
             typing.classList.add("text-blue-500");
             if (placeholderText.length - 1 == IndexNumber) { window.location.reload() }  // next text are going to show when the user type completely / user typed all given sentances.
@@ -122,8 +135,7 @@ const Typing = () => {
             smoothCaretMotion();
             setIndexNumber(IndexNumber + 1);
             // setLatter(applyColorToCharacter(Letter+text2[IndexNumber], IndexNumber, "red"))
-            console.log("Letter => " + Letter);
-            console.log(text1[IndexNumber] + "||" + text2[IndexNumber] + " index => " + IndexNumber);
+            // console.log(text1[IndexNumber] + "||" + text2[IndexNumber] + " index => " + IndexNumber);
             console.log("incorrect");
             typing.classList.add("text-red-500");
         }
@@ -139,12 +151,19 @@ const Typing = () => {
 
     const focusTyping = () => {
         elementRef.current.focus();
+        // console.log("focus => " + elementRef.current.value);
+        // console.log("style =>"+getComputedStyle(elementRef.current.style));
     }
 
     return (
         <>
             <HelmetProvider>
                 <Helmet><title>RandomType || Testing...</title></Helmet>
+                {/* <Box className="flex justify-center">
+                    <div id='wpm' className='text-white'>
+                        {wpm}
+                    </div>
+                </Box> */}
                 <Box id="typingContainer" className="border-transparent focus:outline-none border-2 h-[70vh] m-5 mx-14 rounded-lg" onClick={() => typingContainer.classList.remove("blur-md")} onBlur={() => typingContainer.classList.add("blur-md")}>
                     <div id='caret' className="w-[5px] h-[3.5rem] flex flex-col rounded-md absolute z-10 bg-blue-500"></div>
                     <textarea className="rounded-lg bg-blue-300 focus:outline-none text-5xl w-[100%] h-[100%] resize-none caret-transparent text-blue-600 text-opacity-100 bg-opacity-0 selection:bg-transparent" style={{ wordBreak: 'break-all' }} onScroll={scrolled} name="typing" id="typing" spellCheck="false" ref={elementRef} onChange={handleTyping} autoFocus={true} value={Letter}></textarea>
