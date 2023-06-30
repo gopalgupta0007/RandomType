@@ -9,24 +9,7 @@ import KeyShortcut from './components/keyboradShortcut/KeyShortcut';
 import RTlg from "./components/Home/RTlg"
 import RTsm from "./components/Home/RTsm"
 import PersonIcon from '@mui/icons-material/Person';
-import FullscreenIcon from '@mui/icons-material/Fullscreen';
-
-const element = document.getElementById('fullScreen');
-
-function requestFullscreen() {
-  if (element.requestFullscreen) {
-    element.requestFullscreen();
-  } else if (element.mozRequestFullScreen) { // Firefox
-    element.mozRequestFullScreen();
-  } else if (element.webkitRequestFullscreen) { // Chrome, Safari and Opera
-    element.webkitRequestFullscreen();
-  } else if (element.msRequestFullscreen) { // IE/Edge
-    element.msRequestFullscreen();
-  }else{
-    element.webkitRequestFullscreen();
-  }
-}
-
+import FullScreenIcon from "./components/FullScreenIcon"
 
 function App() {
   return (
@@ -48,14 +31,12 @@ function App() {
               </NavLink>
             </Button>
           </Box> :
-          <Box sx={{display:'flex'}}>
-            <div id="fullScreen" onClick={requestFullscreen} className="flex gap-x-2 text-white hover:text-gray-200 mt-16 mr-12 scale-[2] hover:scale-[2.2] transition-transform duration-300"  >
-              <FullscreenIcon />
-            </div>
-            <div id="userLogo" className="flex gap-x-2 text-white hover:text-gray-200 mt-16 mr-12 scale-[2] hover:scale-[2.2] transition-transform duration-300"  >
-              <PersonIcon />
-            </div>
-          </Box>
+            <Box sx={{ display: 'flex' }}>
+              <FullScreenIcon />
+              <div id="userLogo" className="flex gap-x-2 text-white hover:text-gray-200 mt-16 mr-12 scale-[2] hover:scale-[2.2] transition-transform duration-300"  >
+                <PersonIcon />
+              </div>
+            </Box>
           }
         </Box>
       </Container>

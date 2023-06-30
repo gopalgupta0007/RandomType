@@ -191,8 +191,3 @@ svg#rtSVG {
   border-radius: 100vh;
   background-color: #aaa;
 } 
-
-
-textarea::first-line {
-  color: orange;
-}
