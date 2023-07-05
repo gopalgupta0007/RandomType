@@ -18,7 +18,8 @@ body {
   font-family: "Roboto Mono", "Roboto Mono", "Vazirmatn";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: rgb(40,40,40);;
+  background-color: rgb(40, 40, 40);
+  ;
   /* overflow-x: hidden; */
   overflow: hidden;
 }
@@ -28,12 +29,12 @@ code {
     monospace;
 }
 
-kbd{
+kbd {
   background-color: #555;
   border: 2px solid white;
-  border-radius:5px;
+  border-radius: 5px;
   margin: 0 5px;
-  padding:0 5pt;
+  padding: 0 5pt;
 }
 
 .inputStyle {
@@ -53,18 +54,18 @@ svg#rtSVG {
   transform: translate(0, 0);
   animation: introRtText 1.6s ease-in-out 3s;
   -webkit-animation: introRtText 1.6s ease-in-out 3s;
-  -moz-animation: introRtText 1.6s ease-in-out 3s;    
+  -moz-animation: introRtText 1.6s ease-in-out 3s;
   -o-animation: introRtText 1.6s ease-in-out 3s;
-  -ms-animation: introRtText 1.6s ease-in-out 3s;  
+  -ms-animation: introRtText 1.6s ease-in-out 3s;
 }
 
 #t-verticalSVG {
   transform: translate(-0.5%, 10%) scaleY(0.8);
   animation: incrementLine 1s linear 4s;
   -webkit-animation: incrementLine 1s linear 4s;
-  -moz-animation: incrementLine 1s linear 4s;    
+  -moz-animation: incrementLine 1s linear 4s;
   -o-animation: incrementLine 1s linear 4s;
-  -ms-animation: incrementLine 1s linear 4s;  
+  -ms-animation: incrementLine 1s linear 4s;
 }
 
 .typingTest {
@@ -72,23 +73,36 @@ svg#rtSVG {
   transform: translateY(-2%);
   animation: bottomScaleText 1s linear 4s;
   -webkit-animation: bottomScaleText 1s linear 4s;
-  -moz-animation: bottomScaleText 1s linear 4s;    
+  -moz-animation: bottomScaleText 1s linear 4s;
   -o-animation: bottomScaleText 1s linear 4s;
-  -ms-animation: bottomScaleText 1s linear 4s;  
+  -ms-animation: bottomScaleText 1s linear 4s;
 }
 
 #keyborad {
   opacity: 0;
   transform: translate(20%, 7%) scale(1, 0.85);
-  animation: introAnimationKeyboard 4s ease-in-out 1s/*delay*/;
-  -webkit-animation: introAnimationKeyboard 4s ease-in-out 1s/*delay*/;
-  -moz-animation: introAnimationKeyboard 4s ease-in-out 1s/*delay*/;    
-  -o-animation: introAnimationKeyboard 4s ease-in-out 1s/*delay*/;
-  -ms-animation: introAnimationKeyboard 4s ease-in-out 1s/*delay*/;  
+  animation: introAnimationKeyboard 4s ease-in-out 1s
+    /*delay*/
+  ;
+  -webkit-animation: introAnimationKeyboard 4s ease-in-out 1s
+    /*delay*/
+  ;
+  -moz-animation: introAnimationKeyboard 4s ease-in-out 1s
+    /*delay*/
+  ;
+  -o-animation: introAnimationKeyboard 4s ease-in-out 1s
+    /*delay*/
+  ;
+  -ms-animation: introAnimationKeyboard 4s ease-in-out 1s
+    /*delay*/
+  ;
 }
 
 /* #keyborad>path, tspan, #randomText>path { */
-#RTIntro path, #keyboardOfLogo path, #keyboardOfLogoSM path, tspan{
+#RTIntro path,
+#keyboardOfLogo path,
+#keyboardOfLogoSM path,
+tspan {
   fill: var(--text-color);
 }
 
@@ -98,9 +112,9 @@ svg#rtSVG {
   transform: translate(0, 0);
   animation: RTIntroLogoAnimation 1s ease-in 6s;
   -webkit-animation: RTIntroLogoAnimation 1s ease-in 6s;
-  -moz-animation: RTIntroLogoAnimation 1s ease-in 6s;    
+  -moz-animation: RTIntroLogoAnimation 1s ease-in 6s;
   -o-animation: RTIntroLogoAnimation 1s ease-in 6s;
-  -ms-animation: RTIntroLogoAnimation 1s ease-in 6s;  
+  -ms-animation: RTIntroLogoAnimation 1s ease-in 6s;
 }
 
 #backgroundFrame {
@@ -116,6 +130,7 @@ svg#rtSVG {
   from {
     opacity: 1;
   }
+
   to {
     opacity: 0;
   }
@@ -167,27 +182,33 @@ svg#rtSVG {
 
   50% {
     transform: translate(20%, 7%) scale(1, 0.85);
-    opacity: 1 ;
+    opacity: 1;
   }
-  
+
   80% {
     transform: translate(-0.5%, 7%) scale(1, 0.85);
-    opacity: 1 ;
+    opacity: 1;
   }
-  
+
   100% {
     transform: translate(0, 0) scale(1);
-    opacity: 1 ;
+    opacity: 1;
   }
 }
 
-::-webkit-scrollbar{
+::-webkit-scrollbar {
   width: 5px;
 }
-::-webkit-scrollbar-track{
+
+::-webkit-scrollbar-track {
   background-color: transparent;
 }
-::-webkit-scrollbar-thumb{
+
+::-webkit-scrollbar-thumb {
   border-radius: 100vh;
   background-color: #aaa;
-} 
+}
+
+/* @media screen and (max-width: 1200px) {
+  #testDetails {}
+} */
