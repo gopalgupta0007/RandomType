@@ -212,3 +212,7 @@ tspan {
 /* @media screen and (max-width: 1200px) {
   #testDetails {}
 } */
+
+#keyShortCutContainer {
+  display: none;
+}

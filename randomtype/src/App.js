@@ -16,7 +16,6 @@ function App() {
         <Route exact path="/typing" component={Typing} />
         <Route exact path="/login" component={Login} />
         <Route exact path="/registration" component={Registration} />
-        <Route exact path="/keydown" component={KeyShortcut} />
         <Route exact path="/result" component={Result} />
       </Switch>
     </div>

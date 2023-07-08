@@ -2,7 +2,7 @@ import FullscreenIcon from '@mui/icons-material/Fullscreen';
 import FullscreenExitIcon from '@mui/icons-material/FullscreenExit';
 import { useState } from 'react';
 
-const FullScreenIcon = () => {
+const FullScreenIcon = ({styleProp}) => {
     const [IconVisibility, setIconVisibility] = useState(false);
 
     var elem = document.documentElement;
@@ -30,7 +30,7 @@ const FullScreenIcon = () => {
     return (
         <>
             <div id="fullScreen" className="hidden lg:block text-white hover:text-gray-200 mt-16 mr-12 scale-[2] hover:scale-[2.2] transition-transform duration-300"  >
-                {(IconVisibility) ? <FullscreenExitIcon onClick={closeFullscreen} /> : <FullscreenIcon onClick={openFullscreen} />}
+                {(IconVisibility) ? <FullscreenExitIcon sx={styleProp} onClick={closeFullscreen} /> : <FullscreenIcon sx={styleProp} onClick={openFullscreen} />}
             </div>
         </>
     )

@@ -1,5 +1,20 @@
 import { Box, Container } from "@mui/material";
 
+document.addEventListener('keydown', (event) => {
+    if (event.shiftKey && event.key == 'Enter') {
+        //if shift + enter key down restart-typing
+        event.preventDefault(); // Prevent default browser behavior
+        window.location.reload();
+        alert("shift+enter hasbeen keydowned");
+    }
+    if (event.shiftKey && event.key == '?') {
+        //if shift + enter key down restart-typing
+        event.preventDefault(); // Prevent default browser behavior
+        alert("shift + ? hasbeen keydowned");
+    }
+})
+
+
 const KeyShortcut = () => {
     const keys = [
         { keyName: "Restart Typing Test", key: { firstKey: "Shift", secondKey: "Enter" } },

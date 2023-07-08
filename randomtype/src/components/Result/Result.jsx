@@ -1,9 +1,12 @@
-import React from 'react'
+import ResultGraph from "./ResultCharts/ResultGraph";
 
+//var CanvasJSReact = require('@canvasjs/react-charts');
 const Result = () => {
-  return (
-    <h1 className='text-5xl text-white text-center'>Result</h1>
-  )
+	return (
+		<>
+			<ResultGraph/>
+		</>
+	);
 }
 
-export default Result
+export default Result;

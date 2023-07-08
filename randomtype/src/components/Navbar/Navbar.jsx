@@ -5,7 +5,18 @@ import PersonIcon from '@mui/icons-material/Person';
 import FullScreenIcon from "../FullScreenIcon"
 import RTlg from "../Home/RTlg"
 import RTsm from "../Home/RTsm"
+import LogoutIcon from '@mui/icons-material/Logout';
+
 const Navbar = () => {
+    const ChangeIconColor = {
+        backgroundColor: 'transparent',
+        transition: 'background-color 0.3s, border-radius 0.5s',
+        '&:hover': {
+            backgroundColor: 'red',
+            borderRadius: 5,
+            padding: '1px',
+        },
+    }
     return (
         <>
             <Container maxWidth="xl">
@@ -26,10 +37,13 @@ const Navbar = () => {
                         </Button>
                     </Box> :
                         <Box sx={{ display: 'flex' }}>
-                            <FullScreenIcon />
-                            <div id="userLogo" className="flex gap-x-2 text-white hover:text-gray-200 mt-16 mr-12 scale-[1.85] hover:scale-[2.2] transition-transform duration-300"  >
-                                <PersonIcon />
-                            </div>
+                            <FullScreenIcon styleProp={ChangeIconColor} />
+                            <NavLink to="/user" id="userLogo" className="flex gap-x-2 text-white hover:text-gray-200 mt-16 mr-12 scale-[1.85] hover:scale-[2.2] transition-transform duration-300"  >
+                                <PersonIcon sx={ChangeIconColor} />
+                            </NavLink>
+                            <NavLink to="/" id="userLogout" className="flex gap-x-2 text-white hover:text-gray-200 mt-16 mr-12 scale-[1.85] hover:scale-[2.2] transition-transform duration-300"  >
+                                <LogoutIcon sx={ChangeIconColor} />
+                            </NavLink>
                         </Box>
                     }
                 </Box>

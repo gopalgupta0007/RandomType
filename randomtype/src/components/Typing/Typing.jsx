@@ -22,11 +22,12 @@ function smoothCaretMotion(typing = document.getElementById('typing')) {
     // fully smooth movement of caret x-axis and y-axis also
     let xvalue = 1.8 * typing.selectionStart;
     const caret = document.getElementById("caret");
-    if (Math.trunc(0.1+Math.ceil(xvalue)) >= Math.trunc(typing.offsetWidth/14)) {
+    if (Math.trunc(Math.ceil(xvalue)) >= Math.trunc(typing.offsetWidth/14)) {
         xvalue = (xvalue-noOfFirstLineCharacter*1.8*Math.trunc(1.8 * typing.selectionStart / Math.trunc(typing.offsetWidth / 14)))
         // xvalue = (xvalue-(1.8*Math.trunc(1.8 * typing.selectionStart / Math.trunc(typing.offsetWidth / 14))))-(noOfFirstLineCharacter*1.8*Math.trunc(1.8 * typing.selectionStart / Math.trunc(typing.offsetWidth / 14)))
     }
     if (0 < Math.trunc(3 * Math.trunc(1.8 * typing.selectionStart / Math.trunc(typing.offsetWidth / 14)))) {
+        // this only run when the caret position does not haveing on first line of the text
         console.log("working");
     } else {
         if (0 <= Math.trunc(3 * Math.trunc(typing.selectionStart / Math.trunc(typing.offsetWidth / 14))) && 0 === Math.trunc(3 * Math.trunc(1.8 * typing.selectionStart / Math.trunc(typing.offsetWidth / 14)))) {
@@ -36,8 +37,8 @@ function smoothCaretMotion(typing = document.getElementById('typing')) {
         }
     }
     caret.style.transform = `translate(${(xvalue)}rem,${Math.trunc(3 * Math.trunc(1.8 * typing.selectionStart / Math.trunc(typing.offsetWidth / 14)))}rem)`;
-    console.log("typing.selectionStart => "+typing.selectionStart)
-    
+    // console.log(Math.trunc(Math.ceil(xvalue)) +" || "+ Math.trunc(typing.offsetWidth/14));
+    // console.log("nonCaret => "+1.8*typing.selectionStart +" || "+ "Caret => "+xvalue);
     caret.style.transition = "transform 0.2s"; // The caret is moving smoothly due to its transition duration being set to 200ms.7
 }
 // xvalue = (xvalue - ((noOfFirstLineCharacter * 1.8) * Math.trunc(1.8 * typing.selectionStart / Math.trunc(typing.offsetWidth / 14))));
@@ -113,8 +114,7 @@ const Typing = () => {
 
     const focusTyping = () => {
         elementRef.current.focus();
-        // console.log("focus => " + elementRef.current.value);
-        // console.log("style =>"+getComputedStyle(elementRef.current.style));
+        console.log("elementRef => "+elementRef)
     }
 
     const countDownTimerMethod = (countdown) => setCountDownTimer(countdown);    // take data from child
@@ -123,7 +123,7 @@ const Typing = () => {
         <>
             <HelmetProvider>
                 <Helmet><title>RandomType || Testing...</title></Helmet>
-                <Box id="testDetails" className="text-white xl:flex gap-x-[20vw] xl:gap-x-[20vw] lg:gap-x-[15vw] md:gap-x-[7vw] md:text-2xl sm:flex-row sm:justify-center my-5 mt-10 xl:text-4xl justify-center bg-blue-400">
+                <Box id="testDetails" className="text-white flex xl:gap-x-[20vw] lg:gap-x-[15vw] md:gap-x-[10vw] sm:gap-x-[8vw] gap-x-[8vw] my-5 mt-10 xl:text-4xl md:text-3xl justify-center">
                     <div id='wpm' className='flex'>
                         <h1 className='flex'>WPM : <WPM countdown={CountDownTimer} word={Letter.split(" ").length-1}/></h1>
                     </div>
