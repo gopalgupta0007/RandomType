@@ -3,7 +3,6 @@ import Login from "./components/Authentication/Login";
 import Typing from "./components/Typing/Typing";
 import { Route, Switch } from "react-router-dom";
 import Home from "./components/Home/Home"
-import KeyShortcut from './components/keyboradShortcut/KeyShortcut';
 import Navbar from "./components/Navbar/Navbar";
 import Result from './components/Result/Result';
 
