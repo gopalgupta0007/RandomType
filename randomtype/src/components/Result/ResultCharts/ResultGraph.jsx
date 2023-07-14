@@ -80,7 +80,7 @@ const ResultGraph = () => {
 					intersect: false,
 				},
 				scales: {
-					y: { min: 0, max: 20 }  // set highest typing speed data in scales.max 
+					y: { min: 0, max: Math.max(...wpmData) }  // set highest typing speed data in scales.max 
 				},
 			},
 		});
