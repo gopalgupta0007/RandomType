@@ -1,18 +1,18 @@
-import { NavLink, useHistory } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { useEffect } from "react";
 import ResultGraph from "./ResultCharts/ResultGraph";
 import ReplayIcon from '@mui/icons-material/Replay';
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 const Result = () => {
   const history = useHistory();
 
-  function restartTyping(event) { event.preventDefault(); history.push("/typing"); }
+  function restartTyping(event) { event.preventDefault(); window.location.reload() }
 
   useEffect(() => {
     const handleKeyDown = (event) => {
       if (event.shiftKey && event.key === "Enter") {
-        event.preventDefault();
-        window.location.href = "/typing";
+        restartTyping(event)
       }
     };
 

@@ -7,6 +7,8 @@ import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 import Timer from './TestCalculate/Timer';
 import WPM from './TestCalculate/WPM';
 import Accuracy from './TestCalculate/Accuracy';
+import { useHistory } from 'react-router-dom';
+import Result from '../Result/Result';
 
 const scrolled = () => {
     // when typing element of scroll occured then placeholder of an element scrolled according the of textarea  
@@ -38,7 +40,7 @@ function smoothCaretMotion(typing = document.getElementById('typing')) {
     }
     caret.style.transform = `translate(${(xvalue)}rem,${Math.trunc(3 * Math.trunc(1.8 * typing.selectionStart / Math.trunc(typing.offsetWidth / 14)))}rem)`;
     // console.log(Math.trunc(Math.ceil(xvalue)) +" || "+ Math.trunc(typing.offsetWidth/14));
-    console.log("nonCaret => " + 1.8 * typing.selectionStart + " || " + "Caret => " + xvalue);
+    // console.log("nonCaret => " + 1.8 * typing.selectionStart + " || " + "Caret => " + xvalue);
     caret.style.transition = "transform 0.2s"; // The caret is moving smoothly due to its transition duration being set to 200ms.7
 }
 // xvalue = (xvalue - ((noOfFirstLineCharacter * 1.8) * Math.trunc(1.8 * typing.selectionStart / Math.trunc(typing.offsetWidth / 14))));
@@ -48,12 +50,13 @@ function smoothCaretMotion(typing = document.getElementById('typing')) {
 // console.log("y => "+Math.trunc(1.8*typing.selectionStart / Math.trunc(typing.offsetWidth / 14)))
 
 const Typing = () => {
+    const history = useHistory();
     const typingContainer = document.getElementById("typingContainer");
     const typing = document.getElementById("typing");
     const elementRef = useRef(null);
     const [Letter, setLatter] = useState("");
     const [IndexNumber, setIndexNumber] = useState(0);
-    const [CountDownTimer, setCountDownTimer] = useState(0); // test countdown
+    const [CountDownTimer, setCountDownTimer] = useState(1); // test countdown
     const [IncorrectLetter, setIncorrectLetter] = useState(0);
     const [placeholderText, setplaceholderText] = useState(""); // how much character/word will it be having
 
@@ -122,11 +125,13 @@ const Typing = () => {
 
     const countDownTimerMethod = (countdown) => setCountDownTimer(countdown);    // take data from child
 
+    function restartTyping(event) { event.preventDefault(); history.push("/typing"); }
+
     return (
         <>
             <HelmetProvider>
                 <Helmet><title>RandomType || Testing...</title></Helmet>
-                <Container maxWidth="xl" style={{ marginTop: '2cm' }}>
+                {(CountDownTimer<=0)?<Result/>:<Container maxWidth="xl" style={{ marginTop: '2cm' }}>
                     <Box id="testDetails" className="text-white flex xl:gap-x-[20vw] lg:gap-x-[15vw] md:gap-x-[10vw] sm:gap-x-[8vw] gap-x-[8vw] my-5 mt-10 xl:text-4xl md:text-3xl justify-center">
                         <div id='wpm' className='flex'>
                             <h1 className='flex'>WPM : {(Letter.length > 0) ? <WPM countdown={CountDownTimer} word={Letter.split(" ").length - 1} /> : 0}</h1>
@@ -135,7 +140,7 @@ const Typing = () => {
                             <h1 className='flex'>Accuracy :  {(Letter.length > 0) ? <Accuracy countdown={CountDownTimer} incorrectLetter={IncorrectLetter} totalChar={placeholderText.split("").length} /> : 100}%</h1>
                         </div>
                         <div id='timer' className='flex'>
-                            <h1 className='flex'>Timer : {(Letter.length > 0) ? <Timer takeCountdown={countDownTimerMethod} /> : 0}s</h1>
+                            <h1 className='flex'>Timer : {(Letter.length > 0) ? <Timer takeCountdown={countDownTimerMethod} /> : 5}s</h1>
                         </div>
                     </Box>
                     <Box id="typingContainer" className="border-transparent focus:outline-none border-2 h-[30vh] m-5 mt-10 mx-10 rounded-lg" onClick={() => typingContainer.classList.remove("blur-md")} onBlur={() => typingContainer.classList.add("blur-md")}>
@@ -144,7 +149,7 @@ const Typing = () => {
                         <textarea className="rounded-lg bg-orange-300 focus:outline-none text-5xl w-[100%] h-[100%] resize-none caret-transparent select-none placeholder:text-white relative top-[-30.4vh] overflow-hidden bg-opacity-0 opacity-40" style={{ wordBreak: 'break-all' }} onClick={focusTyping} name="placeholder" id="placeholder" spellCheck="false" placeholder={placeholderText} ></textarea>
                     </Box>
                     <div id='re-start-logo' className='text-center'>
-                        <ReplayIcon className='cursor-pointer text-white rounded-none hover:rounded-md' sx={{ transform: 'scale(1.5)', "&:hover": { transform: 'scale(2)', backgroundColor: 'red' }, transition: 'transform 300ms' }} onClick={(e) => { e.preventDefault(); window.location.reload(); }} />
+                        <ReplayIcon className='cursor-pointer text-white rounded-none hover:rounded-md' sx={{ transform: 'scale(1.5)', "&:hover": { transform: 'scale(2)', backgroundColor: 'red' }, transition: 'transform 300ms' }} onClick={(e) => restartTyping(e)} />
                     </div><br />
                     <div className='relative bottom-[-12rem]'>
                         <div id="key" className='flex text-white justify-center mt-[-20px]'>
@@ -158,7 +163,7 @@ const Typing = () => {
                             </div>
                         </div>
                     </div>
-                </Container>
+                </Container>}
             </HelmetProvider>
         </>
     )

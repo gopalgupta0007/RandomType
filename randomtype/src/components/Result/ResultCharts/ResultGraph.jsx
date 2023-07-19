@@ -1,18 +1,23 @@
 import React, { useEffect, useRef } from 'react';
 import { Chart, registerables } from 'chart.js';
 import ShowResult from './ShowResult';
+import { useSelector} from 'react-redux';
+// import {storeWPM} from "../../../redux/action/Actions"
+// import { useDispatch } from 'react-redux';
 
 Chart.register(...registerables);
 
 const ResultGraph = () => {
+	// const dispatch = useDispatch();
+	const typing_data = useSelector((state)=>state.TypingTestReducer)
 	const chartRef = useRef(null);
 
 	useEffect(() => {
 		let chartInstance = null;
 
-		const xValues = [1, 30, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140];  // how much time use doing test
-		const wpmData = [1, 7, 8, 8, 9, 9, 9, 10, 11, 14, 14, 20]; // store wpm data
-		const accuracyData = [1, 5, 6, 7, 8, 9, 10, 11, 12, 13, 17, 20]; // store accuracy
+		const xValues = typing_data.typing_test_data.no_of_test.map((num, index)=>num*index);  // how much time user giving test
+		const wpmData = typing_data.typing_test_data.total_wpm; // store wpm data
+		const accuracyData = typing_data.typing_test_data.total_accuracy; // store accuracy
 
 		const ctx = chartRef.current.getContext('2d');
 
@@ -48,11 +53,6 @@ const ResultGraph = () => {
 				responsive: true, // Make the chart responsive
 				maintainAspectRatio: false, // Override aspect ratio
 				legend: { display: false },
-				title: {
-					display: true,
-					text: "Result",
-					fontSize: 20
-				},
 				plugins: {
 					tooltip: {
 						enabled: true,
@@ -80,7 +80,7 @@ const ResultGraph = () => {
 					intersect: false,
 				},
 				scales: {
-					y: { min: 0, max: Math.max(...wpmData) }  // set highest typing speed data in scales.max 
+					y: { min: 0, max: Math.max(...accuracyData) }  // set highest typing speed data in scales.max 
 				},
 			},
 		});

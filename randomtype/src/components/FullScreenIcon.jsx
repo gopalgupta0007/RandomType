@@ -29,7 +29,7 @@ const FullScreenIcon = ({styleProp}) => {
     }
     return (
         <>
-            <div id="fullScreen" className="hidden lg:block text-white hover:text-gray-200 mt-16 mr-12 scale-[2] hover:scale-[2.2] transition-transform duration-300"  >
+            <div id="fullScreen" className="hidden lg:block text-white hover:text-gray-200 mb-[20px] mt-12 mr-12 scale-[2] hover:scale-[2.2] transition-transform duration-300"  >
                 {(IconVisibility) ? <FullscreenExitIcon sx={styleProp} onClick={closeFullscreen} /> : <FullscreenIcon sx={styleProp} onClick={openFullscreen} />}
             </div>
         </>
