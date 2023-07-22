@@ -1,3 +1,5 @@
+console.log("action");
+
 const updateWpm = (wpm) => {
     return {
         type: "UPDATE_WPM",
@@ -28,7 +30,7 @@ const storeAcc = (accuracy) => {
         payload: accuracy
     }
 }
-const testCounter = (num=1) => {
+const testCounter = (num) => {
     return {
         type: "NO_OF_COUNT",
         payload: num

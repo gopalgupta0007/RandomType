@@ -9,7 +9,9 @@ import store from './redux/store/store';
 import state from './redux/state/state';
 // import reportWebVitals from './reportWebVitals';
 axios.defaults.baseURL = "http://localhost:5000";
-localStorage.setItem("typingData",localStorage.getItem("typingData") || JSON.stringify(state)) // store the state into localstorage
+localStorage.setItem("typingData", localStorage.getItem("typingData") || JSON.stringify(state)) // store the state into localstorage
+// if(localStorage.getItem("typingData")===null) {localStorage.setItem("typingData", JSON.stringify(state))} // store the state into localstorage
+console.log("index.js");
 // store.subsribe(()=>console.log(store.getState()))
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

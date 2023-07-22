@@ -1,3 +1,5 @@
+console.log("script.js");
+
 const tVertical = document.getElementById('t-verticalSVG');
 const randomText = document.getElementById('randomText');
 const typingTest = document.querySelector('.typingTest');

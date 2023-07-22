@@ -1,23 +1,19 @@
 import React, { useEffect, useRef } from 'react';
 import { Chart, registerables } from 'chart.js';
 import ShowResult from './ShowResult';
-import { useSelector} from 'react-redux';
-// import {storeWPM} from "../../../redux/action/Actions"
-// import { useDispatch } from 'react-redux';
 
 Chart.register(...registerables);
 
-const ResultGraph = () => {
-	// const dispatch = useDispatch();
-	const typing_data = useSelector((state)=>state.TypingTestReducer)
+const ResultGraph = ({typingData}) => {
+	console.log("ResultGraph");
 	const chartRef = useRef(null);
 
 	useEffect(() => {
 		let chartInstance = null;
 
-		const xValues = typing_data.typing_test_data.no_of_test.map((num, index)=>num*index);  // how much time user giving test
-		const wpmData = typing_data.typing_test_data.total_wpm; // store wpm data
-		const accuracyData = typing_data.typing_test_data.total_accuracy; // store accuracy
+		const xValues = typingData.typing_test_data.no_of_test; // how much time user giving test
+		const wpmData = typingData.typing_test_data.total_wpm; // store wpm data
+		const accuracyData = typingData.typing_test_data.total_accuracy; // store accuracy
 
 		const ctx = chartRef.current.getContext('2d');
 
@@ -80,7 +76,7 @@ const ResultGraph = () => {
 					intersect: false,
 				},
 				scales: {
-					y: { min: 0, max: Math.max(...accuracyData) }  // set highest typing speed data in scales.max 
+					y: { min: 0, max: Math.max(...accuracyData) }
 				},
 			},
 		});
@@ -90,7 +86,7 @@ const ResultGraph = () => {
 				chartInstance.destroy();
 			}
 		};
-	}, []);
+	}, [typingData]);
 
 	return (
 		<>

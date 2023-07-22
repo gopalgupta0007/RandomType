@@ -4,18 +4,17 @@ import Typing from "./components/Typing/Typing";
 import { Route, Switch } from "react-router-dom";
 import Home from "./components/Home/Home"
 import Navbar from "./components/Navbar/Navbar";
-// import Result from './components/Result/Result';
 
 function App() {
+  console.log("app.js");
   return (
     <div className="App">
-      <Navbar/>
+      <Navbar />
       <Switch>
         <Route exact path="/" component={Home} />
         <Route exact path="/typing" component={Typing} />
         <Route exact path="/login" component={Login} />
         <Route exact path="/registration" component={Registration} />
-        {/* <Route exact path="/result" component={Result} /> */}
       </Switch>
     </div>
   );
