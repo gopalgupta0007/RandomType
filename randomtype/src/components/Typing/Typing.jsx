@@ -114,7 +114,7 @@ const Typing = () => {
         compareToTyped(placeholderText, e.target.value);
         setLatter(e.target.value);
         //while key down then sound occur
-        // const audio = new Audio('mech-keyboard.mp3');
+        // const audio = new Audio("../../");
         // audio.play();
     }
 
@@ -125,13 +125,13 @@ const Typing = () => {
 
     const countDownTimerMethod = (countdown) => setCountDownTimer(countdown);    // take data from child
 
-    function restartTyping(event) { event.preventDefault(); history.push("/typing"); }
+    function restartTyping(event) { event.preventDefault(); window.location.reload() }
 
     return (
         <>
             <HelmetProvider>
                 <Helmet><title>RandomType || Testing...</title></Helmet>
-                {(CountDownTimer<=0)?<Result/>:<Container maxWidth="xl" style={{ marginTop: '2cm' }}>
+                {(CountDownTimer <= 0) ? <Result /> : <Container maxWidth="xl" style={{ marginTop: '2cm' }}>
                     <Box id="testDetails" className="text-white flex xl:gap-x-[20vw] lg:gap-x-[15vw] md:gap-x-[10vw] sm:gap-x-[8vw] gap-x-[8vw] my-5 mt-10 xl:text-4xl md:text-3xl justify-center">
                         <div id='wpm' className='flex'>
                             <h1 className='flex'>WPM : {(Letter.length > 0) ? <WPM countdown={CountDownTimer} word={Letter.split(" ").length - 1} /> : 0}</h1>
@@ -169,5 +169,5 @@ const Typing = () => {
     )
 }
 
-export default memo(Typing);        
+export default memo(Typing);
 

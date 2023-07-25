@@ -1,7 +1,7 @@
 console.log("typingtestReducer");
 
 const TypingTestReducer = (state = JSON.parse(localStorage.getItem("typingData")), action) => {
-    console.log("reducer is running => ", state);
+    // console.log("reducer is running => ", state);
     switch (action.type) {
         case "UPDATE_SECOND":
             return {
