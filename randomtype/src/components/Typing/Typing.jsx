@@ -22,6 +22,7 @@ const scrolled = () => {
 let noOfFirstLineCharacter = 0
 function smoothCaretMotion(typing = document.getElementById('typing')) {
     // fully smooth movement of caret x-axis and y-axis also
+    // this 1.8 has 54% of original text
     let xvalue = 1.8 * typing.selectionStart;
     const caret = document.getElementById("caret");
     if (Math.trunc(Math.ceil(xvalue)) >= Math.trunc(typing.offsetWidth / 14)) {
@@ -29,8 +30,12 @@ function smoothCaretMotion(typing = document.getElementById('typing')) {
         // xvalue = (xvalue-(1.8*Math.trunc(1.8 * typing.selectionStart / Math.trunc(typing.offsetWidth / 14))))-(noOfFirstLineCharacter*1.8*Math.trunc(1.8 * typing.selectionStart / Math.trunc(typing.offsetWidth / 14)))
     }
     if (0 < Math.trunc(3 * Math.trunc(1.8 * typing.selectionStart / Math.trunc(typing.offsetWidth / 14)))) {
+        // if (Math.trunc(3 * Math.trunc(1.8 * typing.selectionStart / Math.trunc(typing.offsetWidth / 14)))>6) {  // 6(2nd line from top 3rem means 6/3=2 ) when user tried to go on 2rd line so scroll the Textarea
+            // console.log("now");
+        // }
         // this only run when the caret position does not haveing on first line of the text
         // xvalue = xvalue-1.8;
+        // console.log(Math.trunc(3 * Math.trunc(1.8 * typing.selectionStart / Math.trunc(typing.offsetWidth / 14))));
     } else {
         if (0 <= Math.trunc(3 * Math.trunc(typing.selectionStart / Math.trunc(typing.offsetWidth / 14))) && 0 === Math.trunc(3 * Math.trunc(1.8 * typing.selectionStart / Math.trunc(typing.offsetWidth / 14)))) {
             noOfFirstLineCharacter = typing.selectionStart;
@@ -40,7 +45,9 @@ function smoothCaretMotion(typing = document.getElementById('typing')) {
     }
     caret.style.transform = `translate(${(xvalue)}rem,${Math.trunc(3 * Math.trunc(1.8 * typing.selectionStart / Math.trunc(typing.offsetWidth / 14)))}rem)`;
     // console.log(Math.trunc(Math.ceil(xvalue)) +" || "+ Math.trunc(typing.offsetWidth/14));
-    // console.log("nonCaret => " + 1.8 * typing.selectionStart + " || " + "Caret => " + xvalue);
+    // console.log("this => "+Math.trunc(1.8 * typing.selectionStart / Math.trunc(typing.offsetWidth / 14)))
+    console.log("nonCaret => " + Math.round(xvalue/1.8) + " || " + "Orignal Caret => " + typing.selectionStart);
+    console.log("y => ",Math.trunc(3 * Math.trunc(1.8 * typing.selectionStart / Math.trunc(typing.offsetWidth / 14))));
     caret.style.transition = "transform 0.2s"; // The caret is moving smoothly due to its transition duration being set to 200ms.7
 }
 // xvalue = (xvalue - ((noOfFirstLineCharacter * 1.8) * Math.trunc(1.8 * typing.selectionStart / Math.trunc(typing.offsetWidth / 14))));
@@ -140,7 +147,7 @@ const Typing = () => {
                             <h1 className='flex'>Accuracy :  {(Letter.length > 0) ? <Accuracy countdown={CountDownTimer} incorrectLetter={IncorrectLetter} totalChar={placeholderText.split("").length} /> : 100}%</h1>
                         </div>
                         <div id='timer' className='flex'>
-                            <h1 className='flex'>Timer : {(Letter.length > 0) ? <Timer takeCountdown={countDownTimerMethod} /> : 5}s</h1>
+                            <h1 className='flex'>Timer : {(Letter.length > 0) ? <Timer takeCountdown={countDownTimerMethod} /> : 30}s</h1>
                         </div>
                     </Box>
                     <Box id="typingContainer" className="border-transparent focus:outline-none border-2 h-[30vh] m-5 mt-10 mx-10 rounded-lg" onClick={() => typingContainer.classList.remove("blur-md")} onBlur={() => typingContainer.classList.add("blur-md")}>
@@ -151,7 +158,7 @@ const Typing = () => {
                     <div id='re-start-logo' className='text-center'>
                         <ReplayIcon className='cursor-pointer text-white rounded-none hover:rounded-md' sx={{ transform: 'scale(1.5)', "&:hover": { transform: 'scale(2)', backgroundColor: 'red' }, transition: 'transform 300ms' }} onClick={(e) => restartTyping(e)} />
                     </div><br />
-                    <div className='relative bottom-[-12rem]'>
+                    <div className='relative bottom-[-10rem]'>
                         <div id="key" className='flex text-white justify-center mt-[-20px]'>
                             <div>
                                 <div className='flex'>

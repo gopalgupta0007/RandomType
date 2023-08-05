@@ -8,13 +8,14 @@ import KeyShortcut from './components/keyboradShortcut/KeyShortcut';
 import Footer from './components/footer/Footer';
 import About from './components/footer/About';
 import Contact from './components/footer/Contact';
+import Setting from './components/setting/Setting';
 
 function App() {
   console.log("app.js");
   return (
     <div className="App">
       <Navbar />
-      <div id="keyShortcutList" className="h-0 overflow-hidden duration-1000 transition-all relative z-50">
+      <div id="keyShortcutList" className="h-0 overflow-hidden duration-1000 transition-all z-50">
         <KeyShortcut />
       </div>
       <Switch>
@@ -24,7 +25,7 @@ function App() {
         <Route exact path="/registration" component={Registration} />
         <Route exact path="/about" component={About} />
         <Route exact path="/contact" component={Contact} />
-        <Route exact path="/test" component={KeyShortcut} />
+        <Route exact path="/setting" component={Setting} />
       </Switch>
       <Footer />
     </div>

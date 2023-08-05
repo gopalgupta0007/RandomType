@@ -26,24 +26,28 @@ const signup = async (req, res) => {
 
 
 const login = async (req, res) => {
+    let token;
     try {
-        let isPasswordCorrect;
+        let is_password_correct;
         const { email, password } = req.body;
         if (!email || !password) { res.status(400).json({ massage: "invalid input data" }); }
         const userFound = await Users.findOne({ email });
         if (userFound) {
-            isPasswordCorrect = await bcrypt.compare(password, userFound.password)
+            is_password_correct = await bcrypt.compare(password, userFound.password)
         } else {
             res.status(500).json({ massage: "data not found" })
         };
-        if (!isPasswordCorrect) { res.status(500).json({ massage: "data not found" }) };
+        if (!is_password_correct) { res.status(500).json({ massage: "data not found" }) };
         console.log(userFound);
         //jwt => jsonwebtoken
-        token = userFound.generateAuthToken();
-        res.cookie("jwtoken",token,{
-            expires: new Date(Date.now()+604800000),     // (604800000 in millisecond == 7 day)
+        token = await userFound.generateAuthToken();
+        res.cookie("jwt",token,{
+            expires: new Date(Date.now() + 25892000000),
             httpOnly:true
         })
+        // res.setHeader('Set-Cookie', `jwtoken=${token}; HttpOnly; Path=/`);
+        // res.cookie("hello", "world")                     
+        // res.cookie("jwt", token)
     } catch (err) {
         return res.status(500).send(err);
     }

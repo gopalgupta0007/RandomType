@@ -41,7 +41,7 @@ const Registration = () => {
                 password 
             })
             alert(axiosPost.data);
-            history.push('/typing');
+            history.push('/login');
         }catch(err) {
             console.error(err)
         }

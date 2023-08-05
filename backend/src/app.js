@@ -1,8 +1,8 @@
 const express = require("express");
+const cookieParser = require("cookie-parser");
 const app = express();
 const Connection = require("./db/connect");
 const cors = require('cors');
-app.use(cors())
 
 // Port number
 require('dotenv').config("RandomType/backend/.env");
@@ -20,9 +20,14 @@ const userRouter = require("./routers/userRouter");
 
 //middleware routes
 app.use(express.json())
+app.use(cookieParser())
+// app.use(cors())
+app.use("*",cors({origin:true,credentials:true})) // for cookie
 
 app.use("/users", userRouter);
-app.get("/",(req,res)=>res.send("hello randomType"))
+app.get("/", (req, res) => {
+    res.send("hello randomType")
+})
 
 
 // listen on the given port

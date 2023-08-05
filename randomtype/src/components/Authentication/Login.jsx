@@ -8,7 +8,7 @@ import { useHistory } from "react-router-dom";
 import axios from 'axios';
 
 
-const Registration = () => {
+const Login = () => {
     const history = useHistory();
     const [showPassword, setShowPassword] = useState(false);
     const [loginData, setloginData] = useState({
@@ -30,7 +30,9 @@ const Registration = () => {
         try {
             e.preventDefault();
             const {email, password} = loginData;
-            const axiosPost = await axios.post("/users/login", {email, password})
+            const axiosPost = await axios.post("/users/login", 
+            {email, password}, 
+            {headers:{"Content-Type":"application/json"},withCredentials:true}) // for cookie
             alert(axiosPost.data);
             history.push('/typing');
         } catch (err) {
@@ -82,4 +84,4 @@ const Registration = () => {
     )
 }
 
-export default Registration;
+export default Login;
