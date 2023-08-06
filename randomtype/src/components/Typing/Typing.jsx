@@ -7,7 +7,7 @@ import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 import Timer from './TestCalculate/Timer';
 import WPM from './TestCalculate/WPM';
 import Accuracy from './TestCalculate/Accuracy';
-import { useHistory } from 'react-router-dom';
+// import { useHistory } from 'react-router-dom';
 import Result from '../Result/Result';
 
 const scrolled = () => {
@@ -57,7 +57,7 @@ function smoothCaretMotion(typing = document.getElementById('typing')) {
 // console.log("y => "+Math.trunc(1.8*typing.selectionStart / Math.trunc(typing.offsetWidth / 14)))
 
 const Typing = () => {
-    const history = useHistory();
+    // const history = useHistory();
     const typingContainer = document.getElementById("typingContainer");
     const typing = document.getElementById("typing");
     const elementRef = useRef(null);

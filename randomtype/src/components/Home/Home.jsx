@@ -1,7 +1,7 @@
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import { Container } from "@mui/material";
 import Typing from "../Typing/Typing";
-import KeyShortcut from "../keyboradShortcut/KeyShortcut";
+// import KeyShortcut from "../keyboradShortcut/KeyShortcut";
 
 const Home = () => {
 

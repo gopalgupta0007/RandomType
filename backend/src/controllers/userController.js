@@ -41,9 +41,9 @@ const login = async (req, res) => {
         console.log(userFound);
         //jwt => jsonwebtoken
         token = await userFound.generateAuthToken();
-        res.cookie("jwt",token,{
-            expires: new Date(Date.now() + 25892000000),
-            httpOnly:true
+        res.cookie("jwt", token, {
+            expires: new Date(Date.now() + 25892000000), // which is 25892000000=30days(30day * 24hour * 60mint * 60sec * 1000millisec)
+            httpOnly: true
         })
         // res.setHeader('Set-Cookie', `jwtoken=${token}; HttpOnly; Path=/`);
         // res.cookie("hello", "world")                     
@@ -52,6 +52,12 @@ const login = async (req, res) => {
         return res.status(500).send(err);
     }
     return res.status(200).json({ massage: "login successfull" });
+}
+
+
+const logout = async (req, res) => {
+    res.clearCookie('jwt',{path:"/"})
+    res.status(200).send("User Logout");
 }
 
 
@@ -113,7 +119,7 @@ const deleteUser = async (req, res) => {
 
 
 
-module.exports = { signup, login, getAllUser, getUserById, updateUser, deleteUser }
+module.exports = { signup, login, logout, getAllUser, getUserById, updateUser, deleteUser }
 
 
 

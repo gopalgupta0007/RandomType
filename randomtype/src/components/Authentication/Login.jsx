@@ -32,9 +32,9 @@ const Login = () => {
             const {email, password} = loginData;
             const axiosPost = await axios.post("/users/login", 
             {email, password}, 
-            {headers:{"Content-Type":"application/json"},withCredentials:true}) // for cookie
+            {headers:{"Content-Type":"application/json"},withCredentials:true}) // for cookie because we have to use axious method to fetch data
             alert(axiosPost.data);
-            history.push('/typing');
+            history.push('/'); // now redirect the page on "/"
         } catch (err) {
             console.log(err);            
         } 
