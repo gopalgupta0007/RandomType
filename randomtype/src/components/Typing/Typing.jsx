@@ -7,7 +7,6 @@ import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 import Timer from './TestCalculate/Timer';
 import WPM from './TestCalculate/WPM';
 import Accuracy from './TestCalculate/Accuracy';
-// import { useHistory } from 'react-router-dom';
 import Result from '../Result/Result';
 
 const scrolled = () => {

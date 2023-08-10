@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Box, Container, Button } from "@mui/material";
 import { NavLink } from "react-router-dom";
 import PersonIcon from '@mui/icons-material/Person';
@@ -7,9 +7,10 @@ import RTlg from "../Home/RTlg"
 import RTsm from "../Home/RTsm"
 import SettingsIcon from '@mui/icons-material/Settings';
 import Logout from '../Logout/Logout';
-
+import { useSelector } from 'react-redux';
 
 const Navbar = () => {
+    const user_data = useSelector(state=>state.AuthReducer)
     const ChangeIconColor = {
         backgroundColor: 'transparent',
         transition: 'background-color 0.3s, border-radius 0.5s',
@@ -28,8 +29,8 @@ const Navbar = () => {
                     <NavLink to="/typing" id="logo" className="cursor-pointer z-10" onClick={e => { e.preventDefault(); window.location.reload(); }}>
                         {(window.outerWidth >= 800) ? <RTlg /> : <RTsm />}
                     </NavLink>
-                    {/* {(window.location.pathname === '/' || window.location.pathname === '/login' || window.location.pathname === '/registration') ? */}
-                    {(JSON.parse(localStorage.getItem("typingData")).isAuth) ?
+                    {console.log("in nav check auth => ",user_data.isAuth)}
+                    {(user_data.isAuth) ?
                         <Box sx={{ display: 'flex' }}>
                             <FullScreenIcon styleProp={ChangeIconColor} />
                             <NavLink to="/setting" id="setting" className="flex gap-x-2 text-white hover:text-gray-200 mb-[40px] mt-12 mr-12 scale-[1.85] hover:scale-[2.2] transition-transform duration-300"  >
@@ -39,9 +40,6 @@ const Navbar = () => {
                                 <PersonIcon sx={ChangeIconColor} />
                             </NavLink>
                             <Logout/>
-                            {/* <NavLink to="/logout" id="userLogout" className="flex gap-x-2 text-white hover:text-gray-200 mb-[40px] mt-12 mr-12 scale-[1.85] hover:scale-[2.2] transition-transform duration-300"  >
-                                <LogoutIcon sx={ChangeIconColor} />
-                            </NavLink> */}
                         </Box>
                         :
                         <Box sx={{ borderRadius: '20px' }} className="h-fit mt-8 mr-5 w-22">
@@ -55,9 +53,6 @@ const Navbar = () => {
                                     Registraiton
                                 </NavLink>
                             </Button>
-                            {/* <NavLink to="/logout" id="userLogout" className="flex gap-x-2 text-white hover:text-gray-200 mb-[40px] mt-12 mr-12 scale-[1.85] hover:scale-[2.2] transition-transform duration-300"  >
-                                <LogoutIcon sx={ChangeIconColor} />
-                            </NavLink> */}
                         </Box>
                     }
                 </Box>

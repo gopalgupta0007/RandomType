@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { iconsStyle, boxStyle, btnSubmit, labelStyle } from './sx';
 import MailRoundedIcon from '@mui/icons-material/MailRounded';
 import KeyRoundedIcon from '@mui/icons-material/KeyRounded';
@@ -8,9 +8,11 @@ import { useHistory } from "react-router-dom";
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { userAuthenticated } from '../../redux/action/Actions';
+import store from '../../redux/store/store';
 
 const Login = () => {
     const typing_data = useSelector(state => state.TypingTestReducer)
+    const user_data = useSelector(state => state.AuthReducer)
     const dispatch = useDispatch();
     const history = useHistory();
     const [showPassword, setShowPassword] = useState(false);
@@ -43,8 +45,8 @@ const Login = () => {
             console.log("axiosPost.data => ", axiosPost.data);
             dispatch(userAuthenticated())
             history.push('/');
-            e.preventDefault()
-            window.location.reload();
+            // e.preventDefault()
+            // window.location.reload();
         } catch (err) {
             console.log(err);
         }
@@ -52,6 +54,7 @@ const Login = () => {
     localStorage.setItem("typingData", JSON.stringify(typing_data));
     return (
         <>
+            {console.log("user_data 60 => ", user_data)}
             <h1 className="text-center mt-5 text-white text-4xl">Login</h1>
             <form method="post" onSubmit={verifyData}>
                 <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', mt: 3, rowGap: 2 }}>

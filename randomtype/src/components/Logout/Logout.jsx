@@ -12,6 +12,7 @@ const Logout = () => {
     const dispatch = useDispatch();
     const history = useHistory();
     const typing_data = useSelector(state => state.TypingTestReducer)
+    const user_data = useSelector(state => state.AuthReducer)
 
     const logoutUser = async (e) => {
         try {
@@ -19,15 +20,16 @@ const Logout = () => {
             alert("logout")
             dispatch(userLogout())
             history.push('/');
-            e.preventDefault()
-            window.location.reload();
+            // e.preventDefault()
+            // window.location.reload();
         } catch (err) {
             console.log(err);
         }
     }
     localStorage.setItem("typingData", JSON.stringify(typing_data));
     return (
-        <NavLink to="/logout" id="userLogout" onClick={logoutUser} className="flex gap-x-2 text-white hover:text-gray-200 mb-[40px] mt-12 mr-12 scale-[1.85] hover:scale-[2.2] transition-transform duration-300"  >
+        <NavLink to="/" id="userLogout" onClick={logoutUser} className="flex gap-x-2 text-white hover:text-gray-200 mb-[40px] mt-12 mr-12 scale-[1.85] hover:scale-[2.2] transition-transform duration-300"  >
+            {console.log("user_data 60 => ", user_data)}
             <LogoutIcon sx={{
                 backgroundColor: 'transparent',
                 transition: 'background-color 0.3s, border-radius 0.5s',

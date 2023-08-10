@@ -6,7 +6,7 @@ import axios from 'axios';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from './redux/store/store';
-import state from './redux/state/state';
+import {state} from './redux/state/state';
 // import reportWebVitals from './reportWebVitals';
 axios.defaults.baseURL = "http://localhost:5000";
 store.subscribe(() => console.log("show reducers => ", store.getState()))
