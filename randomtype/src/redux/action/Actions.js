@@ -36,4 +36,16 @@ const testCounter = (num) => {
         payload: num
     }
 }
-export { updateWpm, updateAcc, updateTimer, storeWPM, storeAcc, testCounter }
+const userAuthenticated = () => {
+    console.log("action");
+    return {
+        type: "AUTHENTICATED"
+    }
+}
+const userLogout = () => {
+    console.log("action");
+    return {
+        type: "LOGOUT"
+    }
+}
+export { updateWpm, updateAcc, updateTimer, storeWPM, storeAcc, testCounter, userAuthenticated, userLogout }

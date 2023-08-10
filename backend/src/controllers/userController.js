@@ -26,37 +26,39 @@ const signup = async (req, res) => {
 
 
 const login = async (req, res) => {
-    let token;
+    let token, userFound;
     try {
         let is_password_correct;
         const { email, password } = req.body;
         if (!email || !password) { res.status(400).json({ massage: "invalid input data" }); }
-        const userFound = await Users.findOne({ email });
+        userFound = await Users.findOne({ email });
         if (userFound) {
             is_password_correct = await bcrypt.compare(password, userFound.password)
         } else {
             res.status(500).json({ massage: "data not found" })
         };
         if (!is_password_correct) { res.status(500).json({ massage: "data not found" }) };
-        console.log(userFound);
+        
         //jwt => jsonwebtoken
         token = await userFound.generateAuthToken();
+        console.log("token =>",token);
         res.cookie("jwt", token, {
             expires: new Date(Date.now() + 25892000000), // which is 25892000000=30days(30day * 24hour * 60mint * 60sec * 1000millisec)
             httpOnly: true
         })
-        // res.setHeader('Set-Cookie', `jwtoken=${token}; HttpOnly; Path=/`);
-        // res.cookie("hello", "world")                     
-        // res.cookie("jwt", token)
     } catch (err) {
         return res.status(500).send(err);
     }
-    return res.status(200).json({ massage: "login successfull" });
+    return res.status(200).send({ massage: "login successfull", userFound });
 }
 
 
 const logout = async (req, res) => {
     res.clearCookie('jwt',{path:"/"})
+    console.log("this user => ", req.user);
+    // console.log("total token => ", Users.findOne({_id:req.user}));
+    req.user.tokens = req.user.tokens.filter(currentToken=>currentToken.token!==req.token)
+    await req.user.save()
     res.status(200).send("User Logout");
 }
 

@@ -1,6 +1,7 @@
 // this state show how much and how many data are initially stored into localstorage. 
 console.log("state.js");
 const state = {
+    isAuth:false,
     word_per_minute: 0,
     typing_accuracy: 100,
     typing_test_timer: 30, // 30seconds

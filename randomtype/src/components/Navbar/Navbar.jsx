@@ -1,15 +1,13 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Box, Container, Button } from "@mui/material";
 import { NavLink } from "react-router-dom";
 import PersonIcon from '@mui/icons-material/Person';
 import FullScreenIcon from "../FullScreenIcon"
 import RTlg from "../Home/RTlg"
 import RTsm from "../Home/RTsm"
-import LogoutIcon from '@mui/icons-material/Logout';
 import SettingsIcon from '@mui/icons-material/Settings';
-// document.getElementById('userLogout').addEventListener('click', () => {
-//     console.log("logout"); // Print "hello1" in the console when LogoutIcon is clicked
-// });
+import Logout from '../Logout/Logout';
+
 
 const Navbar = () => {
     const ChangeIconColor = {
@@ -21,6 +19,7 @@ const Navbar = () => {
             padding: '1px',
         },
     }
+    // console.log("in nav typing_data => ", JSON.parse(localStorage.getItem("typingData")).isAuth );
 
     return (
         <>
@@ -29,7 +28,22 @@ const Navbar = () => {
                     <NavLink to="/typing" id="logo" className="cursor-pointer z-10" onClick={e => { e.preventDefault(); window.location.reload(); }}>
                         {(window.outerWidth >= 800) ? <RTlg /> : <RTsm />}
                     </NavLink>
-                    {(window.location.pathname === '/' || window.location.pathname === '/login' || window.location.pathname === '/registration') ?
+                    {/* {(window.location.pathname === '/' || window.location.pathname === '/login' || window.location.pathname === '/registration') ? */}
+                    {(JSON.parse(localStorage.getItem("typingData")).isAuth) ?
+                        <Box sx={{ display: 'flex' }}>
+                            <FullScreenIcon styleProp={ChangeIconColor} />
+                            <NavLink to="/setting" id="setting" className="flex gap-x-2 text-white hover:text-gray-200 mb-[40px] mt-12 mr-12 scale-[1.85] hover:scale-[2.2] transition-transform duration-300"  >
+                                <SettingsIcon sx={ChangeIconColor} />
+                            </NavLink>
+                            <NavLink to="/user" id="userLogo" className="flex gap-x-2 text-white hover:text-gray-200 mb-[40px] mt-12 mr-12 scale-[1.85] hover:scale-[2.2] transition-transform duration-300"  >
+                                <PersonIcon sx={ChangeIconColor} />
+                            </NavLink>
+                            <Logout/>
+                            {/* <NavLink to="/logout" id="userLogout" className="flex gap-x-2 text-white hover:text-gray-200 mb-[40px] mt-12 mr-12 scale-[1.85] hover:scale-[2.2] transition-transform duration-300"  >
+                                <LogoutIcon sx={ChangeIconColor} />
+                            </NavLink> */}
+                        </Box>
+                        :
                         <Box sx={{ borderRadius: '20px' }} className="h-fit mt-8 mr-5 w-22">
                             <Button sx={{ border: '1px solid black', borderRadius: '50vh', paddingRight: '30px', paddingLeft: '30px', backgroundColor: 'var(--text-color)', color: 'var(--bg-intro)', "&:hover": { backgroundColor: 'white' } }} variant="contained" className="translate-x-4 z-0 hover:z-10 hover:scale-110 bg-red-500-contained">
                                 <NavLink to="/login">
@@ -41,19 +55,9 @@ const Navbar = () => {
                                     Registraiton
                                 </NavLink>
                             </Button>
-                        </Box>
-                        :
-                        <Box sx={{ display: 'flex' }}>
-                            <FullScreenIcon styleProp={ChangeIconColor} />
-                            <NavLink to="/setting" id="setting" className="flex gap-x-2 text-white hover:text-gray-200 mb-[40px] mt-12 mr-12 scale-[1.85] hover:scale-[2.2] transition-transform duration-300"  >
-                                <SettingsIcon sx={ChangeIconColor} />
-                            </NavLink>
-                            <NavLink to="/user" id="userLogo" className="flex gap-x-2 text-white hover:text-gray-200 mb-[40px] mt-12 mr-12 scale-[1.85] hover:scale-[2.2] transition-transform duration-300"  >
-                                <PersonIcon sx={ChangeIconColor} />
-                            </NavLink>
-                            <NavLink to="/logout" id="userLogout" className="flex gap-x-2 text-white hover:text-gray-200 mb-[40px] mt-12 mr-12 scale-[1.85] hover:scale-[2.2] transition-transform duration-300"  >
+                            {/* <NavLink to="/logout" id="userLogout" className="flex gap-x-2 text-white hover:text-gray-200 mb-[40px] mt-12 mr-12 scale-[1.85] hover:scale-[2.2] transition-transform duration-300"  >
                                 <LogoutIcon sx={ChangeIconColor} />
-                            </NavLink>
+                            </NavLink> */}
                         </Box>
                     }
                 </Box>

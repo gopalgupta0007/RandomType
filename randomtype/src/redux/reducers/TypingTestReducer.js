@@ -1,8 +1,18 @@
 console.log("typingtestReducer");
 
 const TypingTestReducer = (state = JSON.parse(localStorage.getItem("typingData")), action) => {
-    // console.log("reducer is running => ", state);
+    console.log("reducer is running => ", state);
     switch (action.type) {
+        case "AUTHENTICATED":
+            return{
+                ...state,
+                isAuth:true
+            }
+        case "LOGOUT":
+            return{
+                ...state,
+                isAuth:false
+            }
         case "UPDATE_SECOND":
             return {
                 ...state,
@@ -41,6 +51,12 @@ const TypingTestReducer = (state = JSON.parse(localStorage.getItem("typingData")
                     ...state.typing_test_data,
                     no_of_test: [...state.typing_test_data.no_of_test, action.payload]
                 }
+            }
+        case "AUTHENTICATION":
+            console.log("typingtestreducer");
+            return {
+                ...state,
+                isAuth:true
             }
         default: return state;
     }
