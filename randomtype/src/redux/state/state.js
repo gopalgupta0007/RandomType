@@ -12,8 +12,4 @@ const state = {
     }
 }
 
-const user = {
-    isAuth: false,
-    user: undefined
-}
-export {state, user};
+export default state;

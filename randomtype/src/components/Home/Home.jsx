@@ -4,7 +4,6 @@ import Typing from "../Typing/Typing";
 // import KeyShortcut from "../keyboradShortcut/KeyShortcut";
 
 const Home = () => {
-
     return (
         <>
             <HelmetProvider>

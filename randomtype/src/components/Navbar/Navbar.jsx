@@ -9,8 +9,9 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import Logout from '../Logout/Logout';
 import { useSelector } from 'react-redux';
 
+
 const Navbar = () => {
-    const user_data = useSelector(state=>state.AuthReducer)
+    const auth = useSelector(state=>state.AuthReducer)
     const ChangeIconColor = {
         backgroundColor: 'transparent',
         transition: 'background-color 0.3s, border-radius 0.5s',
@@ -29,8 +30,10 @@ const Navbar = () => {
                     <NavLink to="/typing" id="logo" className="cursor-pointer z-10" onClick={e => { e.preventDefault(); window.location.reload(); }}>
                         {(window.outerWidth >= 800) ? <RTlg /> : <RTsm />}
                     </NavLink>
-                    {console.log("in nav check auth => ",user_data.isAuth)}
-                    {(user_data.isAuth) ?
+                    {/* {console.log("in nav check auth => ",JSON.parse(atob(localStorage.getItem("auth"))))} */}
+                    {console.log("in nav check auth 2 => ", auth)}
+                    {/* {JSON.parse(atob(localStorage.getItem("auth"))) ? */}
+                    {(auth) ?
                         <Box sx={{ display: 'flex' }}>
                             <FullScreenIcon styleProp={ChangeIconColor} />
                             <NavLink to="/setting" id="setting" className="flex gap-x-2 text-white hover:text-gray-200 mb-[40px] mt-12 mr-12 scale-[1.85] hover:scale-[2.2] transition-transform duration-300"  >
@@ -61,4 +64,4 @@ const Navbar = () => {
     )
 }
 
-export default Navbar
+export default Navbar;

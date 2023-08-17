@@ -1,20 +1,19 @@
-import { user } from "../state/state";
-
-const AuthReducer = (state=user, action) => {
-    console.log("typingtestReducer");
+const AuthReducer = (state=JSON.parse(atob(localStorage.getItem("auth"))), action) => {
+    console.log("reducer is running => ", state);
     switch (action.type) {
         case "AUTHENTICATED":
             return {
                 ...state,
-                isAuth: true
+                auth: true
             }
         case "LOGOUT":
             return {
                 ...state,
-                isAuth: false
+                auth: false
             }
+
         default: return state;
     }
 }
 
-export default AuthReducer
+export default AuthReducer;

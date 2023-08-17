@@ -1,5 +1,5 @@
 console.log("script.js");
-
+localStorage.setItem("auth", (localStorage.getItem("auth")==null)?btoa(false):localStorage.getItem("auth"));  //initialy when user visite on randomtype webApp by default authentication is false
 const tVertical = document.getElementById('t-verticalSVG');
 const randomText = document.getElementById('randomText');
 const typingTest = document.querySelector('.typingTest');

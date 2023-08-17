@@ -10,6 +10,7 @@ import About from './components/footer/About';
 import Contact from './components/footer/Contact';
 import Setting from './components/setting/Setting';
 import Logout from './components/Logout/Logout';
+import User from './components/User/User';
 
 function App() {
   console.log("app.js");
@@ -23,6 +24,7 @@ function App() {
         <Route exact path="/" component={Home} />
         <Route exact path="/login" component={Login} />
         <Route exact path="/registration" component={Registration} />
+        <Route exact path="/user" component={User} />
         <Route exact path="/about" component={About} />
         <Route exact path="/contact" component={Contact} />
         <Route exact path="/setting" component={Setting} />

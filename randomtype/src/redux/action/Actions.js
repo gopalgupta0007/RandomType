@@ -37,15 +37,13 @@ const testCounter = (num) => {
     }
 }
 const userAuthenticated = () => {
-    console.log("action");
     return {
-        type: "AUTHENTICATED"
+        type: "AUTHENTICATED",
     }
 }
 const userLogout = () => {
-    console.log("action");
     return {
-        type: "LOGOUT"
+        type: "LOGOUTx"
     }
 }
-export { updateWpm, updateAcc, updateTimer, storeWPM, storeAcc, testCounter, userAuthenticated, userLogout }
+export { updateWpm, updateAcc, updateTimer, storeWPM, storeAcc, testCounter, userAuthenticated, userLogout}

@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 import TypingTestReducer from '../TypingTestReducer'
-import AuthReducer from '../AuthReducer'
+import AuthReducer from '../AuthReducer';
 
 console.log("before reducer container");
 const reducers = combineReducers({
