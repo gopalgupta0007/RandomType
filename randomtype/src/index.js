@@ -11,7 +11,7 @@ import state from './redux/state/state';
 // import reportWebVitals from './reportWebVitals';
 // require('dotenv').config("RandomType/randomtype/.env")
 axios.defaults.baseURL = "http://localhost:5000";
-store.subscribe(() => console.log("show reducers => ", store.getState()))
+// store.subscribe(() => console.log("show reducers => ", store.getState()))
 localStorage.setItem("typingData", localStorage.getItem("typingData") || JSON.stringify(state)) // store the state into localstorage
 // if(localStorage.getItem("typingData")===null) {localStorage.setItem("typingData", JSON.stringify(state))} // store the state into localstorage
 console.log("index.js");

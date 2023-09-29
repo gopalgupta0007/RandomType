@@ -1,5 +1,5 @@
 import { Box, Container } from '@mui/material'
-import React, { useState, useRef, useEffect, memo } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import normalText from "./storedText";
 import ReplayIcon from '@mui/icons-material/Replay';
@@ -19,36 +19,41 @@ const scrolled = () => {
 }
 
 let noOfFirstLineCharacter = 0
-function smoothCaretMotion(typing = document.getElementById('typing')) {
-    // fully smooth movement of caret x-axis and y-axis also
-    // this 1.8 has 54% of original text
-    let xvalue = 1.8 * typing.selectionStart;
-    const caret = document.getElementById("caret");
-    if (Math.trunc(Math.ceil(xvalue)) >= Math.trunc(typing.offsetWidth / 14)) {
-        xvalue = (xvalue - noOfFirstLineCharacter * 1.8 * Math.trunc(1.8 * typing.selectionStart / Math.trunc(typing.offsetWidth / 14)))
-        // xvalue = (xvalue-(1.8*Math.trunc(1.8 * typing.selectionStart / Math.trunc(typing.offsetWidth / 14))))-(noOfFirstLineCharacter*1.8*Math.trunc(1.8 * typing.selectionStart / Math.trunc(typing.offsetWidth / 14)))
-    }
-    if (0 < Math.trunc(3 * Math.trunc(1.8 * typing.selectionStart / Math.trunc(typing.offsetWidth / 14)))) {
-        // if (Math.trunc(3 * Math.trunc(1.8 * typing.selectionStart / Math.trunc(typing.offsetWidth / 14)))>6) {  // 6(2nd line from top 3rem means 6/3=2 ) when user tried to go on 2rd line so scroll the Textarea
-            // console.log("now");
-        // }
-        // this only run when the caret position does not haveing on first line of the text
-        // xvalue = xvalue-1.8;
-        // console.log(Math.trunc(3 * Math.trunc(1.8 * typing.selectionStart / Math.trunc(typing.offsetWidth / 14))));
-    } else {
-        if (0 <= Math.trunc(3 * Math.trunc(typing.selectionStart / Math.trunc(typing.offsetWidth / 14))) && 0 === Math.trunc(3 * Math.trunc(1.8 * typing.selectionStart / Math.trunc(typing.offsetWidth / 14)))) {
-            noOfFirstLineCharacter = typing.selectionStart;
-            // noOfFirstLineCharacter = (backspace == 'Backspace') ? noOfFirstLineCharacter - 1 : noOfFirstLineCharacter + 1;
-            // console.log("noOfFirstLineCharacter => " + noOfFirstLineCharacter);
-        }
-    }
-    caret.style.transform = `translate(${(xvalue)}rem,${Math.trunc(3 * Math.trunc(1.8 * typing.selectionStart / Math.trunc(typing.offsetWidth / 14)))}rem)`;
-    // console.log(Math.trunc(Math.ceil(xvalue)) +" || "+ Math.trunc(typing.offsetWidth/14));
-    // console.log("this => "+Math.trunc(1.8 * typing.selectionStart / Math.trunc(typing.offsetWidth / 14)))
-    console.log("nonCaret => " + Math.round(xvalue/1.8) + " || " + "Orignal Caret => " + typing.selectionStart);
-    console.log("y => ",Math.trunc(3 * Math.trunc(1.8 * typing.selectionStart / Math.trunc(typing.offsetWidth / 14))));
-    caret.style.transition = "transform 0.2s"; // The caret is moving smoothly due to its transition duration being set to 200ms.7
-}
+let scrollNum = 0;
+// function smoothCaretMotion(typing = document.getElementById('typing')) {
+//     // fully smooth movement of caret x-axis and y-axis also
+//     // this 1.8 has 54% of original text
+//     let xvalue = 1.8 * typing.selectionStart;
+//     const caret = document.getElementById("caret");
+//     if (Math.trunc(Math.ceil(xvalue)) >= Math.trunc(typing.offsetWidth / 14)) {
+//         xvalue = (xvalue - noOfFirstLineCharacter * 1.8 * Math.trunc(1.8 * typing.selectionStart / Math.trunc(typing.offsetWidth / 14)))
+//         // xvalue = (xvalue-(1.8*Math.trunc(1.8 * typing.selectionStart / Math.trunc(typing.offsetWidth / 14))))-(noOfFirstLineCharacter*1.8*Math.trunc(1.8 * typing.selectionStart / Math.trunc(typing.offsetWidth / 14)))
+//     }
+//     if (0 < Math.trunc(3 * Math.trunc(1.8 * typing.selectionStart / Math.trunc(typing.offsetWidth / 14)))) {
+//         if (Math.trunc(3 * Math.trunc(1.8 * typing.selectionStart / Math.trunc(typing.offsetWidth / 14))) > 6 + scrollNum) {  // 6(2nd line from top 3rem means 6/3=2 ) when user tried to go on 2rd line so scroll the Textarea
+//             // when user come in 3rd line while typing
+//             scrollNum += 3;
+//             // typing.scrollTop+=42.4; // scrolling is not happends
+//         }
+//         console.log("scrollNum => ", scrollNum);
+//         console.log("now => ", Math.trunc(3 * Math.trunc(1.8 * typing.selectionStart / Math.trunc(typing.offsetWidth / 14))));
+//         // this only run when the caret position does not haveing on first line of the text
+//         // xvalue = xvalue-1.8;
+//         // console.log(Math.trunc(3 * Math.trunc(1.8 * typing.selectionStart / Math.trunc(typing.offsetWidth / 14))));
+//     } else {
+//         if (0 <= Math.trunc(3 * Math.trunc(typing.selectionStart / Math.trunc(typing.offsetWidth / 14))) && 0 === Math.trunc(3 * Math.trunc(1.8 * typing.selectionStart / Math.trunc(typing.offsetWidth / 14)))) {
+//             noOfFirstLineCharacter = typing.selectionStart;
+//             // noOfFirstLineCharacter = (backspace == 'Backspace') ? noOfFirstLineCharacter - 1 : noOfFirstLineCharacter + 1;
+//             // console.log("noOfFirstLineCharacter => " + noOfFirstLineCharacter);
+//         }
+//     }
+//     caret.style.transform = `translate(${(xvalue)}rem,${Math.trunc(3 * Math.trunc(1.8 * typing.selectionStart / Math.trunc(typing.offsetWidth / 14)))}rem)`;
+//     // console.log(Math.trunc(Math.ceil(xvalue)) +" || "+ Math.trunc(typing.offsetWidth/14));
+//     // console.log("this => "+Math.trunc(1.8 * typing.selectionStart / Math.trunc(typing.offsetWidth / 14)))
+//     // console.log("nonCaret => " + Math.round(xvalue/1.8) + " || " + "Orignal Caret => " + typing.selectionStart);
+//     // console.log("y => ",Math.trunc(3 * Math.trunc(1.8 * typing.selectionStart / Math.trunc(typing.offsetWidth / 14))));
+//     caret.style.transition = "transform 0.2s"; // The caret is moving smoothly due to its transition duration being set to 200ms.7
+// }
 // xvalue = (xvalue - ((noOfFirstLineCharacter * 1.8) * Math.trunc(1.8 * typing.selectionStart / Math.trunc(typing.offsetWidth / 14))));
 // xvalue = ((xvalue-(1.8*Math.trunc(1.8 * typing.selectionStart / Math.trunc(typing.offsetWidth / 14)))) - ((noOfFirstLineCharacter * 1.8) * Math.trunc(1.8 * typing.selectionStart / Math.trunc(typing.offsetWidth / 14))));
 // console.log("xvalue => "+xvalue)    
@@ -65,52 +70,62 @@ const Typing = () => {
     const [CountDownTimer, setCountDownTimer] = useState(1); // test countdown
     const [IncorrectLetter, setIncorrectLetter] = useState(0);
     const [placeholderText, setplaceholderText] = useState(""); // how much character/word will it be having
-
+    
     useEffect(() => {
         //generate random number and the according to that number of index of array of the paragram will it be selected
         const index = Math.floor(Math.random() * 10);
         console.log("random num => " + index);
         setplaceholderText(normalText[index].toLowerCase());
     }, [])
-
+    
     // function applyColorToCharacter(text, index, color) {
-    //     const chars = text.split("");
+        //     const chars = text.split("");
     //     chars[index] = `<span style={{color: ${color}}}>${chars[index]}</span>`;
     //     console.log("changeval " + chars.join(""))
     //     return chars.join("");
     // }
-
+    
     // function typingTestContext() {
-
-    // }
-
+        
+        // }
+        
     function compareToTyped(text1, text2 = 'Backspace') {
+        var span = document.getElementsByTagName('span');
         if (text2[IndexNumber] == undefined && text2[IndexNumber] !== " ") {
             setIncorrectLetter(IncorrectLetter + 1)
             // setIncorrectLetter(IncorrectLetter+1)
             // remeber this if any use will be only press on Backspace it's working fine but not for ctrl + Backspace.  
-            smoothCaretMotion();
+            // smoothCaretMotion();
             // before smoothCaretMotion('Backspace');
+            span[IndexNumber+3].classList.remove("active");
             setIndexNumber(IndexNumber - 1)
+            span[IndexNumber+3-1].classList.add("active");
             // console.log(text1[IndexNumber] + "||" + text2[IndexNumber] + " index => " + IndexNumber);
-            console.log("Backspace");
+            // console.log("Backspace");
             typing.classList.add("text-red-500");
         } else if (text1[IndexNumber] === text2[IndexNumber]) {
             // type matched with list of texts this occur
-            smoothCaretMotion();
+            // const span = 
+            // smoothCaretMotion();
+            span[IndexNumber+4-1].classList.remove("active");
             setIndexNumber(IndexNumber + 1);
+            span[IndexNumber+4].classList.add("active");
             // smoothCaretMotion();
             // console.log(text1[IndexNumber] + "||" + text2[IndexNumber] + " index => " + IndexNumber);
-            typing.classList.remove("text-red-500");
-            typing.classList.add("text-blue-600");
+            // typing.classList.remove("text-red-500");
+            // typing.classList.add("text-blue-600");
+            // span[IndexNumber+3].classList.add("active");
+            // typing.classList.add("correct");
             if (placeholderText.length - 1 == IndexNumber) { window.location.reload() }  // next text are going to show when the user type completely / user typed all given sentances.
         } else {
             setIncorrectLetter(IncorrectLetter + 1)
-            smoothCaretMotion();
+            // smoothCaretMotion();
+            span[IndexNumber+4-1].classList.remove("active");
             setIndexNumber(IndexNumber + 1);
+            span[IndexNumber+4].classList.add("active");
             // setLatter(applyColorToCharacter(Letter+text2[IndexNumber], IndexNumber, "red"))
             // console.log(text1[IndexNumber] + "||" + text2[IndexNumber] + " index => " + IndexNumber);
-            console.log("incorrect");
+            // console.log("incorrect");
             typing.classList.remove("text-red-500");
             typing.classList.add("text-blue-600");
         }
@@ -149,10 +164,18 @@ const Typing = () => {
                             <h1 className='flex'>Timer : {(Letter.length > 0) ? <Timer takeCountdown={countDownTimerMethod} /> : 30}s</h1>
                         </div>
                     </Box>
-                    <Box id="typingContainer" className="border-transparent focus:outline-none border-2 h-[30vh] m-5 mt-10 mx-10 rounded-lg" onClick={() => typingContainer.classList.remove("blur-md")} onBlur={() => typingContainer.classList.add("blur-md")}>
-                        <div id='caret' className="w-[5px] h-[3.5rem] flex flex-col rounded-md absolute z-10 bg-blue-500"></div>
-                        <textarea className="rounded-lg bg-blue-300 focus:outline-none text-5xl w-[100%] h-[100%] resize-none caret-transparent text-blue-600 text-opacity-100 bg-opacity-0 selection:bg-transparent relative z-50 overflow-y-hidden" style={{ wordBreak: 'break-all' }} onScroll={scrolled} name="typing" id="typing" spellCheck="false" ref={elementRef} onChange={handleTyping} autoFocus={true} value={Letter}></textarea>
-                        <textarea className="rounded-lg bg-orange-300 focus:outline-none text-5xl w-[100%] h-[100%] resize-none caret-transparent select-none placeholder:text-white relative top-[-30.4vh] overflow-hidden bg-opacity-0 opacity-40" style={{ wordBreak: 'break-all' }} onClick={focusTyping} name="placeholder" id="placeholder" spellCheck="false" placeholder={placeholderText} ></textarea>
+                    <Box id="typingContainer" className="border-transparent focus:outline-none border-2 h-[30vh] m-5 mt-10 mx-10 rounded-lg overflow-hidden" onClick={() => typingContainer.classList.remove("blur-md")} onBlur={() => typingContainer.classList.add("blur-md")}>
+                        {/* <div id='caret' className="w-[5px] h-[3.5rem] flex flex-col rounded-md absolute z-10 bg-blue-500"></div> */}
+                        <textarea className="rounded-lg bg-blue-300 focus:outline-none text-5xl w-[100%] h-[100%] resize-none caret-transparent text-blue-600 text-opacity-100 bg-opacity-0 selection:bg-transparent relative z-[-99] overflow-y-hidden" style={{ wordBreak: 'break-all' }} onScroll={scrolled} name="typing" id="typing" spellCheck="false" ref={elementRef} onChange={handleTyping} autoFocus={true} value={Letter}></textarea>
+                        <div className="typing-text">
+                            <p id="paragraph" className='rounded-lg bg-orange-300 focus:outline-none text-5xl w-[100%] h-[100%] resize-none caret-transparent select-none placeholder:text-white relative top-[-30.4vh] overflow-hidden bg-opacity-0 opacity-40' style={{ wordBreak: 'break-all', color:'white' }} onClick={focusTyping}>
+                                {
+                                    placeholderText.split("").map((char, index) => (<span key={index} >{char}</span>))
+                                }
+                            </p>
+                        </div>
+                        {/* <textarea className="rounded-lg bg-blue-300 focus:outline-none text-5xl w-[100%] h-[100%] resize-none caret-transparent text-blue-600 text-opacity-100 bg-opacity-0 selection:bg-transparent relative z-50 overflow-y-hidden" style={{ wordBreak: 'break-all' }} onScroll={scrolled} name="typing" id="typing" spellCheck="false" ref={elementRef} onChange={handleTyping} autoFocus={true} value={Letter}></textarea> */}
+                        {/* <textarea className="rounded-lg bg-orange-300 focus:outline-none text-5xl w-[100%] h-[100%] resize-none caret-transparent select-none placeholder:text-white relative top-[-30.4vh] overflow-hidden bg-opacity-0 opacity-40" style={{ wordBreak: 'break-all' }} onClick={focusTyping} name="placeholder" id="placeholder" spellCheck="false" placeholder={placeholderText} ></textarea> */}
                     </Box>
                     <div id='re-start-logo' className='text-center'>
                         <ReplayIcon className='cursor-pointer text-white rounded-none hover:rounded-md' sx={{ transform: 'scale(1.5)', "&:hover": { transform: 'scale(2)', backgroundColor: 'red' }, transition: 'transform 300ms' }} onClick={(e) => restartTyping(e)} />
@@ -175,5 +198,6 @@ const Typing = () => {
     )
 }
 
-export default memo(Typing);
+export default Typing;
 
+// z index has to be changed of input tag

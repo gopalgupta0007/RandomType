@@ -18,8 +18,6 @@ const Logout = () => {
             dispatch(userLogout())
             alert("logout")
             history.push('/');
-            // e.preventDefault()
-            // window.location.reload();
         } catch (err) {
             console.log(err);
         }

@@ -1,5 +1,5 @@
 const AuthReducer = (state=JSON.parse(atob(localStorage.getItem("auth"))), action) => {
-    console.log("reducer is running => ", state);
+    // console.log("reducer is running => ", state);
     switch (action.type) {
         case "AUTHENTICATED":
             return {

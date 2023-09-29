@@ -2,7 +2,7 @@ import React from 'react'
 import { Box, Container, Button } from "@mui/material";
 import { NavLink } from "react-router-dom";
 import PersonIcon from '@mui/icons-material/Person';
-import FullScreenIcon from "../FullScreenIcon"
+import FullScreenIcon from "./FullScreenIcon"
 import RTlg from "../Home/RTlg"
 import RTsm from "../Home/RTsm"
 import SettingsIcon from '@mui/icons-material/Settings';
@@ -30,9 +30,7 @@ const Navbar = () => {
                     <NavLink to="/typing" id="logo" className="cursor-pointer z-10" onClick={e => { e.preventDefault(); window.location.reload(); }}>
                         {(window.outerWidth >= 800) ? <RTlg /> : <RTsm />}
                     </NavLink>
-                    {/* {console.log("in nav check auth => ",JSON.parse(atob(localStorage.getItem("auth"))))} */}
                     {console.log("in nav check auth 2 => ", auth)}
-                    {/* {JSON.parse(atob(localStorage.getItem("auth"))) ? */}
                     {(auth) ?
                         <Box sx={{ display: 'flex' }}>
                             <FullScreenIcon styleProp={ChangeIconColor} />

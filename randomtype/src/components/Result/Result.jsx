@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 (localStorage.getItem("typingData") === null) && window.location.reload(); //if the localstoage is null to that automaticlly reload page once
 
 const Result = () => {
+  const auth = useSelector(state=>state.AuthReducer)
   console.log("Result");
   const dispatch = useDispatch();
   const typing_data = useSelector((state) => state.TypingTestReducer)
@@ -39,9 +40,10 @@ const Result = () => {
   return (
     <>
       <ResultGraph typingData={typing_data} />
-      <div className="text-white text-center mt-10" >
+      {console.log("in result authentication => ", auth)}
+      {(!auth)&&<div className="text-white text-center mt-10" >
         <a href="/login" className="font-bold underline" >Sign in</a> to save your result
-      </div>
+      </div>}
       <br />
       <div id='re-start-logo2' className='text-center mt-5'>
         <NavLink to="/typing">
