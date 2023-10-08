@@ -1,12 +1,13 @@
 import { Box, Container } from "@mui/material";
+// import { loadParagraph } from "../Typing/Typing";
 
 document.addEventListener('keydown', (event) => {
-    if (event.shiftKey && event.key == 'Enter') {
+    if (event.shiftKey && event.key === 'Enter') {
         //if shift + enter key down restart-typing
-        event.preventDefault(); // Prevent default browser behavior
-        window.location.reload();
+        // event.preventDefault(); // Prevent default browser behavior
+        // window.location.reload();
     }
-    if (event.shiftKey && event.key == '?') {
+    if (event.shiftKey && event.key === '?') {
         //if shift + enter key down restart-typing
         const keyShortcutList = document.getElementById('keyShortcutList')
         if (keyShortcutList.classList.contains("h-screen")) {

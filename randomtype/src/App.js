@@ -1,6 +1,5 @@
 import Registration from './components/Authentication/Registration';
 import Login from "./components/Authentication/Login";
-// import Typing from "./components/Typing/Typing";
 import { Route, Switch } from "react-router-dom";
 import Home from "./components/Home/Home"
 import Navbar from "./components/Navbar/Navbar";
@@ -11,8 +10,6 @@ import Contact from './components/footer/Contact';
 import Setting from './components/setting/Setting';
 import Logout from './components/Logout/Logout';
 import User from './components/User/User';
-// import Typing2 from './components/Typing/Typing2';
-// import Typing3 from './components/Typing/Typing3';
 
 function App() {
   console.log("app.js");
@@ -31,8 +28,6 @@ function App() {
         <Route exact path="/contact" component={Contact} />
         <Route exact path="/setting" component={Setting} />
         <Route exact path="/logout" component={Logout} />
-        {/* <Route exact path="/test" component={Typing2} /> */}
-        {/* <Route exact path="/test2" component={Typing3} /> */}
       </Switch>
       <Footer />
     </div>

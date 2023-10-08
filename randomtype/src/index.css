@@ -226,7 +226,7 @@ tspan {
 
 .headingtest {
   position: relative;
-  color: yellow;
+  color: rgb(0, 255, 42);
   font-size: 3rem;
 }
 
@@ -330,12 +330,12 @@ body {
   position: relative;
 }
 
-.typing-text p span.correct {
-  color: #d1d0c5;
+.correct {
+  color: greenyellow;
 }
 
-.typing-text p span.incorrect {
-  color: #ca4754;
+.incorrect {
+  color: red;
   /* border-radius: 4px; */
 }
 
@@ -353,14 +353,21 @@ body {
   filter: opacity(100%);
   border-radius: .1rem;
   background: yellow;
-  transition: all 0.3s ease;
+  transform: translate(0,0);
+  transition: all 0.3s ease-in-out;
 }
 
-/* @keyframes blink {
+#initial-caret{
+  opacity: 1;
+  transition: all .2s;
+  animation: caretBlink 1s infinite alternate ease-in-out;
+}
+
+@keyframes caretBlink {
   50% {
-    opacity: 1;
+    opacity: 0;
   }
-} */
+}
 
 /*
 .content-box .content {
