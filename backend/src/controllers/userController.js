@@ -81,8 +81,8 @@ const getAllUser = async (req, res) => {
 
 const getUserById = async (req, res) => {
     try {
-        const id = req.params.id;
-        var user = await Users.findById(id);
+        // const id = req.params.id;
+        var user = await Users.findById(req.userId);
         if (!user) { return res.status(500).json({ massage: "unexpected error occured" }); }
     } catch (err) {
         return res.status(500).send(err);

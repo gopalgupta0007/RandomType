@@ -9,6 +9,8 @@ const Authentication = async(req,res,next) => {
         if(!userData) console.log("err");
         req.token = token;
         req.user = userData;
+        req.userId = userData._id;
+        // console.log(req.user);
         next()
     } catch (error) {
         res.status(401).send("Unauthorized: no token provided")

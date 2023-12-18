@@ -7,7 +7,7 @@ userRouter.post("/signup", signup);
 userRouter.post("/login", login);
 userRouter.get("/logout", authentication, logout);
 userRouter.get("/", getAllUser)
-userRouter.get("/:id", authentication, getUserById) // this using to show user dashboard
+userRouter.get("/about", authentication, getUserById) // this using to show user dashboard
 userRouter.patch("/:id", updateUser)
 userRouter.delete("/:id", deleteUser)
 

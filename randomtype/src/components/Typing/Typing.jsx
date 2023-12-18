@@ -8,6 +8,11 @@ import Timer from './TestCalculate/Timer';
 import WPM from './TestCalculate/WPM';
 import Accuracy from './TestCalculate/Accuracy';
 import Result from '../Result/Result';
+import useSound from 'use-sound';
+import keyboardSound from './keyboardSound/Bubble.mp3';
+import bellSound from './keyboardSound/lightBell.mp3';
+import typeError from './keyboardSound/TypeError2.mp3';
+
 // import { LogarithmicScale } from 'chart.js';
 // document.getElementsByClassName("letter")[0].classList.add("active")
 // const scrolled = () => {
@@ -65,128 +70,192 @@ const loadParagraph = () => {
 // export const getParagraph =(setText, loadPara)=> {
 //     return setText(loadPara());
 // }
-
 const Typing = () => {
     // document.getElementsByClassName("letter")[0].classList.add("active");
     // const history = useHistory();
     const typingContainer = document.getElementById("typingContainer");
-    // const typing = document.getElementById("typing");
+    // var typing = document.getElementById("typing");
     const elementRef = useRef(null);
     const [Letter, setLatter] = useState("");
     const [IndexNumber, setIndexNumber] = useState(0);
     const [CountDownTimer, setCountDownTimer] = useState(1); // test countdown
     const [IncorrectLetter, setIncorrectLetter] = useState(0);
     const [placeholderText, setplaceholderText] = useState(""); // how much character/word will it be having
-
+    const [playCorrectKeySound] = useSound(keyboardSound,{volume:1});
+    const [playInCorrectKeySound] = useSound(bellSound,{volume:2});
+    const [playbackspaceSound] = useSound(typeError,{volume:5});
 
     const handleKeyPress = (event) => {
+        // if ((event.key.toLowerCase() >= 'a' && event.key.toLowerCase() <= 'z') || (event.key >= '0' && event.key <= '9')){
+        // }
         if (event.key === 'Enter' && event.shiftKey) {
-            // event.preventDefault()
-            // for (let i = IndexNumber; 0 <= i; i--) {
-            //     compareToTyped()
-            // }
-            const activeCls = document.querySelectorAll(".active");
-            // const activeCls = document.querySelectorAll(".active");
+            // setplaceholderText(loadParagraph())
+            const activedCaret = document.querySelectorAll(".active")
+            activedCaret.forEach(function (caret) {
+                caret.classList.remove("active");
+            })
+            const pressedKey = document.querySelectorAll(".pressed");
             console.log(Letter);
-            // Loop through the elements and remove the "active" class
-            activeCls.forEach(function (element) {
+            pressedKey.forEach(function (element) {
                 // clear all caret after again restart typing
-                element.classList.remove("active");
+                element.removeAttribute("style");
+                element.classList.remove("pressed");
+                element.classList.remove("correct");
+                element.classList.remove("incorrect");
+                // compareToTyped("Backspace")
+                console.log(element);
             });
+
             // activeCls
+            // setLatter("")
+            // setIncorrectLetter(0)
+            // setIndexNumber(0)
+            // setLatter("")
             // setLatter("")
             setIncorrectLetter(0)
             setIndexNumber(0)
-            setplaceholderText(loadParagraph())
-            // console.log("Latter => ", Letter);
+            setLatter("")
+            compareToTyped('a', 'Backspace', true)
+            // setplaceholderText(loadParagraph())
+            // pressedKey[1].classList.remove("pressed")
+            // compareToTyped("a","a")
+            // compareToTyped("Backspace","Backspace")
+            // compareToTyped("Backspace","Backspace")
         }
     }
 
     useEffect(() => {
         // Add event listener for the Shift + Enter key press
         window.addEventListener('keydown', handleKeyPress);
-        
+
         return () => {
             // Remove the event listener when the component unmounts
             window.removeEventListener('keydown', handleKeyPress);
         };
     }, []);
-    
+
     useEffect(() => {
         //generate random number and the according to that number of index of array of the paragram will it be selected
         // getParagraph(setplaceholderText, loadParagraph
         setplaceholderText(loadParagraph())
     }, []);
 
-    function compareToTyped(text1, text2 = 'Backspace') {
-        // var span = document.getElementsByTagName('span');
-        console.log("text2[IndexNumber] => ", text2[IndexNumber]);
+    function compareToTyped(text1, text2 = 'Backspace', exception = false) {
         var words = document.getElementsByClassName("letter");
-        if (text2[IndexNumber] === undefined && text2[IndexNumber] !== " ") {
-            // nextLineStartCaret()
-            console.log("backspace");
-            setIncorrectLetter(IncorrectLetter + 1)
-            // setIncorrectLetter(IncorrectLetter+1)
-            // remeber this if any use xwill be only press on Backspace it's working fine but not for ctrl + Backspace.  
-            // smoothCaretMotion();
-            // before smoothCaretMotion('Backspace');
-            // span[IndexNumber + 3].classList.remove("active");
-            words[IndexNumber].classList.remove("active")
-            setIndexNumber(IndexNumber - 1)
-            words[IndexNumber - 1].classList.add("active")
-            words[IndexNumber - 1].classList.add("pressed")
-            words[IndexNumber - 1].classList.remove("incorrect")
-            words[IndexNumber - 1].classList.remove("correct")
-            words[IndexNumber - 1].style.borderBottom="";
-            words[IndexNumber - 1].style.backgroundColor="";
-            // span[IndexNumber + 3 - 1].classList.add("active");
-            // console.log(text1[IndexNumber] + "||" + text2[IndexNumber] + " index => " + IndexNumber);
-            // console.log("Backspace");
-        } else if (text1[IndexNumber] === text2[IndexNumber]) {
-            console.log(Letter);
-            // correct
-            // nextLineStartCaret()
-            // type matched with list of texts this occur
-            // const span = 
-            // smoothCaretMotion();
-            // span[IndexNumber + 4 - 1].classList.remove("active");
-            setIndexNumber(IndexNumber + 1);
-            (IndexNumber === 0) ? console.log("start") : words[IndexNumber].classList.remove("active"); words[0].classList.remove("active");
-            words[IndexNumber + 1].classList.add("active");
-            words[IndexNumber].classList.add("correct")
-            // console.log(words[IndexNumber - 1],"|||", text1[IndexNumber - 1])
-            // span[IndexNumber + 4].classList.add("active");
-            // smoothCaretMotion();
-            // console.log(text1[IndexNumber] + "||" + text2[IndexNumber] + " index => " + IndexNumber);
-            // typing.classList.remove("text-red-500");
-            // typing.classList.add("text-blue-600");
-            // span[IndexNumber+3].classList.add("active");
-            // typing.classList.add("correct");
-            // try {
+        // var span = document.getElementsByTagName('span');
+        // compareToTyped("Backspace","Backspace")
+        // debugger
+        console.log("comapreTotyped method");
+        console.log(text1[IndexNumber], "|||||", text2[IndexNumber]);
+        console.log(`text2[IndexNumber] =>  "${text2[IndexNumber]}"`);
+        console.log(`letter => ${Letter} \n IndexNumber => ${IndexNumber} \n CountDownTimer => ${CountDownTimer} \n IncorrectLetter => ${IncorrectLetter}`);
+        // if(words[0].classList.contains('incorrect')&&words[1].classList.contains('active pressed')){
+        //     alert("yes")
+        //     console.log("yes");
+        // }
+        // if (words[0].classList.contains('incorrect')&&(words[0]!==text1[0]&&IndexNumber===1)) {
+        //     compareToTyped("Backspace")
+        //     setIndexNumber(IndexNumber - 1)
+        // }
+        if (exception) {
+            // var element = document.getElementById("active-pressed-correct");
+
+            // // Check if the element exists
+            // if (element) {
+            //     // Get the current id attribute
+            //     var currentId = element.getAttribute("id");
+            
+            //     // Check if the id contains "active" (case-sensitive) and replace it with an empty string
+            //     if (currentId && currentId.includes("active")) {
+            //         var newId = currentId.replace("active", "").trim();
+            
+            //         // Set the new id attribute
+            //         element.setAttribute("id", newId);
+            //     }
+            // }
+            
+            // var currentId = words[0].getAttribute("class");
+
+            // console.log(currentId);
+
+            // words[IndexNumber].classList.remove("incorrect")
+            // console.log(words[IndexNumber]);
+            words[0].style.backgroundColor = "transparent";
+            words[0].style.color = "white";
+            words[0].style.border = "none";
+            words[0].classList.add("active")
+            words[1].classList.remove("active")
+            
+        } else {
+
+            if (text2[IndexNumber] === undefined && text2[IndexNumber] !== " ") {
+                // nextLineStartCaret()
+                // if (words[0].classList.contains("incorrect")&&words[1].classList.contains("pressed")) {
+                //     console.log("yes\nyes\nyes\nyes\nyes\nyes");   
+                // }
+                console.log("backspace");
+                playbackspaceSound();
+                setIncorrectLetter(IncorrectLetter + 1)
+                // setIncorrectLetter(IncorrectLetter+1)
+                // remeber this if any use xwill be only press on Backspace it's working fine but not for ctrl + Backspace.  
+                // smoothCaretMotion();
+                // before smoothCaretMotion('Backspace');
+                // span[IndexNumber + 3].classList.remove("active");
+                words[IndexNumber].classList.remove("active")
+                setIndexNumber(IndexNumber - 1)
+                words[IndexNumber - 1].classList.add("active")
+                words[IndexNumber - 1].classList.remove("pressed")
+                words[IndexNumber - 1].classList.remove("incorrect")
+                words[IndexNumber - 1].classList.remove("correct")
+                // span[IndexNumber + 3 - 1].classList.add("active");
+                // console.log(text1[IndexNumber] + "||" + text2[IndexNumber] + " index => " + IndexNumber);
+                // console.log("Backspace");
+            } else if (text1[IndexNumber] === text2[IndexNumber]) {
+                playCorrectKeySound();   // correct key pressed then sound played like typewriter
+                console.log(Letter);
+                // correct
+                // nextLineStartCaret()
+                // type matched with list of texts this occur
+                // const span = 
+                // smoothCaretMotion();
+                // span[IndexNumber + 4 - 1].classList.remove("active");
+                setIndexNumber(IndexNumber + 1);
+                (IndexNumber === 0) ? console.log("start") : words[IndexNumber].classList.remove("active"); words[0].classList.remove("active");
+                words[IndexNumber + 1].classList.add("active");
+                words[IndexNumber].classList.add("correct")
+                // console.log(words[IndexNumber - 1],"|||", text1[IndexNumber - 1])
+                // span[IndexNumber + 4].classList.add("active");
+                // smoothCaretMotion();
+                // console.log(text1[IndexNumber] + "||" + text2[IndexNumber] + " index => " + IndexNumber);
+                // typing.classList.remove("text-red-500");
+                // typing.classList.add("text-blue-600");
+                // span[IndexNumber+3].classList.add("active");
+                // typing.classList.add("correct");
+                // try {
                 // } catch (error) {
-                    //     console.log(error);               
-                    // }
-                    if (text1[0] === text2[IndexNumber]) { words[IndexNumber].classList.add("pressed") }
-                    if (placeholderText.length - 1 === IndexNumber) { window.location.reload() }  // next text are going to show when the user type completely / user typed all given sentances.
-                } else {
-                    // incorrect
-                    setIncorrectLetter(IncorrectLetter + 1)
-                    // smoothCaretMotion();
-            // span[IndexNumber + 4 - 1].classList.remove("active");
-            words[IndexNumber].classList.remove("active");
-            setIndexNumber(IndexNumber + 1);
-            words[IndexNumber + 1].classList.add("active");
-            words[IndexNumber + 1].classList.add("pressed");
-            words[IndexNumber].classList.add("incorrect")
-            words[IndexNumber].style.borderBottom="3px solid red";
-            words[IndexNumber].style.backgroundColor="rgba(252, 3, 3, .2)";
-            // span[IndexNumber + 4].classList.add("active");
-            // setLatter(applyColorToCharacter(Letter+text2[IndexNumber], IndexNumber, "red"))
-            // console.log(text1[IndexNumber] + "||" + text2[IndexNumber] + " index => " + IndexNumber);
-            // console.log("incorrect");
+                //     console.log(error);               
+                // }
+                if (text1[0] === text2[IndexNumber]) { words[IndexNumber].classList.add("pressed") }
+                if (placeholderText.length - 1 === IndexNumber) { window.location.reload() }  // next text are going to show when the user type completely / user typed all given sentances.
+            } else {
+                // incorrect
+                playInCorrectKeySound();
+                setIncorrectLetter(IncorrectLetter + 1)
+                // smoothCaretMotion();
+                // span[IndexNumber + 4 - 1].classList.remove("active");
+                words[IndexNumber].classList.remove("active");
+                setIndexNumber(IndexNumber + 1);
+                words[IndexNumber + 1].classList.add("active");
+                words[IndexNumber + 1].classList.add("pressed");
+                words[IndexNumber].classList.add("incorrect")
+                // span[IndexNumber + 4].classList.add("active");
+                // setLatter(applyColorToCharacter(Letter+text2[IndexNumber], IndexNumber, "red"))
+                // console.log(text1[IndexNumber] + "||" + text2[IndexNumber] + " index => " + IndexNumber);
+                // console.log("incorrect");
+            }
+            if (text2[IndexNumber - 1]) { words[IndexNumber].classList.add("pressed") }
+            console.log("indexNumber => ", IndexNumber);
         }
-        if (text2[IndexNumber-1]) {words[IndexNumber].classList.add("pressed")}
-        console.log("indexNumber => ", IndexNumber);
     }
 
     const handleTyping = (e) => {
@@ -209,7 +278,6 @@ const Typing = () => {
         event.preventDefault();
         window.location.reload()
     }
-
     return (
         <>
             <HelmetProvider>
@@ -233,13 +301,15 @@ const Typing = () => {
                             <p id="paragraph" className='rounded-lg bg-orange-300 focus:outline-none text-5xl w-[100%] h-[100%] resize-none caret-transparent select-none relative top-[-30.4vh] overflow-hidden bg-opacity-0 opacity-40' style={{ wordBreak: 'break-all' }} onClick={focusTyping}>
                                 {(Letter === "" && IndexNumber === 0) ? <span id='initial-caret' className="relative"><div className="caret absolute w-7 h-[5px] bg-yellow-200 left-0 bottom-0 rounded-sm"></div></span> : <span></span>}
                                 {
-                                    placeholderText.split("").map((char, index) => (<span key={index} className={(index === 0) ? 'letter active text-white' : 'letter text-white transition-all duration-200'} >{char}</span>))
+                                    // placeholderText.split("").map((char, index) => (<span key={index} className={(index === 0) ? 'letter active text-white' : 'letter text-white transition-all duration-200'} >{char}</span>))
+                                    placeholderText.split("").map((char, index) => (<span key={index} className='letter text-white transition-all duration-200'>{char}</span>))
                                 }
                             </p>
                         </div>
                         {/* <textarea className="rounded-lg bg-blue-300 focus:outline-none text-5xl w-[100%] h-[100%] resize-none caret-transparent text-blue-600 text-opacity-100 bg-opacity-0 selection:bg-transparent relative z-50 overflow-y-hidden" style={{ wordBreak: 'break-all' }} onScroll={scrolled} name="typing" id="typing" spellCheck="false" ref={elementRef} onChange={handleTyping} autoFocus={true} value={Letter}></textarea> */}
                         {/* <textarea className="rounded-lg bg-orange-300 focus:outline-none text-5xl w-[100%] h-[100%] resize-none caret-transparent select-none placeholder:text-white relative top-[-30.4vh] overflow-hidden bg-opacity-0 opacity-40" style={{ wordBreak: 'break-all' }} onClick={focusTyping} name="placeholder" id="placeholder" spellCheck="false" placeholder={placeholderText} ></textarea> */}
                     </Box>
+                    <br />
                     <div id='re-start-logo' className='text-center'>
                         <ReplayIcon className='cursor-pointer text-white rounded-none hover:rounded-md' sx={{ transform: 'scale(1.5)', "&:hover": { transform: 'scale(2)', backgroundColor: 'red' }, transition: 'transform 300ms' }} onClick={(e) => restartTyping(e)} />
                     </div><br />
