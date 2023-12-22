@@ -7,7 +7,7 @@ import KeyShortcut from './components/keyboradShortcut/KeyShortcut';
 import Footer from './components/footer/Footer';
 import About from './components/footer/About';
 import Contact from './components/footer/Contact';
-import Setting from './components/setting/Setting';
+import Settings from './components/rtsetting/Settings';
 import Logout from './components/Logout/Logout';
 import User from './components/User/User';
 
@@ -26,7 +26,7 @@ function App() {
         <Route exact path="/user" component={User} />
         <Route exact path="/about" component={About} />
         <Route exact path="/contact" component={Contact} />
-        <Route exact path="/setting" component={Setting} />
+        <Route exact path="/settings" component={Settings} />
         <Route exact path="/logout" component={Logout} />
       </Switch>
       <Footer />

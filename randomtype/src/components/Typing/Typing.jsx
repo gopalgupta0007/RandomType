@@ -81,15 +81,17 @@ const Typing = () => {
     const [CountDownTimer, setCountDownTimer] = useState(1); // test countdown
     const [IncorrectLetter, setIncorrectLetter] = useState(0);
     const [placeholderText, setplaceholderText] = useState(""); // how much character/word will it be having
+
+    // sounds
     const [playCorrectKeySound] = useSound(keyboardSound,{volume:1});
     const [playInCorrectKeySound] = useSound(bellSound,{volume:2});
     const [playbackspaceSound] = useSound(typeError,{volume:5});
-
+    
     const handleKeyPress = (event) => {
-        // if ((event.key.toLowerCase() >= 'a' && event.key.toLowerCase() <= 'z') || (event.key >= '0' && event.key <= '9')){
-        // }
-        if (event.key === 'Enter' && event.shiftKey) {
-            // setplaceholderText(loadParagraph())
+        // this method run before the compareToTyped method
+        // alert("handleKeyPress method is runned")
+        if (event.shiftKey && event.key === 'Enter') {
+            setplaceholderText(loadParagraph())
             const activedCaret = document.querySelectorAll(".active")
             activedCaret.forEach(function (caret) {
                 caret.classList.remove("active");
@@ -115,7 +117,7 @@ const Typing = () => {
             setIncorrectLetter(0)
             setIndexNumber(0)
             setLatter("")
-            compareToTyped('a', 'Backspace', true)
+            compareToTyped('a','Backspace', true)
             // setplaceholderText(loadParagraph())
             // pressedKey[1].classList.remove("pressed")
             // compareToTyped("a","a")
@@ -140,7 +142,8 @@ const Typing = () => {
         setplaceholderText(loadParagraph())
     }, []);
 
-    function compareToTyped(text1, text2 = 'Backspace', exception = false) {
+    function compareToTyped(text1 , text2 = 'Backspace', exception = false) {
+        // alert("compareToTyped method is runned")
         var words = document.getElementsByClassName("letter");
         // var span = document.getElementsByTagName('span');
         // compareToTyped("Backspace","Backspace")
@@ -185,7 +188,6 @@ const Typing = () => {
             words[0].style.border = "none";
             words[0].classList.add("active")
             words[1].classList.remove("active")
-            
         } else {
 
             if (text2[IndexNumber] === undefined && text2[IndexNumber] !== " ") {
@@ -259,11 +261,10 @@ const Typing = () => {
     }
 
     const handleTyping = (e) => {
+        // console.log("value of e => ",e.nativeEvent.data);
+        // console.log("value of e => ",e);
         compareToTyped(placeholderText, e.target.value);
         setLatter(e.target.value); // store in array pressed letter
-        //while key down then sound occur
-        // const audio = new Audio("../../");
-        // audio.play();
     }
 
     const focusTyping = () => {
