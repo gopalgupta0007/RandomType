@@ -24,6 +24,7 @@ const User = () => {
       })
       .catch(error => error);
   }
+
   useEffect(() => {
     const image = document.getElementById("userImgDisplayed");
     const getImgUrl = localStorage.getItem("profile-img");
@@ -71,7 +72,7 @@ const User = () => {
       <div className="text-white text-center text-5xl mt-[-20px]">User</div>
       <div id="profile" className='flex flex-col gap-y-5 w-4/5 m-auto'>
         <div id="profileContainer" className='flex gap-x-20 '>
-          <div id="userInfo" className='inline-block border border-solid border-2 border-gray-300 p-5 rounded-md'>
+          <div id="userInfo" className='inline-block shadow p-5 rounded-md'>
             <div id="userImg" className='mt-5 mb-[-10px]'>
               <div className='flex justify-center m-auto mb-10 items-center border border-dashed border-[3px] hover:border-red-500 hover:text-red-500 border-gray-300 text-gray-300 p-5 h-[150px] w-[150px] rounded-full transition-colors duration-300' onClick={handleImageClick}>
                 <img id='userImgDisplayed' src="" className='object-cover cursor-pointer rounded-full scale-150 border border-[3px] border-red-600' />
@@ -134,38 +135,3 @@ export default User;
 
 
 
-// <!DOCTYPE html>
-// <html>
-// <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
-// <body>
-
-// <canvas id="myChart" style="width:100%;max-width:600px"></canvas>
-
-// <script>
-// const xValues = ["win Game","lose Game"];
-// const yValues = [55, 49];
-// const barColors = [
-//   "#0000ff",
-//   "#ff0000",
-// ];
-
-// new Chart("myChart", {
-//   type: "doughnut",
-//   data: {
-//     labels: xValues,
-//     datasets: [{
-//       backgroundColor: barColors,
-//       data: yValues
-//     }]
-//   },
-//   options: {
-//   title: {
-//       display: true,
-//       text: "World Wide Wine Production 2018"
-//     }
-//   }
-// });
-// </script>
-
-// </body>
-// </html>

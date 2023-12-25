@@ -19,7 +19,17 @@ const Navbar = () => {
             backgroundColor: 'red',
             borderRadius: 5,
             padding: '1px',
-        },
+        }
+        // '&:active': {
+        //     backgroundColor: 'red',
+        //     borderRadius: 5,
+        //     padding: '1px',
+        // },
+        // '&:focus': {
+        //     backgroundColor: 'red',
+        //     borderRadius: 5,
+        //     padding: '1px',
+        // },
     }
     // console.log("in nav typing_data => ", JSON.parse(localStorage.getItem("typingData")).isAuth );
 
@@ -27,13 +37,13 @@ const Navbar = () => {
         <>
             <Container maxWidth="xl">
                 <Box id="nav" className="flex justify-between">
-                    <NavLink to="/typing" id="logo" className="cursor-pointer z-10" onClick={e => { e.preventDefault(); window.location.reload(); }}>
+                    <NavLink to="/" id="logo" className="cursor-pointer z-10" onClick={e => { e.preventDefault(); window.location.reload(); }}>
                         {(window.outerWidth >= 800) ? <RTlg /> : <RTsm />}
                     </NavLink>
                     {console.log("in nav check auth 2 => ", auth)}
                     {(auth) ?
                         <Box sx={{ display: 'flex' }}>
-                            <FullScreenIcon styleProp={ChangeIconColor} />
+                            <FullScreenIcon styleProp={ChangeIconColor}/>
                             <NavLink to="/settings" id="setting" className="flex gap-x-2 text-white hover:text-gray-200 mb-[40px] mt-12 mr-12 scale-[1.85] hover:scale-[2.2] transition-transform duration-300"  >
                                 <SettingsIcon sx={ChangeIconColor} />
                             </NavLink>

@@ -300,7 +300,7 @@ const Typing = () => {
                         <textarea className="rounded-lg bg-blue-300 focus:outline-none text-5xl w-[100%] h-[100%] resize-none caret-transparent text-transparent text-opacity-100 bg-opacity-0 selection:bg-transparent relative z-[-99] overflow-y-hidden" style={{ wordBreak: 'break-all' }} /*onScroll={scrolled}*/ name="typing" id="typing" spellCheck="false" ref={elementRef} onChange={handleTyping} autoFocus={true} value={Letter}></textarea>
                         <div className="typing-text">
                             <p id="paragraph" className='rounded-lg bg-orange-300 focus:outline-none text-5xl w-[100%] h-[100%] resize-none caret-transparent select-none relative top-[-30.4vh] overflow-hidden bg-opacity-0 opacity-40' style={{ wordBreak: 'break-all' }} onClick={focusTyping}>
-                                {(Letter === "" && IndexNumber === 0) ? <span id='initial-caret' className="relative"><div className="caret absolute w-7 h-[5px] bg-yellow-200 left-0 bottom-0 rounded-sm"></div></span> : <span></span>}
+                                {(Letter === "" && IndexNumber === 0) ? <span id='initial-caret' className="relative overflow-hidden"><div className="caret absolute w-[.6em] h-[5px] bg-yellow-200 left-0 bottom-0 rounded-sm overflow-hidden"></div></span> : <span></span>}
                                 {
                                     // placeholderText.split("").map((char, index) => (<span key={index} className={(index === 0) ? 'letter active text-white' : 'letter text-white transition-all duration-200'} >{char}</span>))
                                     placeholderText.split("").map((char, index) => (<span key={index} className='letter text-white transition-all duration-200'>{char}</span>))

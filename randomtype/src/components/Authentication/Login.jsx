@@ -40,8 +40,9 @@ const Login = () => {
                 }
             ) // for cookie because we have to use axious method to fetch data
             console.log("axiosPost.data => ", axiosPost.data);
-            localStorage.setItem("auth", btoa(true));
             dispatch(userAuthenticated())
+            localStorage.setItem("auth", btoa(true));
+            //stored cookie data will push in the database
             alert("logined")
             history.push('/');
             // e.preventDefault()

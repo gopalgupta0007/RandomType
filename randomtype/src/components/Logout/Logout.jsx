@@ -14,10 +14,11 @@ const Logout = () => {
     const logoutUser = async (e) => {
         try {
             axios.get("/users/logout", { headers: { "Content-Type": "application/json" }, withCredentials: true })
-            localStorage.setItem("auth", btoa(false));
             dispatch(userLogout())
+            localStorage.setItem("auth", btoa(false));
             alert("logout")
             history.push('/');
+            window.location.reload();
         } catch (err) {
             console.log(err);
         }

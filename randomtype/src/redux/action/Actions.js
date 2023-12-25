@@ -43,7 +43,7 @@ const userAuthenticated = () => {
 }
 const userLogout = () => {
     return {
-        type: "LOGOUTx"
+        type: "LOGOUT"
     }
 }
 export { updateWpm, updateAcc, updateTimer, storeWPM, storeAcc, testCounter, userAuthenticated, userLogout}
