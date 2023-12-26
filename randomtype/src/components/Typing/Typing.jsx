@@ -91,6 +91,9 @@ const Typing = () => {
         // this method run before the compareToTyped method
         // alert("handleKeyPress method is runned")
         if (event.shiftKey && event.key === 'Enter') {
+            // compareToTyped method
+            // handleKeyPress method
+            // compareToTyped method
             setplaceholderText(loadParagraph())
             const activedCaret = document.querySelectorAll(".active")
             activedCaret.forEach(function (caret) {
@@ -117,7 +120,7 @@ const Typing = () => {
             setIncorrectLetter(0)
             setIndexNumber(0)
             setLatter("")
-            compareToTyped('a','Backspace', true)
+            // compareToTyped('a','Backspace', true)
             // setplaceholderText(loadParagraph())
             // pressedKey[1].classList.remove("pressed")
             // compareToTyped("a","a")
@@ -183,13 +186,16 @@ const Typing = () => {
 
             // words[IndexNumber].classList.remove("incorrect")
             // console.log(words[IndexNumber]);
-            words[0].style.backgroundColor = "transparent";
-            words[0].style.color = "white";
-            words[0].style.border = "none";
-            words[0].classList.add("active")
-            words[1].classList.remove("active")
+            
+            
+            // words[0].style.backgroundColor = "transparent";
+            // words[0].style.color = "white";
+            // words[0].style.border = "none";
+            // words[0].classList.add("active")
+            // words[1].classList.remove("active")*
         } else {
-
+            
+            console.log("beforeindexNumber => ", IndexNumber);
             if (text2[IndexNumber] === undefined && text2[IndexNumber] !== " ") {
                 // nextLineStartCaret()
                 // if (words[0].classList.contains("incorrect")&&words[1].classList.contains("pressed")) {
@@ -256,15 +262,23 @@ const Typing = () => {
                 // console.log("incorrect");
             }
             if (text2[IndexNumber - 1]) { words[IndexNumber].classList.add("pressed") }
-            console.log("indexNumber => ", IndexNumber);
+            console.log("afterindexNumber => ", IndexNumber);
         }
     }
 
     const handleTyping = (e) => {
         // console.log("value of e => ",e.nativeEvent.data);
-        // console.log("value of e => ",e);
-        compareToTyped(placeholderText, e.target.value);
-        setLatter(e.target.value); // store in array pressed letter
+        const pressedKey = e.target.value[IndexNumber];
+        console.log(e);
+        if (
+            (pressedKey >= 'a' && pressedKey <= 'z') 
+            || (pressedKey >= '0' && pressedKey <= '9')
+            || pressedKey==" " 
+            || pressedKey==undefined
+        ){
+            compareToTyped(placeholderText, e.target.value);
+            setLatter(e.target.value); // store in array pressed letter
+        } 
     }
 
     const focusTyping = () => {
@@ -297,7 +311,7 @@ const Typing = () => {
                     </Box>
                     <Box id="typingContainer" className="border-transparent focus:outline-none border-2 h-[30vh] m-5 mt-10 mx-10 rounded-lg overflow-hidden" onClick={() => typingContainer.classList.remove("blur-md")} onBlur={() => typingContainer.classList.add("blur-md")}>
                         {/* <div id ='caret' className="w-[25px] h-[.5rem] flex flex-col rounded-md absolute z-10 bg-blue-500"></div> */}
-                        <textarea className="rounded-lg bg-blue-300 focus:outline-none text-5xl w-[100%] h-[100%] resize-none caret-transparent text-transparent text-opacity-100 bg-opacity-0 selection:bg-transparent relative z-[-99] overflow-y-hidden" style={{ wordBreak: 'break-all' }} /*onScroll={scrolled}*/ name="typing" id="typing" spellCheck="false" ref={elementRef} onChange={handleTyping} autoFocus={true} value={Letter}></textarea>
+                        <textarea className="rounded-lg bg-blue-300 focus:outline-none text-5xl w-[100%] h-[100%] resize-none caret-transparent text-transparent text-opacity-100 bg-opacity-0 selection:bg-transparent relative z-[-99] overflow-y-hidden" style={{ wordBreak: 'break-all' }} /*onScroll={scrolled}*/ name="typing" id="typing" spellCheck="false" ref={elementRef} onChange={handleTyping} /*onChange={handleTyping}*/ autoFocus={true} value={Letter}></textarea>
                         <div className="typing-text">
                             <p id="paragraph" className='rounded-lg bg-orange-300 focus:outline-none text-5xl w-[100%] h-[100%] resize-none caret-transparent select-none relative top-[-30.4vh] overflow-hidden bg-opacity-0 opacity-40' style={{ wordBreak: 'break-all' }} onClick={focusTyping}>
                                 {(Letter === "" && IndexNumber === 0) ? <span id='initial-caret' className="relative overflow-hidden"><div className="caret absolute w-[.6em] h-[5px] bg-yellow-200 left-0 bottom-0 rounded-sm overflow-hidden"></div></span> : <span></span>}

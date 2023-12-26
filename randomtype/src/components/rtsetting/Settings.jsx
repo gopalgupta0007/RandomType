@@ -5,7 +5,7 @@ import ColorLensIcon from '@mui/icons-material/ColorLens';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import KeyboardDoubleArrowUpIcon from '@mui/icons-material/KeyboardDoubleArrowUp';
 import { BsCursorText } from "react-icons/bs";
-import { alertTitleClasses } from '@mui/material';
+// import { alertTitleClasses } from '@mui/material';
 
 const Settings = () => {
   const [visible, setVisible] = useState(false);
@@ -58,13 +58,13 @@ const Settings = () => {
     <>
       <div className="text-white text-center text-5xl">Setting</div>
       <div id="settings" className='text-black w-4/5 m-auto'>   
-        <div id="setting-navigation" className='flex gap-x-10 text-3xl my-5 border border-x-0 border-y-2'>
-          <a href="#font-setting" className='text-red-500 scale-100 hover:text-white hover:scale-105 transition-all duration-200 ease-in-out flex items-center'><HdrAutoIcon sx={{ fontSize: '30px' }} />Font</a>
+        <div id="setting-navigation" className='flex justify-center gap-x-14 text-3xl my-5 border border-x-0 border-y-2'>
+          <a href="#font-setting" className='text-red-500 scale-100 hover:text-white hover:scale-105 transition-all duration-200 ease-in-out flex items-center'><HdrAutoIcon sx={{ fontSize: '1.2em' }} />Font</a>
           <a href="#caret-setting" className='text-red-500 scale-100 hover:text-white hover:scale-105 transition-all duration-200 ease-in-out flex items-center'><BsCursorText style={{ display: 'inline', border: '2px solid red', borderRadius: '50%', backgroundColor: 'red', color: 'white', fontWeight: 'bolder' }} />Caret</a>
-          <a href="#sounds-setting" className='text-red-500 scale-100 hover:text-white hover:scale-105 transition-all duration-200 ease-in-out flex items-center'><VolumeUpIcon sx={{ fontSize: '28px' }} />Sounds</a>
-          <a href="#theme-setting" className='text-red-500 scale-100 hover:text-white hover:scale-105 transition-all duration-200 ease-in-out flex items-center'><ColorLensIcon sx={{ fontSize: '28px' }} />Theme</a>
-          <a href="#reset-setting" className='text-red-500 scale-100 hover:text-white hover:scale-105 transition-all duration-200 ease-in-out flex items-center' ><RestartAltIcon sx={{ fontSize: '28px' }} />Reset</a>
-          <a href="#rtintro-animation-setting" className='text-red-500 hover:text-white hover:scale-105 transition-all duration-200 ease-in-out flex items-center'><div id='rt-icon' className='w-6 h-6 bg-red-500 text-white overflow-hidden text-[15px] flex items-center justify-center font-extrabold'>RT</div>Intro-Animation</a>
+          <a href="#sounds-setting" className='text-red-500 scale-100 hover:text-white hover:scale-105 transition-all duration-200 ease-in-out flex items-center'><VolumeUpIcon sx={{ fontSize: '1.2em' }} />Sounds</a>
+          <a href="#theme-setting" className='text-red-500 scale-100 hover:text-white hover:scale-105 transition-all duration-200 ease-in-out flex items-center'><ColorLensIcon sx={{ fontSize: '1.2em' }} />Theme</a>
+          <a href="#reset-setting" className='text-red-500 scale-100 hover:text-white hover:scale-105 transition-all duration-200 ease-in-out flex items-center' ><RestartAltIcon sx={{ fontSize: '1.2em' }} />Reset</a>
+          <a href="#rtintro-animation-setting" className='text-red-500 hover:text-white hover:scale-105 transition-all duration-200 ease-in-out flex items-center'><div id='rt-icon' className='w-6 h-6 bg-red-500 text-white overflow-hidden text-[15px] flex items-center justify-center font-extrabold rounded-full scale-110'>RT</div>Intro-Animation</a>
         </div>
         <div id='setting-options' className='flex flex-col gap-y-5' style={{ height: '60vh', overflow: 'scroll', scrollBehavior:'smooth'}}>
           <div id='font-setting' className='m-2'>
@@ -112,7 +112,7 @@ const Settings = () => {
                 {/* <div><p id='demo' className='h-16 flex justify-center align-middle items-center text-5xl text-center w-20 transition'>Aa</p></div> */}
                 <div id='caret-style-options' className='grid grid-cols-4 gap-5 text-center'>
                   <button className='w-[7vw] btnSetting transition'>|</button>
-                  <button className='w-[7vw] btnSetting transition flex justify-center items-center' onMouseEnter={mouseEnterStyle} onMouseLeave={mouseLeaveStyle}><div className='w-3 h-5 bg-white transition'></div></button>
+                  <button className='w-[7vw] btnSetting transition flex justify-center items-center hover:bg-white' onMouseEnter={mouseEnterStyle} onMouseLeave={mouseLeaveStyle}><div className='w-3 h-5 transition hover:bg-white'></div></button>
                   <button className='w-[7vw] btnSetting transition text-3xl'>_</button>
                   <button className='w-[7vw] btnSetting transition'>off</button>
                 </div>
@@ -243,7 +243,7 @@ const Settings = () => {
             </div>
           </div>
         </div>
-        <div onClick={scrollToTop} className={`fixed right-56 bottom-28 z-10 inline-block text-white bg-red-900 hover:bg-red-600 rounded-full shadow transition active:scale-90 ${(visible)?'default':'hidden'}`}><KeyboardDoubleArrowUpIcon sx={{fontSize:'70px'}}/></div>   
+        <div onClick={scrollToTop} className={`fixed right-56 bottom-28 z-10 inline-block text-white bg-red-900 hover:bg-red-600 rounded-full shadow transition active:scale-90 ${(visible)?'default':'hidden'}`}><KeyboardDoubleArrowUpIcon sx={{fontSize:'70px'}} className='scrollAnimation'/></div>   
       </div >
     </>
   )

@@ -459,6 +459,19 @@ li:not(:first-child) span {
   transition: all .3s ease-in-out;
 }
 
+@keyframes scrollToTopAnimate {
+  0% {
+    transform: translateY(0);
+  }100%{
+    transform: translateY(-5px);
+  }
+}
+
+.scrollAnimation{
+  transform: translateY(0);
+  animation: scrollToTopAnimate alternate .5s ease-in-out infinite;
+}
+
 .toggle-open{
   height: 300px;
   overflow: hidden;
