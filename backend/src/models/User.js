@@ -46,6 +46,16 @@ const UserSchema = new mongoose.Schema({
             }
         }
     },
+    data: {
+        type: Object,
+        default: {
+            typing_data:{
+                total_wpm:[0],
+                total_accuracy:[0],
+                no_of_test:[0]
+            }
+        },
+    },
     tokens:[
         {
             token:{

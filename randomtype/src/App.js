@@ -10,6 +10,7 @@ import Contact from './components/footer/Contact';
 import Settings from './components/rtsetting/Settings';
 import Logout from './components/Logout/Logout';
 import User from './components/User/User';
+import CarGame from './components/Games/CarGame';
 
 function App() {
   console.log("app.js");
@@ -27,6 +28,7 @@ function App() {
         <Route exact path="/about" component={About} />
         <Route exact path="/contact" component={Contact} />
         <Route exact path="/settings" component={Settings} />
+        <Route exact path="/game" component={CarGame} />
         <Route exact path="/logout" component={Logout} />
       </Switch>
       <Footer />

@@ -265,8 +265,6 @@ tspan {
   transition: all 2s;
 }
 
-
-
 .content-box .typing-text {
   overflow: hidden;
 }
@@ -287,14 +285,19 @@ tspan {
 }
 
 #super-correct{
-  color: white;
+  color: red;
   background-color: transparent;
   border-bottom: none;
   border-radius: 0;
 }
+ 
+.letter{
+  color: rgba(255, 0, 0, 0.3);
+}
 
 .correct {
-  color: greenyellow;
+  color: white;
+  text-shadow: 0 0 5px red;
 }
 
 .incorrect {
@@ -323,6 +326,13 @@ tspan {
   transition: all 0.3s ease-in-out;
 }
 
+/* .pressed,
+.correct,
+.incorrect{
+
+} */
+
+
 #initial-caret{
   opacity: 1;
   transition: all .2s;
@@ -334,6 +344,21 @@ tspan {
     opacity: 0;
   }
 }
+
+.mode>button:hover, .mode>button:active, .mode>button:focus{
+  color: red;
+  background-color: rgba(255, 255, 255, 0.3);
+  transition: all .3s ease-in-out;
+}
+.mode>button{
+  border-radius: 50%;
+  padding: 3px 5px;
+}
+
+h1.mode-heading{
+  color: #fff;
+}
+
 
 /*
 .content-box .content {

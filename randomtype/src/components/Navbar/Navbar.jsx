@@ -20,16 +20,6 @@ const Navbar = () => {
             borderRadius: 5,
             padding: '1px',
         }
-        // '&:active': {
-        //     backgroundColor: 'red',
-        //     borderRadius: 5,
-        //     padding: '1px',
-        // },
-        // '&:focus': {
-        //     backgroundColor: 'red',
-        //     borderRadius: 5,
-        //     padding: '1px',
-        // },
     }
     // console.log("in nav typing_data => ", JSON.parse(localStorage.getItem("typingData")).isAuth );
 
@@ -73,3 +63,26 @@ const Navbar = () => {
 }
 
 export default Navbar;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
+import { Helmet, HelmetProvider } from 'react-helmet-async';
 import axios from 'axios';
 import DoughnutChart from './charts/DoughnutChart';
 // import ResultGraph from '../Result/ResultCharts/ResultGraph';
@@ -34,7 +35,7 @@ const User = () => {
     }
     console.log(getUserData());
     console.log(User);
-  },[])
+  }, [])
 
   useEffect(() => {
     const dateObject = new Date(User.date);
@@ -62,65 +63,68 @@ const User = () => {
     const reader = new FileReader(); // convert select img to url
     reader.addEventListener('load', () => {
       localStorage.setItem("profile-img", reader.result)
-      image.setAttribute("src",reader.result)
+      image.setAttribute("src", reader.result)
     })
     reader.readAsDataURL(event.target.files[0])
   }
 
   return (
     <>
-      <div className="text-white text-center text-5xl mt-[-20px]">User</div>
-      <div id="profile" className='flex flex-col gap-y-5 w-4/5 m-auto'>
-        <div id="profileContainer" className='flex gap-x-20 '>
-          <div id="userInfo" className='inline-block shadow p-5 rounded-md'>
-            <div id="userImg" className='mt-5 mb-[-10px]'>
-              <div className='flex justify-center m-auto mb-10 items-center border border-dashed border-[3px] hover:border-red-500 hover:text-red-500 border-gray-300 text-gray-300 p-5 h-[150px] w-[150px] rounded-full transition-colors duration-300' onClick={handleImageClick}>
-                <img id='userImgDisplayed' src="" className='object-cover cursor-pointer rounded-full scale-150 border border-[3px] border-red-600' />
-                <label id="lblImg" className='text-center p-14 cursor-pointer'>Upload Photo</label>
-                <input type="file" name="file" id="file" ref={inputFile} onChange={fileChange} style={{ display: 'none' }} />
+      <HelmetProvider>
+        <Helmet><title>Profile || RandomType</title></Helmet>
+        <div className="text-white text-center text-5xl mt-[-20px]">User</div>
+        <div id="profile" className='flex flex-col gap-y-5 w-4/5 m-auto'>
+          <div id="profileContainer" className='flex gap-x-20 '>
+            <div id="userInfo" className='inline-block shadow p-5 rounded-md'>
+              <div id="userImg" className='mt-5 mb-[-10px]'>
+                <div className='flex justify-center m-auto mb-10 items-center border border-dashed border-[3px] hover:border-red-500 hover:text-red-500 border-gray-300 text-gray-300 p-5 h-[150px] w-[150px] rounded-full transition-colors duration-300' onClick={handleImageClick}>
+                  <img id='userImgDisplayed' src="" className='object-cover cursor-pointer rounded-full scale-150 border border-[3px] border-red-600' />
+                  <label id="lblImg" className='text-center p-14 cursor-pointer'>Upload Photo</label>
+                  <input type="file" name="file" id="file" ref={inputFile} onChange={fileChange} style={{ display: 'none' }} />
+                </div>
+              </div>
+              <div id="userDetails">
+                <div className='text-white text-xl transition-all duration-1000'>
+                  <h1 className='my-3'> + <b className='text-red-600'>UserName</b> : {User.username}</h1>
+                  <h1 className='my-3'> + <b className='text-red-600'>Email</b> : {User.email}</h1>
+                  <h1 className='my-3'> + <b className='text-red-600'>Phoneno.</b> : {User.phoneno}</h1>
+                  <h1 className='my-3'> + <b className='text-red-600'>Joined</b> : {JoinDate}</h1>
+                </div>
               </div>
             </div>
-            <div id="userDetails">
-              <div className='text-white text-xl transition-all duration-1000'>
-                <h1 className='my-3'> + <b className='text-red-600'>UserName</b> : {User.username}</h1>
-                <h1 className='my-3'> + <b className='text-red-600'>Email</b> : {User.email}</h1>
-                <h1 className='my-3'> + <b className='text-red-600'>Phoneno.</b> : {User.phoneno}</h1>
-                <h1 className='my-3'> + <b className='text-red-600'>Joined</b> : {JoinDate}</h1>
+            <div id="testData">
+              <div id='container-of-typingData' className='flex gap-y-5 flex-col'>
+                <div id='circular-data' className='flex gap-x-10 mt-2'>
+                  <div id='avgWPM' className='text-6xl text-center border border-solid border-white border-[4px] rounded-full p-16 shadow-white'>
+                    <h1 className='data-of-value border-b-4 text-white px-6' style={textStyle}>30</h1>
+                    <h1 className='data-of-key text-red-600'>WPM</h1>
+                  </div>
+                  <div id='avgAccuracy' className='text-6xl text-center border border-solid border-white border-[4px] rounded-full p-16'>
+                    <h1 className='data-of-value border-b-4 text-white px-3' style={textStyle}>99<b className='text-5xl'>%</b></h1>
+                    <h1 className='data-of-key text-red-600'>Acc</h1>
+                  </div>
+                  <div id='noOfTime' className=' text-6xl text-center border border-solid border-white border-[4px] rounded-full p-16'>
+                    <h1 className='data-of-value border-b-4 text-white' style={textStyle}>22</h1>
+                    <h1 className='data-of-key text-red-600'>Test</h1>
+                  </div>
+                </div>
+                <div id='tabular-data' className='text-white text-center border border-2 border-white text-5xl items-center rounded-xl'>
+                  <h1><span className='text-red-600 text-[1em] uppercase'>Time Typing </span> : <span style={textStyle}>1234s</span></h1>
+                </div>
               </div>
             </div>
           </div>
-          <div id="testData">
-            <div id='container-of-typingData' className='flex gap-y-5 flex-col'>
-              <div id='circular-data' className='flex gap-x-10 mt-2'>
-                <div id='avgWPM' className='text-6xl text-center border border-solid border-white border-[4px] rounded-full p-16 shadow-white'>
-                  <h1 className='data-of-value border-b-4 text-white px-6' style={textStyle}>30</h1>
-                  <h1 className='data-of-key text-red-600'>WPM</h1>
-                </div>
-                <div id='avgAccuracy' className='text-6xl text-center border border-solid border-white border-[4px] rounded-full p-16'>
-                  <h1 className='data-of-value border-b-4 text-white px-3' style={textStyle}>99<b className='text-5xl'>%</b></h1>
-                  <h1 className='data-of-key text-red-600'>Acc</h1>
-                </div>
-                <div id='noOfTime' className=' text-6xl text-center border border-solid border-white border-[4px] rounded-full p-16'>
-                  <h1 className='data-of-value border-b-4 text-white' style={textStyle}>22</h1>
-                  <h1 className='data-of-key text-red-600'>Test</h1>
-                </div>
-              </div>
-              <div id='tabular-data' className='text-white text-center border border-2 border-white text-5xl items-center rounded-xl'>
-                <h1><span className='text-red-600 text-[1em] uppercase'>Time Typing </span> : <span style={textStyle}>1234s</span></h1>
-              </div>
+          <div id='charts-data' className='flex gap-x-10 w-[98%] m-auto'>
+            <div id='car-result' className='justify-start'>
+              <DoughnutChart />
+            </div>
+            <div id='all-typing-data-chart' className='w-screen h-52 text-black bg-yellow-300 text-center flex items-center justify-center relative bottom-10'>
+              {/* <ResultGraph/> */}
+              graph chart of the user status of the typing test
             </div>
           </div>
         </div>
-        <div id='charts-data' className='flex gap-x-10 w-[98%] m-auto'>
-          <div id='car-result' className='justify-start'>
-            <DoughnutChart />
-          </div>
-          <div id='all-typing-data-chart' className='w-screen h-52 text-black bg-yellow-300 text-center flex items-center justify-center relative bottom-10'>
-            {/* <ResultGraph/> */}
-            graph chart of the user status of the typing test
-          </div>
-        </div>
-      </div>
+      </HelmetProvider>
     </>
   )
 }
