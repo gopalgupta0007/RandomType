@@ -11,6 +11,7 @@ import Settings from './components/rtsetting/Settings';
 import Logout from './components/Logout/Logout';
 import User from './components/User/User';
 import CarGame from './components/Games/CarGame';
+import Result from './components/Result/Result';
 
 function App() {
   console.log("app.js");
@@ -30,6 +31,7 @@ function App() {
         <Route exact path="/settings" component={Settings} />
         <Route exact path="/game" component={CarGame} />
         <Route exact path="/logout" component={Logout} />
+        <Route exact path="/test" component={Result} />
       </Switch>
       <Footer />
     </div>
