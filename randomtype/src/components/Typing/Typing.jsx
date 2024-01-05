@@ -56,12 +56,13 @@ import NavConfig from '../Mode/NavConfig';
 export function loadParagraph() {
     const index = Math.floor(Math.random() * 10);
     console.log("random num => " + index);
+    // localStorage.setItem("texts-index-num", btoa(index))
     return normalText[index].toLowerCase()
 }
 
-export function getNumberOfWords( text, noOfWords) {
+export function getNumberOfWords(text, noOfWords) {
     const words = text.split(' ');// Split the text into words
-    return words.slice(0, noOfWords).join(' ')+'.';// Take the first 50 words
+    return words.slice(0, noOfWords).join(' ') + '.';// Take the first 50 words
 }
 
 // export const getParagraph =(setText, loadPara)=> {
@@ -102,6 +103,7 @@ const Typing = () => {
     }, []);
 
     function restartTypingTest() {
+        // every time new text give for the test
         setplaceholderText(getNumberOfWords(loadParagraph(), 100))
         const activedCaret = document.querySelectorAll(".active")
         activedCaret.forEach(function (caret) {
@@ -123,7 +125,7 @@ const Typing = () => {
         setIndexNumber(0)
         setLatter("")
         typingContainer.classList.remove("blur-md")
-        focusTyping()
+        // focusTyping()
     }
 
     const handleKeyPress = (event) => {
@@ -314,7 +316,7 @@ const Typing = () => {
             (pressedKey >= 'a' && pressedKey <= 'z')
             || (pressedKey >= '0' && pressedKey <= '9')
             || [" ", '<', '>', ',', '.', '?', '/', ';', ':', "'", '"', '{', '[', ']', '}', '|', '_', '-', '+', '='].includes(pressedKey)
-            || pressedKey == undefined
+            || pressedKey === undefined
         ) {
             compareToTyped(placeholderText, e.target.value);
             setLatter(e.target.value); // store in array pressed letter
@@ -324,7 +326,7 @@ const Typing = () => {
     const focusTyping = () => {
         elementRef.current.focus();
         // compareToTyped()
-        console.log("elementRef => ", elementRef)
+        // console.log("elementRef => ", elementRef)
     }
 
     const countDownTimerMethod = (countdown) => setCountDownTimer(countdown);    // take data from child
@@ -350,9 +352,9 @@ const Typing = () => {
                     </Box>
                     <Box id="typingContainer" className="border-transparent focus:outline-none border-2 h-[30.5vh] m-5 mt-10 mx-10 rounded-lg overflow-scroll" onClick={() => typingContainer.classList.remove("blur-md")} onBlur={() => typingContainer.classList.add("blur-md")}>
                         {/* <div id ='caret' className="w-[25px] h-[.5rem] flex flex-col rounded-md absolute z-10 bg-blue-500"></div> */}
-                        <textarea id="typing" className="rounded-lg bg-blue-300 focus:outline-none resize-none text-5xl w-[100%] h-[100%] caret-transparent text-transparent text-opacity-100 bg-opacity-0 selection:bg-transparent relative z-[-99] transition" style={{ wordBreak: 'break-all', textAlign:'justify',textJustify:'inter-word' }} onScroll={scrolled} name="typing" spellCheck="false" ref={elementRef} onChange={handleTyping} autoFocus={true} value={Letter}></textarea>
+                        <textarea id="typing" className="rounded-lg bg-blue-300 focus:outline-none resize-none text-5xl w-[100%] h-[100%] caret-transparent text-transparent text-opacity-100 bg-opacity-0 selection:bg-transparent relative z-[-99] transition" style={{ wordBreak: 'break-all', textAlign: 'justify', textJustify: 'inter-word' }} onScroll={scrolled} name="typing" spellCheck="false" ref={elementRef} onChange={handleTyping} autoFocus={true} value={Letter}></textarea>
                         <div className="typing-text">
-                            <p id="paragraph" className='rounded-lg bg-orange-300 focus:outline-none resize-none text-5xl w-[100%] h-[100%] caret-transparent select-none relative top-[-30.4vh] bg-opacity-0 pt-2' style={{ wordBreak: 'break-all', textAlign:'justify',textJustify:'inter-word' }} onClick={focusTyping}>
+                            <p id="paragraph" className='rounded-lg bg-orange-300 focus:outline-none resize-none text-5xl w-[100%] h-[100%] caret-transparent select-none relative top-[-30.4vh] bg-opacity-0 pt-2' style={{ wordBreak: 'break-all', textAlign: 'justify', textJustify: 'inter-word' }} onClick={focusTyping}>
                                 {(Letter === "" && IndexNumber === 0) ? <span id='initial-caret' className="relative overflow-hidden transition"><div className="caret absolute w-[.6em] h-[5px] bg-yellow-200 left-0 bottom-0 rounded-sm transition"></div></span> : <span></span>}
                                 {
                                     // placeholderText.split("").map((char, index) => (<span key={index} className={(index === 0) ? 'letter active text-white' : 'letter text-white transition-all duration-200'} >{char}</span>))
@@ -365,8 +367,8 @@ const Typing = () => {
                     </Box>
                     <br />
                     <div className='flex justify-center'>
-                        <button id='re-start-logo' onClick={restartTypingTest}>
-                            <ReplayIcon tabindex="0" className='cursor-pointer text-white rounded-none hover:rounded-md' sx={{ transform: 'scale(1.5)', "&:hover": { transform: 'scale(2)', backgroundColor: 'red' }, "&:active": { transform: 'scale(1.5)' }, transition: 'transform 300ms' }} />
+                        <button id='re-start-logo' onClick={() => restartTypingTest()}>
+                            <ReplayIcon tabIndex="0" className='cursor-pointer text-white rounded-none hover:rounded-md' sx={{ transform: 'scale(1.5)', "&:hover": { transform: 'scale(2)', backgroundColor: 'red', outline: 'none' }, "&:active": { transform: 'scale(1.5)' }, transition: 'transform 300ms' }} />
                         </button><br />
                     </div>
                     <div id='shortcutKeyBar' className='relative bottom-[-7em]'>

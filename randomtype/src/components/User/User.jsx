@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from 'react'
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import axios from 'axios';
 import DoughnutChart from './charts/DoughnutChart';
-// import ResultGraph from '../Result/ResultCharts/ResultGraph';
 
 const User = () => {
   const [User, setUser] = useState({});
@@ -33,7 +32,9 @@ const User = () => {
       image.setAttribute("src", getImgUrl)
       document.getElementById("lblImg").style.display = "none";
     }
+    // alert("data showing")
     console.log(getUserData());
+    // setUser(() => response.data.user)
     console.log(User);
   }, [])
 

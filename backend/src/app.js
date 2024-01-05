@@ -24,9 +24,9 @@ app.use(cookieParser())
 app.use("*",cors({origin:true,credentials:true})) // for cookie
 
 app.use("/users", userRouter);
-app.get("/", (req, res) => {
-    res.send("hello randomType")
-})
+// app.get("/", (req, res) => {
+//     res.send("hello randomType")
+// })
 
 
 // listen on the given port

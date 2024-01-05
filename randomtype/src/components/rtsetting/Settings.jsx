@@ -115,7 +115,7 @@ const Settings = () => {
                   {/* <div><p id='demo' className='h-16 flex justify-center align-middle items-center text-5xl text-center w-20 transition'>Aa</p></div> */}
                   <div id='caret-style-options' className='grid grid-cols-4 gap-5 text-center'>
                     <button className='w-[7vw] btnSetting transition'>|</button>
-                    <button className='w-[7vw] btnSetting transition flex justify-center items-center hover:bg-white' onMouseEnter={mouseEnterStyle} onMouseLeave={mouseLeaveStyle}><div className='w-3 h-5 transition hover:bg-white'></div></button>
+                    <button className='w-[7vw] btnSetting transition flex justify-center items-center hover:bg-white' onMouseEnter={mouseEnterStyle} onMouseLeave={mouseLeaveStyle}><div className='w-3 h-5 transition bg-white'></div></button>
                     <button className='w-[7vw] btnSetting transition text-3xl'>_</button>
                     <button className='w-[7vw] btnSetting transition'>off</button>
                   </div>

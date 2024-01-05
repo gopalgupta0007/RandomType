@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { iconsStyle, boxStyle, btnSubmit, labelStyle } from './sx';
 import MailRoundedIcon from '@mui/icons-material/MailRounded';
 import KeyRoundedIcon from '@mui/icons-material/KeyRounded';
@@ -6,11 +6,12 @@ import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { IconButton, Input, FormControl, InputLabel, InputAdornment, Box, TextField, Button } from '@mui/material'
 import { useHistory } from "react-router-dom";
 import axios from 'axios';
-import { useDispatch } from 'react-redux';
-import { userAuthenticated } from '../../redux/action/Actions';
+import { useDispatch, useSelector } from 'react-redux';
+import { userAuthenticated, userId } from '../../redux/action/Actions';
 
 const Login = () => {
     const dispatch = useDispatch();
+    const author = useSelector(state=>state.AuthorReducer)
     const history = useHistory();
     const [showPassword, setShowPassword] = useState(false);
     const [loginData, setloginData] = useState({
@@ -28,6 +29,10 @@ const Login = () => {
         setloginData({ ...loginData, [e.target.name]: e.target.value })
     }
 
+    useEffect(()=>{
+        localStorage.setItem("authorId", JSON.stringify(author))
+    },[author])
+
     const verifyData = async (e) => {
         try {
             e.preventDefault();
@@ -41,6 +46,8 @@ const Login = () => {
             ) // for cookie because we have to use axious method to fetch data
             console.log("axiosPost.data => ", axiosPost.data);
             dispatch(userAuthenticated())
+            dispatch(userId(axiosPost.data.userFound._id))
+            // dispatch(userAuthenticated(axiosPost.data.userFound._id))
             localStorage.setItem("auth", btoa(true));
             //stored cookie data will push in the database
             alert("logined")

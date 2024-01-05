@@ -38,10 +38,10 @@ const login = async (req, res) => {
             res.status(500).json({ massage: "data not found" })
         };
         if (!is_password_correct) { res.status(500).json({ massage: "data not found" }) };
-        
+
         //jwt => jsonwebtoken
         token = await userFound.generateAuthToken();
-        console.log("token =>",token);
+        console.log("token =>", token);
         res.cookie("jwt", token, {
             expires: new Date(Date.now() + 25892000000), // which is 25892000000=30days(30day * 24hour * 60mint * 60sec * 1000millisec)
             httpOnly: true
@@ -54,10 +54,10 @@ const login = async (req, res) => {
 
 
 const logout = async (req, res) => {
-    res.clearCookie('jwt',{path:"/"})
+    res.clearCookie('jwt', { path: "/" })
     console.log("this user => ", req.user);
     // console.log("total token => ", Users.findOne({_id:req.user}));
-    req.user.tokens = req.user.tokens.filter(currentToken=>currentToken.token!==req.token)
+    req.user.tokens = req.user.tokens.filter(currentToken => currentToken.token !== req.token)
     await req.user.save()
     res.status(200).send("User Logout");
 }
@@ -105,6 +105,31 @@ const updateUser = async (req, res) => {
     return res.status(200).json({ massage: "update successful" });
 }
 
+const updateTyping = async (req, res) => {
+    try {
+        // console.log(req.user);
+        // const authUserId = req.userId;
+        const authUserId = req.params.id;
+        const { wpm, acc } = req.body;
+        // console.log("req.user => ",req.user);
+        let updatedUser = await Users.findByIdAndUpdate(
+            authUserId,
+            { 
+                $push: {
+                    'data.typing_data.total_wpm': wpm,
+                    'data.typing_data.total_accuracy': acc,
+                }, 
+            },
+            { new: true }
+        );
+        // res.json(updatedUser.data);
+    }catch(error) {
+        res.status(500).json({ message: error.message });
+    }
+    return res.status(200).json({ massage: "updated data successful"});
+}
+
+
 
 
 const deleteUser = async (req, res) => {
@@ -121,7 +146,7 @@ const deleteUser = async (req, res) => {
 
 
 
-module.exports = { signup, login, logout, getAllUser, getUserById, updateUser, deleteUser }
+module.exports = { signup, login, logout, getAllUser, getUserById, updateUser, deleteUser, updateTyping }
 
 
 

@@ -46,4 +46,10 @@ const userLogout = () => {
         type: "LOGOUT"
     }
 }
-export { updateWpm, updateAcc, updateTimer, storeWPM, storeAcc, testCounter, userAuthenticated, userLogout}
+const userId = (id) => {
+    return {
+        type: "SET_ID",
+        payloadID:id
+    }
+}
+export { updateWpm, updateAcc, updateTimer, storeWPM, storeAcc, testCounter, userAuthenticated, userLogout, userId}

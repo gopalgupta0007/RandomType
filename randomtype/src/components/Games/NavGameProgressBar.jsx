@@ -11,7 +11,7 @@ const NavGameProgressBar = ({ Letter, placeholderText, CountDownTimer, setCountD
         <div id='display-progress' className='w-4/5 m-auto flex justify-center items-center text-[2vw] font-extrabold'>
             <div id='userData' className='flex flex-col gap-x-14 bg-red-500 text-white px-5 py-3 rounded-tl-xl rounded-bl-xl'>
                 <div>
-                    <h1 className='text-center text-red-950 text-2xl'>User</h1>
+                    <h1 className='text-center text-red-950 text-2xl pr-12'>User</h1>
                 </div>
                 <div className='flex gap-x-12 bg-red-500 text-white px-5 rounded-tl-xl rounded-bl-xl'>
                     <div id='user-wpm' className='flex border border-0 border-r-2 pr-12'>

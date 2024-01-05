@@ -11,6 +11,11 @@ import bellSound from '../Typing/keyboardSound/lightBell.mp3';
 import typeError from '../Typing/keyboardSound/TypeError2.mp3';
 import { getNumberOfWords, loadParagraph } from '../Typing/Typing';
 
+function compareTo(text1, text2) {
+    if ((text1.length === text2.length) && (text1 === text2)) { return true }
+    else { return false }
+}
+
 const CarGame = () => {
     const cargametypingContainer = document.getElementById("cargametypingContainer");
     const elemtRef = useRef(null);
@@ -31,19 +36,27 @@ const CarGame = () => {
         setCarTextPlaceholderText(getNumberOfWords(loadParagraph(), 50))
     }, []);
 
+    useEffect(() => {
+        console.log("hello");
+    })
+
     function compareToTypedLetter(text1, text2 = 'Backspace') {
         // alert("compareToTyped method is runned")
         var words = document.getElementsByClassName("gameletter");
+        const car = document.getElementById("user-car");
         if (text2[CarCharIndexNumber] === undefined && text2[CarCharIndexNumber] !== " ") {
             // backspace
             playbackspaceSound();
-            setCargameIncorrectLetter(CargameIncorrectLetter - 1)
             words[CarCharIndexNumber].classList.remove("active")
             setCarCharIndexNumber(CarCharIndexNumber - 1)
             words[CarCharIndexNumber - 1].classList.add("active")
             words[CarCharIndexNumber - 1].classList.remove("pressed")
             words[CarCharIndexNumber - 1].classList.remove("incorrect")
             words[CarCharIndexNumber - 1].classList.remove("correct")
+            if ((text1[CarCharIndexNumber - 1] === " ") && (compareTo(text1.slice(0, CarCharIndexNumber + 1), text2))) {
+                setCarMoveingPoint(CarMoveingPoint - 1)
+                car.style.transform = `translateX(${1.32 * CarMoveingPoint}vw) scale(.7,.6)`;
+            }
         } else if (text1[CarCharIndexNumber] === text2[CarCharIndexNumber]) {
             // correct
             playCorrectKeySound();   // correct key pressed then sound played like typewriter
@@ -53,12 +66,10 @@ const CarGame = () => {
             words[CarCharIndexNumber + 1].classList.add("active");
             words[CarCharIndexNumber].classList.add("correct")
             // only for car move
-            if((text1[CarCharIndexNumber]===" ")&&(text2[CarCharIndexNumber]===" ")){
-                if((text1[CarCharIndexNumber-1]!==" ")&&(text1[CarCharIndexNumber+1]!==" ")){
-                    setCarMoveingPoint(CarMoveingPoint+1)
-                    // alert("car move");
-                    const car = document.getElementById("user-car");
-                    car.style.transform = `translateX(${1.32*CarMoveingPoint}vw) scale(.7,.6)`;
+            if ((text1[CarCharIndexNumber] === " ") && (text2[CarCharIndexNumber] === " ") && (compareTo(text1.slice(0, CarCharIndexNumber + 1), text2))) {
+                if ((text1[CarCharIndexNumber - 1] !== " ") && (text1[CarCharIndexNumber + 1] !== " ")) {
+                    setCarMoveingPoint(CarMoveingPoint + 1)
+                    car.style.transform = `translateX(${1.32 * CarMoveingPoint}vw) scale(.7,.6)`;
                 }
             }
             if (text1[0] === text2[CarCharIndexNumber]) { words[CarCharIndexNumber].classList.add("pressed") }
@@ -100,17 +111,17 @@ const CarGame = () => {
                 <Container maxWidth="xl">
                     <NavConfig mode={"car-game-mode"} />
                     <Box id="display-car-progress" className="mt-2">
-                        <NavGameProgressBar Letter={CarLetter} placeholderText={CarTextplaceholderText} CountDownTimer={CargameCountDownTimer} setCountDownTimer={setCargameCountDownTimer} IncorrectLetter={CargameIncorrectLetter}/>
+                        <NavGameProgressBar Letter={CarLetter} placeholderText={CarTextplaceholderText} CountDownTimer={CargameCountDownTimer} setCountDownTimer={setCargameCountDownTimer} IncorrectLetter={CargameIncorrectLetter} />
                         <div id='view-carProgress' className='w-11/12 h-52 grid grid-rows-2 gap-0 p-3 bg-white bg-opacity-30 mx-auto mt-1 rounded-xl pl-5'>
                             <div className='flex justify-between pb-3'>
-                                <div className='flex items-center'>
+                                <div className='w-full flex items-center border border-0 border-b-2 border-black'>
                                     <div className='w-28 text-xl border border-r-2 border-r-white border-0 py-5'>strenger</div>
                                     <img src={car} id='strenger-car' className='carMove' alt="car" />
                                 </div>
                                 <img src={flag} className='flag' alt="flag" />
                             </div>
                             <div className='flex justify-between border border-0 border-t-2 border-white pt-3'>
-                                <div className='flex items-center'>
+                                <div className='w-full flex items-center border border-0 border-b-2 border-black'>
                                     <div className='w-28 text-xl border border-r-2 border-r-white border-0 py-5'>user----</div>
                                     <img src={car} id='user-car' className='carMove' alt="car" />
                                 </div>
@@ -118,7 +129,7 @@ const CarGame = () => {
                             </div>
                         </div>
                     </Box>
-                    <Box id="cargametypingContainer" className="w-11/12 mx-auto mt-1 focus:outline-none h-[22vh] rounded-xl overflow-hidden bg-green-300 bg-opacity-40" onClick={() => cargametypingContainer.classList.remove("blur-md")} onBlur={() => cargametypingContainer.classList.add("blur-md")}>
+                    <Box id="cargametypingContainer" className="w-11/12 mx-auto mt-1 focus:outline-none h-[22vh] rounded-xl overflow-hidden bg-cyan-300 bg-opacity-40" onClick={() => cargametypingContainer.classList.remove("blur-md")} onBlur={() => cargametypingContainer.classList.add("blur-md")}>
                         <textarea id="cargame-typing" className="rounded-lg bg-blue-300 focus:outline-none resize-none text-3xl w-[100%] h-[100%] caret-transparent text-transparent text-opacity-100 bg-opacity-0 selection:bg-transparent relative z-[-99] transition" style={{ wordBreak: 'break-all', textAlign: 'justify', textJustify: 'inter-word' }} ref={elemtRef} name="cargame-typing" spellCheck="false" onChange={handleCarGameTyping} autoFocus={true} value={CarLetter}></textarea>
                         <div className="cargame-typing-text">
                             <p id="cargame-paragraph" className='rounded-lg bg-orange-300 focus:outline-none resize-none text-3xl w-[100%] h-[100%] caret-transparent select-none relative top-[-30.4vh] bg-opacity-0 pt-16 px-3' style={{ wordBreak: 'break-all', textAlign: 'justify', textJustify: 'inter-word' }} onClick={focusCargameTyping}>
@@ -129,6 +140,10 @@ const CarGame = () => {
                             </p>
                         </div>
                     </Box>
+                    <div id='btnGame' className='w-11/12 mx-auto mt-4 flex justify-start gap-x-3'>
+                        <button className='btnSetting transition shadow text-white scale-100 active:scale-95' style={{padding:'10px 20px'}}>Play With Friend</button>
+                        <button className='btnSetting transition shadow text-white scale-100 active:scale-95' style={{padding:'10px 20px'}}>Play with Stranger</button>
+                    </div>
                 </Container>
             </HelmetProvider>
         </>
