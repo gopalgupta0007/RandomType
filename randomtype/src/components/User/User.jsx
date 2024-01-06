@@ -2,8 +2,12 @@ import React, { useEffect, useRef, useState } from 'react'
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import axios from 'axios';
 import DoughnutChart from './charts/DoughnutChart';
+import { useDispatch } from 'react-redux';
+import { setUserData } from '../../redux/action/Actions';
 
 const User = () => {
+  // debugger
+  const dispatch = useDispatch();
   const [User, setUser] = useState({});
   const [JoinDate, setJoinDate] = useState();
   const inputFile = useRef(null);
@@ -21,6 +25,7 @@ const User = () => {
       .then(response => {
         console.log(response.data.user)
         setUser(() => response.data.user)   //if you need to store data in useState hook when the data comes form backend
+        dispatch(setUserData(response.data.user))
       })
       .catch(error => error);
   }
@@ -34,6 +39,7 @@ const User = () => {
     }
     // alert("data showing")
     console.log(getUserData());
+
     // setUser(() => response.data.user)
     console.log(User);
   }, [])

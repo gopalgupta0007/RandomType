@@ -106,13 +106,14 @@ const updateUser = async (req, res) => {
 }
 
 const updateTyping = async (req, res) => {
+    let updatedUser
     try {
         // console.log(req.user);
         // const authUserId = req.userId;
         const authUserId = req.params.id;
         const { wpm, acc } = req.body;
         // console.log("req.user => ",req.user);
-        let updatedUser = await Users.findByIdAndUpdate(
+        updatedUser = await Users.findByIdAndUpdate(
             authUserId,
             { 
                 $push: {
@@ -126,7 +127,7 @@ const updateTyping = async (req, res) => {
     }catch(error) {
         res.status(500).json({ message: error.message });
     }
-    return res.status(200).json({ massage: "updated data successful"});
+    return res.status(200).send({ massage: "updated data successful" });
 }
 
 

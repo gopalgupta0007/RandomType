@@ -29,9 +29,9 @@ const Login = () => {
         setloginData({ ...loginData, [e.target.name]: e.target.value })
     }
 
-    useEffect(()=>{
-        localStorage.setItem("authorId", JSON.stringify(author))
-    },[author])
+    // useEffect(()=>{
+    //     localStorage.setItem("authorId", JSON.stringify(author))
+    // },[author])
 
     const verifyData = async (e) => {
         try {

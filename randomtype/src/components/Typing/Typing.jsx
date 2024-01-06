@@ -19,6 +19,7 @@ import NavConfig from '../Mode/NavConfig';
 // let noOfFirstLineCharacter = 0
 // let scrollNum = 0;
 // function nextLineStartCaret(typing = document.getElementById('typing')) {
+//     console.log("nextLineStartCaret start");
 //     // fully smooth movement of caret x-axis and y-axis also
 //     // this 1.8 has 54% of original text
 //     let xvalue = 1.8 * typing.selectionStart;
@@ -46,6 +47,7 @@ import NavConfig from '../Mode/NavConfig';
 //     // console.log("nonCaret => " + Math.round(xvalue/1.8) + " || " + "Orignal Caret => " + typing.selectionStart);
 //     // console.log("y => ",Math.trunc(3 * Math.trunc(1.8 * typing.selectionStart / Math.trunc(typing.offsetWidth / 14))));
 //     caret.style.transition = "transform 0.2s"; // The caret is moving smoothly due to its transition duration being set to 200ms.7
+//     console.log("nextLineStartCaret end");
 // }
 // xvalue = (xvalue - ((noOfFirstLineCharacter * 1.8) * Math.trunc(1.8 * typing.selectionStart / Math.trunc(typing.offsetWidth / 14))));
 // xvalue = ((xvalue-(1.8*Math.trunc(1.8 * typing.selectionStart / Math.trunc(typing.offsetWidth / 14)))) - ((noOfFirstLineCharacter * 1.8) * Math.trunc(1.8 * typing.selectionStart / Math.trunc(typing.offsetWidth / 14))));
@@ -71,6 +73,7 @@ export function getNumberOfWords(text, noOfWords) {
 const Typing = () => {
     // document.getElementsByClassName("letter")[0].classList.add("active");
     const typingContainer = document.getElementById("typingContainer");
+    
     // var typing = document.getElementById("typing");
     const elementRef = useRef(null);
     const [Letter, setLatter] = useState("");
@@ -86,7 +89,7 @@ const Typing = () => {
     const [playbackspaceSound] = useSound(typeError, { volume: 5 });
 
 
-
+    
     const scrolled = () => {
         // when typing element of scroll occured then placeholder of an element scrolled according the of textarea  
         var typing = document.getElementById('typing');
@@ -95,13 +98,13 @@ const Typing = () => {
         placeholder.scrollTop = typing.scrollTop;
         // typing.scrollTop = placeholder.scrollTop;
     }
-
+    
     useEffect(() => {
         //generate random number and the according to that number of index of array of the paragram will it be selected
         // getParagraph(setplaceholderText, loadParagraph
         setplaceholderText(getNumberOfWords(loadParagraph(), 100))
     }, []);
-
+    
     function restartTypingTest() {
         // every time new text give for the test
         setplaceholderText(getNumberOfWords(loadParagraph(), 100))
@@ -257,6 +260,7 @@ const Typing = () => {
                 words[IndexNumber - 1].classList.remove("pressed")
                 words[IndexNumber - 1].classList.remove("incorrect")
                 words[IndexNumber - 1].classList.remove("correct")
+                // nextLineStartCaret()
                 // span[IndexNumber + 3 - 1].classList.add("active");
                 // console.log(text1[IndexNumber] + "||" + text2[IndexNumber] + " index => " + IndexNumber);
                 // console.log("Backspace");
@@ -293,6 +297,7 @@ const Typing = () => {
                 setIncorrectLetter(IncorrectLetter + 1)
                 // smoothCaretMotion();
                 // span[IndexNumber + 4 - 1].classList.remove("active");
+                // nextLineStartCaret()
                 words[IndexNumber].classList.remove("active");
                 setIndexNumber(IndexNumber + 1);
                 words[IndexNumber + 1].classList.add("active");

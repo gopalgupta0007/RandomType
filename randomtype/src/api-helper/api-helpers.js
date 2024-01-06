@@ -1,8 +1,11 @@
-import axios from "axios";
+import axios from 'axios';
 
-export const getUserData = async () => {
-    const res = await axios.get("/users/about")
-    console.log(res.data.user);
-    const data = await res.data;
-    return data;
-}
+export const fetchData = async () => {
+    try {
+        const response = await axios.get("/users/about", { headers: { "Content-Type": "application/json" }, withCredentials: true });
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        throw error;
+    }
+};

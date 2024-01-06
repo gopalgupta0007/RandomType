@@ -4,16 +4,31 @@ import ShowResult from './ShowResult';
 
 Chart.register(...registerables);
 
-const ResultGraph = ({typingData}) => {
+const ResultGraph = ({ typingData }) => {
 	console.log("ResultGraph");
 	const chartRef = useRef(null);
+	console.log(typingData);
+
+	const no_of_test = (index) => {
+		const myArray = [];
+		for (let i = 0; i <= index; i++) myArray.push(i);
+		return myArray
+	}
 
 	useEffect(() => {
 		let chartInstance = null;
+		console.log(typingData);
+		const wpmData = typingData.typing_data.total_wpm; // store wpm data
+		const accuracyData = typingData.typing_data.total_accuracy; // store accuracy
+		// if (condition) {
 
-		const xValues = typingData.typing_test_data.no_of_test; // how much time user giving test
-		const wpmData = typingData.typing_test_data.total_wpm; // store wpm data
-		const accuracyData = typingData.typing_test_data.total_accuracy; // store accuracy
+		// } else {
+
+		// }
+		const xValues = no_of_test(wpmData.length) // how much time user giving test
+		// const xValues = typingData.typing_data.no_of_test // how much time user giving test
+		// const xValues = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30] // how much time user giving test
+		// const xValues = no_of_test(typingData.typing_data.total_wpm.length); // how much time user giving test
 
 		const ctx = chartRef.current.getContext('2d');
 

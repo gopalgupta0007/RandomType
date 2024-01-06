@@ -1,10 +1,10 @@
 import { NavLink } from "react-router-dom";
-import { memo, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import ResultGraph from "./ResultCharts/ResultGraph";
 import ReplayIcon from '@mui/icons-material/Replay';
 import DirectionsCarFilledOutlinedIcon from '@mui/icons-material/DirectionsCarFilledOutlined';
 import PhotoSizeSelectActualOutlinedIcon from '@mui/icons-material/PhotoSizeSelectActualOutlined';
-import { storeAcc, storeWPM, testCounter } from "../../redux/action/Actions";
+import { setUserData, storeAcc, storeWPM, testCounter, userId } from "../../redux/action/Actions";
 import { useDispatch, useSelector } from "react-redux";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import html2canvas from 'html2canvas';
@@ -13,41 +13,69 @@ import axios from "axios";
 
 const Result = ({ restartTypingTest }) => {
   const auth = useSelector(state => state.AuthReducer)
-  const author = useSelector(state => state.AuthorReducer.id)
+  const author = useSelector(state => state.AuthorReducer)
   const typing_data = useSelector((state) => state.TypingTestReducer)
+  // const [AuthorData, setAuthorData] = useState({})
   const [testData, setTestData] = useState({
     wpm: Math.round(typing_data.word_per_minute),
     acc: Math.round(typing_data.typing_accuracy)
   })
+  // let AuthorData ;
   console.log("Result");
+  console.log(author.data.data);
   const dispatch = useDispatch();
+
+  const fetchData = async () => {
+    try {
+      await axios.get("/users/about",
+        {
+          headers: { "Content-Type": "application/json" },
+          withCredentials: true
+        }).then(res => {
+          console.log(res.data.user)
+          dispatch(userId(res.data.user._id))
+          dispatch(setUserData(res.data.user))
+        }).catch(err => console.error(err))
+      // return response.data;
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      throw error;
+    }
+  };
+
 
   const updateTypingData = async () => {
     try {
       console.log(author);
-      const updateTyping = await axios.patch(`/users/updatetyping/${author}`, testData,
+      const updateTyping = await axios.patch(`/users/updatetyping/${author.id}`, testData,
         {
           headers: { "Content-Type": "application/json" },
           withCredentials: true
         }
       ) // for cookie because we have to use axious method to fetch data
       console.log("updateTyping :=> ", updateTyping);
+      // AuthorData = updateTyping.data.updatedUser.data;
+      // console.log(AuthorData);
+      // setAuthorData(()=>AuthorData);
+      // console.log(AuthorData);
     } catch (err) {
       console.log(err);
     }
   }
+
   useEffect(() => {
     // console.log(auth2);
     setTestData({ wpm: typing_data.word_per_minute, acc: typing_data.typing_accuracy })
     // console.log("testData : ", testData);
     if (auth) {
       updateTypingData()
-      // console.log(typing_data.word_per_minute)
-      // console.log(typing_data.typing_accuracy)
+      fetchData()
+      // getFetchData()
+      // console.log(AuthorData);
     } else {
       dispatch(storeWPM(typing_data.word_per_minute))  // use to store all wpm data into the array
       dispatch(storeAcc(typing_data.typing_accuracy))  // use to store all accuracy data into the array
-      dispatch(testCounter(typing_data.typing_test_data.total_wpm.length))  // use to store data into the array
+      dispatch(testCounter(typing_data.typing_data.total_wpm.length))  // use to store data into the array
     }
   }, [])
   localStorage.setItem("typingData", JSON.stringify(typing_data)); //set all dispatched/change value to store in localstorage 
@@ -65,7 +93,10 @@ const Result = ({ restartTypingTest }) => {
     <>
       <HelmetProvider>
         <Helmet><title>Result || RandomType</title></Helmet>
-        <ResultGraph typingData={typing_data} />
+        {/* {console.log(AuthorData)} */}
+        {/* {!auth && <ResultGraph typingData={typing_data} />}
+        {auth&&<ResultGraph typingData={author.data.data} />} */}
+        <ResultGraph typingData={auth?author.data.data:typing_data} />
         {(!auth) && <div className="text-white text-center mt-10" >
           <a href="/login" className="font-bold underline" >Sign in</a> to save your result
         </div>}
@@ -121,4 +152,4 @@ const Result = ({ restartTypingTest }) => {
   );
 }
 
-export default memo(Result);
+export default Result;

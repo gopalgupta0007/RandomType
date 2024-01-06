@@ -11,9 +11,45 @@ import Settings from './components/rtsetting/Settings';
 import Logout from './components/Logout/Logout';
 import User from './components/User/User';
 import CarGame from './components/Games/CarGame';
-import Result from './components/Result/Result';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { setUserData, userId } from './redux/action/Actions';
+import axios from 'axios';
 
-function App() {
+const App = () => {
+  const dispatch = useDispatch();
+  const author = useSelector(state => state.AuthorReducer)
+  const auth = useSelector(state => state.AuthReducer)
+
+  const fetchData = async () => {
+    try {
+      await axios.get("/users/about",
+        {
+          headers: { "Content-Type": "application/json" },
+          withCredentials: true
+        }).then(res => {
+          console.log(res.data.user)
+          dispatch(userId(res.data.user._id))
+          dispatch(setUserData(res.data.user))
+        }).catch(err => console.error(err))
+      // return response.data;
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      throw error;
+    }
+  };
+
+  useEffect(() => {
+    if (auth) {
+      fetchData();
+      console.log(author);
+    }
+  }, [])
+  // console.log(author);
+  // useEffect(() => {
+  //   localStorage.setItem("authorId", JSON.stringify(author))
+  //   // dispatch(setUserData(response.data.user))
+  // }, [author])
   console.log("app.js");
   return (
     <div className="App">
@@ -31,7 +67,6 @@ function App() {
         <Route exact path="/settings" component={Settings} />
         <Route exact path="/game" component={CarGame} />
         <Route exact path="/logout" component={Logout} />
-        <Route exact path="/test" component={Result} />
       </Switch>
       <Footer />
     </div>
