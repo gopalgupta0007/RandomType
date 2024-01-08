@@ -5,7 +5,8 @@ import { NavLink } from 'react-router-dom';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { useDispatch } from 'react-redux';
 import { userLogout } from '../../redux/action/Actions';
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Logout = () => {
     const dispatch = useDispatch();
@@ -16,7 +17,8 @@ const Logout = () => {
             axios.get("/users/logout", { headers: { "Content-Type": "application/json" }, withCredentials: true })
             dispatch(userLogout())
             localStorage.setItem("auth", btoa(false));
-            alert("logout")
+            // alert("logout")
+            toast.success("Logout successfull")
             history.push('/');
             window.location.reload();
         } catch (err) {
@@ -24,17 +26,20 @@ const Logout = () => {
         }
     }
     return (
-        <NavLink to="/" id="userLogout" onClick={logoutUser} className="flex gap-x-2 text-white hover:text-gray-200 mb-[40px] mt-12 mr-12 scale-[1.85] hover:scale-[2.2] transition-transform duration-300"  >
-            <LogoutIcon sx={{
-                backgroundColor: 'transparent',
-                transition: 'background-color 0.3s, border-radius 0.5s',
-                '&:hover': {
-                    backgroundColor: 'red',
-                    borderRadius: 5,
-                    padding: '1px',
-                },
-            }} />
-        </NavLink>
+        <>
+            <NavLink to="/" id="userLogout" onClick={logoutUser} className="flex gap-x-2 text-white hover:text-gray-200 mb-[40px] mt-12 mr-12 scale-[1.85] hover:scale-[2.2] transition-transform duration-300"  >
+                <LogoutIcon sx={{
+                    backgroundColor: 'transparent',
+                    transition: 'background-color 0.3s, border-radius 0.5s',
+                    '&:hover': {
+                        backgroundColor: 'red',
+                        borderRadius: 5,
+                        padding: '1px',
+                    },
+                }} />
+            </NavLink>
+            <ToastContainer />
+        </>
     )
 }
 

@@ -4,14 +4,14 @@ import ResultGraph from "./ResultCharts/ResultGraph";
 import ReplayIcon from '@mui/icons-material/Replay';
 import DirectionsCarFilledOutlinedIcon from '@mui/icons-material/DirectionsCarFilledOutlined';
 import PhotoSizeSelectActualOutlinedIcon from '@mui/icons-material/PhotoSizeSelectActualOutlined';
-import { setUserData, storeAcc, storeWPM, testCounter, userId } from "../../redux/action/Actions";
+import { setUserData, storeAcc, storeWPM, testCounter } from "../../redux/action/Actions";
 import { useDispatch, useSelector } from "react-redux";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import html2canvas from 'html2canvas';
 import axios from "axios";
 (localStorage.getItem("typingData") === null) && window.location.reload(); //if the localstoage is null to that automaticlly reload page once
 
-const Result = ({ restartTypingTest }) => {
+const Result = ({ restartTypingTest, keyData }) => {
   const auth = useSelector(state => state.AuthReducer)
   const author = useSelector(state => state.AuthorReducer)
   const typing_data = useSelector((state) => state.TypingTestReducer)
@@ -22,7 +22,9 @@ const Result = ({ restartTypingTest }) => {
   })
   // let AuthorData ;
   console.log("Result");
-  console.log(author.data.data);
+  console.log(author.UserData._id);
+  console.log(author.UserData);
+  // console.log(author.data.data);
   const dispatch = useDispatch();
 
   const fetchData = async () => {
@@ -33,7 +35,7 @@ const Result = ({ restartTypingTest }) => {
           withCredentials: true
         }).then(res => {
           console.log(res.data.user)
-          dispatch(userId(res.data.user._id))
+          // dispatch(userId(res.data.user._id))
           dispatch(setUserData(res.data.user))
         }).catch(err => console.error(err))
       // return response.data;
@@ -47,7 +49,7 @@ const Result = ({ restartTypingTest }) => {
   const updateTypingData = async () => {
     try {
       console.log(author);
-      const updateTyping = await axios.patch(`/users/updatetyping/${author.id}`, testData,
+      const updateTyping = await axios.patch(`/users/updatetyping/${author.UserData._id}`, testData,
         {
           headers: { "Content-Type": "application/json" },
           withCredentials: true
@@ -96,13 +98,13 @@ const Result = ({ restartTypingTest }) => {
         {/* {console.log(AuthorData)} */}
         {/* {!auth && <ResultGraph typingData={typing_data} />}
         {auth&&<ResultGraph typingData={author.data.data} />} */}
-        <ResultGraph typingData={auth?author.data.data:typing_data} />
+        <ResultGraph typingData={auth?author.UserData.data:typing_data} keyData={keyData} />
         {(!auth) && <div className="text-white text-center mt-10" >
           <a href="/login" className="font-bold underline" >Sign in</a> to save your result
         </div>}
         <br />
-        <div className="flex justify-center relative z-50 left-28">
-          <div id="result-icons" className="w-3/4 flex justify-around" >
+        <div className="flex justify-end relative z-50">
+          <div id="result-icons" className="w-1/2 flex justify-around mx-20" >
             <div id='re-start-logo2' className='text-center mt-5'>
               <NavLink to="/" tabIndex="2">
                 <ReplayIcon

@@ -1,11 +1,10 @@
 import React, { useEffect, useRef } from 'react';
 import { Chart, registerables } from 'chart.js';
-import ShowResult from './ShowResult';
 
 Chart.register(...registerables);
 
-const ResultGraph = ({ typingData, keyData }) => {
-	console.log("ResultGraph");
+const LineChart = ({ typingData }) => {
+	console.log("LineChart");
 	const chartRef = useRef(null);
 	// console.log(typingData);
 
@@ -107,10 +106,7 @@ const ResultGraph = ({ typingData, keyData }) => {
 	return (
 		<>
 			<section className='flex justify-center'>
-				<div>
-					<ShowResult keyData={keyData} />
-				</div>
-				<div style={{ width: '80%', height: '30rem', transition : 'all .1s' }}>
+				<div style={{ width: '80%', height: '20rem', transition : 'all .1s' }}>
 					<canvas ref={chartRef} style={{ width: '100%', height: '100%', transition : 'all .1s' }} />
 				</div>
 			</section>
@@ -118,4 +114,4 @@ const ResultGraph = ({ typingData, keyData }) => {
 	);
 };
 
-export default ResultGraph;
+export default LineChart;

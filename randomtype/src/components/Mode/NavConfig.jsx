@@ -3,6 +3,11 @@ import { NavLink } from 'react-router-dom'
 import { useLocation } from 'react-router-dom';
 
 const NavConfig = ({ mode }) => {
+
+    const btnGroup = () =>{
+        return 0
+    }
+
     const location = useLocation();
     return (
         <>
@@ -21,12 +26,12 @@ const NavConfig = ({ mode }) => {
                         :
                         // if location on the page is "/"
                         <div id='test-options' className='w-[50vw] flex justify-around items-center bg-red-950 py-2 text-white transition'>
-                            <div id='mode-container' className='mode flex gap-2 justify-center items-center border border-0 border-r-2 pr-5'>
+                            <div id='mode-container' className='btn-group mode flex gap-2 justify-center items-center border border-0 border-r-2 pr-5'>
                                 <h1 className='mode-heading'>mode : </h1>
-                                <button>simple</button>
-                                <button>number</button>
-                                <button>random</button>
-                                <button>custom</button>
+                                <button onClick={()=>btnGroup(1,this)}>simple</button>
+                                <button onClick={()=>btnGroup(2,this)}>number</button>
+                                <button onClick={()=>btnGroup(3,this)}>random</button>
+                                <button onClick={()=>btnGroup(4,this)}>custom</button>
                             </div>
                             <div id='text-container' className='mode flex gap-2 justify-center items-center border border-0 border-r-2 pr-5'>
                                 <h1 className='mode-heading'>text : </h1>

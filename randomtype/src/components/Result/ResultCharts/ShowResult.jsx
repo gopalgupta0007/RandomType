@@ -2,7 +2,10 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 
 
-const ShowResult = () => {
+const ShowResult = ({keyData}) => {
+  console.log(keyData);
+  const {Letter, IndexNumber, IncorrectLetter, CorrectLetter, placeholderText} = keyData;
+  // console.log(CorrectLetter);
   const typingData = useSelector((state) => state.TypingTestReducer)
 
   return (
@@ -19,9 +22,15 @@ const ShowResult = () => {
         <h1 className='text-red-600 text-center'>30s</h1> {/*selected time show over here*/}
         <h1 className='text-gray-500 text-center'>Time</h1>
       </div>
-      <div className='flex flex-col mt-5 absolute bottom-24'>
-        <h1 className='text-red-600 text-center'>5/76/100</h1> {/*selected time show over here*/}
-        <h1 className='text-gray-500 text-xl'>Incorrect/Correct/Total</h1>
+      <div className='flex gap-x-28 mt-5 mx-5 absolute bottom-24'>
+        <div>
+          <h1 className='text-red-600 text-center'>{IncorrectLetter}/{CorrectLetter}/{placeholderText.length}</h1> {/*selected time show over here*/}
+          <h1 className='text-gray-500 text-xl'>Incorrect/Correct/Total</h1>
+        </div>
+        <div>
+          <h1 className='text-red-600 text-center'>{placeholderText.length-IndexNumber}/{IndexNumber}</h1> {/*selected time show over here*/}
+          <h1 className='text-gray-500 text-xl'>NotTyped/Typed</h1>
+        </div>
       </div>
     </div>
   );

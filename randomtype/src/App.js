@@ -12,40 +12,45 @@ import Logout from './components/Logout/Logout';
 import User from './components/User/User';
 import CarGame from './components/Games/CarGame';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
-import { setUserData, userId } from './redux/action/Actions';
+import { useEffect, useReducer, useState } from 'react';
+import { setUserData } from './redux/action/Actions';
 import axios from 'axios';
 
 const App = () => {
   const dispatch = useDispatch();
+  // const [Data, setData] = useState({});
   const author = useSelector(state => state.AuthorReducer)
   const auth = useSelector(state => state.AuthReducer)
-
-  const fetchData = async () => {
-    try {
-      await axios.get("/users/about",
-        {
-          headers: { "Content-Type": "application/json" },
-          withCredentials: true
-        }).then(res => {
-          console.log(res.data.user)
-          dispatch(userId(res.data.user._id))
-          dispatch(setUserData(res.data.user))
-        }).catch(err => console.error(err))
-      // return response.data;
-    } catch (error) {
-      console.error('Error fetching data:', error);
-      throw error;
-    }
-  };
-
+  // useEffect(()=>{
+  // },[author])
+  
   useEffect(() => {
     if (auth) {
+      const fetchData = async () => {
+        try {
+          await axios.get("/users/about",
+          {
+            headers: { "Content-Type": "application/json" },
+            withCredentials: true
+          }).then(res => {
+            console.log(res.data.user)
+            // dispatch(userId(res.data.user._id))
+            dispatch(setUserData(res.data.user))
+            localStorage.setItem("DBdata", btoa(JSON.stringify(res.data.user.data)))
+            // console.log(Data);
+            }).catch(err => console.error(err))
+          // return response.data;
+        } catch (error) {
+          console.error('Error fetching data:', error);
+          throw error;
+        }
+      };
       fetchData();
+      // forceUpdate();
       console.log(author);
     }
   }, [])
-  // console.log(author);
+  console.log(author.UserData);
   // useEffect(() => {
   //   localStorage.setItem("authorId", JSON.stringify(author))
   //   // dispatch(setUserData(response.data.user))

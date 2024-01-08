@@ -7,11 +7,13 @@ import { IconButton, Input, FormControl, InputLabel, InputAdornment, Box, TextFi
 import { useHistory } from "react-router-dom";
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
-import { userAuthenticated, userId } from '../../redux/action/Actions';
+import { userAuthenticated } from '../../redux/action/Actions';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Login = () => {
     const dispatch = useDispatch();
-    const author = useSelector(state=>state.AuthorReducer)
+    const author = useSelector(state => state.AuthorReducer)
     const history = useHistory();
     const [showPassword, setShowPassword] = useState(false);
     const [loginData, setloginData] = useState({
@@ -46,11 +48,12 @@ const Login = () => {
             ) // for cookie because we have to use axious method to fetch data
             console.log("axiosPost.data => ", axiosPost.data);
             dispatch(userAuthenticated())
-            dispatch(userId(axiosPost.data.userFound._id))
+            // dispatc(axiosPost.data.userFound._id))
             // dispatch(userAuthenticated(axiosPost.data.userFound._id))
             localStorage.setItem("auth", btoa(true));
             //stored cookie data will push in the database
-            alert("logined")
+            // alert("logined")
+            toast.success("logined successfull")
             history.push('/');
             // e.preventDefault()
             // window.location.reload();
@@ -99,6 +102,7 @@ const Login = () => {
                     </Button>
                 </Box>
             </form>
+            <ToastContainer />
         </>
     )
 }

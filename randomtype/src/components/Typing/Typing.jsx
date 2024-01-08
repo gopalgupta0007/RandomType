@@ -75,12 +75,13 @@ const Typing = () => {
     const typingContainer = document.getElementById("typingContainer");
     
     // var typing = document.getElementById("typing");
+    // const [textsIndexNumber, settextsIndexNumber] = useState(0);
     const elementRef = useRef(null);
     const [Letter, setLatter] = useState("");
     const [IndexNumber, setIndexNumber] = useState(0);
-    // const [textsIndexNumber, settextsIndexNumber] = useState(0);
     const [CountDownTimer, setCountDownTimer] = useState(30); // Timer component set the time
     const [IncorrectLetter, setIncorrectLetter] = useState(0);
+    const [CorrectLetter, setCorrectLetter] = useState(0);
     const [placeholderText, setplaceholderText] = useState(""); // how much character/word will it be having
 
     // sounds
@@ -127,7 +128,7 @@ const Typing = () => {
         setIncorrectLetter(0)
         setIndexNumber(0)
         setLatter("")
-        typingContainer.classList.remove("blur-md")
+        // typingContainer.classList.remove("blur-md")
         // focusTyping()
     }
 
@@ -260,10 +261,18 @@ const Typing = () => {
                 words[IndexNumber - 1].classList.remove("pressed")
                 words[IndexNumber - 1].classList.remove("incorrect")
                 words[IndexNumber - 1].classList.remove("correct")
+                // setCorrectLetter(CorrectLetter+1)
                 // nextLineStartCaret()
                 // span[IndexNumber + 3 - 1].classList.add("active");
                 // console.log(text1[IndexNumber] + "||" + text2[IndexNumber] + " index => " + IndexNumber);
                 // console.log("Backspace");
+                if (text1[IndexNumber] === text2[IndexNumber]) {
+                    alert(text1[IndexNumber-1]," === " ,text2[IndexNumber-1]);
+                    console.log("thses latter => ", text2[IndexNumber-1]);
+                    setCorrectLetter((CorrectLetter<=0)?0:CorrectLetter-1);
+                }else{
+                    setIncorrectLetter((IncorrectLetter<=0)?0:IncorrectLetter-1);
+                }
             } else if (text1[IndexNumber] === text2[IndexNumber]) {
                 playCorrectKeySound();   // correct key pressed then sound played like typewriter
                 console.log(Letter);
@@ -277,6 +286,7 @@ const Typing = () => {
                 (IndexNumber === 0) ? console.log("start") : words[IndexNumber].classList.remove("active"); words[0].classList.remove("active");
                 words[IndexNumber + 1].classList.add("active");
                 words[IndexNumber].classList.add("correct")
+                setCorrectLetter(CorrectLetter+1)
                 // console.log(words[IndexNumber - 1],"|||", text1[IndexNumber - 1])
                 // span[IndexNumber + 4].classList.add("active");
                 // smoothCaretMotion();
@@ -303,6 +313,7 @@ const Typing = () => {
                 words[IndexNumber + 1].classList.add("active");
                 words[IndexNumber + 1].classList.add("pressed");
                 words[IndexNumber].classList.add("incorrect")
+                setIncorrectLetter(IncorrectLetter+1)
                 // span[IndexNumber + 4].classList.add("active");
                 // setLatter(applyColorToCharacter(Letter+text2[IndexNumber], IndexNumber, "red"))
                 // console.log(text1[IndexNumber] + "||" + text2[IndexNumber] + " index => " + IndexNumber);
@@ -340,7 +351,7 @@ const Typing = () => {
         <>
             <HelmetProvider>
                 <Helmet><title>Testing || RandomType</title></Helmet>
-                {(CountDownTimer <= 0) ? <Result restartTypingTest={restartTypingTest} /> : <Container maxWidth="xl" style={{ marginTop: '2.5cm' }}>
+                {(CountDownTimer <= 0) ? <Result restartTypingTest={restartTypingTest} keyData={{Letter,IndexNumber,IncorrectLetter,CorrectLetter,placeholderText}} /> : <Container maxWidth="xl" style={{ marginTop: '2.5cm' }}>
                     <div id='typing-nav-config' className='mt-[-2.5cm] mb-10'>
                         <NavConfig mode={"typing-test-mode"} />
                     </div>

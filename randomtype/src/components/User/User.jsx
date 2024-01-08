@@ -1,16 +1,23 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useReducer, useRef, useState } from 'react'
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import axios from 'axios';
 import DoughnutChart from './charts/DoughnutChart';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setUserData } from '../../redux/action/Actions';
-
+// import ResultGraph from '../Result/ResultCharts/ResultGraph';
+import LineChart from './charts/LineChart';
+// import { useHistory } from 'react-router-dom';
 const User = () => {
-  // debugger
+  // window.location.reload(false)
+  // const history = useHistory();
+  const auth = useSelector(state => state.AuthReducer)
   const dispatch = useDispatch();
+  const [ignored, forceUpdate] = useReducer(x => x + 1, 0);
+  const author = useSelector(state => state.AuthorReducer)
   const [User, setUser] = useState({});
   const [JoinDate, setJoinDate] = useState();
   const inputFile = useRef(null);
+  let testData = author.UserData.data.typing_data;
 
   const textStyle = {
     fontSize: '1.2em',
@@ -19,18 +26,56 @@ const User = () => {
     WebkitTextStroke: '2px #000', // For WebKit browsers
     textStroke: '2px #000', // For other browsers
   };
-
-  const getUserData = async () => {
-    await axios.get("/users/about", { headers: { "Content-Type": "application/json" }, withCredentials: true })
-      .then(response => {
-        console.log(response.data.user)
-        setUser(() => response.data.user)   //if you need to store data in useState hook when the data comes form backend
-        dispatch(setUserData(response.data.user))
-      })
-      .catch(error => error);
-  }
+  useEffect(() => {
+    if (!author.UserData) {
+      forceUpdate();
+    }
+  })
+  // console.log("reducer author =>",author.UserData.data);
+  console.log("user state=>", User);
 
   useEffect(() => {
+    if (auth) {
+      const fetchData = async () => {
+        try {
+          await axios.get("/users/about",
+            {
+              headers: { "Content-Type": "application/json" },
+              withCredentials: true
+            }).then(res => {
+              console.log(res.data.user)
+              setUser(() => res.data.user)   //if you need to store data in useState hook when the data comes form backend
+              // dispatch(userId(res.data.user._id))
+              dispatch(setUserData(res.data.user))
+              localStorage.setItem("DBdata", btoa(JSON.stringify(res.data.user.data)))
+              // console.log(Data);
+            }).catch(err => console.error(err))
+          // return response.data;
+        } catch (error) {
+          console.error('Error fetching data:', error);
+          throw error;
+        }
+      };
+      fetchData();
+      // forceUpdate();
+      console.log(author);
+    }
+  }, [])
+
+  useEffect(() => {
+    // const getUserData = async () => {
+    //   await axios.get("/users/about", { headers: { "Content-Type": "application/json" }, withCredentials: true })
+    //     .then(response => {
+    //       console.log(response.data.user)
+    //       setUser(() => response.data.user)   //if you need to store data in useState hook when the data comes form backend
+    //       console.log("user state=>", User);
+    //       dispatch(setUserData(response.data.user))
+    //     })
+    //     .catch(error => error);
+    // }
+
+
+
     const image = document.getElementById("userImgDisplayed");
     const getImgUrl = localStorage.getItem("profile-img");
     if (getImgUrl) {
@@ -38,10 +83,9 @@ const User = () => {
       document.getElementById("lblImg").style.display = "none";
     }
     // alert("data showing")
-    console.log(getUserData());
-
+    // console.log(getUserData());
     // setUser(() => response.data.user)
-    console.log(User);
+    console.log("User useState =>", User);
   }, [])
 
   useEffect(() => {
@@ -64,7 +108,7 @@ const User = () => {
     const image = document.getElementById("userImgDisplayed");
     const inputFileImg = document.getElementById("file");
     const lbl_img = document.getElementById("lblImg");
-    console.log("event => ", event.target.files[0]);
+    // console.log("event => ", event.target.files[0]);
     console.log(URL.createObjectURL(inputFileImg.files[0]));
     lbl_img.style.display = "none";
     const reader = new FileReader(); // convert select img to url
@@ -75,17 +119,23 @@ const User = () => {
     reader.readAsDataURL(event.target.files[0])
   }
 
+  const getAvg = (arr) => {
+    const sum = arr.reduce((acc, num) => acc + num, 0);;
+    const arrCount = arr.length;
+    console.log(sum / arrCount);
+    return sum / arrCount;
+  }
   return (
     <>
       <HelmetProvider>
         <Helmet><title>Profile || RandomType</title></Helmet>
         <div className="text-white text-center text-5xl mt-[-20px]">User</div>
-        <div id="profile" className='flex flex-col gap-y-5 w-4/5 m-auto'>
-          <div id="profileContainer" className='flex gap-x-20 '>
-            <div id="userInfo" className='inline-block shadow p-5 rounded-md'>
+        <div id="profile" className='h-[90vh] flex flex-col gap-y-5 w-4/5 m-auto overflow-hidden'>
+          <div id="profileContainer" className='flex gap-x-10'>
+            <div id="userInfo" className='inline-block shadow p-5 rounded-md m-5'>
               <div id="userImg" className='mt-5 mb-[-10px]'>
                 <div className='flex justify-center m-auto mb-10 items-center border border-dashed border-[3px] hover:border-red-500 hover:text-red-500 border-gray-300 text-gray-300 p-5 h-[150px] w-[150px] rounded-full transition-colors duration-300' onClick={handleImageClick}>
-                  <img id='userImgDisplayed' src="" className='object-cover cursor-pointer rounded-full scale-150 border border-[3px] border-red-600' />
+                  <img id='userImgDisplayed' src="" className='object-cover cursor-pointer rounded-full scale-150 border border-[3px] border-red-600' alt='userImg' />
                   <label id="lblImg" className='text-center p-14 cursor-pointer'>Upload Photo</label>
                   <input type="file" name="file" id="file" ref={inputFile} onChange={fileChange} style={{ display: 'none' }} />
                 </div>
@@ -101,33 +151,29 @@ const User = () => {
             </div>
             <div id="testData">
               <div id='container-of-typingData' className='flex gap-y-5 flex-col'>
-                <div id='circular-data' className='flex gap-x-10 mt-2'>
-                  <div id='avgWPM' className='text-6xl text-center border border-solid border-white border-[4px] rounded-full p-16 shadow-white'>
-                    <h1 className='data-of-value border-b-4 text-white px-6' style={textStyle}>30</h1>
-                    <h1 className='data-of-key text-red-600'>WPM</h1>
+                <div id='circular-data1' className='flex gap-x-10 mt-2 mr-2'>
+                  <div id='avgWPM' className='text-6xl text-center border border-solid border-white border-[4px] rounded-full p-14 shadow-white'>
+                    <h1 className='data-of-value border-b-4 text-white px-6' style={textStyle}>{Math.round(getAvg(testData.total_wpm))}</h1>
+                    <h1 className='data-of-key text-red-600 flex flex-col justify-center'><div>WPM</div><div className='text-gray-400 text-3xl mt-[-10px]'>avg</div></h1>
                   </div>
-                  <div id='avgAccuracy' className='text-6xl text-center border border-solid border-white border-[4px] rounded-full p-16'>
-                    <h1 className='data-of-value border-b-4 text-white px-3' style={textStyle}>99<b className='text-5xl'>%</b></h1>
-                    <h1 className='data-of-key text-red-600'>Acc</h1>
+                  <div id='avgAccuracy' className='text-6xl text-center border border-solid border-white border-[4px] rounded-full p-14'>
+                    <h1 className='data-of-value border-b-4 text-white px-3' style={textStyle}>{Math.round(getAvg(testData.total_accuracy))}<b className='text-5xl'>%</b></h1>
+                    <h1 className='data-of-key text-red-600 flex flex-col justify-center'><div>ACC</div><div className='text-gray-400 text-3xl mt-[-10px]'>avg</div></h1>
                   </div>
-                  <div id='noOfTime' className=' text-6xl text-center border border-solid border-white border-[4px] rounded-full p-16'>
-                    <h1 className='data-of-value border-b-4 text-white' style={textStyle}>22</h1>
-                    <h1 className='data-of-key text-red-600'>Test</h1>
+                  <div id='noOfTime' className=' text-6xl text-center border border-solid border-white border-[4px] rounded-full p-14'>
+                    <h1 className='data-of-value border-b-4 text-white' style={textStyle}>{testData.total_wpm.length - 1}</h1>
+                    <h1 className='data-of-key text-red-600 flex flex-col justify-center'><div>Test</div><div className='text-gray-400 text-3xl mt-[-10px]'>Total</div></h1>
                   </div>
-                </div>
-                <div id='tabular-data' className='text-white text-center border border-2 border-white text-5xl items-center rounded-xl'>
-                  <h1><span className='text-red-600 text-[1em] uppercase'>Time Typing </span> : <span style={textStyle}>1234s</span></h1>
                 </div>
               </div>
             </div>
           </div>
-          <div id='charts-data' className='flex gap-x-10 w-[98%] m-auto'>
+          <div id='charts-data' className='flex gap-x-10 w-[95%] m-auto mt-[-28px]'>
             <div id='car-result' className='justify-start'>
               <DoughnutChart />
             </div>
-            <div id='all-typing-data-chart' className='w-screen h-52 text-black bg-yellow-300 text-center flex items-center justify-center relative bottom-10'>
-              {/* <ResultGraph/> */}
-              graph chart of the user status of the typing test
+            <div id='all-typing-data-chart' className='h-1/2 w-[200%] text-black text-center relative bottom-36'>
+              <LineChart typingData={author.UserData.data} />
             </div>
           </div>
         </div>
