@@ -273,25 +273,28 @@ tspan {
   width: 0;
 }
 
-.typing-text>p, .cargame-typing-text>p {
+.typing-text>p,
+.cargame-typing-text>p {
   /* font-size: 21px; */
   /* text-align: justify; */
   /* letter-spacing: 1px; */
   word-break: break-all;
 }
 
-.typing-text>p>span, .cargame-typing-text>p>span {
+.typing-text>p>span,
+.cargame-typing-text>p>span {
   position: relative;
 }
 
-#super-correct{
+#super-correct {
   color: red;
   background-color: transparent;
   border-bottom: none;
   border-radius: 0;
 }
- 
-.letter, .gameletter{
+
+.letter,
+.gameletter {
   color: rgba(255, 0, 0, 0.3);
 }
 
@@ -311,7 +314,8 @@ tspan {
 /* .typing-text p span.active {
     color: #17A2B8;
 }*/
-.typing-text>p>span.active::before, .cargame-typing-text>p>span.active::before {
+.typing-text>p>span.active::before,
+.cargame-typing-text>p>span.active::before {
   content: "";
   position: absolute;
   /* width: 100%;/*=>  ||  
@@ -319,11 +323,13 @@ tspan {
   border: 3px solid red;
   opacity: 10%; */
 
-  width: 10%;      
-  height: 2vw; /*=>  |  */
+  width: 10%;
+  height: 2vw;
+  /*=>  |  */
 
   /* height: 5px; */
-  /* width: 100%; */   /*=>  _  */ 
+  /* width: 100%; */
+  /*=>  _  */
 
   bottom: 0;
   left: 0;
@@ -331,7 +337,7 @@ tspan {
   filter: opacity(100%);
   border-radius: .5rem;
   background: yellow;
-  transform: translate(0,0);
+  transform: translate(0, 0);
   transition: all 0.3s ease-in-out;
 }
 
@@ -357,7 +363,8 @@ tspan {
 } */
 
 
-#initial-caret, #initial-caret2{
+#initial-caret,
+#initial-caret2 {
   opacity: 1;
   transition: all .2s;
   animation: caretBlink 1s infinite alternate ease-in-out;
@@ -369,17 +376,40 @@ tspan {
   }
 }
 
-.mode>button:hover, .mode>button:active, .mode>button:focus{
-  color: red;
-  background-color: rgba(255, 255, 255, 0.3);
+/* btnActive */
+
+/* .btnActive{
+  background-color: red;
+} */
+
+.mode>button:focus,
+.btnActive {
+  color: white;
+  background-color: rgba(255, 0, 0, 1);
+  transform: scale(1);
   transition: all .3s ease-in-out;
 }
-.mode>button{
+
+.mode>button:hover {
+  color: red;
+  transform: scale(1.1);
+  background-color: rgba(255, 255, 255, .5);
+  transition: all .3s ease-in-out;
+}
+
+.mode>button:active {
+  color: white;
+  background-color: rgba(255, 0, 0, 1);
+  transform: scale(.9);
+  transition: all .3s ease-in-out;
+}
+
+.mode>button {
   border-radius: 50%;
   padding: 3px 5px;
 }
 
-h1.mode-heading{
+h1.mode-heading {
   color: #fff;
 }
 
@@ -504,69 +534,78 @@ li:not(:first-child) span {
 
 /* style on setting page */
 
-.transition{
+
+.transition {
   transition: all .3s ease-in-out;
 }
 
 @keyframes scrollToTopAnimate {
   0% {
     transform: translateY(0);
-  }100%{
+  }
+
+  100% {
     transform: translateY(-5px);
   }
 }
 
-.scrollAnimation{
+.scrollAnimation {
   transform: translateY(0);
   animation: scrollToTopAnimate alternate .5s ease-in-out infinite;
 }
 
-.toggle-open{
+.toggle-open {
   height: 300px;
   overflow: hidden;
   transition: all .3s ease-in-out;
 }
-.toggle-close{
+
+.toggle-close {
   height: 0;
 }
 
-.btnSetting{
+.btnSetting {
   padding: .25rem 0;
   border-radius: 5px;
   background-color: rgb(70, 0, 0);
 }
 
-.btnSetting:hover,.btnSetting:focus,.btnSetting:active, .activeSetting {
+.btnSetting:hover,
+.btnSetting:focus,
+.btnSetting:active,
+.activeSetting {
   /* Style the button when it is focused (clicked and then released) */
   /* Change to your desired permanent style */
   color: rgb(255, 61, 61);
   background-color: white;
 }
 
-.shadow{
-  box-shadow:1px 1px 3px rgba(255, 255, 255, 0.84), 
-            -1px -1px 3px rgb(200, 0, 0);
+.shadow {
+  box-shadow: 1px 1px 3px rgba(255, 255, 255, 0.84),
+    -1px -1px 3px rgb(200, 0, 0);
   transition: all .1s ease-in-out;
 }
 
-.shadow:hover, .activeShadow{
-  box-shadow:2px 2px 10px white, 
-            -2px -2px 10px rgb(255, 0, 0);
+.shadow:hover,
+.activeShadow {
+  box-shadow: 2px 2px 10px white,
+    -2px -2px 10px rgb(255, 0, 0);
 }
 
 
 
-.carMove{
-  transform: translateX(0vw) scale(.7,.6); /*1em(0vw) => starting position of the car; And 85em(66vw) => is the finishing point of the car;*/ 
+.carMove {
+  transform: translateX(0vw) scale(.7, .6);
+  /*1em(0vw) => starting position of the car; And 85em(66vw) => is the finishing point of the car;*/
   transition: all .1s ease-in-out;
 }
 
-.flag{
+.flag {
   transform: rotateY(180deg) scale(.75);
   animation: scaleAnimation 1s infinite alternate ease-in-out;
 }
 
-.gameTimer{
+.gameTimer {
   color: red;
   text-shadow: 0 0 3px black;
   animation: countdownBlinking infinite linear .5s alternate;
@@ -576,6 +615,7 @@ li:not(:first-child) span {
   from {
     color: white;
   }
+
   to {
     color: red;
   }
@@ -585,6 +625,7 @@ li:not(:first-child) span {
   from {
     transform: rotateY(180deg) scale(.75);
   }
+
   to {
     transform: rotateY(180deg) scale(.90);
   }

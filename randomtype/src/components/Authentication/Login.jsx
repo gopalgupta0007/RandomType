@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { iconsStyle, boxStyle, btnSubmit, labelStyle } from './sx';
 import MailRoundedIcon from '@mui/icons-material/MailRounded';
 import KeyRoundedIcon from '@mui/icons-material/KeyRounded';
@@ -13,7 +13,6 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const Login = () => {
     const dispatch = useDispatch();
-    const author = useSelector(state => state.AuthorReducer)
     const history = useHistory();
     const [showPassword, setShowPassword] = useState(false);
     const [loginData, setloginData] = useState({
@@ -51,10 +50,13 @@ const Login = () => {
             // dispatc(axiosPost.data.userFound._id))
             // dispatch(userAuthenticated(axiosPost.data.userFound._id))
             localStorage.setItem("auth", btoa(true));
+            localStorage.setItem("DBdata", localStorage.getItem("DBdata"));
             //stored cookie data will push in the database
             // alert("logined")
             toast.success("logined successfull")
-            history.push('/');
+            setTimeout(() => {
+                history.push('/');
+            }, 6000);
             // e.preventDefault()
             // window.location.reload();
         } catch (err) {

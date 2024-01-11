@@ -46,16 +46,41 @@ const userLogout = () => {
         type: "LOGOUT"
     }
 }
-// const userId = (id) => {
-//     return {
-//         type: "SET_ID",
-//         payloadID: id
-//     }
-// }
 const setUserData = (data) => {
     return {
         type: "SET_DATA",
         payloadData: data
     }
 }
-export { updateWpm, updateAcc, updateTimer, storeWPM, storeAcc, testCounter, userAuthenticated, userLogout, setUserData }
+const setModemode = (mode) => {
+    return {
+        type: "SET_MODE_MODE",
+        payloadMode: mode
+    }
+}
+const setModetext = (text) => {
+    return {
+        type: "SET_MODE_TEXT",
+        payloadMode: text
+    }
+}
+const setModetime = (time) => {
+    return {
+        type: "SET_MODE_TIME",
+        payloadMode: time
+    }
+}
+export {
+    updateWpm,
+    updateAcc,
+    updateTimer,
+    storeWPM,
+    storeAcc,
+    testCounter,
+    userAuthenticated,
+    userLogout,
+    setUserData,
+    setModemode,
+    setModetext,
+    setModetime
+}

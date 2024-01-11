@@ -1,8 +1,9 @@
 import author from "../src/redux/state/author"
 
 console.log("script.js");
+// localStorage.setItem("DBdata", author);
 localStorage.setItem("auth", (localStorage.getItem("auth")==null)?btoa(false):localStorage.getItem("auth"));  //initialy when user visite on randomtype webApp by default authentication is false
-localStorage.setItem("DBdata", (localStorage.getItem("DBdata")==null)?btoa(author):localStorage.getItem("DBdata"));
+localStorage.setItem("DBdata", (JSON.parse(atob(localStorage.getItem("DBdata")))==null)?btoa(author):JSON.parse(atob(localStorage.getItem("DBdata"))));
  //initialy when user visite on randomtype webApp by default authentication is false
 const tVertical = document.getElementById('t-verticalSVG');
 const randomText = document.getElementById('randomText');

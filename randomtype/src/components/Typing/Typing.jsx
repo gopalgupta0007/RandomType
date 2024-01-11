@@ -351,7 +351,7 @@ const Typing = () => {
         <>
             <HelmetProvider>
                 <Helmet><title>Testing || RandomType</title></Helmet>
-                {(CountDownTimer <= 0) ? <Result restartTypingTest={restartTypingTest} keyData={{Letter,IndexNumber,IncorrectLetter,CorrectLetter,placeholderText}} /> : <Container maxWidth="xl" style={{ marginTop: '2.5cm' }}>
+                {((CountDownTimer <= 0) || (placeholderText.length===IndexNumber+1)) ? <Result restartTypingTest={restartTypingTest} keyData={{Letter,IndexNumber,IncorrectLetter,CorrectLetter,placeholderText}} /> : <Container maxWidth="xl" style={{ marginTop: '2.5cm' }}>
                     <div id='typing-nav-config' className='mt-[-2.5cm] mb-10'>
                         <NavConfig mode={"typing-test-mode"} />
                     </div>

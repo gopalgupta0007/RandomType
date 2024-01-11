@@ -5,7 +5,8 @@ import App from './App';
 import axios from 'axios';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import store from './redux/store/store';
+import { PersistGate } from 'redux-persist/integration/react';
+import store, { persistor } from './redux/store/store';
 import state from './redux/state/state';
 // import data from './redux/state/author';
 
@@ -25,9 +26,11 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <BrowserRouter>
     <Provider store={store}>
-      <StrictMode>
-        <App />
-      </StrictMode>
+      <PersistGate persistor={persistor}>
+        <StrictMode>
+          <App />
+        </StrictMode>
+      </PersistGate>
     </Provider>
   </BrowserRouter >
 );

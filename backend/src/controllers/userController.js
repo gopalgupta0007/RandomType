@@ -130,6 +130,28 @@ const updateTyping = async (req, res) => {
     return res.status(200).send({ massage: "updated data successful" });
 }
 
+const updateMode = async (req, res) => {
+    let updatedUser
+    try {
+        const authUserId = req.params.id;
+        const {mode, text, time} = req.body;
+        updatedUser = await Users.findByIdAndUpdate(
+            authUserId,
+            { 
+                $set: {
+                    'data.mode': mode,
+                    'data.text': text,
+                    'data.time': time
+                }, 
+            },
+            { new: true }
+        );
+        // res.json(updatedUser.data);
+    }catch(error) {
+        res.status(500).json({ message: error.message });
+    }
+    return res.status(200).send({ massage: "mode updated data successful" });
+}
 
 
 
@@ -147,7 +169,7 @@ const deleteUser = async (req, res) => {
 
 
 
-module.exports = { signup, login, logout, getAllUser, getUserById, updateUser, deleteUser, updateTyping }
+module.exports = { signup, login, logout, getAllUser, getUserById, updateUser, deleteUser, updateTyping, updateMode }
 
 
 

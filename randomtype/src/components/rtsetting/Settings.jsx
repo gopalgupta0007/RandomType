@@ -6,6 +6,7 @@ import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import KeyboardDoubleArrowUpIcon from '@mui/icons-material/KeyboardDoubleArrowUp';
 import { BsCursorText } from "react-icons/bs";
 import { Helmet, HelmetProvider } from 'react-helmet-async';
+import { btnGroup } from '../../Methods/methods';
 // import { alertTitleClasses } from '@mui/material';
 
 const Settings = () => {
@@ -24,7 +25,7 @@ const Settings = () => {
     setting_options.addEventListener("scroll", listenToScroll)
   })
 
-  const buttonValues = [
+  const themeBtn = [
     'Roboto',
     'Roboto Condensed',
     'Roboto Mono',
@@ -38,6 +39,34 @@ const Settings = () => {
     'Mukta',
     'Ubuntu',
   ];
+  const soundsBtn = [
+    'keybord',
+    'bell',
+    'light bell',
+    'mechanical',
+    'perkins bell',
+    'bubble',
+    'carriage',
+    'click',
+    'ding',
+    'Kclick',
+    'none'
+  ];
+  const fontfamilyBtn = [
+    'Roboto',
+    'Roboto Condensed',
+    'Roboto Mono',
+    'Poppins',
+    'Open sans',
+    'Noto sans',
+    'Montserrat',
+    'Lato',
+    'Inter',
+    'Oswald',
+    'Mukta',
+    'Ubuntu'
+  ];
+  const fontSize = ['xl', '2xl', '3xl', '4xl', '5xl']
 
   const scrollToTop = () => {
     const setting_options = document.getElementById("setting-options");
@@ -77,31 +106,32 @@ const Settings = () => {
                 <div>
                   <p className='text-xl my-2'>font family : </p>
                 </div>
-                <div id='font-familys' className='grid grid-cols-4 gap-3 text-center'>
-                  <button className='btnSetting transition'>Roboto</button>
-                  <button className='btnSetting transition'>Roboto Condensed</button>
-                  <button className='btnSetting transition'>Roboto Mono</button>
-                  <button className='btnSetting transition'>Poppins</button>
-                  <button className='btnSetting transition'>Open sans</button>
-                  <button className='btnSetting transition'>Noto sans</button>
-                  <button className='btnSetting transition'>Montserrat</button>
-                  <button className='btnSetting transition'>Lato</button>
-                  <button className='btnSetting transition'>Inter</button>
-                  <button className='btnSetting transition'>Oswald</button>
-                  <button className='btnSetting transition'>Mukta</button>
-                  <button className='btnSetting transition'>Ubuntu</button>
+                <div id='font-familys' className='btn-group-9 grid grid-cols-4 gap-3 text-center'>
+                  {fontfamilyBtn.map((buttonValue, index) => (
+                    <button
+                      key={index}
+                      className='btnSetting transition btn'
+                      onClick={(e) => btnGroup(9, 'activeSetting', e.target)}
+                    >
+                      {buttonValue}
+                    </button>
+                  ))}
                 </div>
                 <br />
                 <hr />
                 <div id='font-size' className='h-30 flex justify-between items-center p-2' >
                   <div><p className='text-xl'>font size : </p></div>
                   <div><p id='demo' className='h-16 flex justify-center align-middle items-center text-5xl text-center w-20 transition'>Aa</p></div>
-                  <div id='font-size-options' className='grid grid-cols-5 gap-5 text-center'>
-                    <button className='w-[7vw] btnSetting transition'>xl</button>
-                    <button className='w-[7vw] btnSetting transition'>2xl</button>
-                    <button className='w-[7vw] btnSetting transition'>3xl</button>
-                    <button className='w-[7vw] btnSetting transition'>4xl</button>
-                    <button className='w-[7vw] btnSetting transition'>5xl</button>
+                  <div id='font-size-options' className='btn-group-10 grid grid-cols-5 gap-5 text-center'>
+                    {fontSize.map((buttonValue, index) => (
+                      <button
+                        key={index}
+                        className='btnSetting transition btn'
+                        onClick={(e) => btnGroup(10, 'activeSetting', e.target)}
+                      >
+                        {buttonValue}
+                      </button>
+                    ))}
                   </div>
                 </div>
               </div>
@@ -113,11 +143,11 @@ const Settings = () => {
                 <div id='caret-style' className='h-30 flex justify-between items-center p-2' >
                   <div><p className='text-xl'>caret style : </p></div>
                   {/* <div><p id='demo' className='h-16 flex justify-center align-middle items-center text-5xl text-center w-20 transition'>Aa</p></div> */}
-                  <div id='caret-style-options' className='grid grid-cols-4 gap-5 text-center'>
-                    <button className='w-[7vw] btnSetting transition'>|</button>
-                    <button className='w-[7vw] btnSetting transition flex justify-center items-center hover:bg-white' onMouseEnter={mouseEnterStyle} onMouseLeave={mouseLeaveStyle}><div className='w-3 h-5 transition bg-white'></div></button>
-                    <button className='w-[7vw] btnSetting transition text-3xl'>_</button>
-                    <button className='w-[7vw] btnSetting transition'>off</button>
+                  <div id='caret-style-options' className='btn-group-4 grid grid-cols-4 gap-5 text-center'>
+                    <button className='w-[7vw] btnSetting transition btn' onClick={(e) => btnGroup(4, 'activeSetting', e.target)}>|</button>
+                    <button className='w-[7vw] btnSetting transition btn flex justify-center items-center hover:bg-white' onClick={(e) => btnGroup(4, 'activeSetting', e.target)} onMouseEnter={mouseEnterStyle} onMouseLeave={mouseLeaveStyle}><div className='w-3 h-5 transition bg-white'></div></button>
+                    <button className='w-[7vw] btnSetting transition btn text-3xl' onClick={(e) => btnGroup(4, 'activeSetting', e.target)}>_</button>
+                    <button className='w-[7vw] btnSetting transition btn' onClick={(e) => btnGroup(4, 'activeSetting', e.target)}>off</button>
                   </div>
                 </div>
                 <hr />
@@ -129,14 +159,6 @@ const Settings = () => {
                   <button className='btnSetting transition'>Roboto Condensed</button>
                   <button className='btnSetting transition'>Roboto Mono</button>
                   <button className='btnSetting transition'>Poppins</button>
-                  <button className='btnSetting transition'>Open sans</button>
-                  <button className='btnSetting transition'>Noto sans</button>
-                  <button className='btnSetting transition'>Montserrat</button>
-                  <button className='btnSetting transition'>Lato</button>
-                  <button className='btnSetting transition'>Inter</button>
-                  <button className='btnSetting transition'>Oswald</button>
-                  <button className='btnSetting transition'>Mukta</button>
-                  <button className='btnSetting transition'>Ubuntu</button>
                 </div>
                 <br />
               </div>
@@ -147,29 +169,27 @@ const Settings = () => {
                 <br />
                 <div id='sound-volume' className='h-30 flex justify-between items-center p-2' >
                   <div><p className='text-xl'>sound volume : </p></div>
-                  <div id='sound-volume-options' className='grid grid-cols-4 gap-5 text-center'>
-                    <button className='w-[7vw] btnSetting transition'>mute</button>
-                    <button className='w-[7vw] btnSetting transition'>low</button>
-                    <button className='w-[7vw] btnSetting transition'>mid</button>
-                    <button className='w-[7vw] btnSetting transition'>high</button>
+                  <div id='sound-volume-options' className='btn-group-11 grid grid-cols-4 gap-5 text-center'>
+                    <button className='w-[7vw] btnSetting transition' onClick={(e) => btnGroup(11, 'activeSetting', e.target)}>mute</button>
+                    <button className='w-[7vw] btnSetting transition' onClick={(e) => btnGroup(11, 'activeSetting', e.target)}>low</button>
+                    <button className='w-[7vw] btnSetting transition' onClick={(e) => btnGroup(11, 'activeSetting', e.target)}>mid</button>
+                    <button className='w-[7vw] btnSetting transition' onClick={(e) => btnGroup(11, 'activeSetting', e.target)}>high</button>
                   </div>
                 </div>
                 <hr />
                 <div>
                   <p className='text-xl my-2'>select sounds : </p>
                 </div>
-                <div id='sounds' className='grid grid-cols-4 gap-3 text-center'>
-                  <button className='btnSetting transition'>keybord</button>
-                  <button className='btnSetting transition'>bell</button>
-                  <button className='btnSetting transition'>light bell</button>
-                  <button className='btnSetting transition'>mechanical</button>
-                  <button className='btnSetting transition'>perkins bell</button>
-                  <button className='btnSetting transition'>bubble</button>
-                  <button className='btnSetting transition'>carriage</button>
-                  <button className='btnSetting transition'>click</button>
-                  <button className='btnSetting transition'>ding</button>
-                  <button className='btnSetting transition'>Kclick</button>
-                  <button className='btnSetting transition'>none</button>
+                <div id='sounds' className='btn-group-8 grid grid-cols-4 gap-3 text-center'>
+                  {soundsBtn.map((buttonValue, index) => (
+                    <button
+                      key={index}
+                      className='btnSetting transition btn'
+                      onClick={(e) => btnGroup(8, 'activeSetting', e.target)}
+                    >
+                      {buttonValue}
+                    </button>
+                  ))}
                 </div>
                 <br />
               </div>
@@ -181,13 +201,13 @@ const Settings = () => {
                 <div>
                   <p className='text-xl my-2'>Themes : </p>
                 </div>
-                <div id='themes' className='grid grid-cols-4 gap-3 text-center'>
+                <div id='themes' className='btn-group-7 grid grid-cols-4 gap-3 text-center'>
 
-                  {buttonValues.map((buttonValue, index) => (
+                  {themeBtn.map((buttonValue, index) => (
                     <button
                       key={index}
-                      className='btnSetting transition'
-                    // onClick={() => this.handleClick(buttonValue)}
+                      className='btnSetting transition btn'
+                      onClick={(e) => btnGroup(7, 'activeSetting', e.target)}
                     >
                       {buttonValue}
                     </button>
@@ -214,9 +234,9 @@ const Settings = () => {
                 <br />
                 <div id='rtintro' className='h-30 flex justify-between items-center p-2' >
                   <div><p className='text-xl'>RT Intro Animation : </p></div>
-                  <div id='rtintro-size-options' className='grid grid-cols-2 gap-3 text-center'>
-                    <button className='w-[10vw] btnSetting transition'>Disable</button>
-                    <button className='w-[10vw] btnSetting transition'>Enable</button>
+                  <div id='rtintro-size-options' className='btn-group-5 grid grid-cols-2 gap-3 text-center'>
+                    <button className='w-[10vw] btnSetting transition btn' onClick={(e) => btnGroup(5, 'activeSetting', e.target)}>Disable</button>
+                    <button className='w-[10vw] btnSetting transition btn' onClick={(e) => btnGroup(5, 'activeSetting', e.target)}>Enable</button>
                   </div>
                 </div>
               </div>

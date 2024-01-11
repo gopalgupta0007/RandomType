@@ -1,6 +1,6 @@
 const express = require("express");
 const userRouter = express.Router();
-const { signup, login, logout, getAllUser, getUserById, updateUser, deleteUser, updateTyping } = require("../controllers/userController");
+const { signup, login, logout, getAllUser, getUserById, updateUser, deleteUser, updateTyping, updateMode } = require("../controllers/userController");
 const authentication = require("../middleware/Authentication")
 
 userRouter.post("/signup", signup);
@@ -10,6 +10,7 @@ userRouter.get("/", getAllUser)
 userRouter.get("/about", authentication, getUserById) // this using to show user dashboard
 userRouter.patch("/:id", updateUser)
 userRouter.patch("/updatetyping/:id", authentication, updateTyping)
+userRouter.patch("/mode/:id", authentication, updateMode)
 userRouter.delete("/:id", deleteUser)
 
 

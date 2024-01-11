@@ -12,6 +12,7 @@ import typeError from '../Typing/keyboardSound/TypeError2.mp3';
 import { getNumberOfWords, loadParagraph } from '../Typing/Typing';
 
 function compareTo(text1, text2) {
+    console.log(`\'${text1}\' == \'${text2}\'`);
     if ((text1.length === text2.length) && (text1 === text2)) { return true }
     else { return false }
 }
@@ -36,10 +37,6 @@ const CarGame = () => {
         setCarTextPlaceholderText(getNumberOfWords(loadParagraph(), 50))
     }, []);
 
-    useEffect(() => {
-        console.log("hello");
-    })
-
     function compareToTypedLetter(text1, text2 = 'Backspace') {
         // alert("compareToTyped method is runned")
         var words = document.getElementsByClassName("gameletter");
@@ -53,7 +50,9 @@ const CarGame = () => {
             words[CarCharIndexNumber - 1].classList.remove("pressed")
             words[CarCharIndexNumber - 1].classList.remove("incorrect")
             words[CarCharIndexNumber - 1].classList.remove("correct")
-            if ((text1[CarCharIndexNumber - 1] === " ") && (compareTo(text1.slice(0, CarCharIndexNumber + 1), text2))) {
+            // console.log(`\'${text1[CarCharIndexNumber - 1]}\'`)
+            console.log(compareTo(text1.slice(0, CarCharIndexNumber - 1), text2.slice(0, CarCharIndexNumber + 1)))
+            if ((text1[CarCharIndexNumber - 1] === " ") && (compareTo(text1.slice(0, CarCharIndexNumber - 1), text2.slice(0, CarCharIndexNumber + 1)))) {
                 setCarMoveingPoint(CarMoveingPoint - 1)
                 car.style.transform = `translateX(${1.32 * CarMoveingPoint}vw) scale(.7,.6)`;
             }
@@ -66,7 +65,7 @@ const CarGame = () => {
             words[CarCharIndexNumber + 1].classList.add("active");
             words[CarCharIndexNumber].classList.add("correct")
             // only for car move
-            if ((text1[CarCharIndexNumber] === " ") && (text2[CarCharIndexNumber] === " ") && (compareTo(text1.slice(0, CarCharIndexNumber + 1), text2))) {
+            if ((text1[CarCharIndexNumber] === " ") && (text2[CarCharIndexNumber] === " ") && (compareTo(text1.slice(0, CarCharIndexNumber + 1), text2.slice(0, CarCharIndexNumber + 1)))) {
                 if ((text1[CarCharIndexNumber - 1] !== " ") && (text1[CarCharIndexNumber + 1] !== " ")) {
                     setCarMoveingPoint(CarMoveingPoint + 1)
                     car.style.transform = `translateX(${1.32 * CarMoveingPoint}vw) scale(.7,.6)`;

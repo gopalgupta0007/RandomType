@@ -11,7 +11,7 @@ const ResultGraph = ({ typingData, keyData }) => {
 
 	const no_of_test = (index) => {
 		const myArray = [];
-		for (let i = 0; i <= index; i++) myArray.push(i);
+		for (let i = 0; i <= index+1; i++) myArray.push(i);
 		return myArray
 	}
 

@@ -19,8 +19,10 @@ const Logout = () => {
             localStorage.setItem("auth", btoa(false));
             // alert("logout")
             toast.success("Logout successfull")
-            history.push('/');
-            window.location.reload();
+            setTimeout(() => {
+                history.push('/');
+                window.location.reload();
+            }, 6000);
         } catch (err) {
             console.log(err);
         }

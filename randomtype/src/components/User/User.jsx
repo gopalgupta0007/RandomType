@@ -6,18 +6,43 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setUserData } from '../../redux/action/Actions';
 // import ResultGraph from '../Result/ResultCharts/ResultGraph';
 import LineChart from './charts/LineChart';
-// import { useHistory } from 'react-router-dom';
+// import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import { useHistory } from 'react-router-dom';
 const User = () => {
   // window.location.reload(false)
-  // const history = useHistory();
   const auth = useSelector(state => state.AuthReducer)
   const dispatch = useDispatch();
   const [ignored, forceUpdate] = useReducer(x => x + 1, 0);
-  const author = useSelector(state => state.AuthorReducer)
-  const [User, setUser] = useState({});
+  const author = useSelector(state => state.AuthorReducer.UserData)
+  // const [User, setUser] = useState({});
   const [JoinDate, setJoinDate] = useState();
   const inputFile = useRef(null);
-  let testData = author.UserData.data.typing_data;
+  // let testData = author.UserData.data.typing_data;
+
+
+
+  // useEffect(() => {
+  //   const handlePageReload = () => {
+  //     // Check if the current location is not the root ("/")
+  //     if (auth && history.location.pathname !== '/') {
+  //       // Redirect to the root ("/") location
+  //       // localStorage.setItem("DBdata", JSON.parse(atob(localStorage.getItem("DBdata"))));
+  //       // localStorage.setItem("DBdata", JSON.parse(atob(localStorage.getItem("DBdata"))));
+  //       // window.location.reload();
+  //     }
+  //   };
+
+  //   // Attach the event listener to handle page reload
+  //   window.addEventListener('beforeunload', handlePageReload);
+
+  //   // Clean up the event listener on component unmount
+  //   return () => {
+  //     window.removeEventListener('beforeunload', handlePageReload);
+  //   };
+  // }, [history]);
+
+
+
 
   const textStyle = {
     fontSize: '1.2em',
@@ -26,41 +51,36 @@ const User = () => {
     WebkitTextStroke: '2px #000', // For WebKit browsers
     textStroke: '2px #000', // For other browsers
   };
-  useEffect(() => {
-    if (!author.UserData) {
-      forceUpdate();
-    }
-  })
   // console.log("reducer author =>",author.UserData.data);
-  console.log("user state=>", User);
+  // console.log("user state=>", User);
 
-  useEffect(() => {
-    if (auth) {
-      const fetchData = async () => {
-        try {
-          await axios.get("/users/about",
-            {
-              headers: { "Content-Type": "application/json" },
-              withCredentials: true
-            }).then(res => {
-              console.log(res.data.user)
-              setUser(() => res.data.user)   //if you need to store data in useState hook when the data comes form backend
-              // dispatch(userId(res.data.user._id))
-              dispatch(setUserData(res.data.user))
-              localStorage.setItem("DBdata", btoa(JSON.stringify(res.data.user.data)))
-              // console.log(Data);
-            }).catch(err => console.error(err))
-          // return response.data;
-        } catch (error) {
-          console.error('Error fetching data:', error);
-          throw error;
-        }
-      };
-      fetchData();
-      // forceUpdate();
-      console.log(author);
-    }
-  }, [])
+  // useEffect(() => {
+  //   if (auth) {
+  //     const fetchData = async () => {
+  //       try {
+  //         await axios.get("/users/about",
+  //           {
+  //             headers: { "Content-Type": "application/json" },
+  //             withCredentials: true
+  //           }).then(res => {
+  //             console.log(res.data.user)
+  //             setUser(() => res.data.user)   //if you need to store data in useState hook when the data comes form backend
+  //             // dispatch(userId(res.data.user._id))
+  //             dispatch(setUserData(res.data.user))
+  //             localStorage.setItem("DBdata", btoa(JSON.stringify(res.data.user.data)))
+  //             // console.log(Data);
+  //           }).catch(err => console.error(err))
+  //         // return response.data;
+  //       } catch (error) {
+  //         console.error('Error fetching data:', error);
+  //         throw error;
+  //       }
+  //     };
+  //     fetchData();
+  //     // forceUpdate();
+  //     console.log(author);
+  //   }
+  // }, [])
 
   useEffect(() => {
     // const getUserData = async () => {
@@ -73,9 +93,7 @@ const User = () => {
     //     })
     //     .catch(error => error);
     // }
-
-
-
+    console.log(author);
     const image = document.getElementById("userImgDisplayed");
     const getImgUrl = localStorage.getItem("profile-img");
     if (getImgUrl) {
@@ -142,9 +160,9 @@ const User = () => {
               </div>
               <div id="userDetails">
                 <div className='text-white text-xl transition-all duration-1000'>
-                  <h1 className='my-3'> + <b className='text-red-600'>UserName</b> : {User.username}</h1>
-                  <h1 className='my-3'> + <b className='text-red-600'>Email</b> : {User.email}</h1>
-                  <h1 className='my-3'> + <b className='text-red-600'>Phoneno.</b> : {User.phoneno}</h1>
+                  <h1 className='my-3'> + <b className='text-red-600'>UserName</b> : {author.username}</h1>
+                  <h1 className='my-3'> + <b className='text-red-600'>Email</b> : {author.email}</h1>
+                  <h1 className='my-3'> + <b className='text-red-600'>Phoneno.</b> : {author.phoneno}</h1>
                   <h1 className='my-3'> + <b className='text-red-600'>Joined</b> : {JoinDate}</h1>
                 </div>
               </div>
@@ -153,15 +171,15 @@ const User = () => {
               <div id='container-of-typingData' className='flex gap-y-5 flex-col'>
                 <div id='circular-data1' className='flex gap-x-10 mt-2 mr-2'>
                   <div id='avgWPM' className='text-6xl text-center border border-solid border-white border-[4px] rounded-full p-14 shadow-white'>
-                    <h1 className='data-of-value border-b-4 text-white px-6' style={textStyle}>{Math.round(getAvg(testData.total_wpm))}</h1>
+                    <h1 className='data-of-value border-b-4 text-white px-6' style={textStyle}>{Math.round(getAvg(author.data.typing_data.total_wpm))}</h1>
                     <h1 className='data-of-key text-red-600 flex flex-col justify-center'><div>WPM</div><div className='text-gray-400 text-3xl mt-[-10px]'>avg</div></h1>
                   </div>
                   <div id='avgAccuracy' className='text-6xl text-center border border-solid border-white border-[4px] rounded-full p-14'>
-                    <h1 className='data-of-value border-b-4 text-white px-3' style={textStyle}>{Math.round(getAvg(testData.total_accuracy))}<b className='text-5xl'>%</b></h1>
+                    <h1 className='data-of-value border-b-4 text-white px-3' style={textStyle}>{Math.round(getAvg(author.data.typing_data.total_accuracy))}<b className='text-5xl'>%</b></h1>
                     <h1 className='data-of-key text-red-600 flex flex-col justify-center'><div>ACC</div><div className='text-gray-400 text-3xl mt-[-10px]'>avg</div></h1>
                   </div>
                   <div id='noOfTime' className=' text-6xl text-center border border-solid border-white border-[4px] rounded-full p-14'>
-                    <h1 className='data-of-value border-b-4 text-white' style={textStyle}>{testData.total_wpm.length - 1}</h1>
+                    <h1 className='data-of-value border-b-4 text-white' style={textStyle}>{author.data.typing_data.total_wpm.length - 1}</h1>
                     <h1 className='data-of-key text-red-600 flex flex-col justify-center'><div>Test</div><div className='text-gray-400 text-3xl mt-[-10px]'>Total</div></h1>
                   </div>
                 </div>
@@ -173,7 +191,7 @@ const User = () => {
               <DoughnutChart />
             </div>
             <div id='all-typing-data-chart' className='h-1/2 w-[200%] text-black text-center relative bottom-36'>
-              <LineChart typingData={author.UserData.data} />
+              <LineChart typingData={author.data} />
             </div>
           </div>
         </div>
@@ -192,3 +210,35 @@ export default User;
 
 
 
+// import React, { useEffect } from 'react';
+// import { useHistory } from 'react-router-dom';
+
+// const App = () => {
+//   const history = useHistory();
+
+//   useEffect(() => {
+//     const handlePageReload = () => {
+//       // Check if the current location is not the root ("/")
+//       if (history.location.pathname !== '/') {
+//         // Redirect to the root ("/") location
+//         history.push('/');
+//       }
+//     };
+
+//     // Attach the event listener to handle page reload
+//     window.addEventListener('beforeunload', handlePageReload);
+
+//     // Clean up the event listener on component unmount
+//     return () => {
+//       window.removeEventListener('beforeunload', handlePageReload);
+//     };
+//   }, [history]);
+
+//   return (
+//     <div>
+//       {/* Your component content goes here */}
+//     </div>
+//   );
+// };
+
+// export default App;
