@@ -3,7 +3,7 @@ console.log("author start");
 let data = {
     UserData:{
         data:{
-            mode: "normal",
+            mode: "simple",
             text: 50,
             time: 30,
             typing_data: {

@@ -15,17 +15,35 @@ const AuthorReducer = (state = author, action) => {
         case "SET_MODE_MODE":
             return {
                 ...state,
-                'UserData.mode':action.payloadMode
+                UserData: {
+                    ...state.UserData,
+                    data: {
+                        ...state.UserData.data,
+                        mode: action.payloadMode
+                    }
+                }
             }
         case "SET_MODE_TEXT":
             return {
                 ...state,
-                'UserData.text': action.payloadMode
+                UserData: {
+                    ...state.UserData,
+                    data: {
+                        ...state.UserData.data,
+                        text: action.payloadMode
+                    }
+                }
             }
         case "SET_MODE_TIME":
             return {
                 ...state,
-                'UserData.time': action.payloadMode
+                UserData:{
+                    ...state.UserData,
+                    data:{
+                        ...state.UserData.data,
+                        time:action.payloadMode
+                    }
+                }
             }
         default: return state;
     }

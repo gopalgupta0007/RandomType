@@ -5,30 +5,19 @@ import { btnGroup } from '../../Methods/methods';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { setModemode, setModetext, setModetime } from '../../redux/action/Actions';
-// setModemode
-// setModetext
-// setModetime
-
 
 const NavConfig = ({ mode }) => {
     const dispatch = useDispatch()
     const location = useLocation();
     const author = useSelector(state => state.AuthorReducer.UserData);
+    const author2 = useSelector(state => state);
     const [Mode, setMode] = useState({
-        mode: "simple",
-        text: 50,
-        time: 30
+        mode: author.data.mode,
+        text: author.data.text,
+        time: author.data.time
     });
 
-    useEffect(() => {
-        console.log(author);
-        setMode(prevMode => ({ ...prevMode, mode: author.data.mode }));
-        setMode(prevMode => ({ ...prevMode, text: author.data.text }));
-        setMode(prevMode => ({ ...prevMode, time: author.data.time }));
-        console.log(author);
-    }, [author.data.mode, author.data.text, author.data.time])
 
-    // console.log(Mode);
     const updateModeState = (e) => {
         const valueOfModes = e.target.textContent.toLowerCase();
         const parentClass = e.target.parentElement.getAttribute('class').split(" ")[0]
@@ -36,23 +25,29 @@ const NavConfig = ({ mode }) => {
         if (parentClass === "btn-group-1") {
             // when the state updated so that at same time useEffect will start side way to patch(update) mode data stored in the database
             setMode(prevMode => ({ ...prevMode, mode: valueOfModes }));
-            dispatch(setModemode(valueOfModes))
         } else if (parentClass === "btn-group-2") {
             setMode(prevMode => ({ ...prevMode, text: parseInt(valueOfModes) })); // Assuming text is a number
-            dispatch(setModetext(parseInt(valueOfModes)))
         } else if (parentClass === "btn-group-3") {
             setMode(prevMode => ({ ...prevMode, time: parseInt(valueOfModes) })); // Assuming time is a number
-            dispatch(setModetime(parseInt(valueOfModes)))
         }
         console.log(author);
     }
 
     useEffect(() => {
         // Use useEffect to perform side effects after the state is updated
-        if (!(Mode.mode==="") && !(Mode.text===0) && !(Mode.time===0)) {
+        if (!(Mode.mode === "") && !(Mode.text === 0) && !(Mode.time === 0)) {
             updateModeData();
+            dispatchMethod();
         }
     }, [Mode]);
+
+    const dispatchMethod = () => {
+        dispatch(setModemode(Mode.mode))
+        dispatch(setModetext(parseInt(Mode.text)))
+        dispatch(setModetime(parseInt(Mode.time)))
+        console.log(author);
+        console.log(author2);
+    }
 
     const updateModeData = async () => {
         console.log(Mode);
