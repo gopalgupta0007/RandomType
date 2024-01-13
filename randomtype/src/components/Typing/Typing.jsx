@@ -13,6 +13,8 @@ import keyboardSound from './keyboardSound/Bubble.mp3';
 import bellSound from './keyboardSound/lightBell.mp3';
 import typeError from './keyboardSound/TypeError2.mp3';
 import NavConfig from '../Mode/NavConfig';
+import { useSelector } from 'react-redux';
+import { generateRandomNumber, generateRandomText, latter } from './textGenerator';
 // import { LogarithmicScale } from 'chart.js';
 // document.getElementsByClassName("letter")[0].classList.add("active")
 
@@ -55,12 +57,6 @@ import NavConfig from '../Mode/NavConfig';
 // console.log("noOfFirstLineCharacter*1.8 => "+noOfFirstLineCharacter*1.8)
 // console.log("y => "+Math.trunc(1.8*typing.selectionStart / Math.trunc(typing.offsetWidth / 14)))
 
-export function loadParagraph() {
-    const index = Math.floor(Math.random() * 10);
-    console.log("random num => " + index);
-    // localStorage.setItem("texts-index-num", btoa(index))
-    return normalText[index].toLowerCase()
-}
 
 export function getNumberOfWords(text, noOfWords) {
     const words = text.split(' ');// Split the text into words
@@ -73,13 +69,14 @@ export function getNumberOfWords(text, noOfWords) {
 const Typing = () => {
     // document.getElementsByClassName("letter")[0].classList.add("active");
     const typingContainer = document.getElementById("typingContainer");
-    
+    const author = useSelector(state => state.AuthorReducer.UserData);
+    const auth = useSelector(state => state.AuthReducer.auth);
     // var typing = document.getElementById("typing");
     // const [textsIndexNumber, settextsIndexNumber] = useState(0);
     const elementRef = useRef(null);
     const [Letter, setLatter] = useState("");
     const [IndexNumber, setIndexNumber] = useState(0);
-    const [CountDownTimer, setCountDownTimer] = useState(30); // Timer component set the time
+    const [CountDownTimer, setCountDownTimer] = useState(author.data.time); // Timer component set the time
     const [IncorrectLetter, setIncorrectLetter] = useState(0);
     const [CorrectLetter, setCorrectLetter] = useState(0);
     const [placeholderText, setplaceholderText] = useState(""); // how much character/word will it be having
@@ -89,8 +86,54 @@ const Typing = () => {
     const [playInCorrectKeySound] = useSound(bellSound, { volume: 2 });
     const [playbackspaceSound] = useSound(typeError, { volume: 5 });
 
+    // useEffect(() => {
+    //     if (IndexNumber>0) {
+    //         const caret = document.getElementsByClassName("active")[1];
+    //         const caretPosition = caret.getBoundingClientRect();
+    //         console.log("caretPosition => ", caretPosition);
+    //     }
+    // })
 
-    
+    useEffect(() => {
+        // setplaceholderText(getNumberOfWords(loadParagraph(), 100))
+        if (auth) {
+            setplaceholderText(getNumberOfWords(loadParagraph(), author.data.text))
+        }
+    }, [author.data.mode, author.data.text])
+
+    useEffect(() => {
+        //generate random number and the according to that number of index of array of the paragram will it be selected
+        // getParagraph(setplaceholderText, loadParagraph
+        if (auth) {
+            setplaceholderText(getNumberOfWords(loadParagraph(), author.data.text))
+        }
+    }, []);
+
+    useEffect(() => {
+        if (!auth) {
+            setplaceholderText(getNumberOfWords(loadParagraph()))
+        }
+    }, [])
+
+    function loadParagraph() {
+        const index = Math.floor(Math.random() * 10);
+        console.log("random num => " + index);
+        if (auth) {
+            if (author.data.mode === "number") {
+                return generateRandomNumber();
+            } else if (author.data.mode === "random") {
+                return generateRandomText();
+            } else if ((author.data.mode === "simple") || (author.data.mode === "")) {
+                return normalText[Math.floor(Math.random() * 10)].toLowerCase()
+            } else if (author.data.mode === "custom") {
+                return normalText[Math.floor(Math.random() * 10)].toLowerCase()
+            }
+        } else {
+            return normalText[Math.floor(Math.random() * 10)].toLowerCase()
+        }
+    }
+
+
     const scrolled = () => {
         // when typing element of scroll occured then placeholder of an element scrolled according the of textarea  
         var typing = document.getElementById('typing');
@@ -99,16 +142,11 @@ const Typing = () => {
         placeholder.scrollTop = typing.scrollTop;
         // typing.scrollTop = placeholder.scrollTop;
     }
-    
-    useEffect(() => {
-        //generate random number and the according to that number of index of array of the paragram will it be selected
-        // getParagraph(setplaceholderText, loadParagraph
-        setplaceholderText(getNumberOfWords(loadParagraph(), 100))
-    }, []);
-    
+
+
     function restartTypingTest() {
         // every time new text give for the test
-        setplaceholderText(getNumberOfWords(loadParagraph(), 100))
+        setplaceholderText(getNumberOfWords(loadParagraph(), author.data.text))
         const activedCaret = document.querySelectorAll(".active")
         activedCaret.forEach(function (caret) {
             caret.classList.remove("active");
@@ -267,11 +305,11 @@ const Typing = () => {
                 // console.log(text1[IndexNumber] + "||" + text2[IndexNumber] + " index => " + IndexNumber);
                 // console.log("Backspace");
                 if (text1[IndexNumber] === text2[IndexNumber]) {
-                    alert(text1[IndexNumber-1]," === " ,text2[IndexNumber-1]);
-                    console.log("thses latter => ", text2[IndexNumber-1]);
-                    setCorrectLetter((CorrectLetter<=0)?0:CorrectLetter-1);
-                }else{
-                    setIncorrectLetter((IncorrectLetter<=0)?0:IncorrectLetter-1);
+                    alert(text1[IndexNumber - 1], " === ", text2[IndexNumber - 1]);
+                    console.log("thses latter => ", text2[IndexNumber - 1]);
+                    setCorrectLetter((CorrectLetter <= 0) ? 0 : CorrectLetter - 1);
+                } else {
+                    setIncorrectLetter((IncorrectLetter <= 0) ? 0 : IncorrectLetter - 1);
                 }
             } else if (text1[IndexNumber] === text2[IndexNumber]) {
                 playCorrectKeySound();   // correct key pressed then sound played like typewriter
@@ -286,7 +324,7 @@ const Typing = () => {
                 (IndexNumber === 0) ? console.log("start") : words[IndexNumber].classList.remove("active"); words[0].classList.remove("active");
                 words[IndexNumber + 1].classList.add("active");
                 words[IndexNumber].classList.add("correct")
-                setCorrectLetter(CorrectLetter+1)
+                setCorrectLetter(CorrectLetter + 1)
                 // console.log(words[IndexNumber - 1],"|||", text1[IndexNumber - 1])
                 // span[IndexNumber + 4].classList.add("active");
                 // smoothCaretMotion();
@@ -313,7 +351,7 @@ const Typing = () => {
                 words[IndexNumber + 1].classList.add("active");
                 words[IndexNumber + 1].classList.add("pressed");
                 words[IndexNumber].classList.add("incorrect")
-                setIncorrectLetter(IncorrectLetter+1)
+                setIncorrectLetter(IncorrectLetter + 1)
                 // span[IndexNumber + 4].classList.add("active");
                 // setLatter(applyColorToCharacter(Letter+text2[IndexNumber], IndexNumber, "red"))
                 // console.log(text1[IndexNumber] + "||" + text2[IndexNumber] + " index => " + IndexNumber);
@@ -331,6 +369,7 @@ const Typing = () => {
         if (
             (pressedKey >= 'a' && pressedKey <= 'z')
             || (pressedKey >= '0' && pressedKey <= '9')
+            || latter
             || [" ", '<', '>', ',', '.', '?', '/', ';', ':', "'", '"', '{', '[', ']', '}', '|', '_', '-', '+', '='].includes(pressedKey)
             || pressedKey === undefined
         ) {
@@ -351,10 +390,12 @@ const Typing = () => {
         <>
             <HelmetProvider>
                 <Helmet><title>Testing || RandomType</title></Helmet>
-                {((CountDownTimer <= 0) || (placeholderText.length===IndexNumber+1)) ? <Result restartTypingTest={restartTypingTest} keyData={{Letter,IndexNumber,IncorrectLetter,CorrectLetter,placeholderText}} /> : <Container maxWidth="xl" style={{ marginTop: '2.5cm' }}>
-                    <div id='typing-nav-config' className='mt-[-2.5cm] mb-10'>
-                        <NavConfig mode={"typing-test-mode"} />
-                    </div>
+                {((CountDownTimer <= 0) || (placeholderText.length === IndexNumber + 1)) ? <Result restartTypingTest={restartTypingTest} keyData={{ Letter, IndexNumber, IncorrectLetter, CorrectLetter, placeholderText }} /> : <Container maxWidth="xl" style={{ marginTop: '2.5cm' }}>
+                    {auth
+                        &&
+                        <div id='typing-nav-config' className='mt-[-2.5cm] mb-10'>
+                            <NavConfig mode={"typing-test-mode"} />
+                        </div>}
                     <Box id="testDetails" className="text-white flex xl:gap-x-[20vw] lg:gap-x-[15vw] md:gap-x-[10vw] sm:gap-x-[8vw] gap-x-[8vw] my-5 mt-10 xl:text-4xl md:text-3xl justify-center">
                         <div id='wpm' className='flex'>
                             <h1 className='flex'>WPM :&nbsp;{(Letter.length > 0) ? <WPM countdown={CountDownTimer} word={Letter.split(" ").length - 1} /> : 0}</h1>
@@ -363,7 +404,7 @@ const Typing = () => {
                             <h1 className='flex'>Accuracy :&nbsp;{(Letter.length > 0) ? <Accuracy countdown={CountDownTimer} incorrectLetter={IncorrectLetter} totalChar={placeholderText.split("").length} /> : 100}%</h1>
                         </div>
                         <div id='timer' className='flex'>
-                            <h1 className='flex'>Timer :&nbsp;{(Letter.length > 0) ? <Timer takeCountdown={countDownTimerMethod} /> : 30}s</h1>
+                            <h1 className='flex'>Timer :&nbsp;{(Letter.length > 0) ? <Timer takeCountdown={countDownTimerMethod} auth={auth} /> : auth ? author.data.time : 30}s</h1>
                         </div>
                     </Box>
                     <Box id="typingContainer" className="border-transparent focus:outline-none border-2 h-[30.5vh] m-5 mt-10 mx-10 rounded-lg overflow-scroll" onClick={() => typingContainer.classList.remove("blur-md")} onBlur={() => typingContainer.classList.add("blur-md")}>

@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { updateTimer } from "../../../redux/action/Actions"
 
-const Timer = ({ takeCountdown }) => {
+const Timer = ({ takeCountdown, auth }) => {
     const dispatch = useDispatch();
-    const [seconds, setSeconds] = useState(3);  // user can select timer on how much of time they need to be type
+    const author = useSelector(state => state.AuthorReducer.UserData);
+    const [seconds, setSeconds] = useState(auth?author.data.time:30);  // user can select timer on how much of time they need to be type
 
     useEffect(()=>{dispatch(updateTimer(seconds))},[seconds])
     useEffect(() => {

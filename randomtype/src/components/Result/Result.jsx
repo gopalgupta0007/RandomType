@@ -12,7 +12,7 @@ import axios from "axios";
 (localStorage.getItem("typingData") === null) && window.location.reload(); //if the localstoage is null to that automaticlly reload page once
 
 const Result = ({ restartTypingTest, keyData }) => {
-  const auth = useSelector(state => state.AuthReducer)
+  const auth = useSelector(state => state.AuthReducer.auth)
   const author = useSelector(state => state.AuthorReducer)
   const typing_data = useSelector((state) => state.TypingTestReducer)
   // const [AuthorData, setAuthorData] = useState({})
@@ -99,7 +99,7 @@ const Result = ({ restartTypingTest, keyData }) => {
         {/* {!auth && <ResultGraph typingData={typing_data} />}
         {auth&&<ResultGraph typingData={author.data.data} />} */}
         <ResultGraph typingData={auth?author.UserData.data:typing_data} keyData={keyData} />
-        {(!auth) && <div className="text-white text-center mt-10" >
+        {(!auth) && <div className="text-white text-center absolute left-[42.5%] bottom-10" >
           <a href="/login" className="font-bold underline" >Sign in</a> to save your result
         </div>}
         <br />
@@ -132,7 +132,7 @@ const Result = ({ restartTypingTest, keyData }) => {
                 onClick={captureImage}
               />
             </div>
-            <div id='play-cargame' className='text-center mt-5'>
+            {auth&&<div id='play-cargame' className='text-center mt-5'>
               <NavLink to="/game" tabIndex="3">
                 <DirectionsCarFilledOutlinedIcon
                   className='cursor-pointer text-white rounded-none hover:rounded-md'
@@ -145,7 +145,7 @@ const Result = ({ restartTypingTest, keyData }) => {
                 // onClick={restartTypingTest}
                 />
               </NavLink>
-            </div>
+            </div>}
           </div>
 
         </div>

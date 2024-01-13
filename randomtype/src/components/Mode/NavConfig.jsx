@@ -10,7 +10,7 @@ const NavConfig = ({ mode }) => {
     const dispatch = useDispatch()
     const location = useLocation();
     const author = useSelector(state => state.AuthorReducer.UserData);
-    const author2 = useSelector(state => state);
+    const auth = useSelector(state => state.AuthReducer.auth);
     const [Mode, setMode] = useState({
         mode: author.data.mode,
         text: author.data.text,
@@ -35,9 +35,11 @@ const NavConfig = ({ mode }) => {
 
     useEffect(() => {
         // Use useEffect to perform side effects after the state is updated
-        if (!(Mode.mode === "") && !(Mode.text === 0) && !(Mode.time === 0)) {
-            updateModeData();
-            dispatchMethod();
+        if (auth) {
+            if (!(Mode.mode === "") && !(Mode.text === 0) && !(Mode.time === 0)) {
+                updateModeData();
+                dispatchMethod();
+            }
         }
     }, [Mode]);
 
@@ -46,7 +48,6 @@ const NavConfig = ({ mode }) => {
         dispatch(setModetext(parseInt(Mode.text)))
         dispatch(setModetime(parseInt(Mode.time)))
         console.log(author);
-        console.log(author2);
     }
 
     const updateModeData = async () => {

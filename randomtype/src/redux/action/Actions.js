@@ -70,6 +70,12 @@ const setModetime = (time) => {
         payloadMode: time
     }
 }
+const updateMessage = (msg) => {
+    return {
+        type: "UPDATE_MESSAGE",
+        payloadMsg: msg
+    }
+}
 export {
     updateWpm,
     updateAcc,
@@ -82,5 +88,6 @@ export {
     setUserData,
     setModemode,
     setModetext,
-    setModetime
+    setModetime,
+    updateMessage
 }

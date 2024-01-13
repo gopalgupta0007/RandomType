@@ -8,6 +8,8 @@ import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import store, { persistor } from './redux/store/store';
 import state from './redux/state/state';
+import { Flip, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 // import data from './redux/state/author';
 
 
@@ -29,6 +31,20 @@ root.render(
       <PersistGate persistor={persistor}>
         <StrictMode>
           <App />
+          <ToastContainer
+            position="top-right"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="colored"
+            transition={Flip}
+          />
+          {/* <ToastContainer /> */}
         </StrictMode>
       </PersistGate>
     </Provider>

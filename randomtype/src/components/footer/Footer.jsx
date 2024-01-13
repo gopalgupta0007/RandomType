@@ -4,8 +4,10 @@ import GitHubIcon from '@mui/icons-material/GitHub';
 import InfoIcon from '@mui/icons-material/Info';
 import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
 import SwapCallsIcon from '@mui/icons-material/SwapCalls';
+import { useSelector } from 'react-redux';
 
 const Footer = () => {
+  const auth = useSelector(state => state.AuthReducer.auth)
   function gotoGithub() {
     window.open("https://github.com/gopalgupta0007/randomtype","_blank")
   }
@@ -14,7 +16,7 @@ const Footer = () => {
       <div className='flex gap-x-10'>
         <div style={{cursor:'pointer'}} className="scale-100 hover:scale-110 duration-300" onClick={gotoGithub}><GitHubIcon className="scale-75 text-red-600"/>Github</div>
         <NavLink to="/about" className="scale-100 hover:scale-110 duration-300"><InfoIcon className="scale-75 text-red-600 "/>AboutUs</NavLink>
-        <NavLink to="/contact" className="scale-100 hover:scale-110 duration-300"><AlternateEmailIcon className="scale-75 text-red-600"/>ContactUs</NavLink>
+        {auth&&<NavLink to="/contact" className="scale-100 hover:scale-110 duration-300"><AlternateEmailIcon className="scale-75 text-red-600"/>ContactUs</NavLink>}
       </div>
       <div>
         <div><SwapCallsIcon className="scale-75 text-red-600"/>version : 1.1.1</div>

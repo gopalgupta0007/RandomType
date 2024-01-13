@@ -1,16 +1,15 @@
 import React, { useEffect, useReducer, useRef, useState } from 'react'
 import { Helmet, HelmetProvider } from 'react-helmet-async';
-import axios from 'axios';
 import DoughnutChart from './charts/DoughnutChart';
 import { useDispatch, useSelector } from 'react-redux';
-import { setUserData } from '../../redux/action/Actions';
-// import ResultGraph from '../Result/ResultCharts/ResultGraph';
 import LineChart from './charts/LineChart';
+// import { setUserData } from '../../redux/action/Actions';
+// import ResultGraph from '../Result/ResultCharts/ResultGraph';
 // import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
-import { useHistory } from 'react-router-dom';
+// import { useHistory } from 'react-router-dom';
 const User = () => {
   // window.location.reload(false)
-  const auth = useSelector(state => state.AuthReducer)
+  const auth = useSelector(state => state.AuthReducer.auth)
   const dispatch = useDispatch();
   const [ignored, forceUpdate] = useReducer(x => x + 1, 0);
   const author = useSelector(state => state.AuthorReducer.UserData)
@@ -107,7 +106,7 @@ const User = () => {
   }, [])
 
   useEffect(() => {
-    const dateObject = new Date(User.date);
+    const dateObject = new Date(author.date);
 
     const options = {
       day: 'numeric',

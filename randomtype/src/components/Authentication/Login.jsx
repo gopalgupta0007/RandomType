@@ -8,8 +8,7 @@ import { useHistory } from "react-router-dom";
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { userAuthenticated } from '../../redux/action/Actions';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
 
 const Login = () => {
     const dispatch = useDispatch();
@@ -53,10 +52,8 @@ const Login = () => {
             localStorage.setItem("DBdata", localStorage.getItem("DBdata"));
             //stored cookie data will push in the database
             // alert("logined")
+            history.push('/');
             toast.success("logined successfull")
-            setTimeout(() => {
-                history.push('/');
-            }, 6000);
             // e.preventDefault()
             // window.location.reload();
         } catch (err) {
@@ -104,7 +101,7 @@ const Login = () => {
                     </Button>
                 </Box>
             </form>
-            <ToastContainer />
+            {/* <ToastContainer /> */}
         </>
     )
 }

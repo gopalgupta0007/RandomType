@@ -37,11 +37,22 @@ const AuthorReducer = (state = author, action) => {
         case "SET_MODE_TIME":
             return {
                 ...state,
-                UserData:{
+                UserData: {
                     ...state.UserData,
-                    data:{
+                    data: {
                         ...state.UserData.data,
-                        time:action.payloadMode
+                        time: action.payloadMode
+                    }
+                }
+            }
+        case "UPDATE_MESSAGE":
+            return {
+                ...state,
+                UserData: {
+                    ...state.UserData,
+                    data: {
+                        ...state.UserData.data,
+                        message: action.payloadMsg
                     }
                 }
             }

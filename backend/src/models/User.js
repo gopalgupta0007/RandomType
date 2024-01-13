@@ -52,7 +52,7 @@ const UserSchema = new mongoose.Schema({
         time: Number,
         typing_data: {
             total_wpm: [Number],
-            total_accuracy: [Number],
+            total_accuracy: [Number]
         },
         setting: {
             font: {
@@ -68,8 +68,17 @@ const UserSchema = new mongoose.Schema({
                 sounds: String,
             },
             theme: String,
-            intro_animation: Boolean,
+            intro_animation: Boolean
         },
+        comments:[
+            {
+                message: String,
+                msgDate: {
+                    type:Date,
+                    default: Date.now
+                },
+            }
+        ],
         default: {
             type:Object,
             mode: "normal",

@@ -22,7 +22,7 @@ const App = () => {
   const dispatch = useDispatch();
   // const [Data, setData] = useState({});
   const author = useSelector(state => state.AuthorReducer)
-  const auth = useSelector(state => state.AuthReducer)
+  const auth = useSelector(state => state.AuthReducer.auth)
 
   // useEffect(()=>{
   //   localStorage.setItem("DBdata", JSON.parse(atob(localStorage.getItem("DBdata"))));
@@ -39,7 +39,6 @@ const App = () => {
             }).then(res => {
               console.log(res.data.user)
               // dispatch(userId(res.data.user._id))
-              dispatch(setUserData(res.data.user))
               // localStorage.setItem("DBdata", btoa(JSON.stringify(res.data.user.data)))
               // console.log(Data);
             }).catch(err => console.error(err))

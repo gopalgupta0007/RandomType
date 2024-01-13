@@ -115,44 +115,69 @@ const updateTyping = async (req, res) => {
         // console.log("req.user => ",req.user);
         updatedUser = await Users.findByIdAndUpdate(
             authUserId,
-            { 
+            {
                 $push: {
                     'data.typing_data.total_wpm': wpm,
                     'data.typing_data.total_accuracy': acc,
-                }, 
+                },
             },
             { new: true }
         );
         // res.json(updatedUser.data);
-    }catch(error) {
+    } catch (error) {
         res.status(500).json({ message: error.message });
     }
     return res.status(200).send({ massage: "updated data successful" });
 }
 
 const updateMode = async (req, res) => {
-    let updatedUser
+    let updatedModes
     try {
         const authUserId = req.params.id;
-        const {mode, text, time} = req.body;
-        updatedUser = await Users.findByIdAndUpdate(
+        const { mode, text, time } = req.body;
+        updatedModes = await Users.findByIdAndUpdate(
             authUserId,
-            { 
+            {
                 $set: {
                     'data.mode': mode,
                     'data.text': text,
                     'data.time': time
-                }, 
+                },
             },
             { new: true }
         );
         // res.json(updatedUser.data);
-    }catch(error) {
+    } catch (error) {
         res.status(500).json({ message: error.message });
     }
     return res.status(200).send({ massage: "mode updated data successful" });
 }
 
+
+const contactUs = async (req, res) => {
+    let contactData
+    try {
+        // console.log(req.user);
+        // const authUserId = req.userId;
+        const authUserId = req.params.id;
+        const { message } = req.body;
+        // console.log("req.user => ",req.user);
+        contactData = await Users.findByIdAndUpdate(
+            authUserId,
+            {
+                $push: {
+                    // 'data.typing_data.total_wpm': wpm,
+                    'data.comments': {message}
+                },
+            },
+            { new: true }
+        );
+        // res.json(updatedUser.data);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+    return res.status(200).send({ massage: "message store successful" });
+}
 
 
 const deleteUser = async (req, res) => {
@@ -168,8 +193,7 @@ const deleteUser = async (req, res) => {
 }
 
 
-
-module.exports = { signup, login, logout, getAllUser, getUserById, updateUser, deleteUser, updateTyping, updateMode }
+module.exports = { signup, login, logout, getAllUser, getUserById, updateUser, deleteUser, updateTyping, updateMode, contactUs }
 
 
 

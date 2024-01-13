@@ -5,8 +5,8 @@ import { NavLink } from 'react-router-dom';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { useDispatch } from 'react-redux';
 import { userLogout } from '../../redux/action/Actions';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
+// import 'react-toastify/dist/ReactToastify.css';
 
 const Logout = () => {
     const dispatch = useDispatch();
@@ -22,7 +22,7 @@ const Logout = () => {
             setTimeout(() => {
                 history.push('/');
                 window.location.reload();
-            }, 6000);
+            }, 5000);
         } catch (err) {
             console.log(err);
         }
@@ -40,7 +40,7 @@ const Logout = () => {
                     },
                 }} />
             </NavLink>
-            <ToastContainer />
+            {/* <ToastContainer /> */}
         </>
     )
 }

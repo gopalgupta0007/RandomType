@@ -12,7 +12,7 @@ import { useSelector } from 'react-redux';
 
 
 const Navbar = () => {
-    const auth = useSelector(state => state.AuthReducer)
+    const auth = useSelector(state => state.AuthReducer.auth)
     const ChangeIconColor = {
         backgroundColor: 'transparent',
         transition: 'background-color 0.2s, border-radius 0.5s',

@@ -7,11 +7,12 @@ import KeyboardDoubleArrowUpIcon from '@mui/icons-material/KeyboardDoubleArrowUp
 import { BsCursorText } from "react-icons/bs";
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { btnGroup } from '../../Methods/methods';
+import { useSelector } from 'react-redux';
 // import { alertTitleClasses } from '@mui/material';
 
 const Settings = () => {
   const [visible, setVisible] = useState(false);
-
+  const author = useSelector(state => state.AuthorReducer.UserData);
   const toggleHeight = (num) => {
     var slide_setting_option = document.querySelectorAll(".toggle-open")[num];
     slide_setting_option.classList.toggle("toggle-close");
@@ -66,7 +67,7 @@ const Settings = () => {
     'Mukta',
     'Ubuntu'
   ];
-  const fontSize = ['xl', '2xl', '3xl', '4xl', '5xl']
+  const fontSizes = ['xl', '2xl', '3xl', '4xl', '5xl']
 
   const scrollToTop = () => {
     const setting_options = document.getElementById("setting-options");
@@ -82,6 +83,11 @@ const Settings = () => {
       setVisible(false)
     }
 
+  }
+
+  const updateSetting = (btn, btn2) =>{
+    console.log(btn.textContent);
+    console.log(btn2);
   }
 
   return (
@@ -110,8 +116,8 @@ const Settings = () => {
                   {fontfamilyBtn.map((buttonValue, index) => (
                     <button
                       key={index}
-                      className='btnSetting transition btn'
-                      onClick={(e) => btnGroup(9, 'activeSetting', e.target)}
+                      className={`btnSetting transition btn ${author.data.setting.font.family==buttonValue ? 'btnActive' : ''}`}
+                      onClick={(e) => {btnGroup(9, 'activeSetting', e.target); updateSetting(e.target, buttonValue)}}
                     >
                       {buttonValue}
                     </button>
@@ -123,9 +129,10 @@ const Settings = () => {
                   <div><p className='text-xl'>font size : </p></div>
                   <div><p id='demo' className='h-16 flex justify-center align-middle items-center text-5xl text-center w-20 transition'>Aa</p></div>
                   <div id='font-size-options' className='btn-group-10 grid grid-cols-5 gap-5 text-center'>
-                    {fontSize.map((buttonValue, index) => (
+                    {fontSizes.map((buttonValue, index) => (
                       <button
                         key={index}
+                        style={{padding:'5px 30px'}}
                         className='btnSetting transition btn'
                         onClick={(e) => btnGroup(10, 'activeSetting', e.target)}
                       >

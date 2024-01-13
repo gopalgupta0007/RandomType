@@ -9,7 +9,8 @@ import useSound from 'use-sound';
 import keyboardSound from '../Typing/keyboardSound/Bubble.mp3';
 import bellSound from '../Typing/keyboardSound/lightBell.mp3';
 import typeError from '../Typing/keyboardSound/TypeError2.mp3';
-import { getNumberOfWords, loadParagraph } from '../Typing/Typing';
+import { getNumberOfWords } from '../Typing/Typing';
+import normalText from '../Typing/storedText';
 
 function compareTo(text1, text2) {
     console.log(`\'${text1}\' == \'${text2}\'`);
@@ -33,8 +34,10 @@ const CarGame = () => {
 
     useEffect(() => {
         //generate random number and the according to that number of index of array of the paragram will it be selected
+
         // getParagraph(setplaceholderText, loadParagraph
-        setCarTextPlaceholderText(getNumberOfWords(loadParagraph(), 50))
+        // setCarTextPlaceholderText(getNumberOfWords(loadParagraph(), 50))
+        setCarTextPlaceholderText(getNumberOfWords(normalText[Math.floor(Math.random() * 10)].toLowerCase(), 50))
     }, []);
 
     function compareToTypedLetter(text1, text2 = 'Backspace') {
@@ -128,7 +131,7 @@ const CarGame = () => {
                             </div>
                         </div>
                     </Box>
-                    <Box id="cargametypingContainer" className="w-11/12 mx-auto mt-1 focus:outline-none h-[22vh] rounded-xl overflow-hidden bg-cyan-300 bg-opacity-40" onClick={() => cargametypingContainer.classList.remove("blur-md")} onBlur={() => cargametypingContainer.classList.add("blur-md")}>
+                    <Box id="cargametypingContainer" className="w-11/12 mx-auto mt-1 focus:outline-none h-[22vh] rounded-xl overflow-hidden bg-opacity-40" onClick={() => cargametypingContainer.classList.remove("blur-md")} onBlur={() => cargametypingContainer.classList.add("blur-md")}>
                         <textarea id="cargame-typing" className="rounded-lg bg-blue-300 focus:outline-none resize-none text-3xl w-[100%] h-[100%] caret-transparent text-transparent text-opacity-100 bg-opacity-0 selection:bg-transparent relative z-[-99] transition" style={{ wordBreak: 'break-all', textAlign: 'justify', textJustify: 'inter-word' }} ref={elemtRef} name="cargame-typing" spellCheck="false" onChange={handleCarGameTyping} autoFocus={true} value={CarLetter}></textarea>
                         <div className="cargame-typing-text">
                             <p id="cargame-paragraph" className='rounded-lg bg-orange-300 focus:outline-none resize-none text-3xl w-[100%] h-[100%] caret-transparent select-none relative top-[-30.4vh] bg-opacity-0 pt-16 px-3' style={{ wordBreak: 'break-all', textAlign: 'justify', textJustify: 'inter-word' }} onClick={focusCargameTyping}>
