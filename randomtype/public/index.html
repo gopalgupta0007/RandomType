@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#000000" />
@@ -10,16 +11,17 @@
 </head>
 
 <body>
-  <svg id="rtSVG" class="default hidden" width="100vw" height="100vh" viewBox="0 0 1440 970" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <svg id="rtSVG" class="hidden glass" width="100vw" height="100vh" viewBox="0 0 1440 970" fill="none"
+    xmlns="http://www.w3.org/2000/svg">
     <!-- <rect id="backgroundFrame" width="1440" height="970" fill="var(--intro-bg)" /> -->
     <g id="RTIntro" clip-path="url(#clip0_1_2)">
       <g id="randomText">
         <text id="Random ype" fill="black" xml:space="preserve" style="white-space: pre" font-family="Inter"
           font-size="91" letter-spacing="-0.05em">
-          <tspan x="548" y="556.091" >RANDOM  YPE</tspan>
+          <tspan x="548" y="556.091">RANDOM  YPE</tspan>
           <!--need to add double space in this line in tspan tag "RANDOM__YPE"-->
         </text>
-        <rect id="t-horizontalSVG" x="548" y="474" width="584" height="9" rx="4.5" fill="var(--text-color)" />
+        <rect id="t-horizontalSVG" x="548" y="474" width="584" height="9" rx="4.5" fill="red" />
         <path id="t-verticalSVG"
           d="M943 481.039C943 476.74 946.72 473.385 950.996 473.827V473.827C954.692 474.209 957.5 477.323 957.5 481.039V572.461C957.5 576.76 953.78 580.115 949.504 579.673V579.673C945.808 579.291 943 576.177 943 572.461V481.039Z" />
         <text id=" Typing Test" class="typingTest" fill="black" xml:space="preserve" style="white-space: pre"
@@ -84,6 +86,20 @@
     </defs>
   </svg>
   <div id="root"></div>
+  <script>
+    setTimeout(function () {
+      var bgIntro = document.getElementById('bg-intro');
+      if (bgIntro) {
+        bgIntro.style.display = 'block'; // Show the blurred background
+      }
+
+      setTimeout(function () {
+        if (bgIntro) {
+          bgIntro.style.display = 'none'; // Hide the blurred background after another period (adjust as needed)
+        }
+      }, 6000); // 5000 milliseconds (5 seconds)
+    }, 0);
+  </script>
   <script src="./script.js"></script>
 </body>
 

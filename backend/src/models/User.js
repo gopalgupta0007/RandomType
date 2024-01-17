@@ -64,8 +64,8 @@ const UserSchema = new mongoose.Schema({
                 smooth: Boolean,
             },
             sounds: {
-                volume: Number,
-                sounds: String,
+                volume: String,
+                sound: String,
             },
             theme: String,
             intro_animation: Boolean
@@ -90,7 +90,7 @@ const UserSchema = new mongoose.Schema({
             },
             setting: {
                 font: {
-                    family: "Roboto",
+                    family: "roboto",
                     size: "5xl"
                 },
                 caret: {
@@ -98,7 +98,7 @@ const UserSchema = new mongoose.Schema({
                     smooth: true
                 },
                 sounds: {
-                    volume: 1,
+                    volume: "mid",
                     sounds: "keybord"
                 },
                 theme: "black&white",

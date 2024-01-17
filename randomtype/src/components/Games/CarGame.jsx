@@ -6,9 +6,9 @@ import NavGameProgressBar from './NavGameProgressBar';
 import car from "../Games/svg Images/carSVG.svg"
 import flag from "../Games/svg Images/flag.svg"
 import useSound from 'use-sound';
-import keyboardSound from '../Typing/keyboardSound/Bubble.mp3';
-import bellSound from '../Typing/keyboardSound/lightBell.mp3';
-import typeError from '../Typing/keyboardSound/TypeError2.mp3';
+import bubble from '../rtsetting/sounds/bubble.mp3';
+import lightbell from '../rtsetting/sounds/lightbell.mp3';
+import typeErrorsound from '../rtsetting/sounds/typeError.mp3';
 import { getNumberOfWords } from '../Typing/Typing';
 import normalText from '../Typing/storedText';
 
@@ -28,9 +28,9 @@ const CarGame = () => {
     const [CargameCountDownTimer, setCargameCountDownTimer] = useState(30);
     const [CarTextplaceholderText, setCarTextPlaceholderText] = useState("");
 
-    const [playCorrectKeySound] = useSound(keyboardSound, { volume: 1 });
-    const [playInCorrectKeySound] = useSound(bellSound, { volume: 1 });
-    const [playbackspaceSound] = useSound(typeError, { volume: 1 });
+    const [playCorrectKeySound] = useSound(bubble, { volume: 1 });
+    const [playInCorrectKeySound] = useSound(lightbell, { volume: 1 });
+    const [playbackspaceSound] = useSound(typeErrorsound, { volume: 1 });
 
     useEffect(() => {
         //generate random number and the according to that number of index of array of the paragram will it be selected
@@ -143,8 +143,8 @@ const CarGame = () => {
                         </div>
                     </Box>
                     <div id='btnGame' className='w-11/12 mx-auto mt-4 flex justify-start gap-x-3'>
-                        <button className='btnSetting transition shadow text-white scale-100 active:scale-95' style={{padding:'10px 20px'}}>Play With Friend</button>
-                        <button className='btnSetting transition shadow text-white scale-100 active:scale-95' style={{padding:'10px 20px'}}>Play with Stranger</button>
+                        <button className='btnSetting transition shadow text-white scale-100 active:scale-95' style={{ padding: '10px 20px' }}>Play With Friend</button>
+                        <button className='btnSetting transition shadow text-white scale-100 active:scale-95' style={{ padding: '10px 20px' }}>Play with Stranger</button>
                     </div>
                 </Container>
             </HelmetProvider>

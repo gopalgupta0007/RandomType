@@ -56,6 +56,155 @@ const AuthorReducer = (state = author, action) => {
                     }
                 }
             }
+        case "UPDATE_FONTFAMILY":
+            return {
+                ...state,
+                UserData: {
+                    ...state.UserData,
+                    data: {
+                        ...state.UserData.data,
+                        setting: {
+                            ...state.UserData.data.setting,
+                            font: {
+                                ...state.UserData.data.setting.font,
+                                family: action.payloadSetting
+                            }
+                        }
+                    }
+                }
+            }
+        case "UPDATE_FONTSIZE":
+            return {
+                ...state,
+                UserData: {
+                    ...state.UserData,
+                    data: {
+                        ...state.UserData.data,
+                        setting: {
+                            ...state.UserData.data.setting,
+                            font: {
+                                ...state.UserData.data.setting.font,
+                                size: action.payloadSetting
+                            }
+                        }
+                    }
+                }
+            }
+        case "UPDATE_CARETSTYLE":
+            return {
+                ...state,
+                UserData: {
+                    ...state.UserData,
+                    data: {
+                        ...state.UserData.data,
+                        setting: {
+                            ...state.UserData.data.setting,
+                            caret: {
+                                ...state.UserData.data.setting.caret,
+                                style: action.payloadSetting
+                            }
+                        }
+                    }
+                }
+            }
+        case "TOGGLE_CARET_SMOOTH":
+            return {
+                ...state,
+                UserData: {
+                    ...state.UserData,
+                    data: {
+                        ...state.UserData.data,
+                        setting: {
+                            ...state.UserData.data.setting,
+                            caret: {
+                                ...state.UserData.data.setting.caret,
+                                smooth: action.payloadSetting
+                            }
+                        }
+                    }
+                }
+            }
+        case "UPDATE_SOUNDVOLUME":
+            return {
+                ...state,
+                UserData: {
+                    ...state.UserData,
+                    data: {
+                        ...state.UserData.data,
+                        setting: {
+                            ...state.UserData.data.setting,
+                            sounds: {
+                                ...state.UserData.data.setting.sounds,
+                                volume: action.payloadSetting
+                            }
+                        }
+                    }
+                }
+            }
+        case "UPDATE_SOUNDTYPE":
+            return {
+                ...state,
+                UserData: {
+                    ...state.UserData,
+                    data: {
+                        ...state.UserData.data,
+                        setting: {
+                            ...state.UserData.data.setting,
+                            sounds: {
+                                ...state.UserData.data.setting.sounds,
+                                sound: action.payloadSetting
+                            }
+                        }
+                    }
+                }
+            }
+        case "UPDATE_THEME":
+            return {
+                ...state,
+                UserData: {
+                    ...state.UserData,
+                    data: {
+                        ...state.UserData.data,
+                        setting: {
+                            ...state.UserData.data.setting,
+                            theme: action.payloadSetting
+                        }
+                    }
+                }
+            }
+        case "RESET_SETTING":
+            // let {font, caret, sounds, theme, intro_animation} = action.payloadResetSetting;
+            return {
+                ...state,
+                UserData: {
+                    ...state.UserData,
+                    data: {
+                        ...state.UserData.data,
+                        setting: {
+                            ...state.UserData.data.setting,
+                            font : action.payloadResetSetting.font,
+                            caret : action.payloadResetSetting.caret,
+                            sounds : action.payloadResetSetting.sounds,
+                            theme : action.payloadResetSetting.theme,
+                            intro_animation : action.payloadResetSetting.intro_animation,
+                        }
+                    }
+                }
+            }
+        case "TOGGLE_ANIMATION":
+            return {
+                ...state,
+                UserData: {
+                    ...state.UserData,
+                    data: {
+                        ...state.UserData.data,
+                        setting: {
+                            ...state.UserData.data.setting,
+                            intro_animation: action.payloadSetting
+                        }
+                    }
+                }
+            }
         default: return state;
     }
 }

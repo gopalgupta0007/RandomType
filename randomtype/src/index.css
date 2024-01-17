@@ -6,16 +6,169 @@
   font-size: 100%;
 } */
 
+/* theme */
+@font-face {
+  font-family: roboto;
+  src: url(./components/rtsetting/font_family/Roboto-Regular.ttf);
+}
+
+@font-face {
+  font-family: playpen;
+  src: url(./components/rtsetting/font_family/PlaypenSans-Regular.ttf);
+}
+
+@font-face {
+  font-family: poppins;
+  src: url(./components/rtsetting/font_family/Poppins-Regular.ttf);
+}
+
+@font-face {
+  font-family: openn;
+  src: url(./components/rtsetting/font_family/OpenSans-Regular.ttf);
+}
+
+@font-face {
+  font-family: dynaPuff;
+  src: url(./components/rtsetting/font_family/DynaPuff-Regular.ttf);
+}
+
+@font-face {
+  font-family: oswald;
+  src: url(./components/rtsetting/font_family/Oswald-Regular.ttf);
+}
+
+@font-face {
+  font-family: mukta;
+  src: url(./components/rtsetting/font_family/Mukta-Regular.ttf);
+}
+
+@font-face {
+  font-family: ubuntu;
+  src: url(./components/rtsetting/font_family/Ubuntu-Regular.ttf);
+}
+
+@font-face {
+  font-family: lemon;
+  src: url(./components/rtsetting/font_family/Lemon-Regular.ttf);
+}
+
+@font-face {
+  font-family: instrument;
+  src: url(./components/rtsetting/font_family/InstrumentSerif-Regular.ttf);
+}
+
+@font-face {
+  font-family: tektur;
+  src: url(./components/rtsetting/font_family/Tektur-Regular.ttf);
+}
+
+@font-face {
+  font-family: caveat;
+  src: url(./components/rtsetting/font_family/Caveat-Regular.ttf);
+}
+
+@font-face {
+  font-family: orbitron;
+  src: url(./components/rtsetting/font_family/Orbitron-Regular.ttf);
+}
+
+@font-face {
+  font-family: kalnia;
+  src: url(./components/rtsetting/font_family/Kalnia-Regular.ttf);
+}
+
+@font-face {
+  font-family: merienda;
+  src: url(./components/rtsetting/font_family/Merienda-Regular.ttf);
+}
+
+@font-face {
+  font-family: gluten;
+  src: url(./components/rtsetting/font_family/Gluten-Regular.ttf);
+}
+
+.roboto {
+  font-family: roboto;
+}
+
+.playpen {
+  font-family: playpen;
+}
+
+.poppins {
+  font-family: poppins;
+}
+
+.openn {
+  font-family: openn;
+  font-weight: bold;
+}
+
+.dynaPuff {
+  font-family: dynaPuff;
+  font-weight: bold;
+}
+
+.oswald {
+  font-family: oswald;
+}
+
+.mukta {
+  font-family: mukta;
+  font-weight: bold;
+}
+
+.ubuntu {
+  font-family: ubuntu;
+}
+
+.lemon {
+  font-family: lemon;
+  font-weight: lighter;
+}
+
+.instrument {
+  font-family: instrument;
+  font-weight: bold;
+}
+
+.tektur {
+  font-family: tektur;
+  font-weight: bold;
+}
+
+.caveat {
+  font-family: caveat;
+  font-weight: bold;
+}
+
+.orbitron {
+  font-family: orbitron;
+  font-weight: bold;
+}
+
+.kalnia {
+  font-family: kalnia;
+  font-weight: bold;
+}
+
+.merienda {
+  font-family: merienda;
+}
+
+.gluten {
+  font-family: gluten;
+  font-weight: bold;
+}
+
+
 html {
   width: 100%;
   /* box-sizing: border-box; */
 }
 
-:root {
-  --text-color: #f00;
-  --intro-bg: yellow;
-}
-
+/* https://looka.com/blog/color-combinations/ */
+/* https://thecolorsmeaning.com/list-of-colors-with-names-hex-rgb-cmyk-codes/ */
 body {
   margin: 0;
   padding: 0;
@@ -50,8 +203,35 @@ svg#rtSVG {
   position: absolute;
   top: 0;
   z-index: 20;
-  background-color: var(--intro-bg);
-  filter: blur(50%);
+  background-color: transparent;
+  /* filter: blur(10px); */
+  /* filter: blur(8px); */
+  /* -webkit-filter: blur(8px); */
+  transition: all 3s;
+}
+
+.glass {
+  background: linear-gradient(135deg, rgba(255, 255, 255, .1), rgba(255, 255, 255, 0));
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  transition: all 3s;
+  animation: glassFade 1s linear 6s 1 forwards alternate;
+  -webkit-animation: glassFade 1s linear 6s 1 forwards alternate;
+  -o-animation: glassFade 1s linear 6s 1 forwards alternate;
+  -moz-animation: glassFade 1s linear 6s 1 forwards alternate;
+  -ms-animation: glassFade 1s linear 6s 1 forwards alternate;
+}
+
+@keyframes glassFade {
+  from {
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px)
+  }
+
+  to {
+    backdrop-filter: blur(0);
+    -webkit-backdrop-filter: blur(0)
+  }
 }
 
 #randomText {
@@ -103,12 +283,11 @@ svg#rtSVG {
   ;
 }
 
-/* #keyborad>path, tspan, #randomText>path { */
 #RTIntro path,
 #keyboardOfLogo path,
 #keyboardOfLogoSM path,
 tspan {
-  fill: var(--text-color);
+  fill: red;
 }
 
 #RTIntro {
@@ -311,9 +490,46 @@ tspan {
   /* border-radius: 4px; */
 }
 
+.word-spacing {
+  word-spacing: 5px;
+}
+
 /* .typing-text p span.active {
     color: #17A2B8;
 }*/
+.caretline {
+  --caret_line_width: .3vw;
+  --caret_line_height: 100%;
+  --caret_opacity:1
+  --caret_outline: 2px solid red;
+  --caret_color: rgba(255,255,0,1)
+}
+
+.caretunderscore {
+  --caret_line_width: 100%;
+  --caret_line_height: .5vw;
+  --caret_opacity:1
+  --caret_outline: 2px solid red;
+  --caret_color: rgba(255,255,0,1)
+}
+
+.caretbox {
+  --caret_line_width: 100%;
+  --caret_line_height: 100%;
+  --caret_opacity:1;
+  --caret_outline: 5px solid red;
+  --caret_color: rgba(255,255,0,.5);
+  --caret_shadow:0 5px 0 white;
+}
+
+.off{
+  --caret_line_width: 0;
+  --caret_line_height: 0;
+  --caret_opacity:0
+  --caret_outline: 2px solid red;
+  --caret_color: rgba(255,255,0,1)
+}
+
 .typing-text>p>span.active::before,
 .cargame-typing-text>p>span.active::before {
   content: "";
@@ -323,8 +539,8 @@ tspan {
   border: 3px solid red;
   opacity: 10%; */
 
-  width: 10%;
-  height: 2vw;
+  width: var(--caret_line_width);
+  height: var(--caret_line_height);
   /*=>  |  */
 
   /* height: 5px; */
@@ -333,34 +549,16 @@ tspan {
 
   bottom: 0;
   left: 0;
-  opacity: 1;
+  z-index: -100;
+  opacity: var(--caret_opacity);
   filter: opacity(100%);
-  border-radius: .5rem;
-  background: yellow;
+  border-radius: .3rem;
+  box-shadow: var(--caret_shadow);
+  outline: var(--caret_outline);
+  background: var(--caret_color);
   transform: translate(0, 0);
   transition: all 0.3s ease-in-out;
 }
-
-/* .pressed,
-.correct,
-.incorrect{
-
-} */
-/* .pressed{
-  width: 10px;
-  height: 10px;
-  background-color: green;
-  /* animation: smoothCaret .5s alternate forwards linear; 
-}
-
-@keyframes smoothCaret {
-  from {
-    width: 0%;
-  }
-  to {
-    width: 100%;
-  }
-} */
 
 
 #initial-caret,
@@ -375,12 +573,6 @@ tspan {
     opacity: 0;
   }
 }
-
-/* btnActive */
-
-/* .btnActive{
-  background-color: red;
-} */
 
 .mode>button:focus,
 .btnActive {
@@ -568,15 +760,28 @@ li:not(:first-child) span {
   padding: .25rem 0;
   border-radius: 5px;
   background-color: rgb(70, 0, 0);
+  transform: scale(1);
 }
 
-.btnSetting:hover,
+.btnSetting:hover {
+  color: rgb(255, 61, 61);
+  background-color: white;
+  /* outline: 3px solid red; */
+  transform: scale(1.05);
+}
+
+.btnSetting:active {
+  color: rgb(255, 61, 61);
+  background-color: white;
+  transform: scale(0.95);
+}
+
 .btnSetting:focus,
-.btnSetting:active,
 .activeSetting {
   /* Style the button when it is focused (clicked and then released) */
   /* Change to your desired permanent style */
   color: rgb(255, 61, 61);
+  box-shadow: 0 5px 0 0 rgb(255, 61, 61);
   background-color: white;
 }
 
@@ -630,3 +835,15 @@ li:not(:first-child) span {
     transform: rotateY(180deg) scale(.90);
   }
 }
+
+
+/* #color{
+  display: none;
+}
+
+#themes>button:hover{
+  display: flex;
+} */
+
+
+/* 9372035651 jio */

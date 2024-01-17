@@ -37,7 +37,7 @@ const App = () => {
               headers: { "Content-Type": "application/json" },
               withCredentials: true
             }).then(res => {
-              console.log(res.data.user)
+              console.log("pormise => ",res.data.user)
               // dispatch(userId(res.data.user._id))
               // localStorage.setItem("DBdata", btoa(JSON.stringify(res.data.user.data)))
               // console.log(Data);

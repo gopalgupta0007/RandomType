@@ -1,8 +1,9 @@
 console.log("author start");
 
+// let data = {
 let data = {
-    UserData:{
-        data:{
+    UserData: {
+        data: {
             mode: "simple",
             text: 50,
             time: 30,
@@ -12,21 +13,21 @@ let data = {
             },
             setting: {
                 font: {
-                    family: "Roboto",
-                    size: "5xl"
+                    family: "roboto",
+                    size: "6xl"
                 },
                 caret: {
                     style: "_",
                     smooth: true
                 },
                 sounds: {
-                    volume: 1,
-                    sounds: "keybord"
+                    volume: "mid",
+                    sound: "keybord"
                 },
                 theme: "black&white",
                 intro_animation: true
             }
-        }        
+        }
     }
 }
 

@@ -9,9 +9,19 @@ import WPM from './TestCalculate/WPM';
 import Accuracy from './TestCalculate/Accuracy';
 import Result from '../Result/Result';
 import useSound from 'use-sound';
-import keyboardSound from './keyboardSound/Bubble.mp3';
-import bellSound from './keyboardSound/lightBell.mp3';
-import typeError from './keyboardSound/TypeError2.mp3';
+
+import keyboard from '../rtsetting/sounds/keyboard.mp3'
+import bell from '../rtsetting/sounds/bell.mp3'
+import mechanical from '../rtsetting/sounds/mechanical.mp3'
+import perkins_bell from '../rtsetting/sounds/perkins_bell.mp3'
+import bubble from '../rtsetting/sounds/bubble.mp3'
+import carriage from '../rtsetting/sounds/carriage.mp3'
+import click from '../rtsetting/sounds/click.mp3'
+import ding from '../rtsetting/sounds/ding.mp3'
+import kclick from '../rtsetting/sounds/kclick.mp3'
+import lightbell from '../rtsetting/sounds/lightbell.mp3'
+import typeErrorsound from '../rtsetting/sounds/typeError.mp3'// import bubble from '../rtsetting/sounds/bubble.mp3';
+
 import NavConfig from '../Mode/NavConfig';
 import { useSelector } from 'react-redux';
 import { generateRandomNumber, generateRandomText, latter } from './textGenerator';
@@ -80,12 +90,30 @@ const Typing = () => {
     const [IncorrectLetter, setIncorrectLetter] = useState(0);
     const [CorrectLetter, setCorrectLetter] = useState(0);
     const [placeholderText, setplaceholderText] = useState(""); // how much character/word will it be having
-
-    // sounds
-    const [playCorrectKeySound] = useSound(keyboardSound, { volume: 1 });
-    const [playInCorrectKeySound] = useSound(bellSound, { volume: 2 });
-    const [playbackspaceSound] = useSound(typeError, { volume: 5 });
-
+    const [selectedSound, setSelectedSound] = useState(
+        author.data.setting.sounds.sound=="keyboard"?keyboard:
+        author.data.setting.sounds.sound=="bell"?bell:
+        author.data.setting.sounds.sound=="mechanical"?mechanical:
+        author.data.setting.sounds.sound=="perkins_bell"?perkins_bell:
+        author.data.setting.sounds.sound=="bubble"?bubble:
+        author.data.setting.sounds.sound=="carriage"?carriage:
+        author.data.setting.sounds.sound=="click"?click:
+        author.data.setting.sounds.sound=="ding"?ding:
+        author.data.setting.sounds.sound=="kclick"?kclick:
+        author.data.setting.sounds.sound=="none"?null:null
+    );
+    const [soundVolume, setSoundVolume] = useState(
+        author.data.setting.sounds.volume==='high'?5:
+        author.data.setting.sounds.volume==='mid'?3:
+        author.data.setting.sounds.volume==='low'?1:
+        author.data.setting.sounds.volume==='mute'?0:0
+    ); // how much character/word will it be having
+  
+    console.log(author);
+    console.log(soundVolume);
+    const [playCorrectKeySound] = useSound(selectedSound, { volume: soundVolume });
+    const [playInCorrectKeySound] = useSound(lightbell, { volume: soundVolume });
+    const [playbackspaceSound] = useSound(typeErrorsound, { volume: soundVolume });
     // useEffect(() => {
     //     if (IndexNumber>0) {
     //         const caret = document.getElementsByClassName("active")[1];
@@ -93,7 +121,6 @@ const Typing = () => {
     //         console.log("caretPosition => ", caretPosition);
     //     }
     // })
-
     useEffect(() => {
         // setplaceholderText(getNumberOfWords(loadParagraph(), 100))
         if (auth) {
@@ -383,7 +410,7 @@ const Typing = () => {
         // compareToTyped()
         // console.log("elementRef => ", elementRef)
     }
-
+    // take data from child component
     const countDownTimerMethod = (countdown) => setCountDownTimer(countdown);    // take data from child
 
     return (
@@ -409,13 +436,20 @@ const Typing = () => {
                     </Box>
                     <Box id="typingContainer" className="border-transparent focus:outline-none border-2 h-[30.5vh] m-5 mt-10 mx-10 rounded-lg overflow-scroll" onClick={() => typingContainer.classList.remove("blur-md")} onBlur={() => typingContainer.classList.add("blur-md")}>
                         {/* <div id ='caret' className="w-[25px] h-[.5rem] flex flex-col rounded-md absolute z-10 bg-blue-500"></div> */}
-                        <textarea id="typing" className="rounded-lg bg-blue-300 focus:outline-none resize-none text-5xl w-[100%] h-[100%] caret-transparent text-transparent text-opacity-100 bg-opacity-0 selection:bg-transparent relative z-[-99] transition" style={{ wordBreak: 'break-all', textAlign: 'justify', textJustify: 'inter-word' }} onScroll={scrolled} name="typing" spellCheck="false" ref={elementRef} onChange={handleTyping} autoFocus={true} value={Letter}></textarea>
+                        <textarea id="typing" className={`${author.data.setting.font.family} word-spacing rounded-lg bg-blue-300 focus:outline-none resize-none text-${author.data.setting.font.size} w-[100%] h-[100%] caret-transparent text-transparent text-opacity-100 bg-opacity-0 selection:bg-transparent relative z-[-99] transition`} style={{ wordBreak: 'break-all', textAlign: 'justify', textJustify: 'inter-word' }} onScroll={scrolled} name="typing" spellCheck="false" ref={elementRef} onChange={handleTyping} autoFocus={true} value={Letter}></textarea>
                         <div className="typing-text">
-                            <p id="paragraph" className='rounded-lg bg-orange-300 focus:outline-none resize-none text-5xl w-[100%] h-[100%] caret-transparent select-none relative top-[-30.4vh] bg-opacity-0 pt-2' style={{ wordBreak: 'break-all', textAlign: 'justify', textJustify: 'inter-word' }} onClick={focusTyping}>
-                                {(Letter === "" && IndexNumber === 0) ? <span id='initial-caret' className="relative overflow-hidden transition"><div className="caret absolute w-[.6em] h-[5px] bg-yellow-200 left-0 bottom-0 rounded-sm transition"></div></span> : <span></span>}
+                            <p id="paragraph" className={`${author.data.setting.font.family} word-spacing pt-[20px] px-2 rounded-lg bg-orange-300 focus:outline-none resize-none text-${author.data.setting.font.size} w-[100%] h-[100%] caret-transparent select-none relative top-[-30.4vh] bg-opacity-0 pt-2`} style={{ wordBreak: 'break-all', textAlign: 'justify', textJustify: 'inter-word' }} onClick={focusTyping}>
+                                {(Letter === "" && IndexNumber === 0) ? 
+                                <span id='initial-caret' className="relative overflow-hidden transition">
+                                    <div className={`absolute ${author.data.setting.caret.style==='|'?'w-[.3vw] h-[100%]':author.data.setting.caret.style==='box'?'w-[2.4vw] h-[100%]':author.data.setting.caret.style==='_'?'w-[2.5vw] h-[10%]':author.data.setting.caret.style==='off'?'hidden':'hidden'} bg-yellow-200 left-0 bottom-0 rounded-sm transition`}></div>
+                                    {/* <div className={`absolute w-[.3vw] h-[100%] bg-yellow-200 left-0 bottom-0 rounded-sm transition`}></div>
+                                    <div className={`absolute w-[2.5vw] h-[10%] bg-yellow-200 left-0 bottom-0 rounded-sm transition`}></div>
+                                    <div className={`absolute w-[2.4vw] h-[100%] bg-yellow-200 left-0 bottom-0 rounded-sm transition`}></div>
+                                    <div className={`absolute bg-yellow-200 left-0 bottom-0 rounded-sm transition`}></div>  */}
+                                </span> : <span></span>}
                                 {
                                     // placeholderText.split("").map((char, index) => (<span key={index} className={(index === 0) ? 'letter active text-white' : 'letter text-white transition-all duration-200'} >{char}</span>))
-                                    placeholderText.split("").map((char, index) => (<span key={index} className='letter pt-[-50px] transition-all duration-200 transition'>{char}</span>))
+                                    placeholderText.split("").map((char, index) => (<span key={index} className={`letter ${author.data.setting.caret.style==='|'?'caretline':author.data.setting.caret.style==='box'?'caretbox':author.data.setting.caret.style==='_'?'caretunderscore':author.data.setting.caret.style==='off'?'off':'off'} pt-[-50px] transition-all duration-200 transition`}>{char}</span>))
                                 }
                             </p>
                         </div>
@@ -453,3 +487,221 @@ export default Typing;
 
 // 192 => document.getElementById("typingContainer").offsetHeight
 // document.getElementById("typingContainer").scrollBy(0,192/3)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// import { Box } from '@mui/material'
+// import React, { useState, useRef, useEffect, memo } from 'react';
+// import { Helmet, HelmetProvider } from 'react-helmet-async';
+// import normalText from "./storedText";
+// import ReplayIcon from '@mui/icons-material/Replay';
+// import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
+// // import { Translate } from '@mui/icons-material';
+
+// const Typing = () => {
+//     const [Num, setNum] = useState({xVal:1,yVal:0});
+//     const typingContainer = document.getElementById("typingContainer");
+//     const typing = document.getElementById("typing");
+//     const elementRef = useRef(null);
+//     const [Letter, setLatter] = useState("");
+//     const [IndexNumber, setIndexNumber] = useState(0);
+//     const [placeholderText, setplaceholderText] = useState("");
+
+//     useEffect(() => {
+//         //generate random number and the according to that number of index of array of the paragram will it be selected
+//         console.log("random num => " + Math.floor(Math.random() * 10));
+//         setplaceholderText(normalText[Math.floor(Math.random() * 10)].toLowerCase());
+//     }, [])
+
+//     document.addEventListener('keydown', (event) => {
+//         if (event.shiftKey && event.key == 'Enter') {
+//             //if shift + enter key down restart-typing
+//             event.preventDefault(); // Prevent default browser behavior
+//             window.location.reload();
+//             console.log("shift+enter hasbeen keydowned");
+//         }
+//         if (event.ctrlKey && event.key == '?') {
+//             //if shift + enter key down restart-typing
+//             event.preventDefault(); // Prevent default browser behavior
+//             console.log("ctrl + ? hasbeen keydowned");
+//         }
+//     })
+
+//     const scrolled = () => {
+//         // when typing element of scroll occured then placeholder of an element scrolled according the of textarea  
+//         var typing = document.getElementById('typing');
+//         var placeholder = document.getElementById('placeholder');
+//         console.log("scroll => " + typing.scrollTop);
+//         placeholder.scrollTop = typing.scrollTop;
+//         typing.scrollTop = placeholder.scrollTop;
+//     }
+
+//     // function applyColorToCharacter(text, index, color) {
+//     //     const chars = text.split("");
+//     //     chars[index] = `<span style={{color: ${color}}}>${chars[index]}</span>`;
+//     //     console.log("changeval " + chars.join(""))
+//     //     return chars.join("");
+//     // }
+//     console.log("start");
+//     function smoothCaretMotion(motion) {
+//         const caret = document.getElementById("caret");
+//         let xvalue = 1.8 * Num.xVal;
+//         if(motion=='Backspace'){
+//             setNum( preNum => ({...preNum,xVal:preNum.xVal-1 } ));
+//             caret.style.transform = `translate(${xvalue-3.6}rem,${Num.yVal}rem)`;
+//             // if(xvalue<=1.8 && Num.yVal>0){
+//             //     console.log("yes i am in")
+//             //     console.log("yes i am in")
+//             //     console.log("yes i am in")
+//             //     console.log("yes i am in")
+//             //     console.log("yes i am in")
+//             //     setNum(preNum=>({...preNum, yVal: preNum.yVal-3}))
+//             //     caret.style.transform = `translate(${xvalue+1.8*Num.x}rem,${Num.yVal}rem)`;
+//             // }q2
+//         }else{
+//             setNum( preNum => ({...preNum,xVal:preNum.xVal+1 } ));
+//             caret.style.transform = `translate(${xvalue}rem,${Num.yVal}rem)`;
+//             console.log("xvalue => "+ xvalue);
+//             if((Math.round(typing.offsetWidth/16)+10) <= Math.round(xvalue)) { 
+//                 setNum( preNum => ({...preNum,xVal: 1} ));
+//                 setNum( preNum => ({...preNum,yVal: preNum.yVal+3 } ));
+//                 console.log("new line => "+ Math.round(typing.offsetWidth/16)+10)
+//                 caret.style.transform = `translate(${xvalue}rem,${Num.yVal}rem)`
+//             }
+//         }
+//         caret.style.transition = "transform 0.2s"; // The caret is moving smoothly due to its transition duration being set to 200ms.7
+//     }
+//     console.log("end");
+
+//     // console.log("start");
+//     // let yvalue = 0;
+//     // function smoothCaretMotion(motion) {
+//     //     const caret = document.getElementById("caret");
+//     //     let xvalue = 1.8 * Num;
+//     //     if(motion=='Backspace'){
+//     //         setNum(Num - 1);
+//     //         console.log("yvalue => "+yvalue);
+//     //         caret.style.transform = `translate(${xvalue-3.6}rem,${yvalue}rem)`;
+//     //         console.log(xvalue-3.6);
+//     //     }else{
+//     //         setNum(Num + 1);
+//     //         console.log("yvalue => "+yvalue);
+//     //         caret.style.transform = `translate(${xvalue}rem,${yvalue}rem)`;
+//     //         console.log("xvalue => "+ xvalue);
+//     //         if((Math.round(typing.offsetWidth/16)+10) <= Math.round(xvalue)) { 
+//     //             yvalue = yvalue + 3;
+//     //             setNum(1);
+//     //             console.log("new line => "+ Math.round(typing.offsetWidth/16)+10)
+//     //             caret.style.transform = `translate(${xvalue}rem,${yvalue}rem)`
+//     //         }
+//     //     }
+//     //     caret.style.transition = "transform 0.2s"; // The caret is moving smoothly due to its transition duration being set to 200ms.7
+//     // }
+//     // console.log("end");
+    
+//     function compareToTyped(text1, text2 = 'Backspace') {
+//         if (text2[IndexNumber] == undefined && text2[IndexNumber] !== " ") {
+//             smoothCaretMotion('Backspace');
+//             setIndexNumber(IndexNumber - 1)
+//             // remeber this if any use will be only press on Backspace it's working fine but not for ctrl + Backspace.  
+//             console.log(text1[IndexNumber] + "||" + text2[IndexNumber] + " index => " + IndexNumber);
+//             console.log("Backspace");
+//             typing.classList.add("text-red-500");
+//         } else if (text1[IndexNumber] === text2[IndexNumber]) {
+//             smoothCaretMotion();
+//             setIndexNumber(IndexNumber + 1);
+//             console.log(text1[IndexNumber] + "||" + text2[IndexNumber] + " index => " + IndexNumber);
+//             typing.classList.remove("text-red-500");
+//             typing.classList.add("text-blue-500");
+//             if (placeholderText.length - 1 == IndexNumber) { window.location.reload() }  // next text are going to show when the user type completely / user typed all given sentances.
+//         } else {
+//             smoothCaretMotion();
+//             setIndexNumber(IndexNumber + 1);
+//             // setLatter(applyColorToCharacter(Letter+text2[IndexNumber], IndexNumber, "red"))
+//             console.log("Letter => " + Letter);
+//             console.log(text1[IndexNumber] + "||" + text2[IndexNumber] + " index => " + IndexNumber);
+//             console.log("incorrect");
+//             typing.classList.add("text-red-500");
+//         }
+//     }
+
+//     const handleTyping = (e) => {
+//         compareToTyped(placeholderText, e.target.value);
+//         setLatter(e.target.value);
+//         //while key down then sound occur
+//         // const audio = new Audio('mech-keyboard.mp3');
+//         // audio.play();
+//     }
+
+//     const focusTyping = () => {
+//         elementRef.current.focus();
+//     }
+
+//     return (
+//         <>
+//             <HelmetProvider>
+//                 <Helmet><title>RandomType || Testing...</title></Helmet>
+//                 <Box id="typingContainer" className="border-transparent focus:outline-none border-2 h-[70vh] m-5 mx-14 rounded-lg" onClick={() => typingContainer.classList.remove("blur-md")} onBlur={() => typingContainer.classList.add("blur-md")}>
+//                     <div id='caret' className="w-[5px] h-[3.5rem] flex flex-col rounded-md absolute z-10 bg-blue-500"></div>
+//                     <textarea className="rounded-lg bg-blue-300 focus:outline-none text-5xl w-[100%] h-[100%] resize-none caret-transparent text-blue-600 text-opacity-100 bg-opacity-0 selection:bg-transparent" style={{ wordBreak: 'break-all' }} onScroll={scrolled} name="typing" id="typing" spellCheck="false" ref={elementRef} onChange={handleTyping} autoFocus={true} value={Letter}></textarea>
+//                     <textarea className="rounded-lg bg-orange-300 focus:outline-none text-5xl w-[100%] h-[100%] resize-none caret-transparent select-none placeholder:text-white relative top-[-70.4vh] overflow-hidden bg-opacity-0 opacity-40" style={{ wordBreak: 'break-all' }} onClick={focusTyping} name="placeholder" id="placeholder" spellCheck="false" placeholder={placeholderText} ></textarea>
+//                 </Box>
+//                 <div id='re-start-logo' className='text-center'>
+//                     <ReplayIcon className='cursor-pointer text-white' sx={{ transform: 'scale(1.1)', "&:hover": { transform: 'scale(1.5)' }, transition: 'transform 300ms' }} onClick={(e) => { e.preventDefault(); window.location.reload(); }} />
+//                 </div><br />
+//                 <div id="key" className='flex text-white justify-center mt-[-20px]'>
+//                     <div>
+//                         <div className='flex'>
+//                             <kbd>ctrl</kbd>+<kbd>?</kbd> <ArrowRightAltIcon /> <h6>To Know More</h6>
+//                         </div>
+//                         <div className='flex'>
+//                             <kbd>shift</kbd>+<kbd>enter</kbd> <ArrowRightAltIcon /> <h6>Restart Typing</h6>
+//                         </div>
+//                     </div>
+//                 </div>
+//             </HelmetProvider>
+//         </>
+//     )
+// }
+
+// export default memo(Typing);

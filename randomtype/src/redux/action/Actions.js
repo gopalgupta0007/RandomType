@@ -52,6 +52,8 @@ const setUserData = (data) => {
         payloadData: data
     }
 }
+
+// mode Actions
 const setModemode = (mode) => {
     return {
         type: "SET_MODE_MODE",
@@ -76,6 +78,65 @@ const updateMessage = (msg) => {
         payloadMsg: msg
     }
 }
+
+// settings Actions
+const updateFontFamily = (fontfamily) => {
+    return {
+        type: "UPDATE_FONTFAMILY",
+        payloadSetting: fontfamily
+    }
+}
+const updateFontSize = (fontsize) => {
+    return {
+        type: "UPDATE_FONTSIZE",
+        payloadSetting: fontsize
+    }
+}
+const updateCaretStyle = (caret) => {
+    return {
+        type: "UPDATE_CARETSTYLE",
+        payloadSetting: caret
+    }
+}
+const updateCaretSmooth = (caret) => {
+    return {
+        type: "TOGGLE_CARET_SMOOTH",
+        payloadSetting: caret
+    }
+}
+
+const updateSoundVolume = (volume) => {
+    return {
+        type: "UPDATE_SOUNDVOLUME",
+        payloadSetting: volume
+    }
+}
+const updateSoundType = (soundtype) => {
+    return {
+        type: "UPDATE_SOUNDTYPE",
+        payloadSetting: soundtype
+    }
+}
+const updateTheme = (theme) => {
+    return {
+        type: "UPDATE_THEME",
+        payloadSetting: theme
+    }
+}
+const resetSettings = (initialSetting) => {
+    return {
+        type: "RESET_SETTING",
+        payloadResetSetting: initialSetting
+    }
+}
+const introAnimation = (animation) => {
+    return {
+        type: "TOGGLE_ANIMATION",
+        payloadSetting: animation
+    }
+}
+
+
 export {
     updateWpm,
     updateAcc,
@@ -86,8 +147,19 @@ export {
     userAuthenticated,
     userLogout,
     setUserData,
+    
     setModemode,
     setModetext,
     setModetime,
-    updateMessage
+    updateMessage,
+
+    updateFontFamily,
+    updateFontSize,
+    updateCaretStyle,
+    updateCaretSmooth,
+    updateSoundVolume,
+    updateSoundType,
+    updateTheme,
+    resetSettings,
+    introAnimation
 }

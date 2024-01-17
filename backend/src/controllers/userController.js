@@ -157,29 +157,47 @@ const updateMode = async (req, res) => {
 const contactUs = async (req, res) => {
     let contactData
     try {
-        // console.log(req.user);
-        // const authUserId = req.userId;
         const authUserId = req.params.id;
         const { message } = req.body;
-        // console.log("req.user => ",req.user);
         contactData = await Users.findByIdAndUpdate(
             authUserId,
             {
                 $push: {
                     // 'data.typing_data.total_wpm': wpm,
-                    'data.comments': {message}
+                    'data.comments': { message }
                 },
             },
             { new: true }
         );
-        // res.json(updatedUser.data);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
     return res.status(200).send({ massage: "message store successful" });
 }
 
-
+const settings = async (req, res) => {
+    let settingData
+    try {
+        const authUserId = req.params.id;
+        const { font, caret, sounds, theme, intro_animation } = req.body;
+        settingData = await Users.findByIdAndUpdate(
+            authUserId,
+            {
+                $set: {
+                    'data.setting.font': font,
+                    'data.setting.caret': caret,
+                    'data.setting.sounds': sounds,
+                    'data.setting.theme': theme,
+                    'data.setting.intro_animation': intro_animation
+                },
+            },
+            { new: true }
+        );
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+    return res.status(200).send({ massage: "settings updated successful" });
+}
 const deleteUser = async (req, res) => {
     try {
         const id = req.params.id;
@@ -193,7 +211,7 @@ const deleteUser = async (req, res) => {
 }
 
 
-module.exports = { signup, login, logout, getAllUser, getUserById, updateUser, deleteUser, updateTyping, updateMode, contactUs }
+module.exports = { signup, login, logout, getAllUser, getUserById, updateUser, deleteUser, updateTyping, updateMode, contactUs, settings }
 
 
 
