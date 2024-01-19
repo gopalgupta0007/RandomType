@@ -85,7 +85,7 @@ const NavConfig = ({ mode }) => {
                     location.pathname == "/game" ? undefined
                         :
                         // if location on the page is "/"
-                        <div id='test-options' className='w-[50vw] flex justify-around items-center bg-red-950 py-2 text-white transition'>
+                        <div id='test-options' className='w-[50vw] flex justify-around items-center bg-background-color py-2 text-white transition'>
                             <div id='mode-container' className='btn-group-1 mode flex gap-2 justify-center items-center border border-0 border-r-2 pr-5'>
                                 <h1 className='mode-heading'>mode : </h1>
                                 <button onClick={(e) => { btnGroup(1, 'btnActive', e.target); updateModeState(e); }} className={`btn ${Mode.mode == "simple" ? 'btnActive' : ''}`}>simple</button>

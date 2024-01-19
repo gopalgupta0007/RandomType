@@ -6,6 +6,48 @@
   font-size: 100%;
 } */
 
+:root {
+  --base_color: rgb(255, 255, 0);
+  /* --background_color: rgb(70,0,0); */
+  --background_color: rgb(70, 70, 0);
+  --BnW: #fff
+}
+
+.text-base-color,.textHover:hover {
+  color: var(--base_color);
+}
+
+.textHover{
+  color: var(--BnW);
+}
+
+.bg-base-color {
+  background-color: var(--base_color);
+}
+
+.text-background-color {
+  color: var(--background_color);
+}
+.bg-background-color, .bghoverActive {
+  background-color: var(--background_color);
+}
+
+.bghoverActive:hover{
+  background-color: var(--base_color);
+  transition: all .3s;
+}
+
+.stroke_colorNwidth{
+  -webkit-text-stroke: var(--base_color);
+  -webkit-text-stroke-width: 1px;
+  text-shadow: 0 2px 0 var(--base_color);
+
+}
+
+.border-base-color {
+  border-color: var(--base_color);
+}
+
 /* theme */
 @font-face {
   font-family: roboto;
@@ -180,6 +222,7 @@ body {
   background-color: rgb(40, 40, 40);
   user-select: none;
   overflow: hidden;
+  transition: all .5s;
 }
 
 code {
@@ -215,11 +258,11 @@ svg#rtSVG {
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   transition: all 3s;
-  animation: glassFade 1s linear 6s 1 forwards alternate;
-  -webkit-animation: glassFade 1s linear 6s 1 forwards alternate;
-  -o-animation: glassFade 1s linear 6s 1 forwards alternate;
-  -moz-animation: glassFade 1s linear 6s 1 forwards alternate;
-  -ms-animation: glassFade 1s linear 6s 1 forwards alternate;
+  animation: glassFade 1s linear 6.5s 1 forwards alternate;
+  -webkit-animation: glassFade 1s linear 6.5s 1 forwards alternate;
+  -o-animation: glassFade 1s linear 6.5s 1 forwards alternate;
+  -moz-animation: glassFade 1s linear 6.5s 1 forwards alternate;
+  -ms-animation: glassFade 1s linear 6.5s 1 forwards alternate;
 }
 
 @keyframes glassFade {
@@ -287,7 +330,7 @@ svg#rtSVG {
 #keyboardOfLogo path,
 #keyboardOfLogoSM path,
 tspan {
-  fill: red;
+  fill: var(--base_color);
 }
 
 #RTIntro {
@@ -411,7 +454,7 @@ tspan {
 
 .headingtest::before {
   content: attr(data-key1);
-  color: red;
+  color: var(--base_color);
   position: absolute;
   top: -0.3rem;
   left: 0;
@@ -466,7 +509,7 @@ tspan {
 }
 
 #super-correct {
-  color: red;
+  color: var(--base_color);
   background-color: transparent;
   border-bottom: none;
   border-radius: 0;
@@ -474,17 +517,24 @@ tspan {
 
 .letter,
 .gameletter {
-  color: rgba(255, 0, 0, 0.3);
+  color: var(--background_color);
 }
 
 .correct {
   color: white;
-  text-shadow: 0 0 5px red;
+  text-shadow: 0 0 5px var(--base_color);
 }
 
+/* .incorrect {
+  color: var(--base_color);
+  background-color: var(--background_color);
+  border-bottom: 3pt solid var(--base_color);
+  border-radius: 5px;
+  /* border-radius: 4px; 
+} */
 .incorrect {
   color: red;
-  background-color: rgba(255, 0, 0, .2);
+  background-color: rgba(255,0,0,.3);
   border-bottom: 3pt solid red;
   border-radius: 5px;
   /* border-radius: 4px; */
@@ -500,35 +550,40 @@ tspan {
 .caretline {
   --caret_line_width: .3vw;
   --caret_line_height: 100%;
-  --caret_opacity:1
-  --caret_outline: 2px solid red;
-  --caret_color: rgba(255,255,0,1)
+  --caret_opacity: 1 --caret_outline: 2px solid var(--base_color);
+  --caret_color: rgba(255, 255, 0, 1)
 }
 
 .caretunderscore {
   --caret_line_width: 100%;
   --caret_line_height: .5vw;
-  --caret_opacity:1
-  --caret_outline: 2px solid red;
-  --caret_color: rgba(255,255,0,1)
+  --caret_opacity: 1 --caret_outline: 2px solid var(--base_color);
+  --caret_color: rgba(255, 255, 0, 1)
 }
 
 .caretbox {
   --caret_line_width: 100%;
   --caret_line_height: 100%;
-  --caret_opacity:1;
-  --caret_outline: 5px solid red;
-  --caret_color: rgba(255,255,0,.5);
-  --caret_shadow:0 5px 0 white;
+  --caret_opacity: 1;
+  --caret_outline: 5px solid var(--base_color);
+  --caret_color: rgba(255, 255, 0, .5);
+  --caret_shadow: 0 5px 0 white;
 }
 
-.off{
+.off {
   --caret_line_width: 0;
   --caret_line_height: 0;
-  --caret_opacity:0
-  --caret_outline: 2px solid red;
-  --caret_color: rgba(255,255,0,1)
+  --caret_opacity: 0 --caret_outline: 2px solid var(--base_color);
+  --caret_color: rgba(255, 255, 0, 1)
 }
+
+/* .withAnimation {
+  --animation: caretMove .5s alternate 1 forwards ease;
+}
+
+.withoutAnimation {
+  --animation: none;
+} */
 
 .typing-text>p>span.active::before,
 .cargame-typing-text>p>span.active::before {
@@ -557,9 +612,38 @@ tspan {
   outline: var(--caret_outline);
   background: var(--caret_color);
   transform: translate(0, 0);
-  transition: all 0.3s ease-in-out;
+  transition: all 0.2s ease-in-out;
 }
 
+.with-animation::before {
+  /* move caret smoothly */
+  animation: caretMove 0.2s alternate 1 forwards linear;
+}
+
+.with-animation-backword::before {
+  /* move backword caret smoothly */
+  animation: caretMoveBack 0.2s alternate 1 forwards linear;
+}
+
+@keyframes caretMove {
+  from {
+    left: -100%;
+  }
+
+  to {
+    left: 0%;
+  }
+}
+
+@keyframes caretMoveBack {
+  from {
+    left: 100%;
+  }
+
+  to {
+    left: 0%;
+  }
+}
 
 #initial-caret,
 #initial-caret2 {
@@ -577,13 +661,13 @@ tspan {
 .mode>button:focus,
 .btnActive {
   color: white;
-  background-color: rgba(255, 0, 0, 1);
+  background-color: var(--base_color);
   transform: scale(1);
   transition: all .3s ease-in-out;
 }
 
 .mode>button:hover {
-  color: red;
+  color: var(--base_color);
   transform: scale(1.1);
   background-color: rgba(255, 255, 255, .5);
   transition: all .3s ease-in-out;
@@ -591,7 +675,7 @@ tspan {
 
 .mode>button:active {
   color: white;
-  background-color: rgba(255, 0, 0, 1);
+  background-color: var(--base_color);
   transform: scale(.9);
   transition: all .3s ease-in-out;
 }
@@ -759,19 +843,21 @@ li:not(:first-child) span {
 .btnSetting {
   padding: .25rem 0;
   border-radius: 5px;
-  background-color: rgb(70, 0, 0);
+  background-color: var(--background_color);
   transform: scale(1);
 }
 
 .btnSetting:hover {
-  color: rgb(255, 61, 61);
+  /* color: rgb(255, 61, 61); */
+  color: var(--base_color);
   background-color: white;
   /* outline: 3px solid red; */
   transform: scale(1.05);
 }
 
 .btnSetting:active {
-  color: rgb(255, 61, 61);
+  /* color: rgb(255, 61, 61); */
+  color: var(--base_color);
   background-color: white;
   transform: scale(0.95);
 }
@@ -780,21 +866,23 @@ li:not(:first-child) span {
 .activeSetting {
   /* Style the button when it is focused (clicked and then released) */
   /* Change to your desired permanent style */
-  color: rgb(255, 61, 61);
-  box-shadow: 0 5px 0 0 rgb(255, 61, 61);
+  /* color: rgb(255, 61, 61); */
+  /* box-shadow: 0 5px 0 0 rgb(255, 61, 61); */
+  color: var(--base_color);
+  box-shadow: 0 5px 0 0 var(--base_color);
   background-color: white;
 }
 
 .shadow {
   box-shadow: 1px 1px 3px rgba(255, 255, 255, 0.84),
-    -1px -1px 3px rgb(200, 0, 0);
+    -1px -1px 3px var(--base_color);
   transition: all .1s ease-in-out;
 }
 
 .shadow:hover,
 .activeShadow {
   box-shadow: 2px 2px 10px white,
-    -2px -2px 10px rgb(255, 0, 0);
+    -2px -2px 10px var(--base_color);
 }
 
 
@@ -811,7 +899,7 @@ li:not(:first-child) span {
 }
 
 .gameTimer {
-  color: red;
+  color: var(--base_color);
   text-shadow: 0 0 3px black;
   animation: countdownBlinking infinite linear .5s alternate;
 }
@@ -822,7 +910,7 @@ li:not(:first-child) span {
   }
 
   to {
-    color: red;
+    color: var(--base_color);
   }
 }
 
@@ -844,6 +932,3 @@ li:not(:first-child) span {
 #themes>button:hover{
   display: flex;
 } */
-
-
-/* 9372035651 jio */

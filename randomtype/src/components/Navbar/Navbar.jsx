@@ -17,7 +17,7 @@ const Navbar = () => {
         backgroundColor: 'transparent',
         transition: 'background-color 0.2s, border-radius 0.5s',
         '&:hover': {
-            backgroundColor: 'red',
+            backgroundColor: 'var(--base_color)',
             borderRadius: 5,
             padding: '1px',
         }
@@ -48,12 +48,12 @@ const Navbar = () => {
                         </Box>
                         :
                         <Box sx={{ borderRadius: '20px' }} className="h-fit mt-8 mr-5 w-22">
-                            <Button sx={{ border: '1px solid black', borderRadius: '50vh', paddingRight: '30px', paddingLeft: '30px', backgroundColor: 'var(--text-color)', color: 'var(--bg-intro)', "&:hover": { backgroundColor: 'white' } }} variant="contained" className="translate-x-4 z-0 hover:z-10 hover:scale-110 bg-red-500-contained">
+                            <Button sx={{ border: '1px solid black', borderRadius: '50vh', paddingRight: '30px', paddingLeft: '30px', backgroundColor: 'var(--base_color)', color: 'var(--background_color)', "&:hover": { backgroundColor: 'white' } }} variant="contained" className="translate-x-4 z-0 hover:z-10 hover:scale-110 bg-base-color-contained">{/*******/}
                                 <NavLink to="/login">
                                     Login
                                 </NavLink>
                             </Button>
-                            <Button sx={{ border: '1px solid black', borderRadius: '50vh', paddingLeft: '30px', paddingRight: '30px', backgroundColor: 'var(--text-color)', color: 'var(--bg-intro)', "&:hover": { backgroundColor: 'white' } }} variant="contained" className="translate-x-[-8px] z-0 hover:z-10 hover:scale-110">
+                            <Button sx={{ border: '1px solid black', borderRadius: '50vh', paddingLeft: '30px', paddingRight: '30px', backgroundColor: 'var(--base_color)', color: 'var(--background_color)', "&:hover": { backgroundColor: 'white' } }} variant="contained" className="translate-x-[-8px] z-0 hover:z-10 hover:scale-110">
                                 <NavLink to="/registration">
                                     Registraiton
                                 </NavLink>

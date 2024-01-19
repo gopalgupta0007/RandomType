@@ -111,8 +111,8 @@ const Result = ({ restartTypingTest, keyData }) => {
                   className='cursor-pointer text-white rounded-none hover:rounded-md'
                   sx={{
                     transform: 'scale(1.5)',
-                    "&:hover": { transform: 'scale(2)', backgroundColor: 'red' },
-                    "&:active": { transform: 'scale(1.5)', backgroundColor: 'rgba(255,0,0,.3)' },
+                    "&:hover": { transform: 'scale(2)', backgroundColor: 'var(--base_color)' },
+                    "&:active": { transform: 'scale(1.5)', backgroundColor: 'var(--background_color)' },
                     transition: 'transform 300ms'
                   }}
                   onClick={restartTypingTest}
@@ -124,8 +124,8 @@ const Result = ({ restartTypingTest, keyData }) => {
                 className='cursor-pointer text-white rounded-none hover:rounded-md'
                 sx={{
                   transform: 'scale(1.3)',
-                  "&:hover": { transform: 'scale(2)', backgroundColor: 'red', outline: 'none' },
-                  "&:active": { transform: 'scale(1.5)', backgroundColor: 'rgba(255,0,0,.3)' },
+                  "&:hover": { transform: 'scale(2)', backgroundColor: 'var(--base_color)', outline: 'none' },
+                  "&:active": { transform: 'scale(1.5)', backgroundColor: 'var(--background_color)' },
                   transition: 'transform 300ms'
                 }}
                 tabIndex="2"
@@ -138,8 +138,8 @@ const Result = ({ restartTypingTest, keyData }) => {
                   className='cursor-pointer text-white rounded-none hover:rounded-md'
                   sx={{
                     transform: 'scale(1.5)',
-                    "&:hover": { transform: 'scale(2)', backgroundColor: 'red' },
-                    "&:active": { transform: 'scale(1.5)', backgroundColor: 'rgba(255,0,0,.3)' },
+                    "&:hover": { transform: 'scale(2)', backgroundColor: 'var(--base_color)' },
+                    "&:active": { transform: 'scale(1.5)', backgroundColor: 'var(--background_color)' },
                     transition: 'transform 300ms'
                   }}
                 // onClick={restartTypingTest}

@@ -101,23 +101,23 @@ const Typing = () => {
         author.data.setting.sounds.sound=="ding"?ding:
         author.data.setting.sounds.sound=="kclick"?kclick:
         author.data.setting.sounds.sound=="none"?null:null
-    );
-    const [soundVolume, setSoundVolume] = useState(
-        author.data.setting.sounds.volume==='high'?5:
-        author.data.setting.sounds.volume==='mid'?3:
-        author.data.setting.sounds.volume==='low'?1:
-        author.data.setting.sounds.volume==='mute'?0:0
-    ); // how much character/word will it be having
-  
-    console.log(author);
-    console.log(soundVolume);
-    const [playCorrectKeySound] = useSound(selectedSound, { volume: soundVolume });
-    const [playInCorrectKeySound] = useSound(lightbell, { volume: soundVolume });
-    const [playbackspaceSound] = useSound(typeErrorsound, { volume: soundVolume });
-    // useEffect(() => {
-    //     if (IndexNumber>0) {
-    //         const caret = document.getElementsByClassName("active")[1];
-    //         const caretPosition = caret.getBoundingClientRect();
+        );
+        const [soundVolume, setSoundVolume] = useState(
+            author.data.setting.sounds.volume==='high'?5:
+            author.data.setting.sounds.volume==='mid'?3:
+            author.data.setting.sounds.volume==='low'?1:
+            author.data.setting.sounds.volume==='mute'?0:0
+            ); // how much character/word will it be having
+            
+            console.log(author);
+            console.log(soundVolume);
+            const [playCorrectKeySound] = useSound(selectedSound, { volume: soundVolume });
+            const [playInCorrectKeySound] = useSound(lightbell, { volume: soundVolume });
+            const [playbackspaceSound] = useSound(typeErrorsound, { volume: soundVolume });
+            // useEffect(() => {
+                //     if (IndexNumber>0) {
+                    //         const caret = document.getElementsByClassName("active")[1];
+                    //         const caretPosition = caret.getBoundingClientRect();
     //         console.log("caretPosition => ", caretPosition);
     //     }
     // })
@@ -127,7 +127,7 @@ const Typing = () => {
             setplaceholderText(getNumberOfWords(loadParagraph(), author.data.text))
         }
     }, [author.data.mode, author.data.text])
-
+    
     useEffect(() => {
         //generate random number and the according to that number of index of array of the paragram will it be selected
         // getParagraph(setplaceholderText, loadParagraph
@@ -135,13 +135,13 @@ const Typing = () => {
             setplaceholderText(getNumberOfWords(loadParagraph(), author.data.text))
         }
     }, []);
-
+    
     useEffect(() => {
         if (!auth) {
             setplaceholderText(getNumberOfWords(loadParagraph()))
         }
     }, [])
-
+    
     function loadParagraph() {
         const index = Math.floor(Math.random() * 10);
         console.log("random num => " + index);
@@ -159,7 +159,6 @@ const Typing = () => {
             return normalText[Math.floor(Math.random() * 10)].toLowerCase()
         }
     }
-
 
     const scrolled = () => {
         // when typing element of scroll occured then placeholder of an element scrolled according the of textarea  
@@ -201,36 +200,7 @@ const Typing = () => {
         // this method run before the compareToTyped method
         // alert("handleKeyPress method is runned")
         if (event.shiftKey && event.key === 'Enter') {
-            // compareToTyped method
-            // handleKeyPress method
-            // compareToTyped method
-
-
-
             restartTypingTest();
-
-
-            // setplaceholderText(loadParagraph())
-            // const activedCaret = document.querySelectorAll(".active")
-            // activedCaret.forEach(function (caret) {
-            //     caret.classList.remove("active");
-            // })
-            // const pressedKey = document.querySelectorAll(".pressed");
-            // console.log(Letter);
-            // pressedKey.forEach(function (element) {
-            //     // clear all caret after again restart typing
-            //     element.removeAttribute("style");
-            //     element.classList.remove("pressed");
-            //     element.classList.remove("correct");
-            //     element.classList.remove("incorrect");
-            //     // compareToTyped("Backspace")
-            //     console.log(element);
-            // });
-
-            // setIncorrectLetter(0)
-            // setIndexNumber(0)
-            // setLatter("")
-
         }
     }
 
@@ -252,141 +222,99 @@ const Typing = () => {
     //         typingContainer.scrollBy(0, Number(document.getElementById("typingContainer").offsetHeight) / 3);
     //     }
     // }, [activeCaret])
-    function compareToTyped(text1, text2 = 'Backspace', exception = false) {
+    function compareToTyped(text1, text2 = 'Backspace') {
         // alert("compareToTyped method is runned")
         var words = document.getElementsByClassName("letter");
-        // var span = document.getElementsByTagName('span');
-        // compareToTyped("Backspace","Backspace")
-        // debugger
-
-
-        // console.log("comapreTotyped method");
-        // console.log(text1[IndexNumber], "|||||", text2[IndexNumber]);
-        // console.log(`text2[IndexNumber] =>  "${text2[IndexNumber]}"`);
-        // console.log(`letter => ${Letter} \n IndexNumber => ${IndexNumber} \n CountDownTimer => ${CountDownTimer} \n IncorrectLetter => ${IncorrectLetter}`);
-
-
-        // if(words[0].classList.contains('incorrect')&&words[1].classList.contains('active pressed')){
-        //     alert("yes")
-        //     console.log("yes");
-        // }
-        // if (words[0].classList.contains('incorrect')&&(words[0]!==text1[0]&&IndexNumber===1)) {
-        //     compareToTyped("Backspace")
-        //     setIndexNumber(IndexNumber - 1)
-        // }
-        if (exception) {
-            // var element = document.getElementById("active-pressed-correct");
-
-            // // Check if the element exists
-            // if (element) {
-            //     // Get the current id attribute
-            //     var currentId = element.getAttribute("id");
-
-            //     // Check if the id contains "active" (case-sensitive) and replace it with an empty string
-            //     if (currentId && currentId.includes("active")) {
-            //         var newId = currentId.replace("active", "").trim();
-
-            //         // Set the new id attribute
-            //         element.setAttribute("id", newId);
-            //     }
+        console.log("beforeindexNumber => ", IndexNumber);
+        if (text2[IndexNumber] === undefined && text2[IndexNumber] !== " ") {
+            // nextLineStartCaret()
+            // if (words[0].classList.contains("incorrect")&&words[1].classList.contains("pressed")) {
+            //     console.log("yes\nyes\nyes\nyes\nyes\nyes");   
             // }
-
-            // var currentId = words[0].getAttribute("class");
-
-            // console.log(currentId);
-
-            // words[IndexNumber].classList.remove("incorrect")
-            // console.log(words[IndexNumber]);
-
-
-            // words[0].style.backgroundColor = "transparent";
-            // words[0].style.color = "white";
-            // words[0].style.border = "none";
-            // words[0].classList.add("active")
-            // words[1].classList.remove("active")*
-        } else {
-
-            console.log("beforeindexNumber => ", IndexNumber);
-            if (text2[IndexNumber] === undefined && text2[IndexNumber] !== " ") {
-                // nextLineStartCaret()
-                // if (words[0].classList.contains("incorrect")&&words[1].classList.contains("pressed")) {
-                //     console.log("yes\nyes\nyes\nyes\nyes\nyes");   
-                // }
-                console.log("backspace");
-                playbackspaceSound();
-                // setIncorrectLetter(IncorrectLetter + 1)
-                // setIncorrectLetter(IncorrectLetter+1)
-                // remeber this if any use xwill be only press on Backspace it's working fine but not for ctrl + Backspace.  
-                // smoothCaretMotion();
-                // before smoothCaretMotion('Backspace');
-                // span[IndexNumber + 3].classList.remove("active");
-                words[IndexNumber].classList.remove("active")
-                setIndexNumber(IndexNumber - 1)
-                words[IndexNumber - 1].classList.add("active")
-                words[IndexNumber - 1].classList.remove("pressed")
-                words[IndexNumber - 1].classList.remove("incorrect")
-                words[IndexNumber - 1].classList.remove("correct")
-                // setCorrectLetter(CorrectLetter+1)
-                // nextLineStartCaret()
-                // span[IndexNumber + 3 - 1].classList.add("active");
-                // console.log(text1[IndexNumber] + "||" + text2[IndexNumber] + " index => " + IndexNumber);
-                // console.log("Backspace");
-                if (text1[IndexNumber] === text2[IndexNumber]) {
-                    alert(text1[IndexNumber - 1], " === ", text2[IndexNumber - 1]);
-                    console.log("thses latter => ", text2[IndexNumber - 1]);
-                    setCorrectLetter((CorrectLetter <= 0) ? 0 : CorrectLetter - 1);
-                } else {
-                    setIncorrectLetter((IncorrectLetter <= 0) ? 0 : IncorrectLetter - 1);
-                }
-            } else if (text1[IndexNumber] === text2[IndexNumber]) {
-                playCorrectKeySound();   // correct key pressed then sound played like typewriter
-                console.log(Letter);
-                // correct
-                // nextLineStartCaret()
-                // type matched with list of texts this occur
-                // const span = 
-                // smoothCaretMotion();
-                // span[IndexNumber + 4 - 1].classList.remove("active");
-                setIndexNumber(IndexNumber + 1);
-                (IndexNumber === 0) ? console.log("start") : words[IndexNumber].classList.remove("active"); words[0].classList.remove("active");
-                words[IndexNumber + 1].classList.add("active");
-                words[IndexNumber].classList.add("correct")
-                setCorrectLetter(CorrectLetter + 1)
-                // console.log(words[IndexNumber - 1],"|||", text1[IndexNumber - 1])
-                // span[IndexNumber + 4].classList.add("active");
-                // smoothCaretMotion();
-                // console.log(text1[IndexNumber] + "||" + text2[IndexNumber] + " index => " + IndexNumber);
-                // typing.classList.remove("text-red-500");
-                // typing.classList.add("text-blue-600");
-                // span[IndexNumber+3].classList.add("active");
-                // typing.classList.add("correct");
-                // try {
-                // } catch (error) {
-                //     console.log(error);               
-                // }
-                if (text1[0] === text2[IndexNumber]) { words[IndexNumber].classList.add("pressed") }
-                if (placeholderText.length - 1 === IndexNumber) { window.location.reload() }  // next text are going to show when the user type completely / user typed all given sentances.
+            console.log("backspace");
+            playbackspaceSound();
+            // setIncorrectLetter(IncorrectLetter + 1)
+            // setIncorrectLetter(IncorrectLetter+1)
+            // remeber this if any use xwill be only press on Backspace it's working fine but not for ctrl + Backspace.  
+            // smoothCaretMotion();
+            // smoothCaretMotion('Backspace')
+            // before smoothCaretMotion('Backspace');
+            // span[IndexNumber + 3].classList.remove("active");
+            words[IndexNumber].classList.remove("active")
+            setIndexNumber(IndexNumber - 1)
+            // with-animation-backword
+            words[IndexNumber - 1].classList.add("with-animation-backword")
+            words[IndexNumber - 1].classList.add("active")
+            words[IndexNumber - 1].classList.remove("pressed")
+            words[IndexNumber - 1].classList.remove("incorrect")
+            words[IndexNumber - 1].classList.remove("correct")
+            // setCorrectLetter(CorrectLetter+1)
+            // nextLineStartCaret()
+            // span[IndexNumber + 3 - 1].classList.add("active");
+            // console.log(text1[IndexNumber] + "||" + text2[IndexNumber] + " index => " + IndexNumber);
+            // console.log("Backspace");
+            if (text1[IndexNumber] === text2[IndexNumber]) {
+                alert(text1[IndexNumber - 1], " === ", text2[IndexNumber - 1]);
+                console.log("thses latter => ", text2[IndexNumber - 1]);
+                setCorrectLetter((CorrectLetter <= 0) ? 0 : CorrectLetter - 1);
             } else {
-                // incorrect
-                playInCorrectKeySound();
-                setIncorrectLetter(IncorrectLetter + 1)
-                // smoothCaretMotion();
-                // span[IndexNumber + 4 - 1].classList.remove("active");
-                // nextLineStartCaret()
-                words[IndexNumber].classList.remove("active");
-                setIndexNumber(IndexNumber + 1);
-                words[IndexNumber + 1].classList.add("active");
-                words[IndexNumber + 1].classList.add("pressed");
-                words[IndexNumber].classList.add("incorrect")
-                setIncorrectLetter(IncorrectLetter + 1)
-                // span[IndexNumber + 4].classList.add("active");
-                // setLatter(applyColorToCharacter(Letter+text2[IndexNumber], IndexNumber, "red"))
-                // console.log(text1[IndexNumber] + "||" + text2[IndexNumber] + " index => " + IndexNumber);
-                // console.log("incorrect");
+                setIncorrectLetter((IncorrectLetter <= 0) ? 0 : IncorrectLetter - 1);
             }
-            if (text2[IndexNumber - 1]) { words[IndexNumber].classList.add("pressed") }
-            console.log("afterindexNumber => ", IndexNumber);
+        } else if (text1[IndexNumber] === text2[IndexNumber]) {
+            playCorrectKeySound();   // correct key pressed then sound played like typewriter
+            console.log(Letter);
+            console.log();
+            // smoothCaretMotion()
+            // correct
+            // nextLineStartCaret()
+            // type matched with list of texts this occur
+            // const span = 
+            // smoothCaretMotion();
+            // span[IndexNumber + 4 - 1].classList.remove("active");
+            setIndexNumber(IndexNumber + 1);
+            (IndexNumber === 0) ? console.log("start") : words[IndexNumber].classList.remove("active"); words[0].classList.remove("active");
+            words[IndexNumber + 1].classList.add("active");
+            if(words[IndexNumber + 1].classList.contains("with-animation-backword")){
+                words[IndexNumber +1].classList.remove("with-animation-backword")
+            }
+            words[IndexNumber].classList.add("correct")
+            setCorrectLetter(CorrectLetter + 1)
+            // console.log(words[IndexNumber - 1],"|||", text1[IndexNumber - 1])
+            // span[IndexNumber + 4].classList.add("active");
+            // smoothCaretMotion();
+            // console.log(text1[IndexNumber] + "||" + text2[IndexNumber] + " index => " + IndexNumber);
+            // typing.classList.remove("text-red-500");
+            // typing.classList.add("text-blue-600");
+            // span[IndexNumber+3].classList.add("active");
+            // typing.classList.add("correct");
+            // try {
+            // } catch (error) {
+            //     console.log(error);               
+            // }
+            if (text1[0] === text2[IndexNumber]) { words[IndexNumber].classList.add("pressed") }
+            if (placeholderText.length - 1 === IndexNumber) { window.location.reload() }  // next text are going to show when the user type completely / user typed all given sentances.
+        } else {
+            // incorrect
+            playInCorrectKeySound();
+            setIncorrectLetter(IncorrectLetter + 1)
+            // smoothCaretMotion();
+            // span[IndexNumber + 4 - 1].classList.remove("active");
+            // nextLineStartCaret()
+            words[IndexNumber].classList.remove("active");
+            setIndexNumber(IndexNumber + 1);
+            if(words[IndexNumber + 1].classList.contains("with-animation-backword")){
+                words[IndexNumber +1].classList.remove("with-animation-backword")
+            }
+            words[IndexNumber + 1].classList.add("active");
+            words[IndexNumber + 1].classList.add("pressed");
+            words[IndexNumber].classList.add("incorrect")
+            // span[IndexNumber + 4].classList.add("active");
+            // setLatter(applyColorToCharacter(Letter+text2[IndexNumber], IndexNumber, "red"))
+            // console.log(text1[IndexNumber] + "||" + text2[IndexNumber] + " index => " + IndexNumber);
+            // console.log("incorrect");
         }
+        if (text2[IndexNumber - 1]) { words[IndexNumber].classList.add("pressed") }
+        console.log("afterindexNumber => ", IndexNumber);
     }
 
     const handleTyping = (e) => {
@@ -434,22 +362,18 @@ const Typing = () => {
                             <h1 className='flex'>Timer :&nbsp;{(Letter.length > 0) ? <Timer takeCountdown={countDownTimerMethod} auth={auth} /> : auth ? author.data.time : 30}s</h1>
                         </div>
                     </Box>
-                    <Box id="typingContainer" className="border-transparent focus:outline-none border-2 h-[30.5vh] m-5 mt-10 mx-10 rounded-lg overflow-scroll" onClick={() => typingContainer.classList.remove("blur-md")} onBlur={() => typingContainer.classList.add("blur-md")}>
-                        {/* <div id ='caret' className="w-[25px] h-[.5rem] flex flex-col rounded-md absolute z-10 bg-blue-500"></div> */}
-                        <textarea id="typing" className={`${author.data.setting.font.family} word-spacing rounded-lg bg-blue-300 focus:outline-none resize-none text-${author.data.setting.font.size} w-[100%] h-[100%] caret-transparent text-transparent text-opacity-100 bg-opacity-0 selection:bg-transparent relative z-[-99] transition`} style={{ wordBreak: 'break-all', textAlign: 'justify', textJustify: 'inter-word' }} onScroll={scrolled} name="typing" spellCheck="false" ref={elementRef} onChange={handleTyping} autoFocus={true} value={Letter}></textarea>
+                    <Box id="typingContainer" className="border-transparent focus:outline-none border-2 h-[30.5vh] m-5 rounded-lg overflow-scroll" onClick={() => typingContainer.classList.remove("blur-md")} onBlur={() => typingContainer.classList.add("blur-md")}>
+                        {/* <div id='caret' className="w-[5px] h-[3.5rem] flex flex-col rounded-md absolute z-10 bg-blue-500"></div> */}
+                        <textarea id="typing" className={`${author.data.setting.font.family} word-spacing rounded-lg bg-blue-300 focus:outline-none resize-none text-${author.data.setting.font.size} w-[100%] h-[100%] caret-transparent text-transparent text-opacity-100 bg-opacity-0 selection:bg-transparent text-center relative z-[-99] transition`} style={{ wordBreak: 'break-all', textAlign: 'justify', textJustify: 'inter-word', lineHeight: '110%'}} onScroll={scrolled} name="typing" spellCheck="false" ref={elementRef} onChange={handleTyping} autoFocus={true} value={Letter}></textarea>
                         <div className="typing-text">
-                            <p id="paragraph" className={`${author.data.setting.font.family} word-spacing pt-[20px] px-2 rounded-lg bg-orange-300 focus:outline-none resize-none text-${author.data.setting.font.size} w-[100%] h-[100%] caret-transparent select-none relative top-[-30.4vh] bg-opacity-0 pt-2`} style={{ wordBreak: 'break-all', textAlign: 'justify', textJustify: 'inter-word' }} onClick={focusTyping}>
+                            <p id="paragraph" className={`${author.data.setting.font.family} word-spacing pt-[20px] px-2 rounded-lg bg-orange-300 focus:outline-none resize-none text-${author.data.setting.font.size} w-[100%] h-[100%] caret-transparent select-none relative top-[-30.4vh] bg-opacity-0 pt-2 text-center`} style={{ wordBreak: 'break-all', textAlign: 'justify', textJustify: 'inter-word', lineHeight: '110%'}} onClick={focusTyping}>
                                 {(Letter === "" && IndexNumber === 0) ? 
                                 <span id='initial-caret' className="relative overflow-hidden transition">
-                                    <div className={`absolute ${author.data.setting.caret.style==='|'?'w-[.3vw] h-[100%]':author.data.setting.caret.style==='box'?'w-[2.4vw] h-[100%]':author.data.setting.caret.style==='_'?'w-[2.5vw] h-[10%]':author.data.setting.caret.style==='off'?'hidden':'hidden'} bg-yellow-200 left-0 bottom-0 rounded-sm transition`}></div>
-                                    {/* <div className={`absolute w-[.3vw] h-[100%] bg-yellow-200 left-0 bottom-0 rounded-sm transition`}></div>
-                                    <div className={`absolute w-[2.5vw] h-[10%] bg-yellow-200 left-0 bottom-0 rounded-sm transition`}></div>
-                                    <div className={`absolute w-[2.4vw] h-[100%] bg-yellow-200 left-0 bottom-0 rounded-sm transition`}></div>
-                                    <div className={`absolute bg-yellow-200 left-0 bottom-0 rounded-sm transition`}></div>  */}
+                                    <div className={`absolute ${author.data.setting.caret.style==='|'?'w-[.3vw] h-[100%]':author.data.setting.caret.style==='box'?'w-[2.5vw] h-[100%]':author.data.setting.caret.style==='_'?'w-[2.5vw] h-[10%]':author.data.setting.caret.style==='off'?'hidden':'hidden'} bg-yellow-200 left-0 bottom-0 rounded-sm transition ${author.data.setting.caret.smooth?'withAnimation':'withoutAnimation'}`}></div>
                                 </span> : <span></span>}
                                 {
                                     // placeholderText.split("").map((char, index) => (<span key={index} className={(index === 0) ? 'letter active text-white' : 'letter text-white transition-all duration-200'} >{char}</span>))
-                                    placeholderText.split("").map((char, index) => (<span key={index} className={`letter ${author.data.setting.caret.style==='|'?'caretline':author.data.setting.caret.style==='box'?'caretbox':author.data.setting.caret.style==='_'?'caretunderscore':author.data.setting.caret.style==='off'?'off':'off'} pt-[-50px] transition-all duration-200 transition`}>{char}</span>))
+                                    placeholderText.split("").map((char, index) => (<span key={index} className={`letter ${author.data.setting.caret.style==='|'?'caretline':author.data.setting.caret.style==='box'?'caretbox':author.data.setting.caret.style==='_'?'caretunderscore':author.data.setting.caret.style==='off'?'off':'off'} pt-[-50px] transition-all duration-200 transition ${author.data.setting.caret.smooth?'with-animation':''}`}>{char}</span>))
                                 }
                             </p>
                         </div>
@@ -459,7 +383,7 @@ const Typing = () => {
                     <br />
                     <div className='flex justify-center'>
                         <button id='re-start-logo' onClick={() => restartTypingTest()}>
-                            <ReplayIcon tabIndex="0" className='cursor-pointer text-white rounded-none hover:rounded-md' sx={{ transform: 'scale(1.5)', "&:hover": { transform: 'scale(2)', backgroundColor: 'red', outline: 'none' }, "&:active": { transform: 'scale(1.5)' }, transition: 'transform 300ms' }} />
+                            <ReplayIcon tabIndex="0" className='cursor-pointer text-white rounded-none hover:rounded-md' sx={{ transform: 'scale(1.5)', "&:hover": { transform: 'scale(2)', backgroundColor: 'var(--base_color)', outline: 'none' }, "&:active": { transform: 'scale(1.5)' }, transition: 'transform 300ms' }} />
                         </button><br />
                     </div>
                     <div id='shortcutKeyBar' className='relative bottom-[-7em]'>
@@ -494,214 +418,41 @@ export default Typing;
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// import { Box } from '@mui/material'
-// import React, { useState, useRef, useEffect, memo } from 'react';
-// import { Helmet, HelmetProvider } from 'react-helmet-async';
-// import normalText from "./storedText";
-// import ReplayIcon from '@mui/icons-material/Replay';
-// import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
-// // import { Translate } from '@mui/icons-material';
-
-// const Typing = () => {
-//     const [Num, setNum] = useState({xVal:1,yVal:0});
-//     const typingContainer = document.getElementById("typingContainer");
+// const [Num, setNum] = useState({xVal:1,yVal:0});
+// function smoothCaretMotion(motion) {
+//     const caret = document.getElementById("caret");
 //     const typing = document.getElementById("typing");
-//     const elementRef = useRef(null);
-//     const [Letter, setLatter] = useState("");
-//     const [IndexNumber, setIndexNumber] = useState(0);
-//     const [placeholderText, setplaceholderText] = useState("");
-
-//     useEffect(() => {
-//         //generate random number and the according to that number of index of array of the paragram will it be selected
-//         console.log("random num => " + Math.floor(Math.random() * 10));
-//         setplaceholderText(normalText[Math.floor(Math.random() * 10)].toLowerCase());
-//     }, [])
-
-//     document.addEventListener('keydown', (event) => {
-//         if (event.shiftKey && event.key == 'Enter') {
-//             //if shift + enter key down restart-typing
-//             event.preventDefault(); // Prevent default browser behavior
-//             window.location.reload();
-//             console.log("shift+enter hasbeen keydowned");
+//     // let xvalue = 1.8 * Num.xVal; //1.8 is the with of the each word
+//     // let xvalue = 1.26 * Num.xVal; //1.8 is the with of the each word
+//     let xvalue = 1.77 * Num.xVal; //1.8 is the with of the each word
+//     if(motion=='Backspace'){
+//         setNum( preNum => ({...preNum,xVal:preNum.xVal-1 } ));
+//         caret.style.transform = `translate(${xvalue-3.6}rem,${Num.yVal}rem)`;
+//         if(xvalue<=1.77 && Num.yVal>0){
+//             console.log("yes i am in")
+//             console.log("yes i am in")
+//             console.log("yes i am in")
+//             console.log("yes i am in")
+//             console.log("yes i am in")
+//             setNum(preNum=>({...preNum, yVal: preNum.yVal-3}))
+//             caret.style.transform = `translate(${xvalue+1.8*Num.x}rem,${Num.yVal}rem)`;
 //         }
-//         if (event.ctrlKey && event.key == '?') {
-//             //if shift + enter key down restart-typing
-//             event.preventDefault(); // Prevent default browser behavior
-//             console.log("ctrl + ? hasbeen keydowned");
-//         }
-//     })
-
-//     const scrolled = () => {
-//         // when typing element of scroll occured then placeholder of an element scrolled according the of textarea  
-//         var typing = document.getElementById('typing');
-//         var placeholder = document.getElementById('placeholder');
-//         console.log("scroll => " + typing.scrollTop);
-//         placeholder.scrollTop = typing.scrollTop;
-//         typing.scrollTop = placeholder.scrollTop;
-//     }
-
-//     // function applyColorToCharacter(text, index, color) {
-//     //     const chars = text.split("");
-//     //     chars[index] = `<span style={{color: ${color}}}>${chars[index]}</span>`;
-//     //     console.log("changeval " + chars.join(""))
-//     //     return chars.join("");
-//     // }
-//     console.log("start");
-//     function smoothCaretMotion(motion) {
-//         const caret = document.getElementById("caret");
-//         let xvalue = 1.8 * Num.xVal;
-//         if(motion=='Backspace'){
-//             setNum( preNum => ({...preNum,xVal:preNum.xVal-1 } ));
-//             caret.style.transform = `translate(${xvalue-3.6}rem,${Num.yVal}rem)`;
-//             // if(xvalue<=1.8 && Num.yVal>0){
-//             //     console.log("yes i am in")
-//             //     console.log("yes i am in")
-//             //     console.log("yes i am in")
-//             //     console.log("yes i am in")
-//             //     console.log("yes i am in")
-//             //     setNum(preNum=>({...preNum, yVal: preNum.yVal-3}))
-//             //     caret.style.transform = `translate(${xvalue+1.8*Num.x}rem,${Num.yVal}rem)`;
-//             // }q2
-//         }else{
-//             setNum( preNum => ({...preNum,xVal:preNum.xVal+1 } ));
-//             caret.style.transform = `translate(${xvalue}rem,${Num.yVal}rem)`;
-//             console.log("xvalue => "+ xvalue);
-//             if((Math.round(typing.offsetWidth/16)+10) <= Math.round(xvalue)) { 
-//                 setNum( preNum => ({...preNum,xVal: 1} ));
-//                 setNum( preNum => ({...preNum,yVal: preNum.yVal+3 } ));
-//                 console.log("new line => "+ Math.round(typing.offsetWidth/16)+10)
-//                 caret.style.transform = `translate(${xvalue}rem,${Num.yVal}rem)`
-//             }
-//         }
-//         caret.style.transition = "transform 0.2s"; // The caret is moving smoothly due to its transition duration being set to 200ms.7
-//     }
-//     console.log("end");
-
-//     // console.log("start");
-//     // let yvalue = 0;
-//     // function smoothCaretMotion(motion) {
-//     //     const caret = document.getElementById("caret");
-//     //     let xvalue = 1.8 * Num;
-//     //     if(motion=='Backspace'){
-//     //         setNum(Num - 1);
-//     //         console.log("yvalue => "+yvalue);
-//     //         caret.style.transform = `translate(${xvalue-3.6}rem,${yvalue}rem)`;
-//     //         console.log(xvalue-3.6);
-//     //     }else{
-//     //         setNum(Num + 1);
-//     //         console.log("yvalue => "+yvalue);
-//     //         caret.style.transform = `translate(${xvalue}rem,${yvalue}rem)`;
-//     //         console.log("xvalue => "+ xvalue);
-//     //         if((Math.round(typing.offsetWidth/16)+10) <= Math.round(xvalue)) { 
-//     //             yvalue = yvalue + 3;
-//     //             setNum(1);
-//     //             console.log("new line => "+ Math.round(typing.offsetWidth/16)+10)
-//     //             caret.style.transform = `translate(${xvalue}rem,${yvalue}rem)`
-//     //         }
-//     //     }
-//     //     caret.style.transition = "transform 0.2s"; // The caret is moving smoothly due to its transition duration being set to 200ms.7
-//     // }
-//     // console.log("end");
-    
-//     function compareToTyped(text1, text2 = 'Backspace') {
-//         if (text2[IndexNumber] == undefined && text2[IndexNumber] !== " ") {
-//             smoothCaretMotion('Backspace');
-//             setIndexNumber(IndexNumber - 1)
-//             // remeber this if any use will be only press on Backspace it's working fine but not for ctrl + Backspace.  
-//             console.log(text1[IndexNumber] + "||" + text2[IndexNumber] + " index => " + IndexNumber);
-//             console.log("Backspace");
-//             typing.classList.add("text-red-500");
-//         } else if (text1[IndexNumber] === text2[IndexNumber]) {
-//             smoothCaretMotion();
-//             setIndexNumber(IndexNumber + 1);
-//             console.log(text1[IndexNumber] + "||" + text2[IndexNumber] + " index => " + IndexNumber);
-//             typing.classList.remove("text-red-500");
-//             typing.classList.add("text-blue-500");
-//             if (placeholderText.length - 1 == IndexNumber) { window.location.reload() }  // next text are going to show when the user type completely / user typed all given sentances.
-//         } else {
-//             smoothCaretMotion();
-//             setIndexNumber(IndexNumber + 1);
-//             // setLatter(applyColorToCharacter(Letter+text2[IndexNumber], IndexNumber, "red"))
-//             console.log("Letter => " + Letter);
-//             console.log(text1[IndexNumber] + "||" + text2[IndexNumber] + " index => " + IndexNumber);
-//             console.log("incorrect");
-//             typing.classList.add("text-red-500");
+//     }else{
+//         setNum( preNum => ({...preNum,xVal:preNum.xVal+1 } ));
+//         caret.style.transform = `translate(${xvalue}rem,${Num.yVal}rem)`;
+//         console.log("xvalue => "+ xvalue);
+//         if((Math.round(typing.offsetWidth/16)+10) <= Math.round(xvalue)) { 
+//             console.log("nextline");
+//             console.log("nextline");
+//             console.log("nextline");
+//             console.log("nextline");
+//             console.log("nextline");
+//             setNum( preNum => ({...preNum,xVal: 1} ));
+//             setNum( preNum => ({...preNum,yVal: preNum.yVal+3 } ));
+//             console.log("new line => "+ Math.round(typing.offsetWidth/16)+10)
+//             caret.style.transform = `translate(${xvalue}rem,${Num.yVal}rem)`
 //         }
 //     }
-
-//     const handleTyping = (e) => {
-//         compareToTyped(placeholderText, e.target.value);
-//         setLatter(e.target.value);
-//         //while key down then sound occur
-//         // const audio = new Audio('mech-keyboard.mp3');
-//         // audio.play();
-//     }
-
-//     const focusTyping = () => {
-//         elementRef.current.focus();
-//     }
-
-//     return (
-//         <>
-//             <HelmetProvider>
-//                 <Helmet><title>RandomType || Testing...</title></Helmet>
-//                 <Box id="typingContainer" className="border-transparent focus:outline-none border-2 h-[70vh] m-5 mx-14 rounded-lg" onClick={() => typingContainer.classList.remove("blur-md")} onBlur={() => typingContainer.classList.add("blur-md")}>
-//                     <div id='caret' className="w-[5px] h-[3.5rem] flex flex-col rounded-md absolute z-10 bg-blue-500"></div>
-//                     <textarea className="rounded-lg bg-blue-300 focus:outline-none text-5xl w-[100%] h-[100%] resize-none caret-transparent text-blue-600 text-opacity-100 bg-opacity-0 selection:bg-transparent" style={{ wordBreak: 'break-all' }} onScroll={scrolled} name="typing" id="typing" spellCheck="false" ref={elementRef} onChange={handleTyping} autoFocus={true} value={Letter}></textarea>
-//                     <textarea className="rounded-lg bg-orange-300 focus:outline-none text-5xl w-[100%] h-[100%] resize-none caret-transparent select-none placeholder:text-white relative top-[-70.4vh] overflow-hidden bg-opacity-0 opacity-40" style={{ wordBreak: 'break-all' }} onClick={focusTyping} name="placeholder" id="placeholder" spellCheck="false" placeholder={placeholderText} ></textarea>
-//                 </Box>
-//                 <div id='re-start-logo' className='text-center'>
-//                     <ReplayIcon className='cursor-pointer text-white' sx={{ transform: 'scale(1.1)', "&:hover": { transform: 'scale(1.5)' }, transition: 'transform 300ms' }} onClick={(e) => { e.preventDefault(); window.location.reload(); }} />
-//                 </div><br />
-//                 <div id="key" className='flex text-white justify-center mt-[-20px]'>
-//                     <div>
-//                         <div className='flex'>
-//                             <kbd>ctrl</kbd>+<kbd>?</kbd> <ArrowRightAltIcon /> <h6>To Know More</h6>
-//                         </div>
-//                         <div className='flex'>
-//                             <kbd>shift</kbd>+<kbd>enter</kbd> <ArrowRightAltIcon /> <h6>Restart Typing</h6>
-//                         </div>
-//                     </div>
-//                 </div>
-//             </HelmetProvider>
-//         </>
-//     )
+//     caret.style.transition = "transform 0.2s"; // The caret is moving smoothly due to its transition duration being set to 200ms.7
 // }
 
-// export default memo(Typing);

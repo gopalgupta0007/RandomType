@@ -7,3 +7,10 @@ export const btnGroup = (btnGroupNum, clsName, button) => {
     // add active class on click button 
     button.classList.add(clsName);
 }
+
+export const togglRTIntroAnimation = (isAnimated) => {
+    (isAnimated) ?
+        document.getElementById("rtSVG").classList.remove("hidden")
+        :
+        document.getElementById("rtSVG").classList.add("hidden")
+}

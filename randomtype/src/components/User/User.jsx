@@ -3,6 +3,7 @@ import { Helmet, HelmetProvider } from 'react-helmet-async';
 import DoughnutChart from './charts/DoughnutChart';
 import { useDispatch, useSelector } from 'react-redux';
 import LineChart from './charts/LineChart';
+import { togglRTIntroAnimation } from '../../Methods/methods';
 // import { setUserData } from '../../redux/action/Actions';
 // import ResultGraph from '../Result/ResultCharts/ResultGraph';
 // import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
@@ -17,8 +18,9 @@ const User = () => {
   const [JoinDate, setJoinDate] = useState();
   const inputFile = useRef(null);
   // let testData = author.UserData.data.typing_data;
-
-
+  useEffect(() => {
+    togglRTIntroAnimation(author.data.setting.intro_animation)
+  }, [])
 
   // useEffect(() => {
   //   const handlePageReload = () => {
@@ -45,7 +47,7 @@ const User = () => {
 
   const textStyle = {
     fontSize: '1.2em',
-    textShadow: '0 0 5px rgba(255, 255, 255, 0.7)',
+    textShadow: '0 0 5px var(--base_color)',
     color: '#fff',
     WebkitTextStroke: '2px #000', // For WebKit browsers
     textStroke: '2px #000', // For other browsers
@@ -146,23 +148,23 @@ const User = () => {
     <>
       <HelmetProvider>
         <Helmet><title>Profile || RandomType</title></Helmet>
-        <div className="text-white text-center text-5xl mt-[-20px]">User</div>
+        <div className="text-white text-center text-5xl mt-[-20px] stroke_colorNwidth">User</div>
         <div id="profile" className='h-[90vh] flex flex-col gap-y-5 w-4/5 m-auto overflow-hidden'>
           <div id="profileContainer" className='flex gap-x-10'>
             <div id="userInfo" className='inline-block shadow p-5 rounded-md m-5'>
               <div id="userImg" className='mt-5 mb-[-10px]'>
-                <div className='flex justify-center m-auto mb-10 items-center border border-dashed border-[3px] hover:border-red-500 hover:text-red-500 border-gray-300 text-gray-300 p-5 h-[150px] w-[150px] rounded-full transition-colors duration-300' onClick={handleImageClick}>
-                  <img id='userImgDisplayed' src="" className='object-cover cursor-pointer rounded-full scale-150 border border-[3px] border-red-600' alt='userImg' />
+                <div className='flex justify-center m-auto mb-10 items-center border border-dashed border-[3px] hover:border-base-color hover:text-base-color border-gray-300 text-gray-300 p-5 h-[150px] w-[150px] rounded-full transition-colors duration-300' onClick={handleImageClick}>
+                  <img id='userImgDisplayed' src="" className='object-cover cursor-pointer rounded-full scale-150 border border-[3px] border-base-color' alt='userImg' />
                   <label id="lblImg" className='text-center p-14 cursor-pointer'>Upload Photo</label>
                   <input type="file" name="file" id="file" ref={inputFile} onChange={fileChange} style={{ display: 'none' }} />
                 </div>
               </div>
               <div id="userDetails">
                 <div className='text-white text-xl transition-all duration-1000'>
-                  <h1 className='my-3'> + <b className='text-red-600'>UserName</b> : {author.username}</h1>
-                  <h1 className='my-3'> + <b className='text-red-600'>Email</b> : {author.email}</h1>
-                  <h1 className='my-3'> + <b className='text-red-600'>Phoneno.</b> : {author.phoneno}</h1>
-                  <h1 className='my-3'> + <b className='text-red-600'>Joined</b> : {JoinDate}</h1>
+                  <h1 className='my-3'> + <b className='text-base-color'>UserName</b> : {author.username}</h1>
+                  <h1 className='my-3'> + <b className='text-base-color'>Email</b> : {author.email}</h1>
+                  <h1 className='my-3'> + <b className='text-base-color'>Phoneno.</b> : {author.phoneno}</h1>
+                  <h1 className='my-3'> + <b className='text-base-color'>Joined</b> : {JoinDate}</h1>
                 </div>
               </div>
             </div>
@@ -171,15 +173,15 @@ const User = () => {
                 <div id='circular-data1' className='flex gap-x-10 mt-2 mr-2'>
                   <div id='avgWPM' className='text-6xl text-center border border-solid border-white border-[4px] rounded-full p-14 shadow-white'>
                     <h1 className='data-of-value border-b-4 text-white px-6' style={textStyle}>{Math.round(getAvg(author.data.typing_data.total_wpm))}</h1>
-                    <h1 className='data-of-key text-red-600 flex flex-col justify-center'><div>WPM</div><div className='text-gray-400 text-3xl mt-[-10px]'>avg</div></h1>
+                    <h1 className='data-of-key text-base-color flex flex-col justify-center'><div>WPM</div><div className='text-gray-400 text-3xl mt-[-10px]'>avg</div></h1>
                   </div>
                   <div id='avgAccuracy' className='text-6xl text-center border border-solid border-white border-[4px] rounded-full p-14'>
                     <h1 className='data-of-value border-b-4 text-white px-3' style={textStyle}>{Math.round(getAvg(author.data.typing_data.total_accuracy))}<b className='text-5xl'>%</b></h1>
-                    <h1 className='data-of-key text-red-600 flex flex-col justify-center'><div>ACC</div><div className='text-gray-400 text-3xl mt-[-10px]'>avg</div></h1>
+                    <h1 className='data-of-key text-base-color flex flex-col justify-center'><div>ACC</div><div className='text-gray-400 text-3xl mt-[-10px]'>avg</div></h1>
                   </div>
                   <div id='noOfTime' className=' text-6xl text-center border border-solid border-white border-[4px] rounded-full p-14'>
                     <h1 className='data-of-value border-b-4 text-white' style={textStyle}>{author.data.typing_data.total_wpm.length - 1}</h1>
-                    <h1 className='data-of-key text-red-600 flex flex-col justify-center'><div>Test</div><div className='text-gray-400 text-3xl mt-[-10px]'>Total</div></h1>
+                    <h1 className='data-of-key text-base-color flex flex-col justify-center'><div>Test</div><div className='text-gray-400 text-3xl mt-[-10px]'>Total</div></h1>
                   </div>
                 </div>
               </div>

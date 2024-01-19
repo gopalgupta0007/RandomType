@@ -6,23 +6,47 @@ import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import KeyboardDoubleArrowUpIcon from '@mui/icons-material/KeyboardDoubleArrowUp';
 import { BsCursorText } from "react-icons/bs";
 import { Helmet, HelmetProvider } from 'react-helmet-async';
-import { btnGroup } from '../../Methods/methods';
+import { btnGroup, togglRTIntroAnimation } from '../../Methods/methods';
 import { useDispatch, useSelector } from 'react-redux';
 import { introAnimation, resetSettings, updateCaretSmooth, updateCaretStyle, updateFontFamily, updateFontSize, updateSoundType, updateSoundVolume, updateTheme } from '../../redux/action/Actions';
 import axios from 'axios';
 import intialSettingData from '../../redux/state/author'
 // import { alertTitleClasses } from '@mui/material';
 
+import keyboard from './sounds/keyboard.mp3'
+import bell from './sounds/bell.mp3'
+import mechanical from './sounds/mechanical.mp3'
+import perkins_bell from './sounds/perkins_bell.mp3'
+import bubble from './sounds/bubble.mp3'
+import carriage from './sounds/carriage.mp3'
+import click from './sounds/click.mp3'
+import ding from './sounds/ding.mp3'
+import kclick from './sounds/kclick.mp3'
+import useSound from 'use-sound';
+
 const Settings = () => {
   const dispatch = useDispatch();
   const [visible, setVisible] = useState(false);
   const author = useSelector(state => state.AuthorReducer.UserData);
   const [setting, setSetting] = useState(author.data.setting);
+  const [keyboardSound] = useSound(keyboard, { volume: 2 });
+  const [bellSound] = useSound(bell, { volume: 2 });
+  const [mechanicalSound] = useSound(mechanical, { volume: 2 });
+  const [perkins_bellSound] = useSound(perkins_bell, { volume: 2 });
+  const [bubbleSound] = useSound(bubble, { volume: 2 });
+  const [carriageSound] = useSound(carriage, { volume: 2 });
+  const [clickSound] = useSound(click, { volume: 2 });
+  const [dingSound] = useSound(ding, { volume: 2 });
+  const [kclickSound] = useSound(kclick, { volume: 2 });
   console.log(setting);
   const toggleHeight = (num) => {
     var slide_setting_option = document.querySelectorAll(".toggle-open")[num];
     slide_setting_option.classList.toggle("toggle-close");
   }
+
+  useEffect(() => {
+    togglRTIntroAnimation(author.data.setting.intro_animation)
+  }, [])
 
   useEffect(() => {
     var setting_options = document.getElementById("setting-options");
@@ -65,6 +89,17 @@ const Settings = () => {
     'kclick',
     'none'
   ];
+  const playSound = [
+    keyboardSound,
+    bellSound,
+    mechanicalSound,
+    perkins_bellSound,
+    bubbleSound,
+    carriageSound,
+    clickSound,
+    dingSound,
+    kclickSound
+  ]
   const fontfamilyBtn = [
     "Roboto",
     "Playpen Sans",
@@ -100,13 +135,6 @@ const Settings = () => {
     }
 
   }
-
-  useEffect(() => {
-    (setting.intro_animation) ?
-      document.getElementById("rtSVG").classList.remove("hidden")
-      :
-      document.getElementById("rtSVG").classList.add("hidden")
-  }, [setting.intro_animation])
 
   useEffect(() => {
     updateSettingDataInDB()
@@ -205,7 +233,6 @@ const Settings = () => {
       dispatch(updateSoundVolume(valueOfSettingBtn))
     } else if (parentClass === "btn-group-8") {
       // sound-type
-      // playsound
       setSetting(prevsetting => ({ ...prevsetting, sounds: { ...prevsetting.sounds, sound: valueOfSettingBtn } }))
       dispatch(updateSoundType(valueOfSettingBtn))
     } else if (parentClass === "btn-group-9") {
@@ -234,19 +261,19 @@ const Settings = () => {
     <>
       <HelmetProvider>
         <Helmet><title>Setting || RandomType</title></Helmet>
-        <div className="text-white text-center text-5xl">Setting</div>
+        <div className="text-white text-center text-5xl stroke_colorNwidth">Setting</div>
         <div id="settings" className='text-black w-4/5 m-auto'>
           <div id="setting-navigation" className='flex justify-center gap-x-14 text-3xl my-5 border border-x-0 border-y-2'>
-            <a href="#font-setting" className='text-red-500 scale-100 hover:text-white hover:scale-105 transition-all duration-200 ease-in-out flex items-center'><HdrAutoIcon sx={{ fontSize: '1.2em' }} />Font</a>
-            <a href="#caret-setting" className='text-red-500 scale-100 hover:text-white hover:scale-105 transition-all duration-200 ease-in-out flex items-center'><BsCursorText style={{ display: 'inline', border: '2px solid red', borderRadius: '50%', backgroundColor: 'red', color: 'white', fontWeight: 'bolder' }} />Caret</a>
-            <a href="#sounds-setting" className='text-red-500 scale-100 hover:text-white hover:scale-105 transition-all duration-200 ease-in-out flex items-center'><VolumeUpIcon sx={{ fontSize: '1.2em' }} />Sounds</a>
-            <a href="#theme-setting" className='text-red-500 scale-100 hover:text-white hover:scale-105 transition-all duration-200 ease-in-out flex items-center'><ColorLensIcon sx={{ fontSize: '1.2em' }} />Theme</a>
-            <a href="#reset-setting" className='text-red-500 scale-100 hover:text-white hover:scale-105 transition-all duration-200 ease-in-out flex items-center' ><RestartAltIcon sx={{ fontSize: '1.2em' }} />Reset</a>
-            <a href="#rtintro-animation-setting" className='text-red-500 hover:text-white hover:scale-105 transition-all duration-200 ease-in-out flex items-center'><div id='rt-icon' className='w-6 h-6 bg-red-500 text-white overflow-hidden text-[15px] flex items-center justify-center font-extrabold rounded-full scale-110'>RT</div>Intro-Animation</a>
+            <a href="#font-setting" className='text-base-color scale-100 hover:text-white hover:scale-105 transition-all duration-200 ease-in-out flex items-center'><HdrAutoIcon sx={{ fontSize: '1.2em' }} />Font</a>
+            <a href="#caret-setting" className='text-base-color scale-100 hover:text-white hover:scale-105 transition-all duration-200 ease-in-out flex items-center'><BsCursorText style={{ display: 'inline', border: '2px solid var(--base_color)', borderRadius: '50%', backgroundColor: 'var(--base_color)', color: 'white', fontWeight: 'bolder' }} />Caret</a>
+            <a href="#sounds-setting" className='text-base-color scale-100 hover:text-white hover:scale-105 transition-all duration-200 ease-in-out flex items-center'><VolumeUpIcon sx={{ fontSize: '1.2em' }} />Sounds</a>
+            <a href="#theme-setting" className='text-base-color scale-100 hover:text-white hover:scale-105 transition-all duration-200 ease-in-out flex items-center'><ColorLensIcon sx={{ fontSize: '1.2em' }} />Theme</a>
+            <a href="#reset-setting" className='text-base-color scale-100 hover:text-white hover:scale-105 transition-all duration-200 ease-in-out flex items-center' ><RestartAltIcon sx={{ fontSize: '1.2em' }} />Reset</a>
+            <a href="#rtintro-animation-setting" className='text-base-color hover:text-white hover:scale-105 transition-all duration-200 ease-in-out flex items-center'><div id='rt-icon' className='w-6 h-6 bg-base-color text-white overflow-hidden text-[15px] flex items-center justify-center font-extrabold rounded-full scale-110'>RT</div>Intro-Animation</a>
           </div>
           <div id='setting-options' className='flex flex-col gap-y-3' style={{ height: '65vh', overflow: 'scroll', scrollBehavior: 'smooth' }}>
             <div id='font-setting' className='m-2'>
-              <h1 id='font-heading' className='text-red-500 text-3xl bg-slate-300 bg-opacity-90 border-gray-700 rounded-lg py-3 relative z-10 px-3' onClick={() => toggleHeight(0)}><HdrAutoIcon sx={{ fontSize: '30px' }} />Fonts</h1>
+              <h1 id='font-heading' className='text-base-color text-3xl bg-slate-300 bg-opacity-90 border-gray-700 rounded-lg py-3 relative z-10 px-3' onClick={() => toggleHeight(0)}><HdrAutoIcon sx={{ fontSize: '30px' }} />Fonts</h1>
               <div id='font-options' className='toggle-open flex flex-col text-white px-5 bg-slate-200 bg-opacity-10 rounded-lg mt-[-10px]'>
                 <br />
                 <div>
@@ -284,7 +311,7 @@ const Settings = () => {
               </div>
             </div>
             <div id='caret-setting' className='m-2'>
-              <h1 id='caret-heading' className='text-red-500 text-3xl bg-slate-300 bg-opacity-90 border-gray-700 rounded-lg py-3 relative z-10 px-3' onClick={() => toggleHeight(1)}><BsCursorText style={{ display: 'inline', border: '2px solid red', borderRadius: '50%', backgroundColor: 'red', color: 'white', fontWeight: 'bolder' }} />Caret</h1>
+              <h1 id='caret-heading' className='text-base-color text-3xl bg-slate-300 bg-opacity-90 border-gray-700 rounded-lg py-3 relative z-10 px-3' onClick={() => toggleHeight(1)}><BsCursorText style={{ display: 'inline', border: '2px solid var(--base_color)', borderRadius: '50%', backgroundColor: 'var(--base_color)', color: 'white', fontWeight: 'bolder' }} />Caret</h1>
               <div id='caret-options' className='toggle-open flex flex-col text-white px-5 gap-y-2 bg-slate-200 bg-opacity-10 rounded-lg mt-[-10px]'>
                 <br />
                 <div id='caret-style' className='h-30 flex justify-between items-center p-2' >
@@ -292,7 +319,7 @@ const Settings = () => {
                   {/* <div><p id='demo' className='h-16 flex justify-center align-middle items-center text-5xl text-center w-20 transition'>Aa</p></div> */}
                   <div id='caret-style-options' className='btn-group-6 grid grid-cols-4 gap-5 text-center'>
                     <button className={`w-[7vw] btnSetting transition btn ${setting.caret.style === "|" ? 'activeSetting' : ''}`} onClick={(e) => { btnGroup(6, 'activeSetting', e.target); updateSetting(e) }}>|</button>
-                    <button className={`w-[7vw] btnSetting transition btn flex justify-center items-center group ${setting.caret.style === "box" ? 'activeSetting' : ''}`} onClick={(e) => { btnGroup(6, 'activeSetting', e.target); updateSetting(e) }} ><div className={`w-3 h-5 transition group-hover:bg-red-500 ${setting.caret.style === "box" ? 'bg-red-500' : 'bg-white'}`}>.</div></button>
+                    <button className={`w-[7vw] btnSetting transition btn flex justify-center items-center group ${setting.caret.style === "box" ? 'activeSetting' : ''}`} onClick={(e) => { btnGroup(6, 'activeSetting', e.target); updateSetting(e) }} ><div className={`w-3 h-5 transition group-hover:bg-base-color ${setting.caret.style === "box" ? 'bg-base-color' : 'bg-white'}`}>.</div></button>
                     <button className={`w-[7vw] btnSetting transition btn text-3xl ${setting.caret.style === "_" ? 'activeSetting' : ''}`} onClick={(e) => { btnGroup(6, 'activeSetting', e.target); updateSetting(e) }}>_</button>
                     <button className={`w-[7vw] btnSetting transition btn ${setting.caret.style === "off" ? 'activeSetting' : ''}`} onClick={(e) => { btnGroup(6, 'activeSetting', e.target); updateSetting(e) }}>off</button>
                   </div>
@@ -322,7 +349,7 @@ const Settings = () => {
               </div>
             </div>
             <div id='sounds-setting' className='m-2'>
-              <h1 id='sounds-heading' className='text-red-500 text-3xl bg-slate-300 bg-opacity-90 border-gray-700 rounded-lg py-3 relative z-10 px-3' onClick={() => toggleHeight(2)}><VolumeUpIcon sx={{ fontSize: '28px' }} />Sound</h1>
+              <h1 id='sounds-heading' className='text-base-color text-3xl bg-slate-300 bg-opacity-90 border-gray-700 rounded-lg py-3 relative z-10 px-3' onClick={() => toggleHeight(2)}><VolumeUpIcon sx={{ fontSize: '28px' }} />Sound</h1>
               <div id='sounds-options' className='toggle-open flex flex-col text-white px-5 gap-y-2 bg-slate-200 bg-opacity-10 rounded-lg mt-[-10px]'>
                 <br />
                 <div id='sound-volume' className='h-30 flex justify-between items-center p-2' >
@@ -343,7 +370,7 @@ const Settings = () => {
                     <button
                       key={index}
                       className={`btnSetting transition btn ${setting.sounds.sound === buttonValue.toLowerCase() ? 'activeSetting' : ''}`}
-                      onClick={(e) => { btnGroup(8, 'activeSetting', e.target); updateSetting(e) }}
+                      onClick={(e) => { btnGroup(8, 'activeSetting', e.target); updateSetting(e); playSound[index](); }}
                     >
                       {buttonValue}
                     </button>
@@ -353,7 +380,7 @@ const Settings = () => {
               </div>
             </div>
             <div id='theme-setting' className='m-2'>
-              <h1 id='theme-heading' className='text-red-500 text-3xl bg-slate-300 bg-opacity-90 border-gray-700 rounded-lg py-3 relative z-10 px-3' onClick={() => toggleHeight(3)}><ColorLensIcon sx={{ fontSize: '28px' }} />Themes</h1>
+              <h1 id='theme-heading' className='text-base-color text-3xl bg-slate-300 bg-opacity-90 border-gray-700 rounded-lg py-3 relative z-10 px-3' onClick={() => toggleHeight(3)}><ColorLensIcon sx={{ fontSize: '28px' }} />Themes</h1>
               <div id='theme-options' className='toggle-open flex flex-col text-white px-5 gap-y-2 bg-slate-200 bg-opacity-10 rounded-lg mt-[-10px]'>
                 <br />
                 <div>
@@ -381,19 +408,19 @@ const Settings = () => {
               </div>
             </div>
             <div id='reset-setting' className='m-2'>
-              <h1 id='reset-heading' className='text-red-500 text-3xl bg-slate-300 bg-opacity-90 border-gray-700 rounded-lg py-3 relative z-10 px-3' onClick={() => toggleHeight(4)}><RestartAltIcon sx={{ fontSize: '28px' }} />Reset Setting</h1>
+              <h1 id='reset-heading' className='text-base-color text-3xl bg-slate-300 bg-opacity-90 border-gray-700 rounded-lg py-3 relative z-10 px-3' onClick={() => toggleHeight(4)}><RestartAltIcon sx={{ fontSize: '28px' }} />Reset Setting</h1>
               <div id='reset-options' className='toggle-open flex flex-col text-white px-5 gap-y-2 bg-slate-200 bg-opacity-10 rounded-lg mt-[-10px]'>
                 <br />
                 <div id='reset' className='h-30 flex justify-between items-center p-2' >
                   <div><p className='text-xl'>reset setting : </p></div>
                   <div id='reset-size-options' className=''>
-                    <button className='w-[20vw] h-10 bg-red-500 hover:bg-white hover:text-red-500 rounded-lg transition' onClick={resetSetting}>Reset setting</button>
+                    <button className='w-[20vw] h-10 bg-base-color hover:bg-white textHover rounded-lg transition' onClick={resetSetting}>Reset setting</button>
                   </div>
                 </div>
               </div>
             </div>
             <div id='rtintro-animation-setting' className='m-2'>
-              <h1 id='rtintro-heading' className='text-red-500 text-3xl bg-slate-300 bg-opacity-90 border-gray-700 rounded-lg py-3 relative z-10 px-3 flex justify-start items-center' onClick={() => toggleHeight(5)}> <div id='rt-icon' className='w-6 h-6 bg-red-500 text-white overflow-hidden text-[15px] flex items-center justify-center font-extrabold'>RT</div> rtintro Setting</h1>
+              <h1 id='rtintro-heading' className='text-base-color text-3xl bg-slate-300 bg-opacity-90 border-gray-700 rounded-lg py-3 relative z-10 px-3 flex justify-start items-center' onClick={() => toggleHeight(5)}> <div id='rt-icon' className='w-6 h-6 bg-base-color text-white overflow-hidden text-[15px] flex items-center justify-center font-extrabold'>RT</div> rtintro Setting</h1>
               <div id='rtintro-options' className='toggle-open flex flex-col text-white px-5 gap-y-2 bg-slate-200 bg-opacity-10 rounded-lg mt-[-10px]'>
                 <br />
                 <div id='rtintro' className='h-30 flex justify-between items-center p-2' >
@@ -406,7 +433,7 @@ const Settings = () => {
               </div>
             </div>
           </div>
-          <div onClick={scrollToTop} className={`fixed right-56 bottom-28 z-10 inline-block text-white bg-red-900 hover:bg-red-600 rounded-full shadow transition active:scale-90 ${(visible) ? 'default' : 'hidden'}`}><KeyboardDoubleArrowUpIcon sx={{ fontSize: '70px' }} className='scrollAnimation' /></div>
+          <div onClick={scrollToTop} className={`fixed right-56 bottom-28 z-10 inline-block text-white bghoverActive hover:bg-base-color rounded-full shadow transition active:scale-90 ${(visible) ? 'default' : 'hidden'}`}><KeyboardDoubleArrowUpIcon sx={{ fontSize: '70px' }} className='scrollAnimation' /></div>
         </div >
       </HelmetProvider>
     </>
@@ -417,4 +444,4 @@ const Settings = () => {
 export default Settings;
 
 // https://www.youtube.com/watch?v=dvtDGyftss0
-/* <button className='w-[7vw] btnSetting transition btn flex justify-center items-center hover:bg-red-500' onClick={(e) => { btnGroup(6, 'activeSetting', e.target); updateSetting(e) }} onMouseEnter={mouseEnterStyle} onMouseLeave={mouseLeaveStyle}><div className='w-3 h-5 transition bg-white group-hover:bg-red-500'></div></button> */
+/* <button className='w-[7vw] btnSetting transition btn flex justify-center items-center hover:bg-base-color' onClick={(e) => { btnGroup(6, 'activeSetting', e.target); updateSetting(e) }} onMouseEnter={mouseEnterStyle} onMouseLeave={mouseLeaveStyle}><div className='w-3 h-5 transition bg-white group-hover:bg-base-color'></div></button> */

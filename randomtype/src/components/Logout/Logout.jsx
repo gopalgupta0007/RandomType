@@ -34,7 +34,7 @@ const Logout = () => {
                     backgroundColor: 'transparent',
                     transition: 'background-color 0.3s, border-radius 0.5s',
                     '&:hover': {
-                        backgroundColor: 'red',
+                        backgroundColor: 'var(--base_color)',
                         borderRadius: 5,
                         padding: '1px',
                     },

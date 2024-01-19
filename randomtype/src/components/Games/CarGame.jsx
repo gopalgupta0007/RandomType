@@ -3,14 +3,17 @@ import NavConfig from '../Mode/NavConfig'
 import { Box, Container } from '@mui/material'
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import NavGameProgressBar from './NavGameProgressBar';
-import car from "../Games/svg Images/carSVG.svg"
-import flag from "../Games/svg Images/flag.svg"
+// import car from "../Games/svg Images/carSVG.svg"
+import { ReactComponent as Car } from "../Games/svg Images/carSVG.svg"
+// import flag from "../Games/svg Images/flag.svg"
+import { ReactComponent as Flag } from "../Games/svg Images/flag.svg"
 import useSound from 'use-sound';
 import bubble from '../rtsetting/sounds/bubble.mp3';
 import lightbell from '../rtsetting/sounds/lightbell.mp3';
 import typeErrorsound from '../rtsetting/sounds/typeError.mp3';
 import { getNumberOfWords } from '../Typing/Typing';
 import normalText from '../Typing/storedText';
+import { useSelector } from 'react-redux';
 
 function compareTo(text1, text2) {
     console.log(`\'${text1}\' == \'${text2}\'`);
@@ -19,6 +22,7 @@ function compareTo(text1, text2) {
 }
 
 const CarGame = () => {
+    const author = useSelector(state => state.AuthorReducer.UserData)
     const cargametypingContainer = document.getElementById("cargametypingContainer");
     const elemtRef = useRef(null);
     const [CarLetter, setCarLatter] = useState("");
@@ -49,6 +53,7 @@ const CarGame = () => {
             playbackspaceSound();
             words[CarCharIndexNumber].classList.remove("active")
             setCarCharIndexNumber(CarCharIndexNumber - 1)
+            words[CarCharIndexNumber - 1].classList.add("with-animation-backword")
             words[CarCharIndexNumber - 1].classList.add("active")
             words[CarCharIndexNumber - 1].classList.remove("pressed")
             words[CarCharIndexNumber - 1].classList.remove("incorrect")
@@ -65,6 +70,9 @@ const CarGame = () => {
             // console.log(Letter);
             setCarCharIndexNumber(CarCharIndexNumber + 1);
             (CarCharIndexNumber === 0) ? console.log("start") : words[CarCharIndexNumber].classList.remove("active"); words[0].classList.remove("active");
+            if(words[CarCharIndexNumber + 1].classList.contains("with-animation-backword")){
+                words[CarCharIndexNumber +1].classList.remove("with-animation-backword")
+            }
             words[CarCharIndexNumber + 1].classList.add("active");
             words[CarCharIndexNumber].classList.add("correct")
             // only for car move
@@ -82,6 +90,9 @@ const CarGame = () => {
             setCargameIncorrectLetter(CargameIncorrectLetter + 1)
             words[CarCharIndexNumber].classList.remove("active");
             setCarCharIndexNumber(CarCharIndexNumber + 1);
+            if(words[CarCharIndexNumber + 1].classList.contains("with-animation-backword")){
+                words[CarCharIndexNumber +1].classList.remove("with-animation-backword")
+            }
             words[CarCharIndexNumber + 1].classList.add("active");
             words[CarCharIndexNumber + 1].classList.add("pressed");
             words[CarCharIndexNumber].classList.add("incorrect")
@@ -118,16 +129,24 @@ const CarGame = () => {
                             <div className='flex justify-between pb-3'>
                                 <div className='w-full flex items-center border border-0 border-b-2 border-black'>
                                     <div className='w-28 text-xl border border-r-2 border-r-white border-0 py-5'>strenger</div>
-                                    <img src={car} id='strenger-car' className='carMove' alt="car" />
+                                    {/* <img src={car} id='strenger-car' className='carMove' alt="car" /> */}
+                                    <div style={{ width: '200px', height: '200px', fill: 'var(--base_color)' }} id='strenger-car' className='carMove'>
+                                        <Car />
+                                    </div>
                                 </div>
-                                <img src={flag} className='flag' alt="flag" />
+                                <div className='flag' style={{ width: '100px', height: '100px', position:'relative', bottom:'10px', fill: 'var(--base_color)' }}><Flag /></div>
+                                {/* <img src={flag} className='flag' alt="flag" /> */}
                             </div>
                             <div className='flex justify-between border border-0 border-t-2 border-white pt-3'>
                                 <div className='w-full flex items-center border border-0 border-b-2 border-black'>
-                                    <div className='w-28 text-xl border border-r-2 border-r-white border-0 py-5'>user----</div>
-                                    <img src={car} id='user-car' className='carMove' alt="car" />
+                                    <div className='w-28 text-xl border border-r-2 border-r-white border-0 py-5'>{author.username}</div>
+                                    {/* <img src={car} id='user-car' className='carMove' alt="car" /> */}
+                                    <div style={{ width: '200px', height: '200px', fill: 'var(--base_color)' }} id='user-car' className='carMove'>
+                                        <Car />
+                                    </div>
                                 </div>
-                                <img src={flag} className='flag' alt="flag" />
+                                <div className='flag' style={{ width: '100px', height: '100px', position:'relative', bottom:'10px', fill: 'var(--base_color)' }}><Flag /></div>
+                                {/* <img src={flag} className='flag' alt="flag" /> */}
                             </div>
                         </div>
                     </Box>
@@ -137,7 +156,7 @@ const CarGame = () => {
                             <p id="cargame-paragraph" className='rounded-lg bg-orange-300 focus:outline-none resize-none text-3xl w-[100%] h-[100%] caret-transparent select-none relative top-[-30.4vh] bg-opacity-0 pt-16 px-3' style={{ wordBreak: 'break-all', textAlign: 'justify', textJustify: 'inter-word' }} onClick={focusCargameTyping}>
                                 {(CarLetter === "" && CarCharIndexNumber === 0) ? <span id='initial-caret2' className="relative overflow-hidden transition"><div className="caret absolute w-[.1em] h-[30px] bg-yellow-200 left-0 bottom-0 rounded-sm transition"></div></span> : <span></span>}
                                 {
-                                    CarTextplaceholderText.split("").map((char, index) => (<span key={index} className='gameletter pt-[-50px] transition-all duration-200 transition'>{char}</span>))
+                                    CarTextplaceholderText.split("").map((char, index) => (<span key={index} className='gameletter caretline with-animation pt-[-50px] transition-all duration-200 transition'>{char}</span>))
                                 }
                             </p>
                         </div>
