@@ -15,7 +15,7 @@ const ShowResult = ({keyData}) => {
         <h1 className='text-gray-500 text-center'>WPM</h1>
       </div>
       <div className='flex flex-col'>
-        <h1 className='text-white text-center'>{Math.round(typingData.typing_accuracy)}%</h1>
+        <h1 className='text-bnw text-center'>{Math.round(typingData.typing_accuracy)}%</h1>
         <h1 className='text-gray-500 text-center'>Acc</h1>
       </div>
       <div className='flex flex-col'>
@@ -24,12 +24,12 @@ const ShowResult = ({keyData}) => {
       </div>
       <div className='flex gap-x-28 mt-5 mx-5 absolute bottom-24'>
         <div>
-          <h1 className='text-base-color text-center'>{IncorrectLetter}/{CorrectLetter}/{placeholderText.length}</h1> {/*selected time show over here*/}
-          <h1 className='text-gray-500 text-xl'>Incorrect/Correct/Total</h1>
+          <h1 className='text-base-color text-center'>{IncorrectLetter}<span className='text-bnw'>/</span>{CorrectLetter}<span className='text-bnw'>/</span>{placeholderText.length}</h1> {/*selected time show over here*/}
+          <h1 className='text-gray-500 text-xl'>Incorrect<span className='text-bnw'>/</span>Correct<span className='text-bnw'>/</span>Total</h1>
         </div>
         <div>
-          <h1 className='text-base-color text-center'>{placeholderText.length-IndexNumber}/{IndexNumber}</h1> {/*selected time show over here*/}
-          <h1 className='text-gray-500 text-xl'>NotTyped/Typed</h1>
+          <h1 className='text-base-color text-center'>{placeholderText.length-IndexNumber}<span className='text-bnw'>/</span>{IndexNumber}</h1> {/*selected time show over here*/}
+          <h1 className='text-gray-500 text-xl'>NotTyped<span className='text-bnw'>/</span>Typed</h1>
         </div>
       </div>
     </div>

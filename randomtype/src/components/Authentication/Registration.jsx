@@ -48,7 +48,7 @@ const Registration = () => {
     }
     return (
         <>
-            <h1 className="text-center mt-5 text-white text-4xl">Registration</h1>
+            <h1 className="text-center mt-5 text-bnw text-4xl">Registration</h1>
 
             <form method="post" onSubmit={sendDataToDB}>
                 <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', mt: 3, rowGap: 2 }}>

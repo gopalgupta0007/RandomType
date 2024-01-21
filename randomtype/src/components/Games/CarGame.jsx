@@ -14,6 +14,7 @@ import typeErrorsound from '../rtsetting/sounds/typeError.mp3';
 import { getNumberOfWords } from '../Typing/Typing';
 import normalText from '../Typing/storedText';
 import { useSelector } from 'react-redux';
+import { setFavicons, setThemeOnBody } from '../../Methods/methods';
 
 function compareTo(text1, text2) {
     console.log(`\'${text1}\' == \'${text2}\'`);
@@ -42,6 +43,8 @@ const CarGame = () => {
         // getParagraph(setplaceholderText, loadParagraph
         // setCarTextPlaceholderText(getNumberOfWords(loadParagraph(), 50))
         setCarTextPlaceholderText(getNumberOfWords(normalText[Math.floor(Math.random() * 10)].toLowerCase(), 50))
+        setThemeOnBody(author.data.setting.theme.replace(/ /g, "_").toLowerCase());
+        setFavicons(author.data.setting.theme.replace(/ /g, "_").toLowerCase());
     }, []);
 
     function compareToTypedLetter(text1, text2 = 'Backspace') {
@@ -130,7 +133,7 @@ const CarGame = () => {
                                 <div className='w-full flex items-center border border-0 border-b-2 border-black'>
                                     <div className='w-28 text-xl border border-r-2 border-r-white border-0 py-5'>strenger</div>
                                     {/* <img src={car} id='strenger-car' className='carMove' alt="car" /> */}
-                                    <div style={{ width: '200px', height: '200px', fill: 'var(--base_color)' }} id='strenger-car' className='carMove'>
+                                    <div style={{ width: '200px', height: '200px', fill: '#fff', stroke:'var(--base_color)', strokeWidth:6 }} id='strenger-car' className='carMove'>
                                         <Car />
                                     </div>
                                 </div>
@@ -141,7 +144,7 @@ const CarGame = () => {
                                 <div className='w-full flex items-center border border-0 border-b-2 border-black'>
                                     <div className='w-28 text-xl border border-r-2 border-r-white border-0 py-5'>{author.username}</div>
                                     {/* <img src={car} id='user-car' className='carMove' alt="car" /> */}
-                                    <div style={{ width: '200px', height: '200px', fill: 'var(--base_color)' }} id='user-car' className='carMove'>
+                                    <div style={{ width: '200px', height: '200px', fill: '#fff', stroke:'var(--base_color)', strokeWidth:6 }} id='user-car' className='carMove'>
                                         <Car />
                                     </div>
                                 </div>
@@ -162,8 +165,8 @@ const CarGame = () => {
                         </div>
                     </Box>
                     <div id='btnGame' className='w-11/12 mx-auto mt-4 flex justify-start gap-x-3'>
-                        <button className='btnSetting transition shadow text-white scale-100 active:scale-95' style={{ padding: '10px 20px' }}>Play With Friend</button>
-                        <button className='btnSetting transition shadow text-white scale-100 active:scale-95' style={{ padding: '10px 20px' }}>Play with Stranger</button>
+                        <button className='btnSetting transition shadow text-bnw scale-100 active:scale-95' style={{ padding: '10px 20px' }}>Play With Friend</button>
+                        <button className='btnSetting transition shadow text-bnw scale-100 active:scale-95' style={{ padding: '10px 20px' }}>Play with Stranger</button>
                     </div>
                 </Container>
             </HelmetProvider>

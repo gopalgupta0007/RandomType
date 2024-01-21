@@ -351,9 +351,9 @@ const Typing = () => {
                         <div id='typing-nav-config' className='mt-[-2.5cm] mb-10'>
                             <NavConfig mode={"typing-test-mode"} />
                         </div>}
-                    <Box id="testDetails" className="text-white flex xl:gap-x-[20vw] lg:gap-x-[15vw] md:gap-x-[10vw] sm:gap-x-[8vw] gap-x-[8vw] my-5 mt-10 xl:text-4xl md:text-3xl justify-center">
+                    <Box id="testDetails" className="text-bnw flex xl:gap-x-[20vw] lg:gap-x-[15vw] md:gap-x-[10vw] sm:gap-x-[8vw] gap-x-[8vw] my-5 mt-10 xl:text-4xl md:text-3xl justify-center">
                         <div id='wpm' className='flex'>
-                            <h1 className='flex'>WPM :&nbsp;{(Letter.length > 0) ? <WPM countdown={CountDownTimer} word={Letter.split(" ").length - 1} /> : 0}</h1>
+                            <h1 className='flex'>WPM :&nbsp;{(Letter.length > 0) ? <WPM countdown={CountDownTimer} word={Letter.split(" ").length} /> : 0}</h1>
                         </div>
                         <div id='accuracy' className='flex'>
                             <h1 className='flex'>Accuracy :&nbsp;{(Letter.length > 0) ? <Accuracy countdown={CountDownTimer} incorrectLetter={IncorrectLetter} totalChar={placeholderText.split("").length} /> : 100}%</h1>
@@ -382,12 +382,12 @@ const Typing = () => {
                     </Box>
                     <br />
                     <div className='flex justify-center'>
-                        <button id='re-start-logo' onClick={() => restartTypingTest()}>
-                            <ReplayIcon tabIndex="0" className='cursor-pointer text-white rounded-none hover:rounded-md' sx={{ transform: 'scale(1.5)', "&:hover": { transform: 'scale(2)', backgroundColor: 'var(--base_color)', outline: 'none' }, "&:active": { transform: 'scale(1.5)' }, transition: 'transform 300ms' }} />
+                        <button id='re-start-logo' onClick={() => {restartTypingTest();}}>
+                            <ReplayIcon tabIndex="0" className='cursor-pointer text-bnw rounded-none hover:rounded-md' sx={{ transform: 'scale(1.5)', "&:hover": { transform: 'scale(2)', backgroundColor: 'var(--base_color)', outline: 'none' }, "&:active": { transform: 'scale(1.5)' }, transition: 'transform 300ms' }} />
                         </button><br />
                     </div>
                     <div id='shortcutKeyBar' className='relative bottom-[-7em]'>
-                        <div id="key" className='flex text-white justify-center mt-[-1.5cm]'>
+                        <div id="key" className='flex text-bnw justify-center mt-[-1.5cm]'>
                             <div>
                                 <div className='flex' >
                                     <kbd>ctrl</kbd>+<kbd>?</kbd> <ArrowRightAltIcon /> <h6>To Know More</h6>

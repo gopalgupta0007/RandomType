@@ -99,29 +99,30 @@ const Result = ({ restartTypingTest, keyData }) => {
         {/* {!auth && <ResultGraph typingData={typing_data} />}
         {auth&&<ResultGraph typingData={author.data.data} />} */}
         <ResultGraph typingData={auth?author.UserData.data:typing_data} keyData={keyData} />
-        {(!auth) && <div className="text-white text-center absolute left-[42.5%] bottom-10" >
+        {(!auth) && <div className="text-bnw text-center absolute left-[42.5%] bottom-10" >
           <a href="/login" className="font-bold underline" >Sign in</a> to save your result
         </div>}
         <br />
         <div className="flex justify-end relative z-50">
           <div id="result-icons" className="w-1/2 flex justify-around mx-20" >
             <div id='re-start-logo2' className='text-center mt-5'>
-              <NavLink to="/" tabIndex="2">
+              <NavLink to="/">
                 <ReplayIcon
-                  className='cursor-pointer text-white rounded-none hover:rounded-md'
+                  className='cursor-pointer text-bnw rounded-none hover:rounded-md'
                   sx={{
                     transform: 'scale(1.5)',
                     "&:hover": { transform: 'scale(2)', backgroundColor: 'var(--base_color)' },
                     "&:active": { transform: 'scale(1.5)', backgroundColor: 'var(--background_color)' },
                     transition: 'transform 300ms'
                   }}
+                  tabIndex="2"
                   onClick={restartTypingTest}
                 />
               </NavLink>
             </div>
             <div id='re-start-logo2' className='text-center mt-5'>
               <PhotoSizeSelectActualOutlinedIcon
-                className='cursor-pointer text-white rounded-none hover:rounded-md'
+                className='cursor-pointer text-bnw rounded-none hover:rounded-md'
                 sx={{
                   transform: 'scale(1.3)',
                   "&:hover": { transform: 'scale(2)', backgroundColor: 'var(--base_color)', outline: 'none' },
@@ -135,7 +136,7 @@ const Result = ({ restartTypingTest, keyData }) => {
             {auth&&<div id='play-cargame' className='text-center mt-5'>
               <NavLink to="/game" tabIndex="3">
                 <DirectionsCarFilledOutlinedIcon
-                  className='cursor-pointer text-white rounded-none hover:rounded-md'
+                  className='cursor-pointer text-bnw rounded-none hover:rounded-md'
                   sx={{
                     transform: 'scale(1.5)',
                     "&:hover": { transform: 'scale(2)', backgroundColor: 'var(--base_color)' },

@@ -99,9 +99,9 @@ const UserSchema = new mongoose.Schema({
                 },
                 sounds: {
                     volume: "mid",
-                    sounds: "keybord"
+                    sounds: "keyboard"
                 },
-                theme: "black&white",
+                theme: "tomato",
                 intro_animation: true
             }
         }

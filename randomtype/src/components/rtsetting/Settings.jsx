@@ -6,10 +6,11 @@ import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import KeyboardDoubleArrowUpIcon from '@mui/icons-material/KeyboardDoubleArrowUp';
 import { BsCursorText } from "react-icons/bs";
 import { Helmet, HelmetProvider } from 'react-helmet-async';
-import { btnGroup, togglRTIntroAnimation } from '../../Methods/methods';
+import { btnGroup, setFavicons, setThemeOnBody, togglRTIntroAnimation } from '../../Methods/methods';
 import { useDispatch, useSelector } from 'react-redux';
 import { introAnimation, resetSettings, updateCaretSmooth, updateCaretStyle, updateFontFamily, updateFontSize, updateSoundType, updateSoundVolume, updateTheme } from '../../redux/action/Actions';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 import intialSettingData from '../../redux/state/author'
 // import { alertTitleClasses } from '@mui/material';
 
@@ -45,7 +46,8 @@ const Settings = () => {
   }
 
   useEffect(() => {
-    togglRTIntroAnimation(author.data.setting.intro_animation)
+    togglRTIntroAnimation(author.data.setting.intro_animation);
+    setFavicons(setting.theme.replace(/ /g, "_").toLowerCase())
   }, [])
 
   useEffect(() => {
@@ -54,28 +56,26 @@ const Settings = () => {
   })
 
   const themeBtn = [
+    'Yellow',
+    'Cherry Red',
+    'Jungle',
+    'IBM',
+    'Indigo Blue',
     'BW Shadow',
     'tomato',
     'Magenta',
     'Blush Pink',
-    'Brandy Rose',
+    'Fuchsia',
     'Kidman',
     'Tangelo',
-    'Dutch',
-    'Yellow',
+    'Lavender Gray',
     'Lime',
-    'Chartreuse',
     'vegetable',
-    'Jungle',
-    'Slate',
-    'Blueberry',
-    'Indigo Blue',
     'Aqua',
     'Violet',
-    'Orchid',
-    'Phlox',
-    'Mahogany',
-    'Gold Dust'
+    'Turquoise',
+    'Blue',
+    'Mahogany'
   ];
   const soundsBtn = [
     'keyboard',
@@ -137,6 +137,17 @@ const Settings = () => {
   }
 
   useEffect(() => {
+    // append theme class to the body
+    // document.body.classList.remove('')
+    const themeCls = setting.theme.replace(/ /g, "_").toLowerCase(); 
+    setThemeOnBody(themeCls)
+    setFavicons(themeCls)
+    // document.body.classList.value = "";
+    // document.body.classList.add(`${setting.theme.replace(/ /g, "_").toLowerCase()}`)
+    // console.log(setting.theme.replace(/ /g, "_").toLowerCase())
+  }, [setting.theme])
+
+  useEffect(() => {
     updateSettingDataInDB()
   }, [
     setting.font.family,
@@ -181,8 +192,8 @@ const Settings = () => {
         theme: theme,
         intro_animation: intro_animation,
       }))
-    dispatch(resetSettings(intialSettingData.UserData.data.setting))
-    console.log("don2");
+    dispatch(resetSettings(intialSettingData.UserData.data.setting));
+    toast.success("Reset Setting Successfull")
     console.log(setting);
   }
 
@@ -261,20 +272,20 @@ const Settings = () => {
     <>
       <HelmetProvider>
         <Helmet><title>Setting || RandomType</title></Helmet>
-        <div className="text-white text-center text-5xl stroke_colorNwidth">Setting</div>
+        <div className="text-bnw text-center text-5xl stroke_colorNwidth">Setting</div>
         <div id="settings" className='text-black w-4/5 m-auto'>
-          <div id="setting-navigation" className='flex justify-center gap-x-14 text-3xl my-5 border border-x-0 border-y-2'>
+          <div id="setting-navigation" className='flex justify-center gap-x-14 text-3xl my-5 border border-x-0 border-y-2' style={{borderColor:'var(--BnW)'}}>
             <a href="#font-setting" className='text-base-color scale-100 hover:text-white hover:scale-105 transition-all duration-200 ease-in-out flex items-center'><HdrAutoIcon sx={{ fontSize: '1.2em' }} />Font</a>
             <a href="#caret-setting" className='text-base-color scale-100 hover:text-white hover:scale-105 transition-all duration-200 ease-in-out flex items-center'><BsCursorText style={{ display: 'inline', border: '2px solid var(--base_color)', borderRadius: '50%', backgroundColor: 'var(--base_color)', color: 'white', fontWeight: 'bolder' }} />Caret</a>
             <a href="#sounds-setting" className='text-base-color scale-100 hover:text-white hover:scale-105 transition-all duration-200 ease-in-out flex items-center'><VolumeUpIcon sx={{ fontSize: '1.2em' }} />Sounds</a>
             <a href="#theme-setting" className='text-base-color scale-100 hover:text-white hover:scale-105 transition-all duration-200 ease-in-out flex items-center'><ColorLensIcon sx={{ fontSize: '1.2em' }} />Theme</a>
             <a href="#reset-setting" className='text-base-color scale-100 hover:text-white hover:scale-105 transition-all duration-200 ease-in-out flex items-center' ><RestartAltIcon sx={{ fontSize: '1.2em' }} />Reset</a>
-            <a href="#rtintro-animation-setting" className='text-base-color hover:text-white hover:scale-105 transition-all duration-200 ease-in-out flex items-center'><div id='rt-icon' className='w-6 h-6 bg-base-color text-white overflow-hidden text-[15px] flex items-center justify-center font-extrabold rounded-full scale-110'>RT</div>Intro-Animation</a>
+            <a href="#rtintro-animation-setting" className='text-base-color hover:text-white hover:scale-105 transition-all duration-200 ease-in-out flex items-center'><div id='rt-icon' className='w-6 h-6 bg-base-color text-bnw overflow-hidden text-[15px] flex items-center justify-center font-extrabold rounded-full scale-110'>RT</div>Intro-Animation</a>
           </div>
           <div id='setting-options' className='flex flex-col gap-y-3' style={{ height: '65vh', overflow: 'scroll', scrollBehavior: 'smooth' }}>
             <div id='font-setting' className='m-2'>
               <h1 id='font-heading' className='text-base-color text-3xl bg-slate-300 bg-opacity-90 border-gray-700 rounded-lg py-3 relative z-10 px-3' onClick={() => toggleHeight(0)}><HdrAutoIcon sx={{ fontSize: '30px' }} />Fonts</h1>
-              <div id='font-options' className='toggle-open flex flex-col text-white px-5 bg-slate-200 bg-opacity-10 rounded-lg mt-[-10px]'>
+              <div id='font-options' className='toggle-open flex flex-col text-bnw px-5 bg-slate-200 bg-opacity-10 rounded-lg mt-[-10px]'>
                 <br />
                 <div>
                   <p className='text-xl my-2'>font family : </p>
@@ -312,7 +323,7 @@ const Settings = () => {
             </div>
             <div id='caret-setting' className='m-2'>
               <h1 id='caret-heading' className='text-base-color text-3xl bg-slate-300 bg-opacity-90 border-gray-700 rounded-lg py-3 relative z-10 px-3' onClick={() => toggleHeight(1)}><BsCursorText style={{ display: 'inline', border: '2px solid var(--base_color)', borderRadius: '50%', backgroundColor: 'var(--base_color)', color: 'white', fontWeight: 'bolder' }} />Caret</h1>
-              <div id='caret-options' className='toggle-open flex flex-col text-white px-5 gap-y-2 bg-slate-200 bg-opacity-10 rounded-lg mt-[-10px]'>
+              <div id='caret-options' className='toggle-open flex flex-col text-bnw px-5 gap-y-2 bg-slate-200 bg-opacity-10 rounded-lg mt-[-10px]'>
                 <br />
                 <div id='caret-style' className='h-30 flex justify-between items-center p-2' >
                   <div><p className='text-xl'>caret style : </p></div>
@@ -335,22 +346,12 @@ const Settings = () => {
                     <button className={`w-[10vw] btnSetting transition btn ${setting.caret.smooth ? 'activeSetting' : ''}`} onClick={(e) => { btnGroup(66, 'activeSetting', e.target); updateSetting(e) }}>Smooth</button>
                   </div>
                 </div>
-                {/* <div id='rtintro-size-options' className='btn-group-10 grid grid-cols-2 gap-3 text-center'>
-                  <button className={`w-[10vw] btnSetting transition btn ${!setting.intro_animation ? 'activeSetting' : ''}`} onClick={(e) => { btnGroup(10, 'activeSetting', e.target); updateSetting(e) }}>Disable</button>
-                  <button className={`w-[10vw] btnSetting transition btn ${setting.intro_animation ? 'activeSetting' : ''}`} onClick={(e) => { btnGroup(10, 'activeSetting', e.target); updateSetting(e) }}>Enable</button>
-                </div> */}
-                {/* <div id='caret-smooth' className='grid grid-cols-4 gap-3 text-center'>
-                  <button className='btnSetting transition'>Roboto</button>
-                  <button className='btnSetting transition'>Roboto Condensed</button>
-                  <button className='btnSetting transition'>Roboto Mono</button>
-                  <button className='btnSetting transition'>Poppins</button>
-                </div> */}
                 <br />
               </div>
             </div>
             <div id='sounds-setting' className='m-2'>
               <h1 id='sounds-heading' className='text-base-color text-3xl bg-slate-300 bg-opacity-90 border-gray-700 rounded-lg py-3 relative z-10 px-3' onClick={() => toggleHeight(2)}><VolumeUpIcon sx={{ fontSize: '28px' }} />Sound</h1>
-              <div id='sounds-options' className='toggle-open flex flex-col text-white px-5 gap-y-2 bg-slate-200 bg-opacity-10 rounded-lg mt-[-10px]'>
+              <div id='sounds-options' className='toggle-open flex flex-col text-bnw px-5 gap-y-2 bg-slate-200 bg-opacity-10 rounded-lg mt-[-10px]'>
                 <br />
                 <div id='sound-volume' className='h-30 flex justify-between items-center p-2' >
                   <div><p className='text-xl'>sound volume : </p></div>
@@ -381,35 +382,48 @@ const Settings = () => {
             </div>
             <div id='theme-setting' className='m-2'>
               <h1 id='theme-heading' className='text-base-color text-3xl bg-slate-300 bg-opacity-90 border-gray-700 rounded-lg py-3 relative z-10 px-3' onClick={() => toggleHeight(3)}><ColorLensIcon sx={{ fontSize: '28px' }} />Themes</h1>
-              <div id='theme-options' className='toggle-open flex flex-col text-white px-5 gap-y-2 bg-slate-200 bg-opacity-10 rounded-lg mt-[-10px]'>
+              <div id='theme-options' className='toggle-open flex flex-col text-bnw px-5 gap-y-2 bg-slate-200 bg-opacity-10 rounded-lg mt-[-10px]'>
                 <br />
                 <div>
                   <p className='text-xl my-2'>Themes : </p>
                 </div>
                 <div id='themes' className='btn-group-9 grid grid-cols-4 gap-3 text-center'>
-                  {themeBtn.map((buttonValue, index) => (
+                  {/*themeBtn.map((buttonValue, index) => (
                     <button
                       key={index}
-                      className={`flex justify-around btnSetting transition btn group ${setting.theme.toLowerCase() === buttonValue.toLowerCase() ? 'activeSetting' : ''}`}
+                      className={`flex justify-around btnSetting transition btn ${setting.theme.toLowerCase() === buttonValue.toLowerCase() ? 'activeSetting' : ''}`}
                       onClick={(e) => { btnGroup(9, 'activeSetting', e.target); updateSetting(e) }}
                     >
-                      <div>
-                        {buttonValue}
-                      </div>
-                      <div id='color' className='flex gap-x-3 hidden group-hover:visible'>
-                        <div className='circul bg-white w-5 h-5 rounded-full'></div>
-                        <div className='circul bg-white w-5 h-5 rounded-full'></div>
-                        <div className='circul bg-white w-5 h-5 rounded-full'></div>
-                      </div>
+                      {buttonValue}
                     </button>
-                  ))}
+                  ))*/}
+                  <button className={`flex justify-around btnSetting transition btn yellow ${setting.theme.toLowerCase() === "Yellow".toLowerCase() ? 'activeSetting' : ''}`} onClick={(e) => { btnGroup(9, 'activeSetting', e.target); updateSetting(e) }} style={{color:'var(--background_color)', backgroundColor:'var(--root_background_color)', border:'3px solid var(--base_color)'}}>Yellow</button>
+                  <button className={`flex justify-around btnSetting transition btn cherry_red ${setting.theme.toLowerCase() === "Cherry Red".toLowerCase() ? 'activeSetting' : ''}`} onClick={(e) => { btnGroup(9, 'activeSetting', e.target); updateSetting(e) }} style={{color:'var(--background_color)', backgroundColor:'var(--root_background_color)', border:'3px solid var(--base_color)'}}>Cherry Red</button>
+                  <button className={`flex justify-around btnSetting transition btn jungle ${setting.theme.toLowerCase() === "Jungle".toLowerCase() ? 'activeSetting' : ''}`} onClick={(e) => { btnGroup(9, 'activeSetting', e.target); updateSetting(e) }} style={{color:'var(--background_color)', backgroundColor:'var(--root_background_color)', border:'3px solid var(--base_color)'}}>Jungle</button>
+                  <button className={`flex justify-around btnSetting transition btn ibm ${setting.theme.toLowerCase() === "IBM".toLowerCase() ? 'activeSetting' : ''}`} onClick={(e) => { btnGroup(9, 'activeSetting', e.target); updateSetting(e) }} style={{color:'var(--background_color)', backgroundColor:'var(--root_background_color)', border:'3px solid var(--base_color)'}}>IBM</button>
+                  <button className={`flex justify-around btnSetting transition btn indigo_blue ${setting.theme.toLowerCase() === "Indigo Blue".toLowerCase() ? 'activeSetting' : ''}`} onClick={(e) => { btnGroup(9, 'activeSetting', e.target); updateSetting(e) }} style={{color:'var(--background_color)', backgroundColor:'var(--root_background_color)', border:'3px solid var(--base_color)'}}>Indigo Blue</button>
+                  <button className={`flex justify-around btnSetting transition btn bw_shadow ${setting.theme.toLowerCase() === "BW Shadow".toLowerCase() ? 'activeSetting' : ''}`} onClick={(e) => { btnGroup(9, 'activeSetting', e.target); updateSetting(e) }} style={{color:'var(--base_color)', backgroundColor:'var(--root_background_color)', border:'3px solid #aaa'}}>BW Shadow</button>
+                  <button className={`flex justify-around btnSetting transition btn tomato ${setting.theme.toLowerCase() === "tomato".toLowerCase() ? 'activeSetting' : ''}`} onClick={(e) => { btnGroup(9, 'activeSetting', e.target); updateSetting(e) }} style={{color:'var(--base_color)', backgroundColor:'var(--root_background_color)', border:'3px solid var(--background_color)'}}>tomato</button>
+                  <button className={`flex justify-around btnSetting transition btn magenta ${setting.theme.toLowerCase() === "Magenta".toLowerCase() ? 'activeSetting' : ''}`} onClick={(e) => { btnGroup(9, 'activeSetting', e.target); updateSetting(e) }} style={{color:'var(--base_color)', backgroundColor:'var(--root_background_color)', border:'3px solid var(--background_color)'}}>Magenta</button>
+                  <button className={`flex justify-around btnSetting transition btn blush_pink ${setting.theme.toLowerCase() === "Blush Pink".toLowerCase() ? 'activeSetting' : ''}`} onClick={(e) => { btnGroup(9, 'activeSetting', e.target); updateSetting(e) }} style={{color:'var(--base_color)', backgroundColor:'var(--root_background_color)', border:'3px solid var(--background_color)'}}>Blush Pink</button>
+                  <button className={`flex justify-around btnSetting transition btn fuchsia ${setting.theme.toLowerCase() === "Fuchsia".toLowerCase() ? 'activeSetting' : ''}`} onClick={(e) => { btnGroup(9, 'activeSetting', e.target); updateSetting(e) }} style={{color:'var(--base_color)', backgroundColor:'var(--root_background_color)', border:'3px solid var(--background_color)'}}>Fuchsia</button>
+                  <button className={`flex justify-around btnSetting transition btn kidman ${setting.theme.toLowerCase() === "Kidman".toLowerCase() ? 'activeSetting' : ''}`} onClick={(e) => { btnGroup(9, 'activeSetting', e.target); updateSetting(e) }} style={{color:'var(--base_color)', backgroundColor:'var(--root_background_color)', border:'3px solid var(--background_color)'}}>Kidman</button>
+                  <button className={`flex justify-around btnSetting transition btn tangelo ${setting.theme.toLowerCase() === "Tangelo".toLowerCase() ? 'activeSetting' : ''}`} onClick={(e) => { btnGroup(9, 'activeSetting', e.target); updateSetting(e) }} style={{color:'var(--base_color)', backgroundColor:'var(--root_background_color)', border:'3px solid var(--background_color)'}}>Tangelo</button>
+                  <button className={`flex justify-around btnSetting transition btn lavender_gray ${setting.theme.toLowerCase() === "Lavender Gray".toLowerCase() ? 'activeSetting' : ''}`} onClick={(e) => { btnGroup(9, 'activeSetting', e.target); updateSetting(e) }} style={{color:'var(--base_color)', backgroundColor:'var(--root_background_color)', border:'3px solid var(--background_color)'}}>Lavender Gray</button>
+                  <button className={`flex justify-around btnSetting transition btn lime ${setting.theme.toLowerCase() === "Lime".toLowerCase() ? 'activeSetting' : ''}`} onClick={(e) => { btnGroup(9, 'activeSetting', e.target); updateSetting(e) }} style={{color:'var(--base_color)', backgroundColor:'var(--root_background_color)', border:'3px solid var(--background_color)'}}>Lime</button>
+                  <button className={`flex justify-around btnSetting transition btn vegetable ${setting.theme.toLowerCase() === "vegetable".toLowerCase() ? 'activeSetting' : ''}`} onClick={(e) => { btnGroup(9, 'activeSetting', e.target); updateSetting(e) }} style={{color:'var(--base_color)', backgroundColor:'var(--root_background_color)', border:'3px solid var(--background_color)'}}>vegetable</button>
+                  <button className={`flex justify-around btnSetting transition btn aqua ${setting.theme.toLowerCase() === "Aqua".toLowerCase() ? 'activeSetting' : ''}`} onClick={(e) => { btnGroup(9, 'activeSetting', e.target); updateSetting(e) }} style={{color:'var(--base_color)', backgroundColor:'var(--root_background_color)', border:'3px solid var(--background_color)'}}>Aqua</button>
+                  <button className={`flex justify-around btnSetting transition btn violet ${setting.theme.toLowerCase() === "Violet".toLowerCase() ? 'activeSetting' : ''}`} onClick={(e) => { btnGroup(9, 'activeSetting', e.target); updateSetting(e) }} style={{color:'var(--base_color)', backgroundColor:'var(--root_background_color)', border:'3px solid var(--background_color)'}}>Violet</button>
+                  <button className={`flex justify-around btnSetting transition btn turquoise ${setting.theme.toLowerCase() === "Turquoise".toLowerCase() ? 'activeSetting' : ''}`} onClick={(e) => { btnGroup(9, 'activeSetting', e.target); updateSetting(e) }} style={{color:'var(--base_color)', backgroundColor:'var(--root_background_color)', border:'3px solid var(--background_color)'}}>Turquoise</button>
+                  <button className={`flex justify-around btnSetting transition btn blue ${setting.theme.toLowerCase() === "Blue".toLowerCase() ? 'activeSetting' : ''}`} onClick={(e) => { btnGroup(9, 'activeSetting', e.target); updateSetting(e) }} style={{color:'var(--base_color)', backgroundColor:'var(--root_background_color)', border:'3px solid var(--background_color)'}}>Blue</button>
+                  <button className={`flex justify-around btnSetting transition btn mahogany ${setting.theme.toLowerCase() === "Mahogany".toLowerCase() ? 'activeSetting' : ''}`} onClick={(e) => { btnGroup(9, 'activeSetting', e.target); updateSetting(e) }} style={{color:'var(--base_color)', backgroundColor:'var(--root_background_color)', border:'3px solid var(--background_color)'}}>Mahogany</button>
                 </div>
                 <br />
               </div>
             </div>
             <div id='reset-setting' className='m-2'>
               <h1 id='reset-heading' className='text-base-color text-3xl bg-slate-300 bg-opacity-90 border-gray-700 rounded-lg py-3 relative z-10 px-3' onClick={() => toggleHeight(4)}><RestartAltIcon sx={{ fontSize: '28px' }} />Reset Setting</h1>
-              <div id='reset-options' className='toggle-open flex flex-col text-white px-5 gap-y-2 bg-slate-200 bg-opacity-10 rounded-lg mt-[-10px]'>
+              <div id='reset-options' className='toggle-open flex flex-col text-bnw px-5 gap-y-2 bg-slate-200 bg-opacity-10 rounded-lg mt-[-10px]'>
                 <br />
                 <div id='reset' className='h-30 flex justify-between items-center p-2' >
                   <div><p className='text-xl'>reset setting : </p></div>
@@ -420,8 +434,8 @@ const Settings = () => {
               </div>
             </div>
             <div id='rtintro-animation-setting' className='m-2'>
-              <h1 id='rtintro-heading' className='text-base-color text-3xl bg-slate-300 bg-opacity-90 border-gray-700 rounded-lg py-3 relative z-10 px-3 flex justify-start items-center' onClick={() => toggleHeight(5)}> <div id='rt-icon' className='w-6 h-6 bg-base-color text-white overflow-hidden text-[15px] flex items-center justify-center font-extrabold'>RT</div> rtintro Setting</h1>
-              <div id='rtintro-options' className='toggle-open flex flex-col text-white px-5 gap-y-2 bg-slate-200 bg-opacity-10 rounded-lg mt-[-10px]'>
+              <h1 id='rtintro-heading' className='text-base-color text-3xl bg-slate-300 bg-opacity-90 border-gray-700 rounded-lg py-3 relative z-10 px-3 flex justify-start items-center' onClick={() => toggleHeight(5)}> <div id='rt-icon' className='w-6 h-6 bg-base-color text-bnw overflow-hidden text-[15px] flex items-center justify-center font-extrabold'>RT</div> rtintro Setting</h1>
+              <div id='rtintro-options' className='toggle-open flex flex-col text-bnw px-5 gap-y-2 bg-slate-200 bg-opacity-10 rounded-lg mt-[-10px]'>
                 <br />
                 <div id='rtintro' className='h-30 flex justify-between items-center p-2' >
                   <div><p className='text-xl'>RT Intro Animation : </p></div>
@@ -433,7 +447,7 @@ const Settings = () => {
               </div>
             </div>
           </div>
-          <div onClick={scrollToTop} className={`fixed right-56 bottom-28 z-10 inline-block text-white bghoverActive hover:bg-base-color rounded-full shadow transition active:scale-90 ${(visible) ? 'default' : 'hidden'}`}><KeyboardDoubleArrowUpIcon sx={{ fontSize: '70px' }} className='scrollAnimation' /></div>
+          <div onClick={scrollToTop} className={`fixed right-56 bottom-28 z-10 inline-block text-bnw bghoverActive hover:bg-base-color rounded-full shadow transition active:scale-90 ${(visible) ? 'default' : 'hidden'}`}><KeyboardDoubleArrowUpIcon sx={{ fontSize: '70px' }} className='scrollAnimation' /></div>
         </div >
       </HelmetProvider>
     </>

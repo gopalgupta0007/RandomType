@@ -22,9 +22,9 @@ let data = {
                 },
                 sounds: {
                     volume: "mid",
-                    sound: "keybord"
+                    sound: "keyboard"
                 },
-                theme: "black&white",
+                theme: "tomato",
                 intro_animation: true
             }
         }

@@ -3,7 +3,7 @@ import { Helmet, HelmetProvider } from 'react-helmet-async';
 import DoughnutChart from './charts/DoughnutChart';
 import { useDispatch, useSelector } from 'react-redux';
 import LineChart from './charts/LineChart';
-import { togglRTIntroAnimation } from '../../Methods/methods';
+import { setFavicons, setThemeOnBody, togglRTIntroAnimation } from '../../Methods/methods';
 // import { setUserData } from '../../redux/action/Actions';
 // import ResultGraph from '../Result/ResultCharts/ResultGraph';
 // import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
@@ -20,6 +20,8 @@ const User = () => {
   // let testData = author.UserData.data.typing_data;
   useEffect(() => {
     togglRTIntroAnimation(author.data.setting.intro_animation)
+    setThemeOnBody(author.data.setting.theme.replace(/ /g, "_").toLowerCase());
+    setFavicons(author.data.setting.theme.replace(/ /g, "_").toLowerCase())
   }, [])
 
   // useEffect(() => {
@@ -148,7 +150,7 @@ const User = () => {
     <>
       <HelmetProvider>
         <Helmet><title>Profile || RandomType</title></Helmet>
-        <div className="text-white text-center text-5xl mt-[-20px] stroke_colorNwidth">User</div>
+        <div className="text-bnw text-center text-5xl mt-[-20px] stroke_colorNwidth">User</div>
         <div id="profile" className='h-[90vh] flex flex-col gap-y-5 w-4/5 m-auto overflow-hidden'>
           <div id="profileContainer" className='flex gap-x-10'>
             <div id="userInfo" className='inline-block shadow p-5 rounded-md m-5'>
@@ -160,7 +162,7 @@ const User = () => {
                 </div>
               </div>
               <div id="userDetails">
-                <div className='text-white text-xl transition-all duration-1000'>
+                <div className='text-bnw text-xl transition-all duration-1000'>
                   <h1 className='my-3'> + <b className='text-base-color'>UserName</b> : {author.username}</h1>
                   <h1 className='my-3'> + <b className='text-base-color'>Email</b> : {author.email}</h1>
                   <h1 className='my-3'> + <b className='text-base-color'>Phoneno.</b> : {author.phoneno}</h1>
@@ -172,15 +174,15 @@ const User = () => {
               <div id='container-of-typingData' className='flex gap-y-5 flex-col'>
                 <div id='circular-data1' className='flex gap-x-10 mt-2 mr-2'>
                   <div id='avgWPM' className='text-6xl text-center border border-solid border-white border-[4px] rounded-full p-14 shadow-white'>
-                    <h1 className='data-of-value border-b-4 text-white px-6' style={textStyle}>{Math.round(getAvg(author.data.typing_data.total_wpm))}</h1>
+                    <h1 className='data-of-value border-b-4 text-bnw px-6' style={textStyle}>{Math.round(getAvg(author.data.typing_data.total_wpm))}</h1>
                     <h1 className='data-of-key text-base-color flex flex-col justify-center'><div>WPM</div><div className='text-gray-400 text-3xl mt-[-10px]'>avg</div></h1>
                   </div>
                   <div id='avgAccuracy' className='text-6xl text-center border border-solid border-white border-[4px] rounded-full p-14'>
-                    <h1 className='data-of-value border-b-4 text-white px-3' style={textStyle}>{Math.round(getAvg(author.data.typing_data.total_accuracy))}<b className='text-5xl'>%</b></h1>
+                    <h1 className='data-of-value border-b-4 text-bnw px-3' style={textStyle}>{Math.round(getAvg(author.data.typing_data.total_accuracy))}<b className='text-5xl'>%</b></h1>
                     <h1 className='data-of-key text-base-color flex flex-col justify-center'><div>ACC</div><div className='text-gray-400 text-3xl mt-[-10px]'>avg</div></h1>
                   </div>
                   <div id='noOfTime' className=' text-6xl text-center border border-solid border-white border-[4px] rounded-full p-14'>
-                    <h1 className='data-of-value border-b-4 text-white' style={textStyle}>{author.data.typing_data.total_wpm.length - 1}</h1>
+                    <h1 className='data-of-value border-b-4 text-bnw' style={textStyle}>{author.data.typing_data.total_wpm.length - 1}</h1>
                     <h1 className='data-of-key text-base-color flex flex-col justify-center'><div>Test</div><div className='text-gray-400 text-3xl mt-[-10px]'>Total</div></h1>
                   </div>
                 </div>

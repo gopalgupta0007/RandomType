@@ -5,19 +5,165 @@
   padding: 0;
   font-size: 100%;
 } */
-
 :root {
-  --base_color: rgb(255, 255, 0);
-  /* --background_color: rgb(70,0,0); */
-  --background_color: rgb(70, 70, 0);
-  --BnW: #fff
+  --base_color: rgb(0, 255, 0);
+  --background_color: rgb(0, 100, 0);
+  --BnW: rgb(220, 220, 220);
+  --root_background_color: rgb(40, 40, 40);
 }
 
-.text-base-color,.textHover:hover {
+.lime {
+  --base_color: rgb(0, 255, 0);
+  --background_color: rgb(0, 100, 0);
+  --BnW: rgb(220, 220, 220);
+  --root_background_color: rgb(40, 40, 40);
+}
+
+
+.bw_shadow {
+  --base_color: rgb(255, 255, 255);
+  --background_color: rgb(40, 40, 40);
+  --BnW: rgb(220, 220, 220);
+  --root_background_color: rgb(40, 40, 40);
+}
+
+.tomato {
+  --base_color: rgb(255, 0, 0);
+  --background_color: rgb(100, 0, 0);
+  --BnW: rgb(220, 220, 220);
+  --root_background_color: rgb(40, 40, 40);
+}
+
+.magenta {
+  --base_color: rgb(204, 51, 139);
+  --background_color: rgb(122, 31, 84);
+  --BnW: rgb(220, 220, 220);
+  --root_background_color: rgb(40, 40, 40);
+}
+
+.blush_pink {
+  --base_color: rgb(254, 130, 140);
+  --background_color: rgb(102, 66, 63);
+  --BnW: rgb(220, 220, 220);
+  --root_background_color: rgb(40, 40, 40);
+}
+
+.yellow {
+  --base_color: rgb(250, 250, 0);
+  --background_color: rgb(150, 150, 0);
+  --BnW: rgb(40, 40, 40);
+  --root_background_color: rgb(200, 200, 200);
+}
+
+.vegetable {
+  --base_color: rgb(0, 150, 0);
+  --background_color: rgb(0, 70, 0);
+  --BnW: rgb(220, 220, 220);
+  --root_background_color: rgb(40, 40, 40);
+}
+
+.violet {
+  --base_color: rgb(160, 0, 255);
+  --background_color: rgb(70, 0, 117);
+  --BnW: rgb(220, 220, 220);
+  --root_background_color: rgb(40, 40, 40);
+}
+
+.aqua {
+  --base_color: rgb(10, 255, 255);
+  --background_color: rgb(0, 140, 140);
+  --BnW: rgb(220, 220, 220);
+  --root_background_color: rgb(40, 40, 40);
+}
+
+.fuchsia {
+  --base_color: rgb(255, 0, 255);
+  --background_color: rgb(80, 00, 80);
+  --BnW: rgb(220, 220, 220);
+  --root_background_color: rgb(40, 40, 40);
+}
+
+.mahogany {
+  --base_color: rgb(192, 64, 0);
+  --background_color: rgb(97, 32, 0);
+  --BnW: rgb(220, 220, 220);
+  --root_background_color: rgb(40, 40, 40);
+}
+
+.turquoise {
+  --base_color: rgb(0, 255, 187);
+  --background_color: rgb(0, 105, 79);
+  --BnW: rgb(220, 220, 220);
+  --root_background_color: rgb(40, 40, 40);
+}
+
+.blue {
+  --base_color: rgb(0, 47, 255);
+  --background_color: rgb(0, 47, 140);
+  --BnW: rgb(220, 220, 220);
+  --root_background_color: rgb(40, 40, 40);
+}
+
+.tangelo {
+  --base_color: rgb(255, 149, 0);
+  --background_color: rgb(121, 71, 0);
+  --BnW: rgb(220, 220, 220);
+  --root_background_color: rgb(40, 40, 40);
+}
+
+.lavender_gray {
+  --base_color: rgb(189, 187, 215);
+  --background_color: rgb(100, 99, 116);
+  --BnW: rgb(255, 255, 255);
+  --root_background_color: rgb(40, 40, 40);
+}
+
+.indigo_blue {
+  --base_color: rgb(102, 0, 255);
+  --background_color: rgb(106, 83, 255);
+  --BnW: rgb(40, 40, 40);
+  --root_background_color: rgb(200, 200, 200);
+}
+
+.kidman {
+  --base_color: rgb(255, 218, 222);
+  --background_color: rgb(126, 66, 61);
+  --BnW: rgb(220, 220, 220);
+  --root_background_color: rgb(40, 40, 40);
+}
+
+.ibm {
+  --base_color: rgb(0, 81, 255);
+  --background_color: rgb(85, 127, 255);
+  --BnW: rgb(40, 40, 40);
+  --root_background_color: rgb(200, 200, 200);
+}
+
+.jungle {
+  --base_color: rgb(0, 177, 0);
+  --background_color: rgb(87, 255, 87);
+  --BnW: rgb(40, 40, 40);
+  --root_background_color: rgb(200, 200, 200);
+}
+
+
+.cherry_red {
+  --base_color: rgb(247, 2, 42);
+  --background_color: rgb(255, 111, 135);
+  --BnW: rgb(40, 40, 40);
+  --root_background_color: rgb(200, 200, 200);
+}
+
+.text-bnw {
+  color: var(--BnW);
+}
+
+.text-base-color,
+.textHover:hover {
   color: var(--base_color);
 }
 
-.textHover{
+.textHover {
   color: var(--BnW);
 }
 
@@ -28,16 +174,18 @@
 .text-background-color {
   color: var(--background_color);
 }
-.bg-background-color, .bghoverActive {
+
+.bg-background-color,
+.bghoverActive {
   background-color: var(--background_color);
 }
 
-.bghoverActive:hover{
+.bghoverActive:hover {
   background-color: var(--base_color);
   transition: all .3s;
 }
 
-.stroke_colorNwidth{
+.stroke_colorNwidth {
   -webkit-text-stroke: var(--base_color);
   -webkit-text-stroke-width: 1px;
   text-shadow: 0 2px 0 var(--base_color);
@@ -219,7 +367,9 @@ body {
   font-family: "Roboto Mono", "Roboto Mono", "Vazirmatn";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: rgb(40, 40, 40);
+  /* background-color: rgb(40, 40, 40); */
+  background-color: var(--root_background_color);
+  /* background-color: rgb(255, 40, 40); */
   user-select: none;
   overflow: hidden;
   transition: all .5s;
@@ -231,8 +381,8 @@ code {
 }
 
 kbd {
-  background-color: #555;
-  border: 2px solid white;
+  background-color: var(--background_color);
+  border: 2px solid var(--base_color);
   border-radius: 5px;
   margin: 0 5px;
   padding: 0 5pt;
@@ -503,6 +653,12 @@ tspan {
   word-break: break-all;
 }
 
+/* #car>g{ */
+/* #strenger-car>g {
+  stroke: var(--base_color);
+  stroke-width: 6;
+} */
+
 .typing-text>p>span,
 .cargame-typing-text>p>span {
   position: relative;
@@ -534,7 +690,7 @@ tspan {
 } */
 .incorrect {
   color: red;
-  background-color: rgba(255,0,0,.3);
+  background-color: rgba(255, 0, 0, .3);
   border-bottom: 3pt solid red;
   border-radius: 5px;
   /* border-radius: 4px; */
@@ -849,7 +1005,7 @@ li:not(:first-child) span {
 
 .btnSetting:hover {
   /* color: rgb(255, 61, 61); */
-  color: var(--base_color);
+  color: var(--background_color);
   background-color: white;
   /* outline: 3px solid red; */
   transform: scale(1.05);
@@ -862,13 +1018,24 @@ li:not(:first-child) span {
   transform: scale(0.95);
 }
 
+.btnNav{
+  padding: .25rem 0;
+  border-radius: 5px;
+  background-color: var(--background_color);
+}
+.btnNav:hover {
+  /* color: rgb(255, 61, 61); */
+  color: var(--background_color);
+  background-color: white;
+}
+
 .btnSetting:focus,
 .activeSetting {
   /* Style the button when it is focused (clicked and then released) */
   /* Change to your desired permanent style */
   /* color: rgb(255, 61, 61); */
   /* box-shadow: 0 5px 0 0 rgb(255, 61, 61); */
-  color: var(--base_color);
+  color: var(--background_color);
   box-shadow: 0 5px 0 0 var(--base_color);
   background-color: white;
 }
@@ -893,13 +1060,18 @@ li:not(:first-child) span {
   transition: all .1s ease-in-out;
 }
 
+#flagSvg {
+  fill: var(--base_color);
+}
+
 .flag {
   transform: rotateY(180deg) scale(.75);
   animation: scaleAnimation 1s infinite alternate ease-in-out;
 }
 
 .gameTimer {
-  color: var(--base_color);
+  /* color: var(--base_color); */
+  color: red;
   text-shadow: 0 0 3px black;
   animation: countdownBlinking infinite linear .5s alternate;
 }
@@ -910,7 +1082,7 @@ li:not(:first-child) span {
   }
 
   to {
-    color: var(--base_color);
+    color: red;
   }
 }
 

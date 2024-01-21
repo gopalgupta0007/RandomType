@@ -8,7 +8,7 @@ import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import store, { persistor } from './redux/store/store';
 import state from './redux/state/state';
-import { Flip, ToastContainer } from 'react-toastify';
+import { Zoom, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 // import data from './redux/state/author';
 
@@ -42,7 +42,7 @@ root.render(
             draggable
             pauseOnHover
             theme="colored"
-            transition={Flip}
+            transition={Zoom}
           />
           {/* <ToastContainer /> */}
         </StrictMode>

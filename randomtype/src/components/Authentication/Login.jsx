@@ -62,7 +62,7 @@ const Login = () => {
     }
     return (
         <>
-            <h1 className="text-center mt-5 text-white text-4xl">Login</h1>
+            <h1 className="text-center mt-5 text-bnw text-4xl">Login</h1>
             <form method="post" onSubmit={verifyData}>
                 <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', mt: 3, rowGap: 2 }}>
                     <Box sx={boxStyle}>

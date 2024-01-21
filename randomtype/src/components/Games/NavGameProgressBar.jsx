@@ -9,11 +9,11 @@ const NavGameProgressBar = ({ Letter, placeholderText, CountDownTimer, setCountD
 
     return (
         <div id='display-progress' className='w-4/5 m-auto flex justify-center items-center text-[2vw] font-extrabold'>
-            <div id='userData' className='flex flex-col gap-x-14 bg-base-color text-white px-5 py-3 rounded-tl-xl rounded-bl-xl'>
+            <div id='userData' className='flex flex-col gap-x-14 bg-base-color text-bnw px-5 py-3 rounded-tl-xl rounded-bl-xl'>
                 <div>
                     <h1 className='text-center text-background-color text-2xl pr-12'>User</h1>
                 </div>
-                <div className='flex gap-x-12 bg-base-color text-white px-5 rounded-tl-xl rounded-bl-xl'>
+                <div className='flex gap-x-12 bg-base-color text-bnw px-5 rounded-tl-xl rounded-bl-xl'>
                     <div id='user-wpm' className='flex border border-0 border-r-2 pr-12'>
                         {/* <h1>WPM : </h1>&nbsp;
                         <h1>40</h1> */}
@@ -26,16 +26,16 @@ const NavGameProgressBar = ({ Letter, placeholderText, CountDownTimer, setCountD
                     </div>
                 </div>
             </div>
-            <div id='Timer' className='gameTimer flex flex-col px-3 text-center bg-gray-400 border border-0 border-x-2 border-white text-[2vw]'>
+            <div id='Timer' className='gameTimer flex flex-col px-3 text-bg-gray-400 border border-0 border-x-2 border-white text-[2vw]'>
                 {/* <h1>30s</h1> */}
                 <h1 className='flex justify-center'>{(Letter.length > 0) ? <Timer takeCountdown={countDownTimerMethod} /> : 30}s</h1>
                 <h1 className='border border-0 border-t-4 border-black'>Timer</h1>
             </div>
-            <div id='StrengerData' className='flex flex-col gap-x-14 bg-base-color text-white px-5 py-3 rounded-tr-xl rounded-br-xl'>
+            <div id='StrengerData' className='flex flex-col gap-x-14 bg-base-color text-bnw px-5 py-3 rounded-tr-xl rounded-br-xl'>
                 <div>
                     <h1 className='text-center text-background-color text-2xl'>Strenger</h1>
                 </div>
-                <div className='flex gap-x-12 bg-base-color text-white px-5 rounded-tl-xl rounded-bl-xl'>
+                <div className='flex gap-x-12 bg-base-color text-bnw px-5 rounded-tl-xl rounded-bl-xl'>
                     <div id='strenger-wpm' className='flex border border-0 border-r-2 pr-12'>
                         <h1>WPM : </h1>&nbsp;
                         <h1>40</h1>

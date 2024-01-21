@@ -29,7 +29,7 @@ const Logout = () => {
     }
     return (
         <>
-            <NavLink to="/" id="userLogout" onClick={logoutUser} className="flex gap-x-2 text-white hover:text-gray-200 mb-[40px] mt-12 mr-12 scale-[1.85] hover:scale-[2.2] transition-transform duration-300"  >
+            <NavLink to="/" id="userLogout" onClick={logoutUser} className="flex gap-x-2 text-bnw hover:text-gray-200 mb-[40px] mt-12 mr-12 scale-[1.85] hover:scale-[2.2] transition-transform duration-300"  >
                 <LogoutIcon sx={{
                     backgroundColor: 'transparent',
                     transition: 'background-color 0.3s, border-radius 0.5s',
