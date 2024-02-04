@@ -23,7 +23,7 @@ document.addEventListener('keydown', (event) => {
 const KeyShortcut = () => {
     const keys = [
         { keyName: "Restart Typing Test", key: { firstKey: "Shift", secondKey: "Enter" } },
-        { keyName: "Reload Page", key: { firstKey: "Ctrl", secondKey: "r" } },
+        { keyName: "Restart Typing Test", key: { firstKey: "Tab", secondKey: "Enter" } },
         { keyName: "Reload Page", key: { firstKey: "Ctrl", secondKey: "r" } },
         { keyName: "Reload Page", key: { firstKey: "Ctrl", secondKey: "r" } },
         { keyName: "Reload Page", key: { firstKey: "Ctrl", secondKey: "r" } },
@@ -40,12 +40,12 @@ const KeyShortcut = () => {
     return (
         <>
             <Container maxWidth="xl">
-                <Box className="bg-white m-10 rounded-lg relative">
-                    <span onClick={()=>document.getElementById("keyShortcutList").classList.remove("h-screen")} className="absolute right-0 text-4xl mx-0 px-2 rounded-lg hover:bg-slate-100 hover:cursor-pointer active:bg-slate-200 duration-100">&times;</span>
-                    <h1 className="p-5 text-3xl text-center border-b-2 border-black text-uppercase">Keyboard Shortcuts</h1>
+                <Box className="bg-white m-10 rounded-lg relative transition">
+                    <span onClick={()=>document.getElementById("keyShortcutList").classList.remove("h-screen")} className="absolute right-0 text-4xl mx-0 px-2 rounded-lg hover:bg-slate-100 hover:cursor-pointer active:bg-slate-200 duration-100 transition">&times;</span>
+                    <h1 className="p-5 text-3xl text-center border-b-2 border-black text-bnw stroke_colorNwidth">Keyboard Shortcuts</h1>
                     <div id="listOfKeys" className="mx-5">
                         {keys.map((k,index) =>( 
-                            <div key={index} className="p-1 flex justify-between border-gray-300 border-t-2 hover:bg-slate-100">
+                            <div key={index} className="p-1 flex justify-between text-base-color font-extrabold border-gray-300 border-t-2 hover:bg-slate-100">
                                 <h1>{k.keyName}</h1>
                                 <div className='flex'>
                                     <kbd>{k.key.firstKey}</kbd>+<kbd>{k.key.secondKey}</kbd>

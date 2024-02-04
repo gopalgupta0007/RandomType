@@ -403,10 +403,17 @@ svg#rtSVG {
   transition: all 3s;
 }
 
-.glass {
+.glassOnly{
   background: linear-gradient(135deg, rgba(255, 255, 255, .1), rgba(255, 255, 255, 0));
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
+  transition: all 3s;
+}
+
+.glass {
+  background: linear-gradient(135deg, rgba(255, 255, 255, .1), rgba(255, 255, 255, 0));
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
   transition: all 3s;
   animation: glassFade 1s linear 6.5s 1 forwards alternate;
   -webkit-animation: glassFade 1s linear 6.5s 1 forwards alternate;
@@ -814,6 +821,10 @@ tspan {
   }
 }
 
+button{
+  font-weight: bolder;
+}
+
 .mode>button:focus,
 .btnActive {
   color: white;
@@ -1057,7 +1068,7 @@ li:not(:first-child) span {
 .carMove {
   transform: translateX(0vw) scale(.7, .6);
   /*1em(0vw) => starting position of the car; And 85em(66vw) => is the finishing point of the car;*/
-  transition: all .1s ease-in-out;
+  transition: all .1s linear;
 }
 
 #flagSvg {
@@ -1097,10 +1108,32 @@ li:not(:first-child) span {
 }
 
 
-/* #color{
+/* #overlay { */
+.overlay-1, .overlay-2, .overlay-3 {
+  position: fixed;
   display: none;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.5);
+  z-index: 2;
+  cursor: pointer;
 }
 
-#themes>button:hover{
-  display: flex;
-} */
+/* #text{ */
+.overlayContent{
+  position: absolute;
+  width: 30vw;
+  height: 70vh;
+  border-radius:10px;
+  top: 50%;
+  left: 50%;
+  font-size: 50px;
+  color: var(--base_color);
+  -webkit-backdrop: 10px;
+  transform: translate(-50%,-50%);
+  -ms-transform: translate(-50%,-50%);
+}

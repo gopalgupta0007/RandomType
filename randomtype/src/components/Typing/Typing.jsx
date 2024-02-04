@@ -70,7 +70,7 @@ import { generateRandomNumber, generateRandomText, latter } from './textGenerato
 
 export function getNumberOfWords(text, noOfWords) {
     const words = text.split(' ');// Split the text into words
-    return words.slice(0, noOfWords).join(' ') + '.';// Take the first 50 words
+    return words.slice(0, noOfWords).join(' ');// Take the first 50 words
 }
 
 // export const getParagraph =(setText, loadPara)=> {
@@ -78,7 +78,7 @@ export function getNumberOfWords(text, noOfWords) {
 // }
 const Typing = () => {
     // document.getElementsByClassName("letter")[0].classList.add("active");
-    const typingContainer = document.getElementById("typingContainer");
+    var typingContainer = document.getElementById("typingContainer");
     const author = useSelector(state => state.AuthorReducer.UserData);
     const auth = useSelector(state => state.AuthReducer.auth);
     // var typing = document.getElementById("typing");
@@ -91,33 +91,33 @@ const Typing = () => {
     const [CorrectLetter, setCorrectLetter] = useState(0);
     const [placeholderText, setplaceholderText] = useState(""); // how much character/word will it be having
     const [selectedSound, setSelectedSound] = useState(
-        author.data.setting.sounds.sound=="keyboard"?keyboard:
-        author.data.setting.sounds.sound=="bell"?bell:
-        author.data.setting.sounds.sound=="mechanical"?mechanical:
-        author.data.setting.sounds.sound=="perkins_bell"?perkins_bell:
-        author.data.setting.sounds.sound=="bubble"?bubble:
-        author.data.setting.sounds.sound=="carriage"?carriage:
-        author.data.setting.sounds.sound=="click"?click:
-        author.data.setting.sounds.sound=="ding"?ding:
-        author.data.setting.sounds.sound=="kclick"?kclick:
-        author.data.setting.sounds.sound=="none"?null:null
-        );
-        const [soundVolume, setSoundVolume] = useState(
-            author.data.setting.sounds.volume==='high'?5:
-            author.data.setting.sounds.volume==='mid'?3:
-            author.data.setting.sounds.volume==='low'?1:
-            author.data.setting.sounds.volume==='mute'?0:0
-            ); // how much character/word will it be having
-            
-            console.log(author);
-            console.log(soundVolume);
-            const [playCorrectKeySound] = useSound(selectedSound, { volume: soundVolume });
-            const [playInCorrectKeySound] = useSound(lightbell, { volume: soundVolume });
-            const [playbackspaceSound] = useSound(typeErrorsound, { volume: soundVolume });
-            // useEffect(() => {
-                //     if (IndexNumber>0) {
-                    //         const caret = document.getElementsByClassName("active")[1];
-                    //         const caretPosition = caret.getBoundingClientRect();
+        author.data.setting.sounds.sound == "keyboard" ? keyboard :
+            author.data.setting.sounds.sound == "bell" ? bell :
+                author.data.setting.sounds.sound == "mechanical" ? mechanical :
+                    author.data.setting.sounds.sound == "perkins_bell" ? perkins_bell :
+                        author.data.setting.sounds.sound == "bubble" ? bubble :
+                            author.data.setting.sounds.sound == "carriage" ? carriage :
+                                author.data.setting.sounds.sound == "click" ? click :
+                                    author.data.setting.sounds.sound == "ding" ? ding :
+                                        author.data.setting.sounds.sound == "kclick" ? kclick :
+                                            author.data.setting.sounds.sound == "none" ? null : null
+    );
+    const [soundVolume, setSoundVolume] = useState(
+        author.data.setting.sounds.volume === 'high' ? 5 :
+            author.data.setting.sounds.volume === 'mid' ? 3 :
+                author.data.setting.sounds.volume === 'low' ? 1 :
+                    author.data.setting.sounds.volume === 'mute' ? 0 : 0
+    ); // how much character/word will it be having
+
+    console.log(author);
+    console.log(soundVolume);
+    const [playCorrectKeySound] = useSound(selectedSound, { volume: soundVolume });
+    const [playInCorrectKeySound] = useSound(lightbell, { volume: soundVolume });
+    const [playbackspaceSound] = useSound(typeErrorsound, { volume: soundVolume });
+    // useEffect(() => {
+    //     if (IndexNumber>0) {
+    //         const caret = document.getElementsByClassName("active")[1];
+    //         const caretPosition = caret.getBoundingClientRect();
     //         console.log("caretPosition => ", caretPosition);
     //     }
     // })
@@ -127,7 +127,7 @@ const Typing = () => {
             setplaceholderText(getNumberOfWords(loadParagraph(), author.data.text))
         }
     }, [author.data.mode, author.data.text])
-    
+
     useEffect(() => {
         //generate random number and the according to that number of index of array of the paragram will it be selected
         // getParagraph(setplaceholderText, loadParagraph
@@ -135,31 +135,14 @@ const Typing = () => {
             setplaceholderText(getNumberOfWords(loadParagraph(), author.data.text))
         }
     }, []);
-    
+
     useEffect(() => {
         if (!auth) {
             setplaceholderText(getNumberOfWords(loadParagraph()))
         }
     }, [])
-    
-    function loadParagraph() {
-        const index = Math.floor(Math.random() * 10);
-        console.log("random num => " + index);
-        if (auth) {
-            if (author.data.mode === "number") {
-                return generateRandomNumber();
-            } else if (author.data.mode === "random") {
-                return generateRandomText();
-            } else if ((author.data.mode === "simple") || (author.data.mode === "")) {
-                return normalText[Math.floor(Math.random() * 10)].toLowerCase()
-            } else if (author.data.mode === "custom") {
-                return normalText[Math.floor(Math.random() * 10)].toLowerCase()
-            }
-        } else {
-            return normalText[Math.floor(Math.random() * 10)].toLowerCase()
-        }
-    }
 
+    
     const scrolled = () => {
         // when typing element of scroll occured then placeholder of an element scrolled according the of textarea  
         var typing = document.getElementById('typing');
@@ -169,7 +152,7 @@ const Typing = () => {
         // typing.scrollTop = placeholder.scrollTop;
     }
 
-
+    
     function restartTypingTest() {
         // every time new text give for the test
         setplaceholderText(getNumberOfWords(loadParagraph(), author.data.text))
@@ -188,13 +171,41 @@ const Typing = () => {
             // compareToTyped("Backspace")
             console.log(element);
         });
-        setCountDownTimer(30)
+        setCountDownTimer(author.data.time)
         setIncorrectLetter(0)
         setIndexNumber(0)
         setLatter("")
-        // typingContainer.classList.remove("blur-md")
-        // focusTyping()
     }
+
+    const restartTyping = () => {
+        restartTypingTest()
+        typingContainer.classList.remove("blur-md")
+        focusTyping();
+    }
+    
+    function loadParagraph() {
+        const index = Math.floor(Math.random() * 10);
+        console.log("random num => " + index);
+        if (auth) {
+            if (author.data.mode === "number") {
+                return generateRandomNumber();
+            } else if (author.data.mode === "random") {
+                return generateRandomText();
+            } else if ((author.data.mode === "simple") || (author.data.mode === "")) {
+                return normalText[Math.floor(Math.random() * 10)].toLowerCase()
+            } else if (author.data.mode === "custom") {
+                if (localStorage.getItem("custom_text")) {
+                    return localStorage.getItem("custom_text");
+                } else {
+                    return normalText[Math.floor(Math.random() * 10)].toLowerCase()
+                }
+                //restart typing
+            }
+        } else {
+            return normalText[Math.floor(Math.random() * 10)].toLowerCase()
+        }
+    }
+
 
     const handleKeyPress = (event) => {
         // this method run before the compareToTyped method
@@ -214,14 +225,7 @@ const Typing = () => {
         };
     });
 
-    // useEffect(() => {
-    //     var activeCaret = Number(document.getElementsByClassName("active")[0].offsetTop);
-    //     console.log(activeCaret);
-    //     const typingContainer = document.getElementById("typingContainer");
-    //     if (IndexNumber > 1) {
-    //         typingContainer.scrollBy(0, Number(document.getElementById("typingContainer").offsetHeight) / 3);
-    //     }
-    // }, [activeCaret])
+
     function compareToTyped(text1, text2 = 'Backspace') {
         // alert("compareToTyped method is runned")
         var words = document.getElementsByClassName("letter");
@@ -274,8 +278,8 @@ const Typing = () => {
             setIndexNumber(IndexNumber + 1);
             (IndexNumber === 0) ? console.log("start") : words[IndexNumber].classList.remove("active"); words[0].classList.remove("active");
             words[IndexNumber + 1].classList.add("active");
-            if(words[IndexNumber + 1].classList.contains("with-animation-backword")){
-                words[IndexNumber +1].classList.remove("with-animation-backword")
+            if (words[IndexNumber + 1].classList.contains("with-animation-backword")) {
+                words[IndexNumber + 1].classList.remove("with-animation-backword")
             }
             words[IndexNumber].classList.add("correct")
             setCorrectLetter(CorrectLetter + 1)
@@ -302,8 +306,8 @@ const Typing = () => {
             // nextLineStartCaret()
             words[IndexNumber].classList.remove("active");
             setIndexNumber(IndexNumber + 1);
-            if(words[IndexNumber + 1].classList.contains("with-animation-backword")){
-                words[IndexNumber +1].classList.remove("with-animation-backword")
+            if (words[IndexNumber + 1].classList.contains("with-animation-backword")) {
+                words[IndexNumber + 1].classList.remove("with-animation-backword")
             }
             words[IndexNumber + 1].classList.add("active");
             words[IndexNumber + 1].classList.add("pressed");
@@ -338,6 +342,7 @@ const Typing = () => {
         // compareToTyped()
         // console.log("elementRef => ", elementRef)
     }
+
     // take data from child component
     const countDownTimerMethod = (countdown) => setCountDownTimer(countdown);    // take data from child
 
@@ -349,7 +354,7 @@ const Typing = () => {
                     {auth
                         &&
                         <div id='typing-nav-config' className='mt-[-2.5cm] mb-10'>
-                            <NavConfig mode={"typing-test-mode"} />
+                            <NavConfig mode={"typing-test-mode"} restartTypingTest={restartTypingTest} />
                         </div>}
                     <Box id="testDetails" className="text-bnw flex xl:gap-x-[20vw] lg:gap-x-[15vw] md:gap-x-[10vw] sm:gap-x-[8vw] gap-x-[8vw] my-5 mt-10 xl:text-4xl md:text-3xl justify-center">
                         <div id='wpm' className='flex'>
@@ -364,16 +369,16 @@ const Typing = () => {
                     </Box>
                     <Box id="typingContainer" className="border-transparent focus:outline-none border-2 h-[30.5vh] m-5 rounded-lg overflow-scroll" onClick={() => typingContainer.classList.remove("blur-md")} onBlur={() => typingContainer.classList.add("blur-md")}>
                         {/* <div id='caret' className="w-[5px] h-[3.5rem] flex flex-col rounded-md absolute z-10 bg-blue-500"></div> */}
-                        <textarea id="typing" className={`${author.data.setting.font.family} word-spacing rounded-lg bg-blue-300 focus:outline-none resize-none text-${author.data.setting.font.size} w-[100%] h-[100%] caret-transparent text-transparent text-opacity-100 bg-opacity-0 selection:bg-transparent text-center relative z-[-99] transition`} style={{ wordBreak: 'break-all', textAlign: 'justify', textJustify: 'inter-word', lineHeight: '110%'}} onScroll={scrolled} name="typing" spellCheck="false" ref={elementRef} onChange={handleTyping} autoFocus={true} value={Letter}></textarea>
+                        <textarea id="typing" className={`${author.data.setting.font.family} word-spacing rounded-lg bg-blue-300 focus:outline-none resize-none text-${author.data.setting.font.size} w-[100%] h-[100%] caret-transparent text-transparent text-opacity-100 bg-opacity-0 selection:bg-transparent text-center relative z-[-99] transition`} style={{ wordBreak: 'break-all', textAlign: 'justify', textJustify: 'inter-word', lineHeight: '110%' }} onScroll={scrolled} name="typing" spellCheck="false" ref={elementRef} onChange={handleTyping} autoFocus={true} value={Letter}></textarea>
                         <div className="typing-text">
-                            <p id="paragraph" className={`${author.data.setting.font.family} word-spacing pt-[20px] px-2 rounded-lg bg-orange-300 focus:outline-none resize-none text-${author.data.setting.font.size} w-[100%] h-[100%] caret-transparent select-none relative top-[-30.4vh] bg-opacity-0 pt-2 text-center`} style={{ wordBreak: 'break-all', textAlign: 'justify', textJustify: 'inter-word', lineHeight: '110%'}} onClick={focusTyping}>
-                                {(Letter === "" && IndexNumber === 0) ? 
-                                <span id='initial-caret' className="relative overflow-hidden transition">
-                                    <div className={`absolute ${author.data.setting.caret.style==='|'?'w-[.3vw] h-[100%]':author.data.setting.caret.style==='box'?'w-[2.5vw] h-[100%]':author.data.setting.caret.style==='_'?'w-[2.5vw] h-[10%]':author.data.setting.caret.style==='off'?'hidden':'hidden'} bg-yellow-200 left-0 bottom-0 rounded-sm transition ${author.data.setting.caret.smooth?'withAnimation':'withoutAnimation'}`}></div>
-                                </span> : <span></span>}
+                            <p id="paragraph" className={`${author.data.setting.font.family} word-spacing pt-[20px] px-2 rounded-lg bg-orange-300 focus:outline-none resize-none text-${author.data.setting.font.size} w-[100%] h-[100%] caret-transparent select-none relative top-[-30.4vh] bg-opacity-0 pt-2 text-center`} style={{ wordBreak: 'break-all', textAlign: 'justify', textJustify: 'inter-word', lineHeight: '110%' }} onClick={focusTyping}>
+                                {(Letter === "" && IndexNumber === 0) ?
+                                    <span id='initial-caret' className="relative overflow-hidden transition">
+                                        <div className={`absolute ${author.data.setting.caret.style === '|' ? 'w-[.3vw] h-[100%]' : author.data.setting.caret.style === 'box' ? 'w-[2.5vw] h-[100%]' : author.data.setting.caret.style === '_' ? 'w-[2.5vw] h-[10%]' : author.data.setting.caret.style === 'off' ? 'hidden' : 'hidden'} bg-yellow-200 left-0 bottom-0 rounded-sm transition ${author.data.setting.caret.smooth ? 'withAnimation' : 'withoutAnimation'}`}></div>
+                                    </span> : <span></span>}
                                 {
                                     // placeholderText.split("").map((char, index) => (<span key={index} className={(index === 0) ? 'letter active text-white' : 'letter text-white transition-all duration-200'} >{char}</span>))
-                                    placeholderText.split("").map((char, index) => (<span key={index} className={`letter ${author.data.setting.caret.style==='|'?'caretline':author.data.setting.caret.style==='box'?'caretbox':author.data.setting.caret.style==='_'?'caretunderscore':author.data.setting.caret.style==='off'?'off':'off'} pt-[-50px] transition-all duration-200 transition ${author.data.setting.caret.smooth?'with-animation':''}`}>{char}</span>))
+                                    placeholderText.split("").map((char, index) => (<span key={index} className={`letter ${author.data.setting.caret.style === '|' ? 'caretline' : author.data.setting.caret.style === 'box' ? 'caretbox' : author.data.setting.caret.style === '_' ? 'caretunderscore' : author.data.setting.caret.style === 'off' ? 'off' : 'off'} pt-[-50px] transition-all duration-200 transition ${author.data.setting.caret.smooth ? 'with-animation' : ''}`}>{char}</span>))
                                 }
                             </p>
                         </div>
@@ -382,11 +387,11 @@ const Typing = () => {
                     </Box>
                     <br />
                     <div className='flex justify-center'>
-                        <button id='re-start-logo' onClick={() => {restartTypingTest();}}>
+                        <button id='re-start-logo' onClick={() => { restartTyping(); }}>
                             <ReplayIcon tabIndex="0" className='cursor-pointer text-bnw rounded-none hover:rounded-md' sx={{ transform: 'scale(1.5)', "&:hover": { transform: 'scale(2)', backgroundColor: 'var(--base_color)', outline: 'none' }, "&:active": { transform: 'scale(1.5)' }, transition: 'transform 300ms' }} />
                         </button><br />
                     </div>
-                    <div id='shortcutKeyBar' className='relative bottom-[-7em]'>
+                    <div id='shortcutKeyBar' className='relative bottom-[-7em] font-extrabold'>
                         <div id="key" className='flex text-bnw justify-center mt-[-1.5cm]'>
                             <div>
                                 <div className='flex' >
@@ -441,7 +446,7 @@ export default Typing;
 //         setNum( preNum => ({...preNum,xVal:preNum.xVal+1 } ));
 //         caret.style.transform = `translate(${xvalue}rem,${Num.yVal}rem)`;
 //         console.log("xvalue => "+ xvalue);
-//         if((Math.round(typing.offsetWidth/16)+10) <= Math.round(xvalue)) { 
+//         if((Math.round(typing.offsetWidth/16)+10) <= Math.round(xvalue)) {
 //             console.log("nextline");
 //             console.log("nextline");
 //             console.log("nextline");

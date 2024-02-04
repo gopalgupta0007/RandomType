@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import ResultGraph from "./ResultCharts/ResultGraph";
 import ReplayIcon from '@mui/icons-material/Replay';
 import DirectionsCarFilledOutlinedIcon from '@mui/icons-material/DirectionsCarFilledOutlined';
@@ -9,9 +9,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import html2canvas from 'html2canvas';
 import axios from "axios";
+import { useHistory } from "react-router-dom";
 (localStorage.getItem("typingData") === null) && window.location.reload(); //if the localstoage is null to that automaticlly reload page once
 
 const Result = ({ restartTypingTest, keyData }) => {
+  const history = useHistory();
   const auth = useSelector(state => state.AuthReducer.auth)
   const author = useSelector(state => state.AuthorReducer)
   const typing_data = useSelector((state) => state.TypingTestReducer)
@@ -98,15 +100,15 @@ const Result = ({ restartTypingTest, keyData }) => {
         {/* {console.log(AuthorData)} */}
         {/* {!auth && <ResultGraph typingData={typing_data} />}
         {auth&&<ResultGraph typingData={author.data.data} />} */}
-        <ResultGraph typingData={auth?author.UserData.data:typing_data} keyData={keyData} />
+        <ResultGraph typingData={auth ? author.UserData.data : typing_data} keyData={keyData} />
         {(!auth) && <div className="text-bnw text-center absolute left-[42.5%] bottom-10" >
           <a href="/login" className="font-bold underline" >Sign in</a> to save your result
         </div>}
         <br />
         <div className="flex justify-end relative z-50">
           <div id="result-icons" className="w-1/2 flex justify-around mx-20" >
-            <div id='re-start-logo2' className='text-center mt-5'>
-              <NavLink to="/">
+            <button tabIndex="1" onClick={restartTypingTest}>
+              <div id='re-start-logo2' className='text-center mt-5'>
                 <ReplayIcon
                   className='cursor-pointer text-bnw rounded-none hover:rounded-md'
                   sx={{
@@ -115,26 +117,27 @@ const Result = ({ restartTypingTest, keyData }) => {
                     "&:active": { transform: 'scale(1.5)', backgroundColor: 'var(--background_color)' },
                     transition: 'transform 300ms'
                   }}
-                  tabIndex="2"
-                  onClick={restartTypingTest}
                 />
-              </NavLink>
-            </div>
-            <div id='re-start-logo2' className='text-center mt-5'>
-              <PhotoSizeSelectActualOutlinedIcon
-                className='cursor-pointer text-bnw rounded-none hover:rounded-md'
-                sx={{
-                  transform: 'scale(1.3)',
-                  "&:hover": { transform: 'scale(2)', backgroundColor: 'var(--base_color)', outline: 'none' },
-                  "&:active": { transform: 'scale(1.5)', backgroundColor: 'var(--background_color)' },
-                  transition: 'transform 300ms'
-                }}
-                tabIndex="2"
-                onClick={captureImage}
-              />
-            </div>
-            {auth&&<div id='play-cargame' className='text-center mt-5'>
-              <NavLink to="/game" tabIndex="3">
+              </div>
+            </button>
+            <button onClick={captureImage}>
+              <div id='re-start-logo2' className='text-center mt-5'>
+
+                <PhotoSizeSelectActualOutlinedIcon
+                  className='cursor-pointer text-bnw rounded-none hover:rounded-md'
+                  sx={{
+                    transform: 'scale(1.3)',
+                    "&:hover": { transform: 'scale(2)', backgroundColor: 'var(--base_color)', outline: 'none' },
+                    "&:active": { transform: 'scale(1.5)', backgroundColor: 'var(--background_color)' },
+                    transition: 'transform 300ms'
+                  }}
+                  tabIndex="2"
+                  onClick={captureImage}
+                />
+              </div>
+            </button>
+            {auth && <div id='play-cargame' className='text-center mt-5'>
+              <button tabIndex="3" onClick={() => history.push("/game")}>
                 <DirectionsCarFilledOutlinedIcon
                   className='cursor-pointer text-bnw rounded-none hover:rounded-md'
                   sx={{
@@ -145,14 +148,14 @@ const Result = ({ restartTypingTest, keyData }) => {
                   }}
                 // onClick={restartTypingTest}
                 />
-              </NavLink>
+              </button>
             </div>}
           </div>
 
         </div>
-      </HelmetProvider>
+      </HelmetProvider >
     </>
   );
 }
 
-export default Result;
+export default memo(Result);

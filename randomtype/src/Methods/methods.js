@@ -15,13 +15,21 @@ export const togglRTIntroAnimation = (isAnimated) => {
         document.getElementById("rtSVG").classList.add("hidden")
 }
 
-export const setThemeOnBody = (themeClsName) =>{
+export const setThemeOnBody = (themeClsName) => {
     document.body.classList.value = "";
-    document.body.classList.add(`${themeClsName}`) 
+    document.body.classList.add(`${themeClsName}`)
 }
 
-export const setFavicons = (themeClsName) =>{
-    const favicon =  document.getElementById("favicon");
-    favicon.href=`favicons/${themeClsName}.ico`
+export const setFavicons = (themeClsName) => {
+    const favicon = document.getElementById("favicon");
+    favicon.href = `favicons/${themeClsName}.ico`
     console.log(favicon.href);
+}
+
+export const on = (overlayNum) => {
+    document.querySelector(".overlay-"+overlayNum).style.display = "block";
+}
+
+export const off = (overlayNum) => {
+    document.querySelector(".overlay-"+overlayNum).style.display = "none";
 }

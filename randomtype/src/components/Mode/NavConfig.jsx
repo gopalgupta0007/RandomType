@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import { useLocation } from 'react-router-dom';
-import { btnGroup } from '../../Methods/methods';
+import { btnGroup, off, on } from '../../Methods/methods';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { setModemode, setModetext, setModetime } from '../../redux/action/Actions';
+import { BsWindowPlus } from 'react-icons/bs';
 
-const NavConfig = ({ mode }) => {
+const NavConfig = ({ mode, restartTypingTest }) => {
     const dispatch = useDispatch()
     const location = useLocation();
     const author = useSelector(state => state.AuthorReducer.UserData);
     const auth = useSelector(state => state.AuthReducer.auth);
+    const [customText, setCustomText] = useState("");
     const [Mode, setMode] = useState({
         mode: author.data.mode,
         text: author.data.text,
@@ -74,24 +76,32 @@ const NavConfig = ({ mode }) => {
             <div className='flex justify-center gap-1'>
                 <NavLink to="/" id="typing-test-mode">
                     {/* add logo */}
-                    <div className={`w-[15vw] text-bnw text-center btnNav transition shadow ${(mode == "typing-test-mode") ? 'activeSetting activeShadow' : ''}`} style={{ padding: '.8em', borderRight: '1px solid grey' }}>Typing-Test</div>
+                    <div className={`w-[15vw] text-bnw text-center btnNav transition font-extrabold shadow ${(mode == "typing-test-mode") ? 'activeSetting activeShadow' : ''}`} style={{ padding: '.8em', borderRight: '1px solid grey' }}>Typing-Test</div>
                 </NavLink>
                 <NavLink to="/game" id="typing-test-mode">
-                    <div className={`w-[15vw] text-bnw text-center btnNav transition shadow ${(mode == "car-game-mode") ? 'activeSetting activeShadow' : ''}`} style={{ padding: '.8em' }} >Car-Game</div>
+                    <div className={`w-[15vw] text-bnw text-center btnNav transition font-extrabold shadow ${(mode == "car-game-mode") ? 'activeSetting activeShadow' : ''}`} style={{ padding: '.8em' }} >Car-Game</div>
                 </NavLink>
             </div>
             <div id='modes' className='flex justify-center mt-1 text-sm'>
+                <div id="overlay" className='overlay-1'>
+                    <div id="text" className='overlayContent text-center glassOnly p-10 shadow'>
+                    <span onClick={()=>{off(1)}} className="absolute right-0 top-0 text-4xl mx-0 px-2 rounded-lg hover:bg-slate-100 hover:cursor-pointer active:bg-slate-200 duration-100 transition text-black">&times;</span>
+                        <h1>Custom</h1>
+                        <textarea name="custom_text" id="custom_text" placeholder='Enter Comments' onChange={(e)=>setCustomText(e.target.value)} autoFocus={true} cols="30" rows="10" className='w-[95%] h-[70%] bg-background-color rounded-lg relative top-10 text-sm p-5 text-white resize-none' value={customText}></textarea>
+                        <button className='p-2 text-bnw bghoverActive hover:border-base-color shadow active:scale-95 transition relative bottom-[-80px] text-lg rounded-lg' onClick={()=>{off(1);localStorage.setItem("custom_text", customText);restartTypingTest()}}>Set Custom Text</button>
+                    </div>
+                </div>
                 {
                     location.pathname == "/game" ? undefined
                         :
                         // if location on the page is "/"
-                        <div id='test-options' className='w-[50vw] flex justify-around items-center bg-background-color py-2 text-bnw transition'>
+                        <div id='test-options' className='w-[50vw] flex justify-around font-extrabold items-center bg-background-color py-2 text-bnw transition'>
                             <div id='mode-container' className='btn-group-1 mode flex gap-2 justify-center items-center border border-0 border-r-2 pr-5'>
                                 <h1 className='mode-heading'>mode : </h1>
                                 <button onClick={(e) => { btnGroup(1, 'btnActive', e.target); updateModeState(e); }} className={`btn ${Mode.mode == "simple" ? 'btnActive' : ''}`}>simple</button>
                                 <button onClick={(e) => { btnGroup(1, 'btnActive', e.target); updateModeState(e); }} className={`btn ${Mode.mode == "number" ? 'btnActive' : ''}`}>number</button>
                                 <button onClick={(e) => { btnGroup(1, 'btnActive', e.target); updateModeState(e); }} className={`btn ${Mode.mode == "random" ? 'btnActive' : ''}`}>random</button>
-                                <button onClick={(e) => { btnGroup(1, 'btnActive', e.target); updateModeState(e); }} className={`btn ${Mode.mode == "custom" ? 'btnActive' : ''}`}>custom</button>
+                                <button onClick={(e) => { btnGroup(1, 'btnActive', e.target); updateModeState(e); on(1) }} className={`btn ${Mode.mode == "custom" ? 'btnActive' : ''}`}>custom</button>
                             </div>
                             <div id='text-container' className='btn-group-2 mode flex gap-2 justify-center items-center border border-0 border-r-2 pr-5'>
                                 <h1 className='mode-heading'>text : </h1>

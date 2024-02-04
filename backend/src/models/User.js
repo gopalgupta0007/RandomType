@@ -47,41 +47,41 @@ const UserSchema = new mongoose.Schema({
         }
     },
     data: {
-        mode: String,
-        text: Number,
-        time: Number,
+        type: Object,
+        mode: "simple",
+        text: 50,
+        time: 30,
         typing_data: {
-            total_wpm: [Number],
-            total_accuracy: [Number]
+            total_wpm: [0],
+            total_accuracy: [0]
         },
         setting: {
             font: {
-                family: String,
-                size: String,
+                family: "roboto",
+                size: "6xl"
             },
             caret: {
-                style: String,
-                smooth: Boolean,
+                style: "_",
+                smooth: true
             },
             sounds: {
-                volume: String,
-                sound: String,
+                volume: "mid",
+                sounds: "click"
             },
-            theme: String,
-            intro_animation: Boolean
+            theme: "tomato",
+            intro_animation: true
         },
-        comments:[
+        comments: [
             {
                 message: String,
                 msgDate: {
-                    type:Date,
+                    type: Date,
                     default: Date.now
                 },
             }
         ],
         default: {
-            type:Object,
-            mode: "normal",
+            mode: "simple",
             text: 50,
             time: 30,
             typing_data: {
@@ -91,7 +91,7 @@ const UserSchema = new mongoose.Schema({
             setting: {
                 font: {
                     family: "roboto",
-                    size: "5xl"
+                    size: "6xl"
                 },
                 caret: {
                     style: "_",

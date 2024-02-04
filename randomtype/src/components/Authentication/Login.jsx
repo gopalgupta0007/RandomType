@@ -7,7 +7,7 @@ import { IconButton, Input, FormControl, InputLabel, InputAdornment, Box, TextFi
 import { useHistory } from "react-router-dom";
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
-import { userAuthenticated } from '../../redux/action/Actions';
+import { setUserData, userAuthenticated } from '../../redux/action/Actions';
 import { toast } from 'react-toastify';
 
 const Login = () => {
@@ -36,7 +36,7 @@ const Login = () => {
     const verifyData = async (e) => {
         try {
             e.preventDefault();
-            const { email, password } = loginData;
+            var { email, password } = loginData;
             const axiosPost = await axios.post("/users/login",
                 { email, password },
                 {
@@ -44,8 +44,10 @@ const Login = () => {
                     withCredentials: true
                 }
             ) // for cookie because we have to use axious method to fetch data
-            console.log("axiosPost.data => ", axiosPost.data);
+            console.log("axiosPost.data => ", axiosPost.data.userFound);
+            // alert("axiosPost.data => ", axiosPost.data);
             dispatch(userAuthenticated())
+            dispatch(setUserData(axiosPost.data.userFound))
             // dispatc(axiosPost.data.userFound._id))
             // dispatch(userAuthenticated(axiosPost.data.userFound._id))
             localStorage.setItem("auth", btoa(true));
@@ -54,8 +56,8 @@ const Login = () => {
             // alert("logined")
             history.push('/');
             toast.success("logined successfull")
+            window.location.reload();
             // e.preventDefault()
-            // window.location.reload();
         } catch (err) {
             console.log(err);
         }

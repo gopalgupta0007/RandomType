@@ -147,6 +147,10 @@ const Settings = () => {
     // console.log(setting.theme.replace(/ /g, "_").toLowerCase())
   }, [setting.theme])
 
+  // useEffect(()=>{
+  //   updateSettingDataInDB()
+  // },[])
+
   useEffect(() => {
     updateSettingDataInDB()
   }, [
@@ -271,18 +275,18 @@ const Settings = () => {
   return (
     <>
       <HelmetProvider>
-        <Helmet><title>Setting || RandomType</title></Helmet>
+        <Helmet><title>Setting || RandomType</title></Helmet> 
         <div className="text-bnw text-center text-5xl stroke_colorNwidth">Setting</div>
-        <div id="settings" className='text-black w-4/5 m-auto'>
+        <div id="settings" className='text-black w-4/5 m-auto font-extrabold'>
           <div id="setting-navigation" className='flex justify-center gap-x-14 text-3xl my-5 border border-x-0 border-y-2' style={{borderColor:'var(--BnW)'}}>
             <a href="#font-setting" className='text-base-color scale-100 hover:text-white hover:scale-105 transition-all duration-200 ease-in-out flex items-center'><HdrAutoIcon sx={{ fontSize: '1.2em' }} />Font</a>
             <a href="#caret-setting" className='text-base-color scale-100 hover:text-white hover:scale-105 transition-all duration-200 ease-in-out flex items-center'><BsCursorText style={{ display: 'inline', border: '2px solid var(--base_color)', borderRadius: '50%', backgroundColor: 'var(--base_color)', color: 'white', fontWeight: 'bolder' }} />Caret</a>
             <a href="#sounds-setting" className='text-base-color scale-100 hover:text-white hover:scale-105 transition-all duration-200 ease-in-out flex items-center'><VolumeUpIcon sx={{ fontSize: '1.2em' }} />Sounds</a>
             <a href="#theme-setting" className='text-base-color scale-100 hover:text-white hover:scale-105 transition-all duration-200 ease-in-out flex items-center'><ColorLensIcon sx={{ fontSize: '1.2em' }} />Theme</a>
             <a href="#reset-setting" className='text-base-color scale-100 hover:text-white hover:scale-105 transition-all duration-200 ease-in-out flex items-center' ><RestartAltIcon sx={{ fontSize: '1.2em' }} />Reset</a>
-            <a href="#rtintro-animation-setting" className='text-base-color hover:text-white hover:scale-105 transition-all duration-200 ease-in-out flex items-center'><div id='rt-icon' className='w-6 h-6 bg-base-color text-bnw overflow-hidden text-[15px] flex items-center justify-center font-extrabold rounded-full scale-110'>RT</div>Intro-Animation</a>
+            <a href="#rtintro-animation-setting" className='text-base-color hover:text-white hover:scale-105 transition-all duration-200 ease-in-out flex items-center'><div id='rt-icon' className='w-6 h-6 bg-base-color text-white overflow-hidden text-[15px] flex items-center justify-center font-extrabold rounded-full scale-110'>RT</div>Intro-Animation</a>
           </div>
-          <div id='setting-options' className='flex flex-col gap-y-3' style={{ height: '65vh', overflow: 'scroll', scrollBehavior: 'smooth' }}>
+          <div id='setting-options' className='flex flex-col gap-y-3 font-extrabold' style={{ height: '65vh', overflow: 'scroll', scrollBehavior: 'smooth' }}>
             <div id='font-setting' className='m-2'>
               <h1 id='font-heading' className='text-base-color text-3xl bg-slate-300 bg-opacity-90 border-gray-700 rounded-lg py-3 relative z-10 px-3' onClick={() => toggleHeight(0)}><HdrAutoIcon sx={{ fontSize: '30px' }} />Fonts</h1>
               <div id='font-options' className='toggle-open flex flex-col text-bnw px-5 bg-slate-200 bg-opacity-10 rounded-lg mt-[-10px]'>
@@ -388,15 +392,6 @@ const Settings = () => {
                   <p className='text-xl my-2'>Themes : </p>
                 </div>
                 <div id='themes' className='btn-group-9 grid grid-cols-4 gap-3 text-center'>
-                  {/*themeBtn.map((buttonValue, index) => (
-                    <button
-                      key={index}
-                      className={`flex justify-around btnSetting transition btn ${setting.theme.toLowerCase() === buttonValue.toLowerCase() ? 'activeSetting' : ''}`}
-                      onClick={(e) => { btnGroup(9, 'activeSetting', e.target); updateSetting(e) }}
-                    >
-                      {buttonValue}
-                    </button>
-                  ))*/}
                   <button className={`flex justify-around btnSetting transition btn yellow ${setting.theme.toLowerCase() === "Yellow".toLowerCase() ? 'activeSetting' : ''}`} onClick={(e) => { btnGroup(9, 'activeSetting', e.target); updateSetting(e) }} style={{color:'var(--background_color)', backgroundColor:'var(--root_background_color)', border:'3px solid var(--base_color)'}}>Yellow</button>
                   <button className={`flex justify-around btnSetting transition btn cherry_red ${setting.theme.toLowerCase() === "Cherry Red".toLowerCase() ? 'activeSetting' : ''}`} onClick={(e) => { btnGroup(9, 'activeSetting', e.target); updateSetting(e) }} style={{color:'var(--background_color)', backgroundColor:'var(--root_background_color)', border:'3px solid var(--base_color)'}}>Cherry Red</button>
                   <button className={`flex justify-around btnSetting transition btn jungle ${setting.theme.toLowerCase() === "Jungle".toLowerCase() ? 'activeSetting' : ''}`} onClick={(e) => { btnGroup(9, 'activeSetting', e.target); updateSetting(e) }} style={{color:'var(--background_color)', backgroundColor:'var(--root_background_color)', border:'3px solid var(--base_color)'}}>Jungle</button>
@@ -434,7 +429,7 @@ const Settings = () => {
               </div>
             </div>
             <div id='rtintro-animation-setting' className='m-2'>
-              <h1 id='rtintro-heading' className='text-base-color text-3xl bg-slate-300 bg-opacity-90 border-gray-700 rounded-lg py-3 relative z-10 px-3 flex justify-start items-center' onClick={() => toggleHeight(5)}> <div id='rt-icon' className='w-6 h-6 bg-base-color text-bnw overflow-hidden text-[15px] flex items-center justify-center font-extrabold'>RT</div> rtintro Setting</h1>
+              <h1 id='rtintro-heading' className='text-base-color text-3xl bg-slate-300 bg-opacity-90 border-gray-700 rounded-lg py-3 relative z-10 px-3 flex justify-start items-center' onClick={() => toggleHeight(5)}> <div id='rt-icon' className='w-6 h-6 bg-base-color overflow-hidden text-[15px] flex items-center justify-center font-extrabold text-white'>RT</div> rtintro Setting</h1>
               <div id='rtintro-options' className='toggle-open flex flex-col text-bnw px-5 gap-y-2 bg-slate-200 bg-opacity-10 rounded-lg mt-[-10px]'>
                 <br />
                 <div id='rtintro' className='h-30 flex justify-between items-center p-2' >

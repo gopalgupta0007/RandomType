@@ -26,7 +26,8 @@ const signup = async (req, res) => {
 
 
 const login = async (req, res) => {
-    let token, userFound;
+    let token;
+    let userFound;
     try {
         let is_password_correct;
         const { email, password } = req.body;

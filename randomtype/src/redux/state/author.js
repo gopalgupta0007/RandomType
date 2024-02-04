@@ -22,7 +22,7 @@ let data = {
                 },
                 sounds: {
                     volume: "mid",
-                    sound: "keyboard"
+                    sound: "click"
                 },
                 theme: "tomato",
                 intro_animation: true

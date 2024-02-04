@@ -32,12 +32,13 @@ const App = () => {
     if (auth) {
       const fetchData = async () => {
         try {
-          await axios.get("/users/about",
+          const d = await axios.get("/users/about",
             {
               headers: { "Content-Type": "application/json" },
               withCredentials: true
             }).then(res => {
-              console.log("pormise => ",res.data.user)
+              console.log("pormise => ", res.data.user)
+              dispatch(setUserData(res.data.user))
               // dispatch(userId(res.data.user._id))
               // localStorage.setItem("DBdata", btoa(JSON.stringify(res.data.user.data)))
               // console.log(Data);
@@ -56,7 +57,6 @@ const App = () => {
   console.log(author.UserData);
   // useEffect(() => {
   //   localStorage.setItem("authorId", JSON.stringify(author))
-  //   // dispatch(setUserData(response.data.user))
   // }, [author])
   console.log("app.js");
   return (
