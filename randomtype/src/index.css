@@ -775,17 +775,17 @@ tspan {
   outline: var(--caret_outline);
   background: var(--caret_color);
   transform: translate(0, 0);
-  transition: all 0.2s ease-in-out;
+  transition: all 0.15s ease-in-out;
 }
 
 .with-animation::before {
   /* move caret smoothly */
-  animation: caretMove 0.2s alternate 1 forwards linear;
+  animation: caretMove 0.15s alternate 1 forwards linear;
 }
 
 .with-animation-backword::before {
   /* move backword caret smoothly */
-  animation: caretMoveBack 0.2s alternate 1 forwards linear;
+  animation: caretMoveBack 0.15s alternate 1 forwards linear;
 }
 
 @keyframes caretMove {

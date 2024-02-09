@@ -12,7 +12,7 @@ const Home = () => {
         setThemeOnBody(author.data.setting.theme.replace(/ /g, "_").toLowerCase());
         setFavicons(author.data.setting.theme.replace(/ /g, "_").toLowerCase());
     }, [])
-    console.log(document.body.classList)
+    // console.log(document.body.classList)
     return (
         <>
             <HelmetProvider>

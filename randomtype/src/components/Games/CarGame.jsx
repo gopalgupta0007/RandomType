@@ -14,15 +14,16 @@ import typeErrorsound from '../rtsetting/sounds/typeError.mp3';
 import { getNumberOfWords } from '../Typing/Typing';
 import normalText from '../Typing/storedText';
 import { useSelector } from 'react-redux';
-import { off, on, setFavicons, setThemeOnBody } from '../../Methods/methods';
+import { compareTo, off, on, setFavicons, setThemeOnBody } from '../../Methods/methods';
 import { io } from 'socket.io-client';
 import { toast } from 'react-toastify';
 
-function compareTo(text1, text2) {
-    console.log(`\'${text1}\' == \'${text2}\'`);
-    if ((text1.length === text2.length) && (text1 === text2)) { return true }
-    else { return false }
-}
+// function compareTo(text1, text2) {
+//     console.log(`\'${text1}\' == \'${text2}\'`);
+//     if ((text1.length === text2.length) && (text1 === text2)) { return true }
+//     else { return false }
+// }
+var charWidth=15;
 
 const CarGame = () => {
     const socket = useMemo(() => io("http://localhost:5000"), [])
@@ -60,6 +61,10 @@ const CarGame = () => {
         id: "",
         username: "",
         roomNo: 0,
+        indexes : {
+            indexNumber:0,
+            incorrectLetter:0
+        },
         typingGameData: {
             wpm: 0,
             acc: 0
@@ -70,13 +75,17 @@ const CarGame = () => {
         id: "",
         username: "",
         roomNo: 0,
+        indexes : {
+            indexNumber:0,
+            incorrectLetter:0
+        },
         typingGameData: {
             wpm: 0,
             acc: 0
         },
         carMovePoint: 0
     });
-
+    
     useEffect(() => {
         //generate random number and the according to that number of index of array of the paragram will it be selected
         // getParagraph(setplaceholderText, loadParagraph)
@@ -86,6 +95,43 @@ const CarGame = () => {
         setThemeOnBody(author.data.setting.theme.replace(/ /g, "_").toLowerCase());
         setFavicons(author.data.setting.theme.replace(/ /g, "_").toLowerCase());
     }, []);
+
+    useEffect(()=>{
+        // charWidth is add all width of typed letter
+
+        // let example total width of the caracter(charWidth) devide by parent container of the caracters  ====> charWidth
+        var line_Number = Math.ceil(charWidth/document.getElementById("cargametypingContainer").offsetWidth);
+        console.log("---------------------",line_Number)
+        if(CarCharIndexNumber>1){
+            handleScrollDownGame(line_Number)
+        }
+    },[charWidth])
+
+
+
+    const handleScrollDownGame = (num=1) => {
+        // these method handle the when the scroll happends according to the user typed letters
+
+        // const container = document.getElementById("typingContainer");
+        // const container = document.getElementById('typingTxt');
+        const container = document.getElementById('cargame-paragraph');
+        if (container && num>2) {
+            // Scroll down by 50 pixels
+            // container.scrollTop += 60*1 ;                                                           
+            try {
+                var height_of_letter = document.getElementsByClassName("gameletter")[1].getBoundingClientRect().height;  // get to know the heihgt of the letters
+            } catch (error) {
+                console.log(error);
+            }
+            // 71.2 * 16/100 => 60pixel so i need to scroll 
+            // container.scrollTop += Math.ceil((Math.ceil(height_of_letter))-(Math.ceil(Math.ceil(height_of_letter)*16/100)))*num; // 60
+            // container.scrollBy(0, Math.ceil((Math.ceil(height_of_letter))-(Math.ceil(Math.ceil(height_of_letter)*16/100)))*1);
+            container.scrollTop = Math.ceil((Math.ceil(height_of_letter))-(Math.ceil(Math.ceil(height_of_letter)*16/100)))*(num-2); // 60
+            console.log("scorll ==================> ",container.scrollTop," |||||| ",Math.ceil((Math.ceil(height_of_letter))-(Math.ceil(Math.ceil(height_of_letter)*16/100)))*(num-2));
+        }
+    };
+
+
 
     function compareToTypedLetter(text1, text2 = 'Backspace') {
         // alert("compareToTyped method is runned")
@@ -102,6 +148,10 @@ const CarGame = () => {
             words[CarCharIndexNumber - 1].classList.remove("incorrect")
             words[CarCharIndexNumber - 1].classList.remove("correct")
             // console.log(`\'${text1[CarCharIndexNumber - 1]}\'`)
+            if (CarCharIndexNumber > 0) {
+                // console.log(document.getElementsByClassName("letter")[CarCharIndexNumber - 1].offsetWidth)
+                charWidth = CarCharIndexNumber>1 ? charWidth - document.getElementsByClassName("gameletter")[CarCharIndexNumber - 2].offsetWidth : 15;
+            }
             console.log(compareTo(text1.slice(0, CarCharIndexNumber - 1), text2.slice(0, CarCharIndexNumber + 1)))
             if ((text1[CarCharIndexNumber - 1] === " ") && (compareTo(text1.slice(0, CarCharIndexNumber - 1), text2.slice(0, CarCharIndexNumber + 1)))) {
                 setCarMoveingPoint(CarMoveingPoint - 1)
@@ -119,6 +169,11 @@ const CarGame = () => {
             }
             words[CarCharIndexNumber + 1].classList.add("active");
             words[CarCharIndexNumber].classList.add("correct")
+            if (CarCharIndexNumber > 0) {
+                // console.log(document.getElementsByClassName("letter")[IndexNumber - 1].offsetWidth)
+                charWidth = charWidth + document.getElementsByClassName("gameletter")[CarCharIndexNumber - 1].offsetWidth;
+                charWidth = charWidth + 1;
+            }
             // only for car move
             if ((text1[CarCharIndexNumber] === " ") && (text2[CarCharIndexNumber] === " ") && (compareTo(text1.slice(0, CarCharIndexNumber + 1), text2.slice(0, CarCharIndexNumber + 1)))) {
                 if ((text1[CarCharIndexNumber - 1] !== " ") && (text1[CarCharIndexNumber + 1] !== " ")) {
@@ -141,6 +196,11 @@ const CarGame = () => {
             words[CarCharIndexNumber + 1].classList.add("active");
             words[CarCharIndexNumber + 1].classList.add("pressed");
             words[CarCharIndexNumber].classList.add("incorrect")
+            if (CarCharIndexNumber > 0) {
+                console.log(document.getElementsByClassName("gameletter")[CarCharIndexNumber - 1].offsetWidth)
+                charWidth = charWidth + document.getElementsByClassName("gameletter")[CarCharIndexNumber - 1].offsetWidth;
+                charWidth = charWidth + 1;
+            }
         }
         if (text2[CarCharIndexNumber - 1]) { words[CarCharIndexNumber].classList.add("pressed") }
     }
@@ -187,6 +247,8 @@ const CarGame = () => {
             isStrenger ? setStrengerData(Strenger) : setFriendData(Strenger)
             console.log("Strenger=====>", Strenger);
         })
+        setUser(preData => ({ ...preData, indexes: { ...preData.indexes, indexNumber: CarCharIndexNumber } }))
+        setUser(preData => ({ ...preData, indexes: { ...preData.indexes, incorrectLetter: CargameIncorrectLetter } }))
     }, [CargameCountDownTimer, User.carMovePoint, StrengerData.carMovePoint])
     
     useEffect(() => {
@@ -331,10 +393,10 @@ return (
                         </div>
                     </div>
                 </Box>
-                <Box id="cargametypingContainer" className="w-11/12 mx-auto mt-1 focus:outline-none h-[22vh] rounded-xl overflow-hidden bg-opacity-40" onClick={() => cargametypingContainer.classList.remove("blur-md")} onBlur={() => cargametypingContainer.classList.add("blur-md")}>
+                <Box id="cargametypingContainer" className="w-11/12 mx-auto mt-1 focus:outline-none h-[22vh] rounded-xl overflow-auto bg-opacity-40" onClick={() => cargametypingContainer.classList.remove("blur-md")} onBlur={() => cargametypingContainer.classList.add("blur-md")}>
                     <textarea id="cargame-typing" className="rounded-lg bg-blue-300 focus:outline-none resize-none text-3xl w-[100%] h-[100%] caret-transparent text-transparent text-opacity-100 bg-opacity-0 selection:bg-transparent relative z-[-99] transition" style={{ wordBreak: 'break-all', textAlign: 'justify', textJustify: 'inter-word' }} ref={elemtRef} name="cargame-typing" spellCheck="false" onChange={handleCarGameTyping} autoFocus={true} value={CarLetter}></textarea>
-                    <div className="cargame-typing-text">
-                        <p id="cargame-paragraph" className='rounded-lg bg-orange-300 focus:outline-none resize-none text-3xl w-[100%] h-[100%] caret-transparent select-none relative top-[-30.4vh] bg-opacity-0 pt-16 px-3' style={{ wordBreak: 'break-all', textAlign: 'justify', textJustify: 'inter-word' }} onClick={focusCargameTyping}>
+                    <div id="cargame-typingTxt" className="cargame-typing-text h-[200%]">
+                        <p id="cargame-paragraph" className='rounded-lg bg-orange-300 focus:outline-none resize-none text-3xl w-[100%] h-[100%] caret-transparent select-none relative top-[-30.4vh] bg-opacity-0 pt-16 px-3 overflow-y-scroll' style={{ wordBreak: 'break-all', textAlign: 'justify', textJustify: 'inter-word' }} onClick={focusCargameTyping}>
                             {(CarLetter === "" && CarCharIndexNumber === 0) ? <span id='initial-caret2' className="relative ubuntu overflow-hidden transition"><div className="caret absolute w-[.1em] h-[30px] bg-yellow-200 left-0 bottom-0 rounded-sm transition"></div></span> : <span></span>}
                             {
                                 CarTextplaceholderText.split("").map((char, index) => (<span key={index} className='gameletter caretline with-animation pt-[-50px] transition-all duration-200 transition'>{char}</span>))

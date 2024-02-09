@@ -4,7 +4,7 @@ import author from "../state/author"
 console.log("authorReducer");
 // const AuthorReducer = (state=JSON.parse(atob(localStorage.getItem("DBdata"))), action) => {
 const AuthorReducer = (state = author, action) => {
-    console.log(state);
+    // console.log(state);
     // console.log("reducer is running => ", state);
     switch (action.type) {
         case "SET_DATA":

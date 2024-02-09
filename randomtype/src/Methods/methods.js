@@ -33,3 +33,9 @@ export const on = (overlayNum) => {
 export const off = (overlayNum) => {
     document.querySelector(".overlay-"+overlayNum).style.display = "none";
 }
+
+export function compareTo(text1, text2) {
+    console.log(`\'${text1}\' == \'${text2}\'`);
+    if ((text1.length === text2.length) && (text1 === text2)) { return true }
+    else { return false }
+}
