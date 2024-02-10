@@ -27,15 +27,31 @@ export const setFavicons = (themeClsName) => {
 }
 
 export const on = (overlayNum) => {
-    document.querySelector(".overlay-"+overlayNum).style.display = "block";
+    document.querySelector(".overlay-" + overlayNum).style.display = "block";
 }
 
 export const off = (overlayNum) => {
-    document.querySelector(".overlay-"+overlayNum).style.display = "none";
+    document.querySelector(".overlay-" + overlayNum).style.display = "none";
 }
 
 export function compareTo(text1, text2) {
     console.log(`\'${text1}\' == \'${text2}\'`);
     if ((text1.length === text2.length) && (text1 === text2)) { return true }
     else { return false }
+}
+
+export function copyInClipboard(data, success, fail) {
+    // Use the Clipboard API to copy the text to the clipboard
+    console.log(data);
+    navigator.clipboard.writeText(JSON.stringify(data))
+        .then(function () {
+            console.log("Text copied to clipboard:", data);
+            success("Data Copied In Clipboard")
+            // add toast alert
+        })
+        .catch(function (err) {
+            console.error("Unable to copy text to clipboard:", err);
+            fail("Data Not Copied, something wrong")
+            // add toast alert
+        });
 }

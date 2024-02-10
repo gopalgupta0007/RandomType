@@ -23,7 +23,7 @@ import { toast } from 'react-toastify';
 //     if ((text1.length === text2.length) && (text1 === text2)) { return true }
 //     else { return false }
 // }
-var charWidth=15;
+var charWidth = 15;
 
 const CarGame = () => {
     const socket = useMemo(() => io("http://localhost:5000"), [])
@@ -61,9 +61,9 @@ const CarGame = () => {
         id: "",
         username: "",
         roomNo: 0,
-        indexes : {
-            indexNumber:0,
-            incorrectLetter:0
+        indexes: {
+            indexNumber: 0,
+            incorrectLetter: 0
         },
         typingGameData: {
             wpm: 0,
@@ -75,9 +75,9 @@ const CarGame = () => {
         id: "",
         username: "",
         roomNo: 0,
-        indexes : {
-            indexNumber:0,
-            incorrectLetter:0
+        indexes: {
+            indexNumber: 0,
+            incorrectLetter: 0
         },
         typingGameData: {
             wpm: 0,
@@ -85,7 +85,7 @@ const CarGame = () => {
         },
         carMovePoint: 0
     });
-    
+
     useEffect(() => {
         //generate random number and the according to that number of index of array of the paragram will it be selected
         // getParagraph(setplaceholderText, loadParagraph)
@@ -96,26 +96,26 @@ const CarGame = () => {
         setFavicons(author.data.setting.theme.replace(/ /g, "_").toLowerCase());
     }, []);
 
-    useEffect(()=>{
+    useEffect(() => {
         // charWidth is add all width of typed letter
 
         // let example total width of the caracter(charWidth) devide by parent container of the caracters  ====> charWidth
-        var line_Number = Math.ceil(charWidth/document.getElementById("cargametypingContainer").offsetWidth);
-        console.log("---------------------",line_Number)
-        if(CarCharIndexNumber>1){
+        var line_Number = Math.ceil(charWidth / document.getElementById("cargametypingContainer").offsetWidth);
+        console.log("---------------------", line_Number)
+        if (CarCharIndexNumber > 1) {
             handleScrollDownGame(line_Number)
         }
-    },[charWidth])
+    }, [charWidth])
 
 
 
-    const handleScrollDownGame = (num=1) => {
+    const handleScrollDownGame = (num = 1) => {
         // these method handle the when the scroll happends according to the user typed letters
 
         // const container = document.getElementById("typingContainer");
         // const container = document.getElementById('typingTxt');
         const container = document.getElementById('cargame-paragraph');
-        if (container && num>2) {
+        if (container && num > 2) {
             // Scroll down by 50 pixels
             // container.scrollTop += 60*1 ;                                                           
             try {
@@ -126,8 +126,8 @@ const CarGame = () => {
             // 71.2 * 16/100 => 60pixel so i need to scroll 
             // container.scrollTop += Math.ceil((Math.ceil(height_of_letter))-(Math.ceil(Math.ceil(height_of_letter)*16/100)))*num; // 60
             // container.scrollBy(0, Math.ceil((Math.ceil(height_of_letter))-(Math.ceil(Math.ceil(height_of_letter)*16/100)))*1);
-            container.scrollTop = Math.ceil((Math.ceil(height_of_letter))-(Math.ceil(Math.ceil(height_of_letter)*16/100)))*(num-2); // 60
-            console.log("scorll ==================> ",container.scrollTop," |||||| ",Math.ceil((Math.ceil(height_of_letter))-(Math.ceil(Math.ceil(height_of_letter)*16/100)))*(num-2));
+            container.scrollTop = Math.ceil((Math.ceil(height_of_letter)) - (Math.ceil(Math.ceil(height_of_letter) * 16 / 100))) * (num - 2); // 60
+            console.log("scorll ==================> ", container.scrollTop, " |||||| ", Math.ceil((Math.ceil(height_of_letter)) - (Math.ceil(Math.ceil(height_of_letter) * 16 / 100))) * (num - 2));
         }
     };
 
@@ -150,7 +150,7 @@ const CarGame = () => {
             // console.log(`\'${text1[CarCharIndexNumber - 1]}\'`)
             if (CarCharIndexNumber > 0) {
                 // console.log(document.getElementsByClassName("letter")[CarCharIndexNumber - 1].offsetWidth)
-                charWidth = CarCharIndexNumber>1 ? charWidth - document.getElementsByClassName("gameletter")[CarCharIndexNumber - 2].offsetWidth : 15;
+                charWidth = CarCharIndexNumber > 1 ? charWidth - document.getElementsByClassName("gameletter")[CarCharIndexNumber - 2].offsetWidth : 15;
             }
             console.log(compareTo(text1.slice(0, CarCharIndexNumber - 1), text2.slice(0, CarCharIndexNumber + 1)))
             if ((text1[CarCharIndexNumber - 1] === " ") && (compareTo(text1.slice(0, CarCharIndexNumber - 1), text2.slice(0, CarCharIndexNumber + 1)))) {
@@ -249,169 +249,170 @@ const CarGame = () => {
         })
         setUser(preData => ({ ...preData, indexes: { ...preData.indexes, indexNumber: CarCharIndexNumber } }))
         setUser(preData => ({ ...preData, indexes: { ...preData.indexes, incorrectLetter: CargameIncorrectLetter } }))
-    }, [CargameCountDownTimer, User.carMovePoint, StrengerData.carMovePoint])
-    
+    }, [CargameCountDownTimer])
+    // }, [CargameCountDownTimer, User.carMovePoint, StrengerData.carMovePoint])
+
     useEffect(() => {
         if (isStrenger) {
             const strengerCar = document.getElementById("strenger-car");
             strengerCar.style.transform = `translateX(${1.32 * StrengerData.carMovePoint}vw) scale(.7,.6)`;
-        }else{
+        } else {
             const strengerCar = document.getElementById("strenger-car");
             strengerCar.style.transform = `translateX(${1.32 * FriendData.carMovePoint}vw) scale(.7,.6)`;
         }
     }, [StrengerData.carMovePoint, FriendData.carMovePoint])
-    
+
     // useEffect(() => {
-        // }
+    // }
     // }, [FriendData.carMovePoint])
 
-    
+
     useEffect(() => {
         setUser(preData => ({ ...preData, typingGameData: { ...preData.typingGameData, wpm: Math.round(typingTest.word_per_minute) } }))
         setUser(preData => ({ ...preData, typingGameData: { ...preData.typingGameData, acc: Math.round(typingTest.typing_accuracy) } }))
     }, [typingTest.word_per_minute, typingTest.typing_accuracy])
-    
+
     // useEffect(() => {
-        //     console.log(User);
-        //     socket.on("strenger-joining", strengerData => setStrengerData(strengerData))
-        //     // socket.on("take_data", (data) => console.log(data))
-        // }, [User, StrengerData])
-        // console.log(StrengerData);
-        
-        
-        useEffect(() => {
-            let interval;
-    if (countDown > 0) {
-        interval = setInterval(() => {
-            setCountDown((prevSeconds) => prevSeconds - 1);
-        }, 1000);
-    } else {
-        off(2)
+    //     console.log(User);
+    //     socket.on("strenger-joining", strengerData => setStrengerData(strengerData))
+    //     // socket.on("take_data", (data) => console.log(data))
+    // }, [User, StrengerData])
+    // console.log(StrengerData);
+
+
+    useEffect(() => {
+        let interval;
+        if (countDown > 0) {
+            interval = setInterval(() => {
+                setCountDown((prevSeconds) => prevSeconds - 1);
+            }, 1000);
+        } else {
+            off(2)
+        }
+        return () => {
+            clearInterval(interval);
+        };
+    }, [countDown]);
+
+    const playWithFriend = () => {
+        // const socket = connectSocketIo()
+        // setRoom(0)
+        socket.emit("join_room", { name: author.username, Room: parseInt(Room) })
+        socket.on("room_full", msg => toast.warning(msg))
+        socket.on("frined_joinded_inRoom", ({ name, Room }) => {
+            console.log({ name, Room });
+            if (!name || !Room) {
+                alert("User Not Found");
+            } else {
+                on(2);
+                setCountDown(3)
+                // console.log(roomno);
+                setUser((preData) => ({ ...preData, roomNo: Room }))
+                setFriendData((preData) => ({ ...preData, username: name }))
+                console.log(User);
+                console.log(name);
+                //start coundown
+                socket.emit("initial_share_data", { User, roomno: Room, isStrenger })
+                socket.on("friend-joining", friendData => setFriendData(friendData))
+            }
+        })
+        // socket.on("take_data", (data) => console.log(data))
+        // socket.emit("join_room", {author.username, Room})
+        // socket.on("show_room_id", (data) => alert(data))
     }
-    return () => {
-        clearInterval(interval);
-    };
-}, [countDown]);
 
-const playWithFriend = () => {
-    // const socket = connectSocketIo()
-    // setRoom(0)
-    socket.emit("join_room", { name: author.username, Room: parseInt(Room) })
-    socket.on("room_full",msg=>toast.warning(msg))
-    socket.on("frined_joinded_inRoom", ({ name, Room }) => {
-        console.log({ name, Room });
-        if (!name || !Room) {
-            alert("User Not Found");
-        } else {
-            on(2);
-            setCountDown(3)
-            // console.log(roomno);
-            setUser((preData) => ({ ...preData, roomNo: Room }))
-            setFriendData((preData) => ({ ...preData, username: name }))
-            console.log(User);
-            console.log(name);
-            //start coundown
-            socket.emit("initial_share_data", { User, roomno: Room, isStrenger })
-            socket.on("friend-joining", friendData => setFriendData(friendData))
-        }
-    })
-    // socket.on("take_data", (data) => console.log(data))
-    // socket.emit("join_room", {author.username, Room})
-    // socket.on("show_room_id", (data) => alert(data))
-}
+    console.log("FriendData =>>> ", FriendData);
 
-console.log("FriendData =>>> ", FriendData);
+    console.log(User);
+    const playWithStranger = () => {
+        // const socket = connectSocketIo()
+        setIsStrenger(true)
+        console.log(socket.id);
+        setUser((preData) => ({ ...preData, id: socket.id }))
+        socket.emit("play_with_Stranger", author.username)
+        socket.on("connected_room", ({ username, roomno }) => {
+            if (!username || !roomno) {
+                alert("User Not Found");
+            } else {
+                on(2);
+                setCountDown(5)
+                console.log(roomno);
+                setUser((preData) => ({ ...preData, roomNo: roomno }))
+                setStrengerData((preData) => ({ ...preData, username: username }))
+                setRoom(roomno)
+                console.log(User);
+                console.log(username);
+                //start coundown
+                socket.emit("initial_share_data", { User, roomno, isStrenger })
+                socket.on("strenger-joining", strengerData => setStrengerData(strengerData))
+            }
+        })
+    }
+    console.log(Room);
+    const focusCargameTyping = () => elemtRef.current.focus();
 
-console.log(User);
-const playWithStranger = () => {
-    // const socket = connectSocketIo()
-    setIsStrenger(true)
-    console.log(socket.id);
-    setUser((preData) => ({ ...preData, id: socket.id }))
-    socket.emit("play_with_Stranger", author.username)
-    socket.on("connected_room", ({ username, roomno }) => {
-        if (!username || !roomno) {
-            alert("User Not Found");
-        } else {
-            on(2);
-            setCountDown(5)
-            console.log(roomno);
-            setUser((preData) => ({ ...preData, roomNo: roomno }))
-            setStrengerData((preData) => ({ ...preData, username: username }))
-            setRoom(roomno)
-            console.log(User);
-            console.log(username);
-            //start coundown
-            socket.emit("initial_share_data", { User, roomno, isStrenger })
-            socket.on("strenger-joining", strengerData => setStrengerData(strengerData))
-        }
-    })
-}
-console.log(Room);
-const focusCargameTyping = () => elemtRef.current.focus();
-
-return (
-    <>
-        <HelmetProvider>
-            <Helmet><title>Car Game || RandomType</title></Helmet>
-            <Container maxWidth="xl">
-                <NavConfig mode={"car-game-mode"} />
-                <div id="overlay2" className='overlay-2 transition'>
-                    <div id="text2" className='overlayContent text-center transition mt-40' style={{ fontSize: '10vw' }}>
-                        {countDown}
-                    </div>
-                </div>
-                <div id="overlay3" className='overlay-3'>
-                    <div id="text3" className='overlayContent text-center glassOnly p-10 shadow'>
-                        <span onClick={() => { off(3) }} className="absolute right-0 top-0 text-4xl mx-0 px-2 rounded-lg hover:bg-slate-100 hover:cursor-pointer active:bg-slate-200 duration-100 transition text-black">&times;</span>
-                        <h1>Room</h1>
-                        <textarea name="name" id="name" className='w-[95%] h-[13%] glass bg_background_color bg-background-color rounded-lg relative top-10 text-sm p-5 text-white resize-none' value={author.username}></textarea>
-                        <textarea name="room" id="room" placeholder='Enter Room No.' onChange={(e) => setRoom(e.target.value)} autoFocus={true} cols="30" rows="10" className='w-[95%] h-[13%] glass bg_background_color bg-background-color rounded-lg relative top-10 text-sm p-5 text-white resize-none' value={Room}></textarea>
-                        <button className='p-2 text-bnw bghoverActive hover:border-base-color shadow active:scale-95 transition relative bottom-[-80px] text-lg rounded-lg' onClick={() => { off(3); playWithFriend() }} >Join Room</button>
-                    </div>
-                </div>
-                <Box id="display-car-progress" className="mt-2">
-                    <NavGameProgressBar Letter={CarLetter} username={author.username} isStrenger={isStrenger} FriendData={FriendData} placeholderText={CarTextplaceholderText} CountDownTimer={CargameCountDownTimer} StrengerData={isStrenger ? StrengerData : FriendData} setCountDownTimer={setCargameCountDownTimer} IncorrectLetter={CargameIncorrectLetter} />
-                    <div id='view-carProgress' className='w-11/12 h-52 grid grid-rows-2 gap-0 p-3 bg-white bg-opacity-30 mx-auto mt-1 rounded-xl pl-5'>
-                        <div className='flex justify-between pb-3'>
-                            <div className='w-full flex items-center border border-0 border-b-2 border-black'>
-                                <div className='w-28 text-xl border border-r-2 border-r-white border-0 py-5 font-extrabold'>{isStrenger ? StrengerData.username ? StrengerData.username : 'Strenger' : FriendData.username ? FriendData.username : 'Friend'}</div>
-                                <div style={{ width: '200px', height: '200px', fill: '#fff', stroke: 'var(--base_color)', strokeWidth: 6 }} id='strenger-car' className='carMove'>
-                                    <Car />
-                                </div>
-                            </div>
-                            <div className='flag' style={{ width: '100px', height: '100px', position: 'relative', bottom: '10px', fill: 'var(--base_color)' }}><Flag /></div>
-                        </div>
-                        <div className='flex justify-between border border-0 border-t-2 border-white pt-3'>
-                            <div className='w-full flex items-center border border-0 border-b-2 border-black'>
-                                <div className='w-28 text-xl border border-r-2 border-r-white border-0 py-5 font-extrabold'>{author.username}</div>
-                                <div style={{ width: '200px', height: '200px', fill: '#fff', stroke: 'var(--base_color)', strokeWidth: 6 }} id='user-car' className='carMove'>
-                                    <Car />
-                                </div>
-                            </div>
-                            <div className='flag' style={{ width: '100px', height: '100px', position: 'relative', bottom: '10px', fill: 'var(--base_color)' }}><Flag /></div>
+    return (
+        <>
+            <HelmetProvider>
+                <Helmet><title>Car Game || RandomType</title></Helmet>
+                <Container maxWidth="xl">
+                    <NavConfig mode={"car-game-mode"} />
+                    <div id="overlay2" className='overlay-2 transition'>
+                        <div id="text2" className='overlayContent text-center transition mt-40' style={{ fontSize: '10vw' }}>
+                            {countDown}
                         </div>
                     </div>
-                </Box>
-                <Box id="cargametypingContainer" className="w-11/12 mx-auto mt-1 focus:outline-none h-[22vh] rounded-xl overflow-auto bg-opacity-40" onClick={() => cargametypingContainer.classList.remove("blur-md")} onBlur={() => cargametypingContainer.classList.add("blur-md")}>
-                    <textarea id="cargame-typing" className="rounded-lg bg-blue-300 focus:outline-none resize-none text-3xl w-[100%] h-[100%] caret-transparent text-transparent text-opacity-100 bg-opacity-0 selection:bg-transparent relative z-[-99] transition" style={{ wordBreak: 'break-all', textAlign: 'justify', textJustify: 'inter-word' }} ref={elemtRef} name="cargame-typing" spellCheck="false" onChange={handleCarGameTyping} autoFocus={true} value={CarLetter}></textarea>
-                    <div id="cargame-typingTxt" className="cargame-typing-text h-[200%]">
-                        <p id="cargame-paragraph" className='rounded-lg bg-orange-300 focus:outline-none resize-none text-3xl w-[100%] h-[100%] caret-transparent select-none relative top-[-30.4vh] bg-opacity-0 pt-16 px-3 overflow-y-scroll' style={{ wordBreak: 'break-all', textAlign: 'justify', textJustify: 'inter-word' }} onClick={focusCargameTyping}>
-                            {(CarLetter === "" && CarCharIndexNumber === 0) ? <span id='initial-caret2' className="relative ubuntu overflow-hidden transition"><div className="caret absolute w-[.1em] h-[30px] bg-yellow-200 left-0 bottom-0 rounded-sm transition"></div></span> : <span></span>}
-                            {
-                                CarTextplaceholderText.split("").map((char, index) => (<span key={index} className='gameletter caretline with-animation pt-[-50px] transition-all duration-200 transition'>{char}</span>))
-                            }
-                        </p>
+                    <div id="overlay3" className='overlay-3'>
+                        <div id="text3" className='overlayContent text-center glassOnly p-10 shadow'>
+                            <span onClick={() => { off(3) }} className="absolute right-0 top-0 text-4xl mx-0 px-2 rounded-lg hover:bg-slate-100 hover:cursor-pointer active:bg-slate-200 duration-100 transition text-black">&times;</span>
+                            <h1>Room</h1>
+                            <textarea name="name" id="name" className='w-[95%] h-[13%] glass bg_background_color bg-background-color rounded-lg relative top-10 text-sm p-5 text-white resize-none' value={author.username}></textarea>
+                            <textarea name="room" id="room" placeholder='Enter Room No.' onChange={(e) => setRoom(e.target.value)} autoFocus={true} cols="30" rows="10" className='w-[95%] h-[13%] glass bg_background_color bg-background-color rounded-lg relative top-10 text-sm p-5 text-white resize-none' value={Room}></textarea>
+                            <button className='p-2 text-bnw bghoverActive hover:border-base-color shadow active:scale-95 transition relative bottom-[-80px] text-lg rounded-lg' onClick={() => { off(3); playWithFriend() }} >Join Room</button>
+                        </div>
                     </div>
-                </Box>
-                <div id='btnGame' className='w-11/12 mx-auto mt-4 flex justify-start gap-x-3'>
-                    <button className='btnSetting transition shadow text-bnw scale-100 active:scale-95' style={{ padding: '10px 20px' }} onClick={() => { on(3); setIsStrenger(false) }}>Play With Friend</button>
-                    <button className='btnSetting transition shadow text-bnw scale-100 active:scale-95' style={{ padding: '10px 20px' }} onClick={playWithStranger}>Play with Stranger</button>
-                </div>
-            </Container>
-        </HelmetProvider>
-    </>
-)
+                    <Box id="display-car-progress" className="mt-2">
+                        <NavGameProgressBar Letter={CarLetter} username={author.username} isStrenger={isStrenger} FriendData={FriendData} placeholderText={CarTextplaceholderText} CountDownTimer={CargameCountDownTimer} StrengerData={isStrenger ? StrengerData : FriendData} setCountDownTimer={setCargameCountDownTimer} IncorrectLetter={CargameIncorrectLetter} />
+                        <div id='view-carProgress' className='w-11/12 h-52 grid grid-rows-2 gap-0 p-3 bg-white bg-opacity-30 mx-auto mt-1 rounded-xl pl-5'>
+                            <div className='flex justify-between pb-3'>
+                                <div className='w-full flex items-center border border-0 border-b-2 border-black'>
+                                    <div className='w-28 text-xl border border-r-2 border-r-white border-0 py-5 font-extrabold'>{isStrenger ? StrengerData.username ? StrengerData.username : 'Strenger' : FriendData.username ? FriendData.username : 'Friend'}</div>
+                                    <div style={{ width: '200px', height: '200px', fill: '#fff', stroke: 'var(--base_color)', strokeWidth: 6 }} id='strenger-car' className='carMove'>
+                                        <Car />
+                                    </div>
+                                </div>
+                                <div className='flag' style={{ width: '100px', height: '100px', position: 'relative', bottom: '10px', fill: 'var(--base_color)' }}><Flag /></div>
+                            </div>
+                            <div className='flex justify-between border border-0 border-t-2 border-white pt-3'>
+                                <div className='w-full flex items-center border border-0 border-b-2 border-black'>
+                                    <div className='w-28 text-xl border border-r-2 border-r-white border-0 py-5 font-extrabold'>{author.username}</div>
+                                    <div style={{ width: '200px', height: '200px', fill: '#fff', stroke: 'var(--base_color)', strokeWidth: 6 }} id='user-car' className='carMove'>
+                                        <Car />
+                                    </div>
+                                </div>
+                                <div className='flag' style={{ width: '100px', height: '100px', position: 'relative', bottom: '10px', fill: 'var(--base_color)' }}><Flag /></div>
+                            </div>
+                        </div>
+                    </Box>
+                    <Box id="cargametypingContainer" className="w-11/12 mx-auto mt-1 focus:outline-none h-[22vh] rounded-xl overflow-auto bg-opacity-40" onClick={() => cargametypingContainer.classList.remove("blur-md")} onBlur={() => cargametypingContainer.classList.add("blur-md")}>
+                        <textarea id="cargame-typing" className="rounded-lg bg-blue-300 focus:outline-none resize-none text-3xl w-[100%] h-[100%] caret-transparent text-transparent text-opacity-100 bg-opacity-0 selection:bg-transparent relative z-[-99] transition" style={{ wordBreak: 'break-all', textAlign: 'justify', textJustify: 'inter-word' }} ref={elemtRef} name="cargame-typing" spellCheck="false" onChange={handleCarGameTyping} autoFocus={true} value={CarLetter}></textarea>
+                        <div id="cargame-typingTxt" className="cargame-typing-text h-[200%]">
+                            <p id="cargame-paragraph" className='rounded-lg bg-orange-300 focus:outline-none resize-none text-3xl w-[100%] h-[100%] caret-transparent select-none relative top-[-30.4vh] bg-opacity-0 pt-16 px-3 overflow-y-scroll' style={{ wordBreak: 'break-all', textAlign: 'justify', textJustify: 'inter-word', scrollBehavior: 'smooth' }} onClick={focusCargameTyping}>
+                                {(CarLetter === "" && CarCharIndexNumber === 0) ? <span id='initial-caret2' className="relative ubuntu overflow-hidden transition"><div className="caret absolute w-[.1em] h-[30px] bg-yellow-200 left-0 bottom-0 rounded-sm transition"></div></span> : <span></span>}
+                                {
+                                    CarTextplaceholderText.split("").map((char, index) => (<span key={index} className='gameletter caretline with-animation pt-[-50px] transition-all duration-200 transition'>{char}</span>))
+                                }
+                            </p>
+                        </div>
+                    </Box>
+                    <div id='btnGame' className='w-11/12 mx-auto mt-4 flex justify-start gap-x-3'>
+                        <button className='btnSetting transition shadow text-bnw scale-100 active:scale-95' style={{ padding: '10px 20px' }} onClick={() => { on(3); setIsStrenger(false) }}>Play With Friend</button>
+                        <button className='btnSetting transition shadow text-bnw scale-100 active:scale-95' style={{ padding: '10px 20px' }} onClick={playWithStranger}>Play with Stranger</button>
+                    </div>
+                </Container>
+            </HelmetProvider>
+        </>
+    )
 }
 
 export default CarGame;

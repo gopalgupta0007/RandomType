@@ -12,7 +12,7 @@ const Footer = () => {
     window.open("https://github.com/gopalgupta0007/randomtype","_blank")
   }
   return (
-    <div className='flex justify-between px-20 text-bnw fixed w-screen bottom-0'>
+    <div className='flex justify-between px-20 text-bnw fixed w-screen bottom-0 font-extrabold'>
       <div className='flex gap-x-10'>
         <div style={{cursor:'pointer'}} className="scale-100 hover:scale-110 duration-300" onClick={gotoGithub}><GitHubIcon className="scale-75 text-base-color"/>Github</div>
         <NavLink to="/about" className="scale-100 hover:scale-110 duration-300"><InfoIcon className="scale-75 text-base-color "/>AboutUs</NavLink>

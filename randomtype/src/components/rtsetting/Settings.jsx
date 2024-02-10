@@ -6,11 +6,10 @@ import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import KeyboardDoubleArrowUpIcon from '@mui/icons-material/KeyboardDoubleArrowUp';
 import { BsCursorText } from "react-icons/bs";
 import { Helmet, HelmetProvider } from 'react-helmet-async';
-import { btnGroup, setFavicons, setThemeOnBody, togglRTIntroAnimation } from '../../Methods/methods';
+import { btnGroup, copyInClipboard, setFavicons, setThemeOnBody, togglRTIntroAnimation } from '../../Methods/methods';
 import { useDispatch, useSelector } from 'react-redux';
 import { introAnimation, resetSettings, updateCaretSmooth, updateCaretStyle, updateFontFamily, updateFontSize, updateSoundType, updateSoundVolume, updateTheme } from '../../redux/action/Actions';
 import axios from 'axios';
-import { toast } from 'react-toastify';
 import intialSettingData from '../../redux/state/author'
 // import { alertTitleClasses } from '@mui/material';
 
@@ -24,6 +23,7 @@ import click from './sounds/click.mp3'
 import ding from './sounds/ding.mp3'
 import kclick from './sounds/kclick.mp3'
 import useSound from 'use-sound';
+import { toast } from 'react-toastify';
 
 const Settings = () => {
   const dispatch = useDispatch();
@@ -420,6 +420,12 @@ const Settings = () => {
               <h1 id='reset-heading' className='text-base-color text-3xl bg-slate-300 bg-opacity-90 border-gray-700 rounded-lg py-3 relative z-10 px-3' onClick={() => toggleHeight(4)}><RestartAltIcon sx={{ fontSize: '28px' }} />Reset Setting</h1>
               <div id='reset-options' className='toggle-open flex flex-col text-bnw px-5 gap-y-2 bg-slate-200 bg-opacity-10 rounded-lg mt-[-10px]'>
                 <br />
+                <div id='copy-data' className='h-30 flex justify-between items-center p-2' >
+                  <div><p className='text-xl'>copy setting data(In JSON) : </p></div>
+                  <div id='copy-data-size-options' className=''>
+                    <button className='w-[20vw] h-10 bg-base-color hover:bg-white textHover rounded-lg transition' onClick={()=>copyInClipboard(author.data, toast.success, toast.error)}>copy data</button>
+                  </div>
+                </div>
                 <div id='reset' className='h-30 flex justify-between items-center p-2' >
                   <div><p className='text-xl'>reset setting : </p></div>
                   <div id='reset-size-options' className=''>
