@@ -1,5 +1,6 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useMemo, useRef } from 'react';
 import { Chart, registerables } from 'chart.js';
+import { getColor, no_of_test } from '../../../Methods/methods';
 
 Chart.register(...registerables);
 
@@ -8,11 +9,7 @@ const LineChart = ({ typingData }) => {
 	const chartRef = useRef(null);
 	// console.log(typingData);
 
-	const no_of_test = (index) => {
-		const myArray = [];
-		for (let i = 0; i <= index+1; i++) myArray.push(i);
-		return myArray
-	}
+	const primaryColor = useMemo(()=>getColor(typingData.setting.theme),[typingData.setting.theme]) // graph line theme change user selected in setting accordingly
 
 	useEffect(() => {
 		let chartInstance = null;
@@ -37,8 +34,8 @@ const LineChart = ({ typingData }) => {
 						// wpm
 						fill: true,
 						lineTension: 0,
-						backgroundColor: 'rgba(255,0,0,0.1)',
-						borderColor: 'rgba(255,0,0,1)',
+						backgroundColor: 'rgba(170,170,170,0.7)',
+						borderColor: primaryColor,
 						data: wpmData,
 					},
 					{

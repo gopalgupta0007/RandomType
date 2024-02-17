@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Tilt+Warp&display=swap');
+
 /* 
 * {
   margin: 0;
@@ -6,152 +7,153 @@
   font-size: 100%;
 } */
 :root {
-  --base_color: rgb(0, 255, 0);
-  --background_color: rgb(0, 100, 0);
-  --BnW: rgb(220, 220, 220);
-  --root_background_color: rgb(40, 40, 40);
+  --base_color: #00ff00;
+  --background_color: #006400;
+  --BnW: #dcdcdc;
+  --root_background_color: #282828;
+}
+
+.yellow {
+  --base_color: #fafa00;
+  --background_color: #969600;
+  --BnW: #282828;
+  --root_background_color: #c8c8c8;
 }
 
 .lime {
-  --base_color: rgb(0, 255, 0);
-  --background_color: rgb(0, 100, 0);
-  --BnW: rgb(220, 220, 220);
-  --root_background_color: rgb(40, 40, 40);
+  --base_color: #00ff00;
+  --background_color: #006400;
+  --BnW: #dcdcdc;
+  --root_background_color: #282828;
 }
 
 
 .bw_shadow {
-  --base_color: rgb(255, 255, 255);
-  --background_color: rgb(40, 40, 40);
-  --BnW: rgb(220, 220, 220);
-  --root_background_color: rgb(40, 40, 40);
+  --base_color: #ffffff;
+  --background_color: #282828;
+  --BnW: #dcdcdc;
+  --root_background_color: #282828;
 }
 
 .tomato {
-  --base_color: rgb(255, 0, 0);
-  --background_color: rgb(100, 0, 0);
-  --BnW: rgb(220, 220, 220);
-  --root_background_color: rgb(40, 40, 40);
+  --base_color: #ff0000;
+  --background_color: #640000;
+  --BnW: #dcdcdc;
+  --root_background_color: #282828;
 }
 
 .magenta {
-  --base_color: rgb(204, 51, 139);
-  --background_color: rgb(122, 31, 84);
-  --BnW: rgb(220, 220, 220);
-  --root_background_color: rgb(40, 40, 40);
+  --base_color: #cc338b;
+  --background_color: #7a1f54;
+  --BnW: #dcdcdc;
+  --root_background_color: #282828;
 }
 
 .blush_pink {
-  --base_color: rgb(254, 130, 140);
-  --background_color: rgb(102, 66, 63);
-  --BnW: rgb(220, 220, 220);
-  --root_background_color: rgb(40, 40, 40);
+  --base_color: #fe828c;
+  --background_color: #66423f;
+  --BnW: #dcdcdc;
+  --root_background_color: #282828;
 }
 
-.yellow {
-  --base_color: rgb(250, 250, 0);
-  --background_color: rgb(150, 150, 0);
-  --BnW: rgb(40, 40, 40);
-  --root_background_color: rgb(200, 200, 200);
-}
 
 .vegetable {
-  --base_color: rgb(0, 150, 0);
-  --background_color: rgb(0, 70, 0);
-  --BnW: rgb(220, 220, 220);
-  --root_background_color: rgb(40, 40, 40);
+  --base_color: #009600;
+  --background_color: #004600;
+  --BnW: #dcdcdc;
+  --root_background_color: #282828;
 }
 
 .violet {
-  --base_color: rgb(160, 0, 255);
-  --background_color: rgb(70, 0, 117);
-  --BnW: rgb(220, 220, 220);
-  --root_background_color: rgb(40, 40, 40);
+  --base_color: #a000ff;
+  --background_color: #460075;
+  --BnW: #dcdcdc;
+  --root_background_color: #282828;
 }
 
 .aqua {
-  --base_color: rgb(10, 255, 255);
-  --background_color: rgb(0, 140, 140);
-  --BnW: rgb(220, 220, 220);
-  --root_background_color: rgb(40, 40, 40);
+  --base_color: #0affff;
+  --background_color: #008c8c;
+  --BnW: #dcdcdc;
+  --root_background_color: #282828;
 }
 
 .fuchsia {
-  --base_color: rgb(255, 0, 255);
-  --background_color: rgb(80, 00, 80);
-  --BnW: rgb(220, 220, 220);
-  --root_background_color: rgb(40, 40, 40);
+  --base_color: #ff00ff;
+  --background_color: #500050;
+  --BnW: #dcdcdc;
+  --root_background_color: #282828;
 }
 
 .mahogany {
-  --base_color: rgb(192, 64, 0);
-  --background_color: rgb(97, 32, 0);
-  --BnW: rgb(220, 220, 220);
-  --root_background_color: rgb(40, 40, 40);
+  --base_color: #c04000;
+  --background_color: #612000;
+  --BnW: #dcdcdc;
+  --root_background_color: #282828;
 }
 
 .turquoise {
-  --base_color: rgb(0, 255, 187);
-  --background_color: rgb(0, 105, 79);
-  --BnW: rgb(220, 220, 220);
-  --root_background_color: rgb(40, 40, 40);
+  --base_color: #00ffbb;
+  --background_color: #00694f;
+  --BnW: #dcdcdc;
+  --root_background_color: #282828;
 }
 
 .blue {
-  --base_color: rgb(0, 47, 255);
-  --background_color: rgb(0, 47, 140);
+  --base_color: #365aff;
+  --background_color: #002f8c;
   --BnW: rgb(220, 220, 220);
-  --root_background_color: rgb(40, 40, 40);
+  --root_background_color: #282828;
 }
 
 .tangelo {
-  --base_color: rgb(255, 149, 0);
-  --background_color: rgb(121, 71, 0);
-  --BnW: rgb(220, 220, 220);
-  --root_background_color: rgb(40, 40, 40);
+  --base_color: #ff9500;
+  --background_color: #794700;
+  --BnW: #dcdcdc;
+  --root_background_color: #282828;
 }
 
 .lavender_gray {
-  --base_color: rgb(189, 187, 215);
-  --background_color: rgb(100, 99, 116);
-  --BnW: rgb(255, 255, 255);
-  --root_background_color: rgb(40, 40, 40);
+  --base_color: #bdbbd7;
+  --background_color: #646374;
+  --BnW: #ffffff;
+  --root_background_color: #282828;
 }
 
 .indigo_blue {
-  --base_color: rgb(102, 0, 255);
-  --background_color: rgb(106, 83, 255);
-  --BnW: rgb(40, 40, 40);
-  --root_background_color: rgb(200, 200, 200);
+  --base_color: #6600ff;
+  --background_color: #6a53ff;
+  --BnW: #282828;
+  --root_background_color: #c8c8c8;
 }
 
 .kidman {
-  --base_color: rgb(255, 218, 222);
-  --background_color: rgb(126, 66, 61);
-  --BnW: rgb(220, 220, 220);
-  --root_background_color: rgb(40, 40, 40);
+  --base_color: #ffdade;
+  --background_color: #7e423d;
+  --BnW: #dcdcdc;
+  --root_background_color: #282828;
 }
 
 .ibm {
-  --base_color: rgb(0, 81, 255);
-  --background_color: rgb(85, 127, 255);
-  --BnW: rgb(40, 40, 40);
-  --root_background_color: rgb(200, 200, 200);
+  --base_color: #0051ff;
+  --background_color: #557fff;
+  --BnW: #282828;
+  --root_background_color: #c8c8c8;
 }
 
 .jungle {
-  --base_color: rgb(0, 177, 0);
-  --background_color: rgb(87, 255, 87);
-  --BnW: rgb(40, 40, 40);
-  --root_background_color: rgb(200, 200, 200);
+  --base_color: #00b100;
+  --background_color: #57ff57;
+  --BnW: #282828;
+  --root_background_color: #c8c8c8;
 }
 
 
 .cherry_red {
-  --base_color: rgb(247, 2, 42);
-  --background_color: rgb(255, 111, 135);
-  --BnW: rgb(40, 40, 40);
-  --root_background_color: rgb(200, 200, 200);
+  --base_color: #f7022a;
+  --background_color: #ff6f87;
+  --BnW: #282828;
+  --root_background_color: #c8c8c8;
 }
 
 .text-bnw {
@@ -169,6 +171,10 @@
 
 .bg-base-color {
   background-color: var(--base_color);
+}
+
+.border-bnw {
+  border: 2px solid var(--BnW);
 }
 
 .text-background-color {
@@ -189,7 +195,12 @@
   -webkit-text-stroke: var(--base_color);
   -webkit-text-stroke-width: 1px;
   text-shadow: 0 2px 0 var(--base_color);
+}
 
+.shortcut-key-heading {
+  -webkit-text-stroke: var(--background_color);
+  -webkit-text-stroke-width: 1px;
+  text-shadow: 0 2px 0 var(--background_color);
 }
 
 .border-base-color {
@@ -403,7 +414,7 @@ svg#rtSVG {
   transition: all 3s;
 }
 
-.glassOnly{
+.glassOnly {
   background: linear-gradient(135deg, rgba(255, 255, 255, .1), rgba(255, 255, 255, 0));
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
@@ -415,11 +426,11 @@ svg#rtSVG {
   backdrop-filter: blur(15px);
   -webkit-backdrop-filter: blur(15px);
   transition: all 3s;
-  animation: glassFade 1s linear 6.5s 1 forwards alternate;
-  -webkit-animation: glassFade 1s linear 6.5s 1 forwards alternate;
-  -o-animation: glassFade 1s linear 6.5s 1 forwards alternate;
-  -moz-animation: glassFade 1s linear 6.5s 1 forwards alternate;
-  -ms-animation: glassFade 1s linear 6.5s 1 forwards alternate;
+  animation: glassFade 1s linear 6.5s 1 forwards;
+  -webkit-animation: glassFade 1s linear 6.5s 1 forwards;
+  -o-animation: glassFade 1s linear 6.5s 1 forwards;
+  -moz-animation: glassFade 1s linear 6.5s 1 forwards;
+  -ms-animation: glassFade 1s linear 6.5s 1 forwards;
 }
 
 @keyframes glassFade {
@@ -780,12 +791,12 @@ tspan {
 
 .with-animation::before {
   /* move caret smoothly */
-  animation: caretMove 0.15s alternate 1 forwards linear;
+  animation: caretMove 0.15s 1 forwards linear;
 }
 
 .with-animation-backword::before {
   /* move backword caret smoothly */
-  animation: caretMoveBack 0.15s alternate 1 forwards linear;
+  animation: caretMoveBack 0.15s 1 forwards linear;
 }
 
 @keyframes caretMove {
@@ -812,7 +823,7 @@ tspan {
 #initial-caret2 {
   opacity: 1;
   transition: all .2s;
-  animation: caretBlink 1s infinite alternate ease-in-out;
+  animation: caretBlink 1s infinite ease-in-out;
 }
 
 @keyframes caretBlink {
@@ -821,7 +832,7 @@ tspan {
   }
 }
 
-button{
+button {
   font-weight: bolder;
 }
 
@@ -994,7 +1005,7 @@ li:not(:first-child) span {
 
 .scrollAnimation {
   transform: translateY(0);
-  animation: scrollToTopAnimate alternate .5s ease-in-out infinite;
+  animation: scrollToTopAnimate .5s ease-in-out infinite;
 }
 
 .toggle-open {
@@ -1029,11 +1040,12 @@ li:not(:first-child) span {
   transform: scale(0.95);
 }
 
-.btnNav{
+.btnNav {
   padding: .25rem 0;
   border-radius: 5px;
   background-color: var(--background_color);
 }
+
 .btnNav:hover {
   /* color: rgb(255, 61, 61); */
   color: var(--background_color);
@@ -1063,7 +1075,43 @@ li:not(:first-child) span {
     -2px -2px 10px var(--base_color);
 }
 
+#themeIconBtn {
+  transform: rotate(0);
+  background-color: #00ff00;
+  color: #006400;
+  animation: rotateBtn 5s infinite forwards linear, changeColorBtn 15s infinite forwards linear;
+}
 
+@keyframes rotateBtn {
+  0% {transform: rotate(0);}
+  100% {transform: rotate(360deg);}
+}
+
+@keyframes changeColorBtn {
+  0% {background-color: #fafa00;color: #969600;}
+  5% {background-color: #f7022a;color: #ff6f87;}
+  10% {background-color: #00b100;color: #57ff57;}
+  15% {background-color: #0051ff;color: #557fff;}
+  20% {background-color: #6600ff;color: #6a53ff;}
+  25% {background-color: #ffffff;color: #282828;}
+  30% {background-color: #ff0000;color: #640000;}
+  35% {background-color: #cc338b;color: #7a1f54;}
+  40% {background-color: #fe828c;color: #66423f;}
+  45% {background-color: #ff00ff;color: #500050;}
+  50% {background-color: #ffdade;color: #7e423d;}
+  55% {background-color: #ff9500;color: #794700;}
+  60% {background-color: #bdbbd7;color: #646374;}
+  65% {background-color: #00ff00;color: #006400;}
+  70% {background-color: #009600;color: #004600;}
+  75% {background-color: #0affff;color: #008c8c;}
+  80% {background-color: #a000ff;color: #460075;}
+  85% {background-color: #00ffbb;color: #00694f;}
+  90% {background-color: #365aff;color: #002f8c;}
+  95% {background-color: #c04000;color: #612000;}
+  100% {background-color: #fafa00;color: #969600;}
+}
+
+/* typing car game */
 
 .carMove {
   transform: translateX(0vw) scale(.7, .6);
@@ -1077,14 +1125,14 @@ li:not(:first-child) span {
 
 .flag {
   transform: rotateY(180deg) scale(.75);
-  animation: scaleAnimation 1s infinite alternate ease-in-out;
+  animation: scaleAnimation 1s infinite ease-in-out;
 }
 
 .gameTimer {
   /* color: var(--base_color); */
   color: red;
   text-shadow: 0 0 3px black;
-  animation: countdownBlinking infinite linear .5s alternate;
+  animation: countdownBlinking infinite linear .5s;
 }
 
 @keyframes countdownBlinking {
@@ -1109,7 +1157,10 @@ li:not(:first-child) span {
 
 
 /* #overlay { */
-.overlay-1, .overlay-2, .overlay-3 {
+.overlay-1,
+.overlay-2,
+.overlay-3,
+.overlay-4 {
   position: fixed;
   display: none;
   width: 100%;
@@ -1118,22 +1169,34 @@ li:not(:first-child) span {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0,0,0,0.5);
+  background-color: rgba(0, 0, 0, 0.5);
   z-index: 2;
   cursor: pointer;
 }
 
 /* #text{ */
-.overlayContent{
+.overlayContent {
   position: absolute;
   width: 30vw;
   height: 70vh;
-  border-radius:10px;
+  border-radius: 10px;
   top: 50%;
   left: 50%;
   font-size: 50px;
   color: var(--base_color);
   -webkit-backdrop: 10px;
-  transform: translate(-50%,-50%);
-  -ms-transform: translate(-50%,-50%);
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+}
+
+.key {
+  border-top: 2px solid var(--background_color);
+}
+
+.key:nth-child(1) {
+  border-top: none;
+}
+
+.key:hover {
+  background-color: rgba(255, 255, 255, 0.5);
 }

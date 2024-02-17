@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import WPM from '../Typing/TestCalculate/WPM'
 import Accuracy from '../Typing/TestCalculate/Accuracy'
 import Timer from '../Typing/TestCalculate/Timer'
@@ -6,6 +6,13 @@ import Timer from '../Typing/TestCalculate/Timer'
 const NavGameProgressBar = ({ username, Letter, placeholderText, CountDownTimer, setCountDownTimer, IncorrectLetter, StrengerData, isStrenger, FriendData }) => {
     const countDownTimerMethod = (countdown) => setCountDownTimer(countdown);
 
+    useEffect(() => {
+        // console.log(document.querySelector('#user-wpm>h1>div'))
+        const content = document.querySelector('#userData #user-wpm > h1 > div');
+        if (content) {
+            console.log(content.textContent);
+        }
+    })
     return (
         <div id='display-progress' className='w-4/5 m-auto flex justify-center items-center text-[2vw] font-extrabold'>
             <div id='userData' className='flex flex-col gap-x-14 bg-base-color text-bnw px-5 py-3 rounded-tl-xl rounded-bl-xl'>
@@ -14,7 +21,7 @@ const NavGameProgressBar = ({ username, Letter, placeholderText, CountDownTimer,
                 </div>
                 <div className='flex gap-x-12 bg-base-color text-bnw px-5 rounded-tl-xl rounded-bl-xl'>
                     <div id='user-wpm' className='flex border border-0 border-r-2 pr-12'>
-                        <h1 className='flex'>WPM :&nbsp;{(Letter.length > 0) ? <WPM countdown={CountDownTimer} word={Letter.split(" ").length - 1} /> : 0}</h1>
+                        <h1 className='flex'>WPM :&nbsp;{(Letter.length > 0) ? <WPM id="wpmh" countdown={CountDownTimer} word={Letter.split(" ").length - 1} /> : 0}</h1>
                     </div>
                     <div id='user-acc' className='flex ml-[-10px]'>
                         <h1 className='flex'>ACC :&nbsp;{(Letter.length > 0) ? <Accuracy countdown={CountDownTimer} incorrectLetter={IncorrectLetter} totalChar={placeholderText.split("").length} /> : 100}%</h1>
@@ -28,15 +35,15 @@ const NavGameProgressBar = ({ username, Letter, placeholderText, CountDownTimer,
             </div>
             <div id='StrengerData' className='flex flex-col gap-x-14 bg-base-color text-bnw px-5 py-3 rounded-tr-xl rounded-br-xl'>
                 <div>
-                    <h1 className='text-center text-background-color text-2xl'>{isStrenger?StrengerData.username?StrengerData.username==username?"Joining":StrengerData.username:'Strenger':FriendData.username?FriendData.username==username?"Joining":FriendData.username:'Friend'}</h1>
+                    <h1 className='text-center text-background-color text-2xl'>{isStrenger ? StrengerData.username ? StrengerData.username == username ? "Joining" : StrengerData.username : 'Strenger' : FriendData.username ? FriendData.username == username ? "Joining" : FriendData.username : 'Friend'}</h1>
                 </div>
                 <div className='flex gap-x-12 bg-base-color text-bnw px-5 rounded-tl-xl rounded-bl-xl'>
                     <div id='strenger-wpm' className='flex border border-0 border-r-2 pr-12'>
-                        <h1>WPM :&nbsp;{StrengerData.typingGameData.wpm?StrengerData.typingGameData.wpm:'0'}</h1>
+                        <h1>WPM :&nbsp;{StrengerData.typingGameData.wpm ? StrengerData.typingGameData.wpm : '0'}</h1>
                         {/* <h1>40</h1> */}
                     </div>
                     <div id='strenger-acc' className='flex ml-[-10px]'>
-                        <h1>ACC :&nbsp;{StrengerData.typingGameData.acc?StrengerData.typingGameData.acc:'100'}%</h1>
+                        <h1>ACC :&nbsp;{StrengerData.typingGameData.acc ? StrengerData.typingGameData.acc : '100'}%</h1>
                         {/* <h1>99%</h1> */}
                     </div>
                 </div>

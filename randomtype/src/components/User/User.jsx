@@ -3,7 +3,8 @@ import { Helmet, HelmetProvider } from 'react-helmet-async';
 import DoughnutChart from './charts/DoughnutChart';
 import { useDispatch, useSelector } from 'react-redux';
 import LineChart from './charts/LineChart';
-import { setFavicons, setThemeOnBody, togglRTIntroAnimation } from '../../Methods/methods';
+import { getAvg, setFavicons, setThemeOnBody, togglRTIntroAnimation } from '../../Methods/methods';
+import { updateTheme } from '../../redux/action/Actions';
 // import { setUserData } from '../../redux/action/Actions';
 // import ResultGraph from '../Result/ResultCharts/ResultGraph';
 // import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
@@ -11,17 +12,21 @@ import { setFavicons, setThemeOnBody, togglRTIntroAnimation } from '../../Method
 const User = () => {
   // window.location.reload(false)
   const auth = useSelector(state => state.AuthReducer.auth)
-  const dispatch = useDispatch();
-  const [ignored, forceUpdate] = useReducer(x => x + 1, 0);
   const author = useSelector(state => state.AuthorReducer.UserData)
   // const [User, setUser] = useState({});
   const [JoinDate, setJoinDate] = useState();
   const inputFile = useRef(null);
+  const dispatch = useDispatch()
   // let testData = author.UserData.data.typing_data;
   useEffect(() => {
-    togglRTIntroAnimation(author.data.setting.intro_animation)
-    setThemeOnBody(author.data.setting.theme.replace(/ /g, "_").toLowerCase());
-    setFavicons(author.data.setting.theme.replace(/ /g, "_").toLowerCase())
+    // continue initial application setup had last changes
+    if (!author.data.setting.theme || author.data.setting.theme === "") {
+      dispatch(updateTheme('tomato'))
+    } else {
+      togglRTIntroAnimation(author.data.setting.intro_animation)
+      setThemeOnBody(author.data.setting.theme.replace(/ /g, "_").toLowerCase());
+      setFavicons(author.data.setting.theme.replace(/ /g, "_").toLowerCase());
+    }
   }, [])
 
   // useEffect(() => {
@@ -80,7 +85,6 @@ const User = () => {
   //       }
   //     };
   //     fetchData();
-  //     // forceUpdate();
   //     console.log(author);
   //   }
   // }, [])
@@ -140,12 +144,7 @@ const User = () => {
     reader.readAsDataURL(event.target.files[0])
   }
 
-  const getAvg = (arr) => {
-    const sum = arr.reduce((acc, num) => acc + num, 0);;
-    const arrCount = arr.length;
-    console.log(sum / arrCount);
-    return sum / arrCount;
-  }
+
   return (
     <>
       <HelmetProvider>

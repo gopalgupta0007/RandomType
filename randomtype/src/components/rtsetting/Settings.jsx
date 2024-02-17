@@ -24,6 +24,7 @@ import ding from './sounds/ding.mp3'
 import kclick from './sounds/kclick.mp3'
 import useSound from 'use-sound';
 import { toast } from 'react-toastify';
+import { fontSizes, fontfamilyBtn, soundsBtn } from './lists/SettingLists';
 
 const Settings = () => {
   const dispatch = useDispatch();
@@ -46,8 +47,12 @@ const Settings = () => {
   }
 
   useEffect(() => {
-    togglRTIntroAnimation(author.data.setting.intro_animation);
-    setFavicons(setting.theme.replace(/ /g, "_").toLowerCase())
+    if (!author.data.setting.theme || author.data.setting.theme==="") {
+      dispatch(updateTheme('tomato'))
+    }else{
+      togglRTIntroAnimation(author.data.setting.intro_animation);
+      setFavicons(setting.theme.replace(/ /g, "_").toLowerCase())
+    }
   }, [])
 
   useEffect(() => {
@@ -55,40 +60,6 @@ const Settings = () => {
     setting_options.addEventListener("scroll", listenToScroll)
   })
 
-  const themeBtn = [
-    'Yellow',
-    'Cherry Red',
-    'Jungle',
-    'IBM',
-    'Indigo Blue',
-    'BW Shadow',
-    'tomato',
-    'Magenta',
-    'Blush Pink',
-    'Fuchsia',
-    'Kidman',
-    'Tangelo',
-    'Lavender Gray',
-    'Lime',
-    'vegetable',
-    'Aqua',
-    'Violet',
-    'Turquoise',
-    'Blue',
-    'Mahogany'
-  ];
-  const soundsBtn = [
-    'keyboard',
-    'bell',
-    'mechanical',
-    'perkins_bell',
-    'bubble',
-    'carriage',
-    'click',
-    'ding',
-    'kclick',
-    'none'
-  ];
   const playSound = [
     keyboardSound,
     bellSound,
@@ -100,25 +71,6 @@ const Settings = () => {
     dingSound,
     kclickSound
   ]
-  const fontfamilyBtn = [
-    "Roboto",
-    "Playpen Sans",
-    "Poppins",
-    "Openn sans",
-    "DynaPuff",
-    "Oswald",
-    "Mukta",
-    "Ubuntu",
-    "Lemon",
-    "Instrument Serif",
-    "Tektur",
-    "Caveat",
-    "Orbitron",
-    "Kalnia",
-    "Merienda",
-    "Gluten"
-  ];
-  const fontSizes = ['xl', '2xl', '4xl', '6xl', '8xl']
 
   const scrollToTop = () => {
     const setting_options = document.getElementById("setting-options");
@@ -138,13 +90,9 @@ const Settings = () => {
 
   useEffect(() => {
     // append theme class to the body
-    // document.body.classList.remove('')
     const themeCls = setting.theme.replace(/ /g, "_").toLowerCase(); 
     setThemeOnBody(themeCls)
     setFavicons(themeCls)
-    // document.body.classList.value = "";
-    // document.body.classList.add(`${setting.theme.replace(/ /g, "_").toLowerCase()}`)
-    // console.log(setting.theme.replace(/ /g, "_").toLowerCase())
   }, [setting.theme])
 
   // useEffect(()=>{
@@ -161,7 +109,7 @@ const Settings = () => {
     setting.sounds.volume,
     setting.sounds.sound,
     setting.intro_animation,
-    setting.theme,
+    setting.theme
   ])
 
   console.log(setting.font.family);
@@ -288,7 +236,7 @@ const Settings = () => {
           </div>
           <div id='setting-options' className='flex flex-col gap-y-3 font-extrabold' style={{ height: '65vh', overflow: 'scroll', scrollBehavior: 'smooth' }}>
             <div id='font-setting' className='m-2'>
-              <h1 id='font-heading' className='text-base-color text-3xl bg-slate-300 bg-opacity-90 border-gray-700 rounded-lg py-3 relative z-10 px-3' onClick={() => toggleHeight(0)}><HdrAutoIcon sx={{ fontSize: '30px' }} />Fonts</h1>
+              <h1 id='font-heading' className='text-base-color text-3xl bg-slate-300 bg-opacity-90 border-gray-700 rounded-lg py-3 relative px-3' onClick={() => toggleHeight(0)}><HdrAutoIcon sx={{ fontSize: '30px' }} />Fonts</h1>
               <div id='font-options' className='toggle-open flex flex-col text-bnw px-5 bg-slate-200 bg-opacity-10 rounded-lg mt-[-10px]'>
                 <br />
                 <div>
@@ -326,7 +274,7 @@ const Settings = () => {
               </div>
             </div>
             <div id='caret-setting' className='m-2'>
-              <h1 id='caret-heading' className='text-base-color text-3xl bg-slate-300 bg-opacity-90 border-gray-700 rounded-lg py-3 relative z-10 px-3' onClick={() => toggleHeight(1)}><BsCursorText style={{ display: 'inline', border: '2px solid var(--base_color)', borderRadius: '50%', backgroundColor: 'var(--base_color)', color: 'white', fontWeight: 'bolder' }} />Caret</h1>
+              <h1 id='caret-heading' className='text-base-color text-3xl bg-slate-300 bg-opacity-90 border-gray-700 rounded-lg py-3 relative px-3' onClick={() => toggleHeight(1)}><BsCursorText style={{ display: 'inline', border: '2px solid var(--base_color)', borderRadius: '50%', backgroundColor: 'var(--base_color)', color: 'white', fontWeight: 'bolder' }} />Caret</h1>
               <div id='caret-options' className='toggle-open flex flex-col text-bnw px-5 gap-y-2 bg-slate-200 bg-opacity-10 rounded-lg mt-[-10px]'>
                 <br />
                 <div id='caret-style' className='h-30 flex justify-between items-center p-2' >
@@ -354,7 +302,7 @@ const Settings = () => {
               </div>
             </div>
             <div id='sounds-setting' className='m-2'>
-              <h1 id='sounds-heading' className='text-base-color text-3xl bg-slate-300 bg-opacity-90 border-gray-700 rounded-lg py-3 relative z-10 px-3' onClick={() => toggleHeight(2)}><VolumeUpIcon sx={{ fontSize: '28px' }} />Sound</h1>
+              <h1 id='sounds-heading' className='text-base-color text-3xl bg-slate-300 bg-opacity-90 border-gray-700 rounded-lg py-3 relative px-3' onClick={() => toggleHeight(2)}><VolumeUpIcon sx={{ fontSize: '28px' }} />Sound</h1>
               <div id='sounds-options' className='toggle-open flex flex-col text-bnw px-5 gap-y-2 bg-slate-200 bg-opacity-10 rounded-lg mt-[-10px]'>
                 <br />
                 <div id='sound-volume' className='h-30 flex justify-between items-center p-2' >
@@ -385,13 +333,15 @@ const Settings = () => {
               </div>
             </div>
             <div id='theme-setting' className='m-2'>
-              <h1 id='theme-heading' className='text-base-color text-3xl bg-slate-300 bg-opacity-90 border-gray-700 rounded-lg py-3 relative z-10 px-3' onClick={() => toggleHeight(3)}><ColorLensIcon sx={{ fontSize: '28px' }} />Themes</h1>
+              <h1 id='theme-heading' className='text-base-color text-3xl bg-slate-300 bg-opacity-90 border-gray-700 rounded-lg py-3 relative px-3' onClick={() => toggleHeight(3)}><ColorLensIcon sx={{ fontSize: '28px' }} />Themes</h1>
               <div id='theme-options' className='toggle-open flex flex-col text-bnw px-5 gap-y-2 bg-slate-200 bg-opacity-10 rounded-lg mt-[-10px]'>
                 <br />
                 <div>
                   <p className='text-xl my-2'>Themes : </p>
                 </div>
                 <div id='themes' className='btn-group-9 grid grid-cols-4 gap-3 text-center'>
+                  {/* in database store theme name in lowercase only (In database) */}
+                  {/* in Redux store theme name in lowercase and as well as place of space added underscore(' '==='_') (In Redux Store) */}
                   <button className={`flex justify-around btnSetting transition btn yellow ${setting.theme.toLowerCase() === "Yellow".toLowerCase() ? 'activeSetting' : ''}`} onClick={(e) => { btnGroup(9, 'activeSetting', e.target); updateSetting(e) }} style={{color:'var(--background_color)', backgroundColor:'var(--root_background_color)', border:'3px solid var(--base_color)'}}>Yellow</button>
                   <button className={`flex justify-around btnSetting transition btn cherry_red ${setting.theme.toLowerCase() === "Cherry Red".toLowerCase() ? 'activeSetting' : ''}`} onClick={(e) => { btnGroup(9, 'activeSetting', e.target); updateSetting(e) }} style={{color:'var(--background_color)', backgroundColor:'var(--root_background_color)', border:'3px solid var(--base_color)'}}>Cherry Red</button>
                   <button className={`flex justify-around btnSetting transition btn jungle ${setting.theme.toLowerCase() === "Jungle".toLowerCase() ? 'activeSetting' : ''}`} onClick={(e) => { btnGroup(9, 'activeSetting', e.target); updateSetting(e) }} style={{color:'var(--background_color)', backgroundColor:'var(--root_background_color)', border:'3px solid var(--base_color)'}}>Jungle</button>
@@ -417,7 +367,7 @@ const Settings = () => {
               </div>
             </div>
             <div id='reset-setting' className='m-2'>
-              <h1 id='reset-heading' className='text-base-color text-3xl bg-slate-300 bg-opacity-90 border-gray-700 rounded-lg py-3 relative z-10 px-3' onClick={() => toggleHeight(4)}><RestartAltIcon sx={{ fontSize: '28px' }} />Reset Setting</h1>
+              <h1 id='reset-heading' className='text-base-color text-3xl bg-slate-300 bg-opacity-90 border-gray-700 rounded-lg py-3 relative px-3' onClick={() => toggleHeight(4)}><RestartAltIcon sx={{ fontSize: '28px' }} />Reset Setting</h1>
               <div id='reset-options' className='toggle-open flex flex-col text-bnw px-5 gap-y-2 bg-slate-200 bg-opacity-10 rounded-lg mt-[-10px]'>
                 <br />
                 <div id='copy-data' className='h-30 flex justify-between items-center p-2' >
@@ -435,7 +385,7 @@ const Settings = () => {
               </div>
             </div>
             <div id='rtintro-animation-setting' className='m-2'>
-              <h1 id='rtintro-heading' className='text-base-color text-3xl bg-slate-300 bg-opacity-90 border-gray-700 rounded-lg py-3 relative z-10 px-3 flex justify-start items-center' onClick={() => toggleHeight(5)}> <div id='rt-icon' className='w-6 h-6 bg-base-color overflow-hidden text-[15px] flex items-center justify-center font-extrabold text-white'>RT</div> rtintro Setting</h1>
+              <h1 id='rtintro-heading' className='text-base-color text-3xl bg-slate-300 bg-opacity-90 border-gray-700 rounded-lg py-3 relative px-3 flex justify-start items-center' onClick={() => toggleHeight(5)}> <div id='rt-icon' className='w-6 h-6 bg-base-color overflow-hidden text-[15px] flex items-center justify-center font-extrabold text-white'>RT</div> rtintro Setting</h1>
               <div id='rtintro-options' className='toggle-open flex flex-col text-bnw px-5 gap-y-2 bg-slate-200 bg-opacity-10 rounded-lg mt-[-10px]'>
                 <br />
                 <div id='rtintro' className='h-30 flex justify-between items-center p-2' >
@@ -448,7 +398,7 @@ const Settings = () => {
               </div>
             </div>
           </div>
-          <div onClick={scrollToTop} className={`fixed right-56 bottom-28 z-10 inline-block text-bnw bghoverActive hover:bg-base-color rounded-full shadow transition active:scale-90 ${(visible) ? 'default' : 'hidden'}`}><KeyboardDoubleArrowUpIcon sx={{ fontSize: '70px' }} className='scrollAnimation' /></div>
+          <div onClick={scrollToTop} className={`fixed right-56 bottom-28 inline-block text-bnw bghoverActive hover:bg-base-color rounded-full shadow transition active:scale-90 ${(visible) ? 'default' : 'hidden'}`}><KeyboardDoubleArrowUpIcon sx={{ fontSize: '70px' }} className='scrollAnimation' /></div>
         </div >
       </HelmetProvider>
     </>

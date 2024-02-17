@@ -31,6 +31,8 @@ const CarGame = () => {
     const typingTest = useSelector(state => state.TypingTestReducer);
     // const auth = useSelector(state => state.AuthReducer.auth);
     const cargametypingContainer = document.getElementById("cargametypingContainer");
+    // const user_game_wpm = document.querySelector('#userData #user-wpm > h1 > div'); // user-game nav progress typing data of wpm(word per minute) 
+    // const user_game_acc = document.querySelector('#userData #user-acc > h1 > div'); // user-game nav progress typing data of acc(accuracy)
     const elemtRef = useRef(null);
     const [CarLetter, setCarLatter] = useState("");
     const [Room, setRoom] = useState();
@@ -239,6 +241,8 @@ const CarGame = () => {
     }, []);
 
 
+    const user_game_wpm = document.querySelector('#userData #user-wpm > h1 > div'); // user-game nav progress typing data of wpm(word per minute) 
+    const user_game_acc = document.querySelector('#userData #user-acc > h1 > div'); // user-game nav progress typing data of acc(accuracy)
     //   const isStrenger = true;
     useEffect(() => {
         // shere player typing-game-data into the room
@@ -247,10 +251,13 @@ const CarGame = () => {
             isStrenger ? setStrengerData(Strenger) : setFriendData(Strenger)
             console.log("Strenger=====>", Strenger);
         })
+        // console.log(user_game_wpm.textContent);
+        // console.log(user_game_acc.textContent);
         setUser(preData => ({ ...preData, indexes: { ...preData.indexes, indexNumber: CarCharIndexNumber } }))
         setUser(preData => ({ ...preData, indexes: { ...preData.indexes, incorrectLetter: CargameIncorrectLetter } }))
-    }, [CargameCountDownTimer])
-    // }, [CargameCountDownTimer, User.carMovePoint, StrengerData.carMovePoint])
+    }, [CargameCountDownTimer, User.carMovePoint, StrengerData.carMovePoint])
+    // }, [CargameCountDownTimer])
+
 
     useEffect(() => {
         if (isStrenger) {
@@ -267,11 +274,20 @@ const CarGame = () => {
     // }, [FriendData.carMovePoint])
 
 
-    useEffect(() => {
-        setUser(preData => ({ ...preData, typingGameData: { ...preData.typingGameData, wpm: Math.round(typingTest.word_per_minute) } }))
-        setUser(preData => ({ ...preData, typingGameData: { ...preData.typingGameData, acc: Math.round(typingTest.typing_accuracy) } }))
-    }, [typingTest.word_per_minute, typingTest.typing_accuracy])
+    // useEffect(() => {
+    //     // content
+    //     // console.log(typeof parseInt(user_game_wpm));
+    //     // if (user_game_wpm && user_game_acc) {
+    //     // }
+    // }, [user_game_wpm, user_game_acc])
+    // }, [typingTest.word_per_minute, typingTest.typing_accuracy])
 
+    useEffect(() => {
+        if (user_game_wpm && user_game_acc) {
+            setUser(preData => ({ ...preData, typingGameData: { ...preData.typingGameData, wpm: parseInt(user_game_wpm.textContent) } }))
+            setUser(preData => ({ ...preData, typingGameData: { ...preData.typingGameData, acc: parseInt(user_game_acc.textContent) } }))
+        }
+    })
     // useEffect(() => {
     //     console.log(User);
     //     socket.on("strenger-joining", strengerData => setStrengerData(strengerData))

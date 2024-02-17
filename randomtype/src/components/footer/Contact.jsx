@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 // import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
-import { updateMessage } from '../../redux/action/Actions';
+import { updateMessage, updateTheme } from '../../redux/action/Actions';
 import { setFavicons, setThemeOnBody, togglRTIntroAnimation } from '../../Methods/methods';
 
 const Contact = () => {
@@ -19,14 +19,18 @@ const Contact = () => {
   const [comment, setComment] = useState({ message: author.data.message });
   // let phoneno = '+91 9381024756';
   useEffect(() => {
-    togglRTIntroAnimation(author.data.setting.intro_animation)
-    setThemeOnBody(author.data.setting.theme.replace(/ /g, "_").toLowerCase());
-    setFavicons(author.data.setting.theme.replace(/ /g, "_").toLowerCase());
+    if (!author.data.setting.theme || author.data.setting.theme === "") {
+      dispatch(updateTheme('tomato'))
+    } else {
+      togglRTIntroAnimation(author.data.setting.intro_animation)
+      setThemeOnBody(author.data.setting.theme.replace(/ /g, "_").toLowerCase());
+      setFavicons(author.data.setting.theme.replace(/ /g, "_").toLowerCase());
+    }
   }, [])
 
-  useEffect(()=>{
+  useEffect(() => {
     dispatch(updateMessage(comment.message))
-  },[comment.message])
+  }, [comment.message])
 
   const updateComment = async () => {
     console.log(comment);

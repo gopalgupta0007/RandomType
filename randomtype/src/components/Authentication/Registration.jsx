@@ -7,6 +7,7 @@ import KeyRoundedIcon from '@mui/icons-material/KeyRounded';
 import { AccountCircle, Visibility, VisibilityOff } from '@mui/icons-material';
 import { IconButton, Input, FormControl, InputLabel, InputAdornment, Box, TextField, Button } from '@mui/material';
 import { useHistory } from "react-router-dom";
+import { toast } from 'react-toastify';
 
 
 const Registration = () => {
@@ -41,6 +42,8 @@ const Registration = () => {
                 password 
             })
             alert(axiosPost.data);
+            // console.log(axiosPost.data);
+            toast.success("Registration successfull")
             history.push('/login');
         }catch(err) {
             console.error(err)

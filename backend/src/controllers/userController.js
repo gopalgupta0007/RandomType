@@ -132,7 +132,7 @@ const updateTyping = async (req, res) => {
 }
 
 const updateMode = async (req, res) => {
-    let updatedModes
+    var updatedModes
     try {
         const authUserId = req.params.id;
         const { mode, text, time } = req.body;
@@ -156,7 +156,7 @@ const updateMode = async (req, res) => {
 
 
 const contactUs = async (req, res) => {
-    let contactData
+    var contactData
     try {
         const authUserId = req.params.id;
         const { message } = req.body;
@@ -177,7 +177,7 @@ const contactUs = async (req, res) => {
 }
 
 const settings = async (req, res) => {
-    let settingData
+    var settingData
     try {
         const authUserId = req.params.id;
         const { font, caret, sounds, theme, intro_animation } = req.body;
@@ -199,6 +199,7 @@ const settings = async (req, res) => {
     }
     return res.status(200).send({ massage: "settings updated successful" });
 }
+
 const deleteUser = async (req, res) => {
     try {
         const id = req.params.id;

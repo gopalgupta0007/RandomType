@@ -70,8 +70,9 @@ var totalnum = 24;
 
 
 export function getNumberOfWords(text, noOfWords) {
-    const words = text.split(' ');// Split the text into words
-    return words.slice(0, noOfWords).join(' ');// Take the first 50 words
+    console.log(text);
+    const words = text?.split(' ');// Split the text into words
+    return words?.slice(0, noOfWords).join(' ');// Take the first 50 words
 }
 
 // export const getParagraph =(setText, loadPara)=> {
@@ -137,37 +138,34 @@ const Typing = () => {
         if (auth) {
             setplaceholderText(getNumberOfWords(loadParagraph(), author.data.text))
         }
-    }, []);
-
-    useEffect(() => {
         if (!auth) {
             setplaceholderText(getNumberOfWords(loadParagraph()))
         }
-    }, [])
+    }, []);
 
-    useEffect(()=>{
+    useEffect(() => {
         // totalnum is add all width of typed letter
 
         // let example total width of the caracter(totalnum) devide by parent container of the caracters  ====> totalnum
-        var line_Number = Math.ceil(totalnum/document.getElementById("typingContainer").offsetWidth);
+        var line_Number = Math.ceil(totalnum / document.getElementById("typingContainer").offsetWidth);
         // setParaHeight(line_Number)
-        console.log("---------------------",line_Number)
+        console.log("---------------------", line_Number)
         // console.log("---------linedivisiton------------",totalnum/line_Number)
-        if(IndexNumber>1){
+        if (IndexNumber > 1) {
             // handleScrollDown(Math.ceil(totalnum/document.getElementById("typingContainer").offsetWidth))
             handleScrollDown(line_Number)
         }
-    },[totalnum])
+    }, [totalnum])
 
 
 
-    const handleScrollDown = (num=1) => {
+    const handleScrollDown = (num = 1) => {
         // these method handle the when the scroll happends according to the user typed letters
 
         // const container = document.getElementById("typingContainer");
         // const container = document.getElementById('typingTxt');
         const container = document.getElementById('paragraph');
-        if (container && num>2) {
+        if (container && num > 2) {
             // Scroll down by 50 pixels
             // container.scrollTop += 60*1 ;                                                           
             try {
@@ -178,8 +176,8 @@ const Typing = () => {
             // 71.2 * 16/100 => 60pixel so i need to scroll 
             // container.scrollTop += Math.ceil((Math.ceil(height_of_letter))-(Math.ceil(Math.ceil(height_of_letter)*16/100)))*num; // 60
             // container.scrollBy(0, Math.ceil((Math.ceil(height_of_letter))-(Math.ceil(Math.ceil(height_of_letter)*16/100)))*1);
-            container.scrollTop = Math.ceil((Math.ceil(height_of_letter))-(Math.ceil(Math.ceil(height_of_letter)*16/100)))*(num-2); // 60
-            console.log("scorll ==================> ",container.scrollTop," |||||| ",Math.ceil((Math.ceil(height_of_letter))-(Math.ceil(Math.ceil(height_of_letter)*16/100)))*(num-2));
+            container.scrollTop = Math.ceil((Math.ceil(height_of_letter)) - (Math.ceil(Math.ceil(height_of_letter) * 16 / 100))) * (num - 2); // 60
+            console.log("scorll ==================> ", container.scrollTop, " |||||| ", Math.ceil((Math.ceil(height_of_letter)) - (Math.ceil(Math.ceil(height_of_letter) * 16 / 100))) * (num - 2));
         }
     };
 
@@ -202,7 +200,7 @@ const Typing = () => {
             // compareToTyped("Backspace")
             console.log(element);
         });
-        totalnum=24;
+        totalnum = 24;
         setCountDownTimer(author.data.time)
         setIncorrectLetter(0)
         setIndexNumber(0)
@@ -258,7 +256,6 @@ const Typing = () => {
             window.removeEventListener('keydown', handleKeyPress);
         };
     });
-    // console.log(activeTypingRef.current.click());
 
     // const typingContainer = document.getElementById("typingContainer").offsetWidth; 
     function compareToTyped(text1, text2 = 'Backspace') {
@@ -296,7 +293,7 @@ const Typing = () => {
             // nextLineStartCaret()
             if (IndexNumber > 0) {
                 // console.log(document.getElementsByClassName("letter")[IndexNumber - 1].offsetWidth)
-                totalnum = IndexNumber>1 ? totalnum - document.getElementsByClassName("letter")[IndexNumber - 2].offsetWidth : 24;
+                totalnum = IndexNumber > 1 ? totalnum - document.getElementsByClassName("letter")[IndexNumber - 2].offsetWidth : 24;
             }
             if (text1[IndexNumber] === text2[IndexNumber]) {
                 alert(text1[IndexNumber - 1], " === ", text2[IndexNumber - 1]);
@@ -408,7 +405,7 @@ const Typing = () => {
         <>
             <HelmetProvider>
                 <Helmet><title>Testing || RandomType</title></Helmet>
-                {((CountDownTimer <= 0) || (placeholderText.length === IndexNumber + 1)) ? <Result restartTypingTest={restartTypingTest} keyData={{ Letter, IndexNumber, IncorrectLetter, CorrectLetter, placeholderText }} /> : <Container maxWidth="xl" style={{ marginTop: '2.5cm' }}>
+                {((CountDownTimer <= 0)|| (placeholderText?.length === IndexNumber + 1)) ? <Result restartTypingTest={restartTypingTest} keyData={{ Letter, IndexNumber, IncorrectLetter, CorrectLetter, placeholderText }} /> : <Container maxWidth="xl" style={{ marginTop: '2.5cm' }}>
                     {auth
                         &&
                         <div id='typing-nav-config' className='mt-[-2.5cm] mb-10'>
@@ -426,20 +423,20 @@ const Typing = () => {
                         </div>
                     </Box>
                     <Box id="typingContainer" className="border-transparent focus:outline-none border-2 h-[27vh] m-5 rounded-lg overflow-auto" onClick={() => typingContainer.classList.remove("blur-md")} onBlur={() => typingContainer.classList.add("blur-md")}>
-                    {/* <Box id="typingContainer" className="relative border-transparent focus:outline-none border-2 h-[27vh] m-5 rounded-lg overflow-auto"> */}
+                        {/* <Box id="typingContainer" className="relative border-transparent focus:outline-none border-2 h-[27vh] m-5 rounded-lg overflow-auto"> */}
                         {/* <div id='caret' className="w-[5px] h-[3.5rem] flex flex-col rounded-md absolute z-10 bg-blue-500"></div> */}
                         <textarea id="typing" className={`${author.data.setting.font.family} word-spacing rounded-lg bg-blue-300 focus:outline-none resize-none text-${author.data.setting.font.size} w-[100%] h-[100%] caret-transparent text-transparent text-opacity-100 bg-opacity-0 selection:bg-transparent text-center relative z-[-99] transition`} style={{ wordBreak: 'break-all', textAlign: 'justify', textJustify: 'inter-word', lineHeight: '110%' }} name="typing" spellCheck="false" ref={elementRef} onChange={handleTyping} autoFocus={true} value={Letter}></textarea>
                         <div id="typingTxt" className="typing-text h-[300%]">
-                            <p id="paragraph" ref={activeTypingRef} className={`${author.data.setting.font.family} word-spacing pt-[20px] px-2 rounded-lg bg-orange-300 focus:outline-none resize-none text-${author.data.setting.font.size} w-[100%] h-[100%] caret-transparent select-none relative top-[-30.4vh] bg-opacity-0 pt-2 text-center overflow-y-scroll`} style={{ wordBreak: 'break-all', textAlign: 'justify', textJustify: 'inter-word', lineHeight: '110%', overflow: 'scroll', scrollBehavior: 'smooth'  }} onClick={focusTyping}>
+                            <p id="paragraph" ref={activeTypingRef} className={`${author.data.setting.font.family} word-spacing pt-[20px] px-2 rounded-lg bg-orange-300 focus:outline-none resize-none text-${author.data.setting.font.size} w-[100%] h-[100%] caret-transparent select-none relative top-[-30.4vh] bg-opacity-0 pt-2 text-center overflow-y-scroll`} style={{ wordBreak: 'break-all', textAlign: 'justify', textJustify: 'inter-word', lineHeight: '110%', overflow: 'scroll', scrollBehavior: 'smooth' }} onClick={focusTyping}>
                                 {
-                                (Letter === "" && IndexNumber === 0) ?
-                                    <span id='initial-caret' className="relative overflow-hidden transition">                                   
-                                        <div className={`absolute ${author.data.setting.caret.style === '|' ? 'w-[.3vw] h-[100%]' : author.data.setting.caret.style === 'box' ? 'w-[2.5vw] h-[100%]' : author.data.setting.caret.style === '_' ? 'w-[2.5vw] h-[10%]' : author.data.setting.caret.style === 'off' ? 'hidden' : 'hidden'} bg-yellow-200 left-0 bottom-0 rounded-sm transition ${author.data.setting.caret.smooth ? 'withAnimation' : 'withoutAnimation'}`}></div>
-                                    </span> : <span></span>
+                                    (Letter === "" && IndexNumber === 0) ?
+                                        <span id='initial-caret' className="relative overflow-hidden transition">
+                                            <div className={`absolute ${author.data.setting.caret.style === '|' ? 'w-[.3vw] h-[100%]' : author.data.setting.caret.style === 'box' ? 'w-[2.5vw] h-[100%]' : author.data.setting.caret.style === '_' ? 'w-[2.5vw] h-[10%]' : author.data.setting.caret.style === 'off' ? 'hidden' : 'hidden'} bg-yellow-200 left-0 bottom-0 rounded-sm transition ${author.data.setting.caret.smooth ? 'withAnimation' : 'withoutAnimation'}`}></div>
+                                        </span> : <span></span>
                                 }
                                 {
                                     // placeholderText.split("").map((char, index) => (<span key={index} className={(index === 0) ? 'letter active text-white' : 'letter text-white transition-all duration-200'} >{char}</span>))
-                                    placeholderText.split("").map((char, index) => (<span key={index} className={`letter ${author.data.setting.caret.style === '|' ? 'caretline' : author.data.setting.caret.style === 'box' ? 'caretbox' : author.data.setting.caret.style === '_' ? 'caretunderscore' : author.data.setting.caret.style === 'off' ? 'off' : 'off'} pt-[-50px] transition-all duration-200 transition ${author.data.setting.caret.smooth ? 'with-animation' : ''}`}>{char}</span>))
+                                    placeholderText?.split("").map((char, index) => (<span key={index} className={`letter ${author.data.setting.caret.style === '|' ? 'caretline' : author.data.setting.caret.style === 'box' ? 'caretbox' : author.data.setting.caret.style === '_' ? 'caretunderscore' : author.data.setting.caret.style === 'off' ? 'off' : 'off'} pt-[-50px] transition-all duration-200 transition ${author.data.setting.caret.smooth ? 'with-animation' : ''}`}>{char}</span>))
                                 }
                             </p>
                         </div>
@@ -479,7 +476,7 @@ export default Typing;
 // document.getElementById("typingContainer").scrollBy(0,192/3)
 
 
-// line number 227 and 296 is important 
+// line number 227 and 296 is important
 
 
 

@@ -25,7 +25,7 @@ const Result = ({ restartTypingTest, keyData }) => {
   // let AuthorData ;
   console.log("Result");
   console.log(author.UserData._id);
-  console.log(author.UserData);
+  console.log(author.UserData.data);
   // console.log(author.data.data);
   const dispatch = useDispatch();
 
@@ -73,7 +73,7 @@ const Result = ({ restartTypingTest, keyData }) => {
     // console.log("testData : ", testData);
     if (auth) {
       updateTypingData()
-      fetchData()
+      fetchData()    
       // getFetchData()
       // console.log(AuthorData);
     } else {

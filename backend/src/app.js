@@ -27,10 +27,8 @@ app.use(cookieParser())
 app.use("*", cors({ origin: true, credentials: true })) // for cookie
 // app.use(cors()) // for cookie
 app.use("/users", userRouter);
-// app.get("/", (req,res)=>{
-//     res.send("hello world");
-// });
 
+// ____________________________________________________________________________________________________
 
 // socket.io
 const io = new Server(server, {
@@ -99,17 +97,6 @@ io.on('connection', (socket) => {
 
     // _______________________________________________
 
-    // socket.on("join_room", ({ name, room }) => {
-    //     socket.join(room);
-    //     io.sockets.in(room).emit("frined_joinded_inRoom", { name, room });
-    //     console.log("rooms=>", socket.rooms);
-    //     roomFull++;
-    //     if (roomFull >= 2) {
-    //         roomFull = 0;
-    //         room++ //beacuse only 2 play can play these game
-    //     }
-    // }
-
     socket.on("join_room", ({ name, Room }) => {
         console.log("these are the data => ", name, Room);
         const roomsCount = io.sockets.adapter.rooms.get(Room);
@@ -135,21 +122,6 @@ io.on('connection', (socket) => {
             Room++ //beacuse only 2 play can play these game
         }
     })
-    // console.log("username => ", username);
-    // playerArr[full] = username;
-    // console.log("Array=>", playerArr);
-    // if (!(playerArr[0] == playerArr[1])) {
-    //     socket.join("room-" + roomno);
-    //     io.sockets.in("room-" + roomno).emit("connected_room", { username, roomno });
-    //     console.log("rooms=>", socket.rooms);
-    //     full++;
-    //     if (full >= 2) {
-    //         full = 0;
-    //         roomno++
-    //     }
-    // }else{
-    //     console.log("strenger not found!");
-    // }
 
     socket.on('disconnect', () => {
         console.log('user ' + socket.id + ' disconnected');

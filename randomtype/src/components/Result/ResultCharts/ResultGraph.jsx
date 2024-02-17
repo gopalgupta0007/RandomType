@@ -1,6 +1,7 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useMemo, useRef } from 'react';
 import { Chart, registerables } from 'chart.js';
 import ShowResult from './ShowResult';
+import { getColor, no_of_test } from '../../../Methods/methods';
 
 Chart.register(...registerables);
 
@@ -8,12 +9,8 @@ const ResultGraph = ({ typingData, keyData }) => {
 	console.log("ResultGraph");
 	const chartRef = useRef(null);
 	// console.log(typingData);
-
-	const no_of_test = (index) => {
-		const myArray = [];
-		for (let i = 0; i <= index+1; i++) myArray.push(i);
-		return myArray
-	}
+	
+	const primaryColor = useMemo(()=>getColor(typingData.setting.theme),[typingData.setting.theme])
 
 	useEffect(() => {
 		let chartInstance = null;
@@ -29,6 +26,8 @@ const ResultGraph = ({ typingData, keyData }) => {
 		// const xValues = typingData.typing_data.no_of_test // how much time user giving test
 		// const xValues = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30] // how much time user giving test
 		// const xValues = no_of_test(typingData.typing_data.total_wpm.length); // how much time user giving test
+
+		// console.log(typingData.setting.theme)
 
 		const ctx = chartRef.current.getContext('2d');
 
@@ -46,8 +45,8 @@ const ResultGraph = ({ typingData, keyData }) => {
 						// wpm
 						fill: true,
 						lineTension: 0,
-						backgroundColor: 'rgba(255,0,0,0.1)',
-						borderColor: 'rgba(255,0,0,1)',
+						backgroundColor: 'rgba(170,170,170,0.7)',
+						borderColor: primaryColor,
 						data: wpmData,
 					},
 					{
