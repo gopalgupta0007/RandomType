@@ -123,8 +123,9 @@ io.on('connection', (socket) => {
         }
     })
 
-    socket.on('disconnect', () => {
+    socket.on('disconnect', (msg) => {
         console.log('user ' + socket.id + ' disconnected');
+        console.log("usermsg"+ msg);
         totalPlayers--
         console.log("totalPlayers => ", totalPlayers / 2);
     });

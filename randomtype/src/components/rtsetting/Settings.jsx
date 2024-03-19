@@ -11,7 +11,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { introAnimation, resetSettings, updateCaretSmooth, updateCaretStyle, updateFontFamily, updateFontSize, updateSoundType, updateSoundVolume, updateTheme } from '../../redux/action/Actions';
 import axios from 'axios';
 import intialSettingData from '../../redux/state/author'
-// import { alertTitleClasses } from '@mui/material';
 
 import keyboard from './sounds/keyboard.mp3'
 import bell from './sounds/bell.mp3'
@@ -24,7 +23,7 @@ import ding from './sounds/ding.mp3'
 import kclick from './sounds/kclick.mp3'
 import useSound from 'use-sound';
 import { toast } from 'react-toastify';
-import { fontSizes, fontfamilyBtn, soundsBtn } from './lists/SettingLists';
+import { fontSizes, fontfamilyBtn, soundsBtn } from './lists/ListOfSetting';
 
 const Settings = () => {
   const dispatch = useDispatch();

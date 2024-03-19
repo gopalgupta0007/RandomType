@@ -14,7 +14,7 @@ export const themeBtn = [
     {name:'Lavender Gray',colours:{base_color:'#bdbbd7',bg_color:'#646374',root_bg_color:'#282828'}}, 
     {name:'Lime',colours:{base_color:'#00ff00',bg_color:'#006400',root_bg_color:'#282828'}}, 
     {name:'Vegetable',colours:{base_color:'#009600',bg_color:'#004600',root_bg_color:'#282828'}}, 
-    {name:'Aqua',colours:{base_color:'#0affff',bg_color:'#008c8c',root_bg_color:'#282828'}}, 
+    {name:'Aqua',colours:{base_color:'#0affff',bg_color:'#969600',root_bg_color:'#282828'}}, 
     {name:'Violet',colours:{base_color:'#a000ff',bg_color:'#460075',root_bg_color:'#282828'}}, 
     {name:'Turquoise',colours:{base_color:'#00ffbb',bg_color:'#00694f',root_bg_color:'#282828'}}, 
     {name:'Blue',colours:{base_color:'#365aff',bg_color:'#002f8c',root_bg_color:'#282828'}}, 

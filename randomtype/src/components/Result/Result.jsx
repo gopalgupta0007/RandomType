@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import { memo, useEffect, useState } from "react";
+import { memo, useEffect, useMemo, useState } from "react";
 import ResultGraph from "./ResultCharts/ResultGraph";
 import ReplayIcon from '@mui/icons-material/Replay';
 import DirectionsCarFilledOutlinedIcon from '@mui/icons-material/DirectionsCarFilledOutlined';
@@ -73,7 +73,7 @@ const Result = ({ restartTypingTest, keyData }) => {
     // console.log("testData : ", testData);
     if (auth) {
       updateTypingData()
-      fetchData()    
+      fetchData()
       // getFetchData()
       // console.log(AuthorData);
     } else {
@@ -93,6 +93,8 @@ const Result = ({ restartTypingTest, keyData }) => {
     })
   }
 
+  // const MemoizedComponent = useMemo(() => <ResultGraph typingData={auth ? author.UserData.data : typing_data} keyData={keyData} />, [keyData, author.UserData.data])
+
   return (
     <>
       <HelmetProvider>
@@ -101,6 +103,7 @@ const Result = ({ restartTypingTest, keyData }) => {
         {/* {!auth && <ResultGraph typingData={typing_data} />}
         {auth&&<ResultGraph typingData={author.data.data} />} */}
         <ResultGraph typingData={auth ? author.UserData.data : typing_data} keyData={keyData} />
+        {/* {MemoizedComponent} */}
         {(!auth) && <div className="text-bnw text-center absolute left-[42.5%] bottom-10" >
           <a href="/login" className="font-bold underline" >Sign in</a> to save your result
         </div>}

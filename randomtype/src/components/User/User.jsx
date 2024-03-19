@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import LineChart from './charts/LineChart';
 import { getAvg, setFavicons, setThemeOnBody, togglRTIntroAnimation } from '../../Methods/methods';
 import { updateTheme } from '../../redux/action/Actions';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 // import { setUserData } from '../../redux/action/Actions';
 // import ResultGraph from '../Result/ResultCharts/ResultGraph';
 // import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
@@ -135,11 +136,11 @@ const User = () => {
     const lbl_img = document.getElementById("lblImg");
     // console.log("event => ", event.target.files[0]);
     console.log(URL.createObjectURL(inputFileImg.files[0]));
-    lbl_img.style.display = "none";
+    if(lbl_img)lbl_img.style.display = "none";
     const reader = new FileReader(); // convert select img to url
     reader.addEventListener('load', () => {
       localStorage.setItem("profile-img", reader.result)
-      image.setAttribute("src", reader.result)
+      image?.setAttribute("src", reader.result)
     })
     reader.readAsDataURL(event.target.files[0])
   }
@@ -155,8 +156,15 @@ const User = () => {
             <div id="userInfo" className='inline-block shadow p-5 rounded-md m-5'>
               <div id="userImg" className='mt-5 mb-[-10px]'>
                 <div className='flex justify-center m-auto mb-10 items-center border border-dashed border-[3px] hover:border-base-color hover:text-base-color border-gray-300 text-gray-300 p-5 h-[150px] w-[150px] rounded-full transition-colors duration-300' onClick={handleImageClick}>
-                  <img id='userImgDisplayed' src="" className='object-cover cursor-pointer rounded-full scale-150 border border-[3px] border-base-color' alt='userImg' />
-                  <label id="lblImg" className='text-center p-14 cursor-pointer'>Upload Photo</label>
+                  {
+                    (localStorage.getItem("profile-img")) ?
+                      <>
+                        <img id='userImgDisplayed' src="" className='object-cover cursor-pointer rounded-full scale-150 border border-[3px] border-base-color' alt='userImg' />
+                        <label id="lblImg" className='text-center p-14 cursor-pointer'>Upload Photo</label>
+                      </>
+                      :
+                      <AccountCircleIcon className='cursor-pointer scale-[800%]' />
+                  }
                   <input type="file" name="file" id="file" ref={inputFile} onChange={fileChange} style={{ display: 'none' }} />
                 </div>
               </div>

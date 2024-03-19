@@ -14,10 +14,11 @@ import User from './components/User/User';
 import CarGame from './components/Games/CarGame';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import { setUserData, updateTheme } from './redux/action/Actions';
+import { setUserData } from './redux/action/Actions';
 import axios from 'axios';
-import { off, on, setFavicons, setTheme, setThemeOnBody } from './Methods/methods';
-import { themeBtn } from './components/rtsetting/lists/SettingLists';
+import { on, setFavicons, setThemeOnBody } from './Methods/methods';
+import { themeBtn } from './components/rtsetting/lists/ListOfSetting';
+import IndexTheme from './components/rtsetting/theme/IndexTheme';
 
 const App = () => {
   // localStorage.setItem("DBdata", (localStorage.getItem("DBdata") == null) ? btoa(author) : localStorage.getItem("DBdata"));
@@ -62,27 +63,8 @@ const App = () => {
     }
   }, [])
   console.log(author.UserData.data.setting);
-  const updateThemeDataInDB = async (theme) => {
-    // console.log(setting);
-    try {
-      console.log(author);
-      const updateSettingTyping = await axios.patch(`/users/settings/${author.UserData._id}`,
-        {...author.UserData.data.setting, theme:theme},
-        {
-          headers: { "Content-Type": "application/json" },
-          withCredentials: true
-        }
-      ) // for cookie because we have to use axious method to fetch data
-      console.log("updateTyping :=> ", updateSettingTyping);
-      // console.log(setting);
-    } catch (err) {
-      console.log(err);
-    }
-    // console.log(setting);
-  }
 
-  console.log(author.UserData);
-
+  
   console.log("app.js");
   return (
     <div className="App">
@@ -101,7 +83,7 @@ const App = () => {
         <Route exact path="/game" component={CarGame} />
         <Route exact path="/logout" component={Logout} />
       </Switch>
-      <div id="overlay4" className='overlay-4 transition '>
+      {/* <div id="overlay4" className='overlay-4 transition '>
         <div id="text4" className='text-center transition mt-40 relative z-50' style={{ width: '75vw', margin: 'auto' }}>
           <div className="bg-base-color m-10 rounded-lg relative transition shadow">
             <span onClick={() => { off(4) }} className="absolute right-0 top-0 text-4xl mx-0 px-2 rounded-lg hover:bg-slate-100 hover:cursor-pointer active:bg-slate-200 duration-100 transition text-black">&times;</span>
@@ -126,10 +108,13 @@ const App = () => {
             </div>
           </div>
         </div>
-      </div>
-      <button id='themeIconBtn' className='bg-white absolute z-50 right-28 bottom-20 rounded-full active:scale-90 hover:scale-125 transition' onClick={() => { on(4); }}>
-        <ColorLensIcon sx={{ fontSize: '5em' }} />
-      </button>
+      </div> */}
+      <IndexTheme />
+      {auth
+        &&
+        <button id='themeIconBtn' className='bg-white absolute z-10 right-28 bottom-20 rounded-full shadow transition' onClick={() => { on(4); }}>
+          <ColorLensIcon sx={{ fontSize: '5em' }} />
+        </button>}
       <Footer />
     </div>
   );

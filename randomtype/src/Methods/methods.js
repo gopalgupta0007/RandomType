@@ -120,3 +120,32 @@ export const getAvg = (arr) => {
     console.log(sum / arrCount);
     return sum / arrCount;
 }
+
+export function openShortcutList() {
+    const keyShortcutList = document.getElementById('keyShortcutList')
+    if (keyShortcutList.classList.contains("h-screen")) {
+        keyShortcutList.classList.remove("h-screen");
+        return 0;
+    }
+    keyShortcutList.classList.add("h-screen")
+}
+
+export function countdownTimerOfGame(countdown = 60, countDownType, setCountdown) {
+    if (countDownType === "introCountDown") {
+        if (countdown > 0) {
+            var interval = setInterval(() => {
+                setCountdown((prevSeconds) => prevSeconds - 1);
+            }, 1000);
+        } else {
+            off(2)
+        }
+        return interval;
+    } else {
+        if (countdown >= 0 && countdown) {
+            var interval2 = setInterval(() => {
+                setCountdown((prevSeconds) => prevSeconds - 1);
+            }, 1000);
+        }
+        return interval2;
+    }
+}

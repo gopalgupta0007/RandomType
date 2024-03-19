@@ -102,6 +102,7 @@ const ResultGraph = ({ typingData, keyData }) => {
 			}
 		};
 	}, [typingData]);
+// }, [typingData]);
 
 	return (
 		<>

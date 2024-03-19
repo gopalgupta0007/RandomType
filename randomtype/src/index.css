@@ -73,7 +73,7 @@
 
 .aqua {
   --base_color: #0affff;
-  --background_color: #008c8c;
+  --background_color: #016e6e;
   --BnW: #dcdcdc;
   --root_background_color: #282828;
 }
@@ -156,6 +156,10 @@
   --root_background_color: #c8c8c8;
 }
 
+.text-background-color {
+  color: var(--background_color);
+}
+
 .text-bnw {
   color: var(--BnW);
 }
@@ -169,6 +173,10 @@
   color: var(--BnW);
 }
 
+.border-bg-color{
+  border-color: var(--background_color);
+}
+
 .bg-base-color {
   background-color: var(--base_color);
 }
@@ -177,9 +185,6 @@
   border: 2px solid var(--BnW);
 }
 
-.text-background-color {
-  color: var(--background_color);
-}
 
 .bg-background-color,
 .bghoverActive {
@@ -365,6 +370,7 @@
 
 html {
   width: 100%;
+  filter: brightness(110%);
   /* box-sizing: border-box; */
 }
 
@@ -383,7 +389,7 @@ body {
   /* background-color: rgb(255, 40, 40); */
   user-select: none;
   overflow: hidden;
-  transition: all .5s;
+  transition: all 1s;
 }
 
 code {
@@ -416,8 +422,8 @@ svg#rtSVG {
 
 .glassOnly {
   background: linear-gradient(135deg, rgba(255, 255, 255, .1), rgba(255, 255, 255, 0));
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
   transition: all 3s;
 }
 
@@ -1005,7 +1011,7 @@ li:not(:first-child) span {
 
 .scrollAnimation {
   transform: translateY(0);
-  animation: scrollToTopAnimate .5s ease-in-out infinite;
+  animation: scrollToTopAnimate .5s ease-in-out infinite alternate;
 }
 
 .toggle-open {
@@ -1079,36 +1085,126 @@ li:not(:first-child) span {
   transform: rotate(0);
   background-color: #00ff00;
   color: #006400;
+  filter: brightness(150%);
   animation: rotateBtn 5s infinite forwards linear, changeColorBtn 15s infinite forwards linear;
+  transition: all .5s;
 }
 
 @keyframes rotateBtn {
-  0% {transform: rotate(0);}
-  100% {transform: rotate(360deg);}
+  0% {
+    transform: rotate(0);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 @keyframes changeColorBtn {
-  0% {background-color: #fafa00;color: #969600;}
-  5% {background-color: #f7022a;color: #ff6f87;}
-  10% {background-color: #00b100;color: #57ff57;}
-  15% {background-color: #0051ff;color: #557fff;}
-  20% {background-color: #6600ff;color: #6a53ff;}
-  25% {background-color: #ffffff;color: #282828;}
-  30% {background-color: #ff0000;color: #640000;}
-  35% {background-color: #cc338b;color: #7a1f54;}
-  40% {background-color: #fe828c;color: #66423f;}
-  45% {background-color: #ff00ff;color: #500050;}
-  50% {background-color: #ffdade;color: #7e423d;}
-  55% {background-color: #ff9500;color: #794700;}
-  60% {background-color: #bdbbd7;color: #646374;}
-  65% {background-color: #00ff00;color: #006400;}
-  70% {background-color: #009600;color: #004600;}
-  75% {background-color: #0affff;color: #008c8c;}
-  80% {background-color: #a000ff;color: #460075;}
-  85% {background-color: #00ffbb;color: #00694f;}
-  90% {background-color: #365aff;color: #002f8c;}
-  95% {background-color: #c04000;color: #612000;}
-  100% {background-color: #fafa00;color: #969600;}
+  0% {
+    background-color: #fafa00;
+    color: #969600;
+  }
+
+  5% {
+    background-color: #f7022a;
+    color: #ff6f87;
+  }
+
+  10% {
+    background-color: #00b100;
+    color: #57ff57;
+  }
+
+  15% {
+    background-color: #0051ff;
+    color: #557fff;
+  }
+
+  20% {
+    background-color: #6600ff;
+    color: #6a53ff;
+  }
+
+  25% {
+    background-color: #ffffff;
+    color: #282828;
+  }
+
+  30% {
+    background-color: #ff0000;
+    color: #640000;
+  }
+
+  35% {
+    background-color: #cc338b;
+    color: #7a1f54;
+  }
+
+  40% {
+    background-color: #fe828c;
+    color: #66423f;
+  }
+
+  45% {
+    background-color: #ff00ff;
+    color: #500050;
+  }
+
+  50% {
+    background-color: #ffdade;
+    color: #7e423d;
+  }
+
+  55% {
+    background-color: #ff9500;
+    color: #794700;
+  }
+
+  60% {
+    background-color: #bdbbd7;
+    color: #646374;
+  }
+
+  65% {
+    background-color: #00ff00;
+    color: #006400;
+  }
+
+  70% {
+    background-color: #009600;
+    color: #004600;
+  }
+
+  75% {
+    background-color: #0affff;
+    color: #008c8c;
+  }
+
+  80% {
+    background-color: #a000ff;
+    color: #460075;
+  }
+
+  85% {
+    background-color: #00ffbb;
+    color: #00694f;
+  }
+
+  90% {
+    background-color: #365aff;
+    color: #002f8c;
+  }
+
+  95% {
+    background-color: #c04000;
+    color: #612000;
+  }
+
+  100% {
+    background-color: #fafa00;
+    color: #969600;
+  }
 }
 
 /* typing car game */
@@ -1125,14 +1221,14 @@ li:not(:first-child) span {
 
 .flag {
   transform: rotateY(180deg) scale(.75);
-  animation: scaleAnimation 1s infinite ease-in-out;
+  animation: scaleAnimation 1s infinite alternate ease-in-out;
 }
 
 .gameTimer {
   /* color: var(--base_color); */
   color: red;
   text-shadow: 0 0 3px black;
-  animation: countdownBlinking infinite linear .5s;
+  animation: countdownBlinking infinite alternate linear .5s;
 }
 
 @keyframes countdownBlinking {
@@ -1160,7 +1256,8 @@ li:not(:first-child) span {
 .overlay-1,
 .overlay-2,
 .overlay-3,
-.overlay-4 {
+.overlay-4, 
+.overlay-5 {
   position: fixed;
   display: none;
   width: 100%;
