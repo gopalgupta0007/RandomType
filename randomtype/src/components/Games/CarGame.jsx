@@ -381,6 +381,7 @@ const CarGame = () => {
                 //start coundown
                 socket.emit("initial_share_data", { User, roomno: Room, isStrenger })
                 socket.on("friend-joining", friendData => setFriendData(friendData))
+                elemtRef.current.focus()
             }
         })
         // socket.on("take_data", (data) => console.log(data))
@@ -415,6 +416,7 @@ const CarGame = () => {
                 //start coundown
                 socket.emit("initial_share_data", { User, roomno, isStrenger })
                 socket.on("strenger-joining", strengerData => setStrengerData(strengerData))
+                elemtRef.current.focus()
             }
         })
     }

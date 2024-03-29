@@ -3,7 +3,7 @@ import WPM from '../Typing/TestCalculate/WPM'
 import Accuracy from '../Typing/TestCalculate/Accuracy'
 // import Timer from '../Typing/TestCalculate/Timer'
 
-const NavGameProgressBar = ({ username, Letter, placeholderText, CountDownTimer, IncorrectLetter, StrengerData, isStrenger, FriendData }) => {
+const NavGameProgressBar = ({ username, user, Letter, placeholderText, CountDownTimer, IncorrectLetter, StrengerData, isStrenger, FriendData }) => {
     // const countDownTimerMethod = (countdown) => setCountDownTimer(countdown);
 
     // useEffect(() => {
@@ -21,7 +21,8 @@ const NavGameProgressBar = ({ username, Letter, placeholderText, CountDownTimer,
                 </div>
                 <div className='flex gap-x-12 bg-base-color text-bnw px-5 rounded-tl-xl rounded-bl-xl'>
                     <div id='user-wpm' className='flex border border-0 border-r-2 pr-12'>
-                        <h1 className='flex'>WPM :&nbsp;{(Letter.length > 0) ? <WPM countdown={CountDownTimer} word={Letter.split(" ").length - 1} /> : 0}</h1>
+                    {/* CountDownTimer */}
+                        <h1 className='flex'>WPM :&nbsp;{(Letter.length > 0) ? <WPM countdown={CountDownTimer} word={Letter.split(" ").length - 1} /> : user?.typingGameData.wpm?user?.typingGameData.wpm:0}</h1>
                     </div>
                     <div id='user-acc' className='flex ml-[-10px]'>
                         <h1 className='flex'>ACC :&nbsp;{(Letter.length > 0) ? <Accuracy countdown={CountDownTimer} incorrectLetter={IncorrectLetter} totalChar={placeholderText.split("").length} /> : 100}%</h1>
