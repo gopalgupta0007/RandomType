@@ -8,7 +8,7 @@ const cors = require('cors');
 
 // Port number
 require('dotenv').config("RandomType/backend/.env");
-const PORT = process.env.PORT || 5000;
+const PORT = 5000;
 
 
 // connecting to the database
