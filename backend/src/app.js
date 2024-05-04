@@ -88,7 +88,7 @@ io.on('connection', (socket) => {
 
     socket.on("share_data", ({ User, Room, isStrenger }) => {
         // shere player typing-game-data into the room
-        if (User.roomNo == Room || Room) {
+        if (User?.roomNo == Room || Room) {
             isStrenger ? socket.to("room-" + Room).emit("get_strenger_data", User) : socket.to(Room).emit("get_strenger_data", User);
         } else {
             console.log("room number is not same", Room);

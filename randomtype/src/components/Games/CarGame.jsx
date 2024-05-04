@@ -335,19 +335,19 @@ const CarGame = () => {
             if (isStrenger) {
                 // when timer is 0 then after 3 second Scoreboard is going to be shown beacuse of both the data show acuratly
                 StrengerData.username && StrengerData.username != "" && setTimeout(function () { on(5) }, 1000);
-                try {
-                    setUser(preData => ({ ...preData, typingGameData: { ...preData.typingGameData, wpm: user_game_wpm?.textContent } }))
-                } catch (err1) {
-                    console.log(err1);
-                }
+                // try {
+                //     setUser(preData => ({ ...preData, typingGameData: { ...preData.typingGameData, wpm: user_game_wpm?.textContent } }))
+                // } catch (err1) {
+                //     console.log(err1);
+                // }
             } else if (!isStrenger) {
                 // when timer is 0 then after 3 second Scoreboard is going to be shown beacuse of both the data show acuratly
-                FriendData.username && FriendData.username != ""  && setTimeout(function () { on(5) }, 1000);
-                try {
-                    setUser(preData => ({ ...preData, typingGameData: { ...preData.typingGameData, wpm: user_game_wpm?.textContent } }))
-                } catch (err2) {
-                    console.log(err2);
-                }
+                FriendData.username && FriendData.username != "" && setTimeout(function () { on(5) }, 1000);
+                // try {
+                //     setUser(preData => ({ ...preData, typingGameData: { ...preData.typingGameData, wpm: user_game_wpm?.textContent } }))
+                // } catch (err2) {
+                //     console.log(err2);
+                // }
             } else {
                 off(5)
             }
@@ -445,7 +445,7 @@ const CarGame = () => {
                     </div>
                     <Scoreboard user={User} opponentData={isStrenger ? StrengerData : FriendData} totalLetters={CarTextplaceholderText} />
                     <Box id="display-car-progress" className="mt-2">
-                        <NavGameProgressBar Letter={CarLetter} username={author.username} isStrenger={isStrenger} FriendData={FriendData} placeholderText={CarTextplaceholderText} CountDownTimer={CargameCountDownTimer} StrengerData={isStrenger ? StrengerData : FriendData} /*setCountDownTimer={setCargameCountDownTimer}*/ IncorrectLetter={CargameIncorrectLetter} />
+                        <NavGameProgressBar Letter={CarLetter} user={User} username={author.username} isStrenger={isStrenger} FriendData={FriendData} placeholderText={CarTextplaceholderText} CountDownTimer={CargameCountDownTimer} StrengerData={isStrenger ? StrengerData : FriendData} /*setCountDownTimer={setCargameCountDownTimer}*/ IncorrectLetter={CargameIncorrectLetter} />
                         <div id='view-carProgress' className='w-11/12 h-52 grid grid-rows-2 gap-0 p-3 bg-white bg-opacity-30 mx-auto mt-1 rounded-xl pl-5'>
                             <div className='flex justify-between pb-3'>
                                 <div className='w-full flex items-center border border-0 border-b-2 border-black'>
@@ -480,7 +480,6 @@ const CarGame = () => {
                     </Box>
                     <div id='btnGame' className='w-11/12 mx-auto mt-4 flex justify-start gap-x-3'>
                         <button className='btnSetting transition shadow text-bnw scale-100 active:scale-95' style={{ padding: '10px 20px' }} onClick={() => { on(3); setIsStrenger(false) }}>Play With Friend</button>
-                        <button className='btnSetting transition shadow text-bnw scale-100 active:scale-95' style={{ padding: '10px 20px' }} onClick={() => { on(5) }}>scoreboard</button>
                         <button className='btnSetting transition shadow text-bnw scale-100 active:scale-95' style={{ padding: '10px 20px' }} onClick={playWithStranger}>Play with Stranger</button>
                     </div>
                 </Container>
