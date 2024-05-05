@@ -16,7 +16,8 @@ import 'react-toastify/dist/ReactToastify.css';
 // import dotenv from "dotenv"
 // import reportWebVitals from './reportWebVitals';
 // require('dotenv').config("RandomType/randomtype/.env")
-axios.defaults.baseURL = "http://localhost:5000";
+// axios.defaults.baseURL = "http://localhost:5000"; //***changed Path***
+axios.defaults.baseURL = "https://randomtypee.onrender.com";
 // store.subscribe(() => console.log("show reducers => ", store.getState()))
 localStorage.setItem("typingData", localStorage.getItem("typingData") || JSON.stringify(state)) // store the state into localstorage
 // localStorage.setItem("authorId", localStorage.getItem("authorId") || JSON.stringify(data)) // store the state into localstorage
