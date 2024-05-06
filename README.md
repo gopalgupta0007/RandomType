@@ -1,3 +1,5 @@
+**RandomType** : This randomtype is typing testing site where user can increase their own typing speed without seen keyboard with high accuracy. 
+
 # Deployed Path => https://randomtypee.netlify.app
 
 # 1. Overview
