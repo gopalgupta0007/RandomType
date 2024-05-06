@@ -1,5 +1,13 @@
 **RandomType** : This randomtype is typing testing site where user can increase their own typing speed without seen keyboard with high accuracy. typing test website is to assess and improve users' typing skills, with a focus on typing speed and accuracy. The website aims to provide a range of tools and resources to help users develop and refine their typing abilities. 
 
+<hr>
+<b>
+Black Book Documentation => <a href="https://github.com/gopalgupta0007/RandomType/files/15218219/RandomType.docx">RandomType.docx</a><br>
+PPT Representation => <a href="https://github.com/gopalgupta0007/RandomType/files/15218253/RandomType.pptx">RandomType.ppt</a>
+</b>
+<br>
+<hr>
+
 # Deployed Path => https://randomtypee.netlify.app
 
 # 1. Overview
