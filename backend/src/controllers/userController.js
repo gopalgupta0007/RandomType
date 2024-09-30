@@ -9,7 +9,7 @@ const signup = async (req, res) => {
         const userData = await Users.findOne({ email: email });
         if (!username || !phoneno || !email || !password) {
             return res.status(500).json({ massage: "enter all correct data" });
-        } else if (userData) {
+        } else if (!userData) {
             return res.status(422).json({ massage: "invalid input data, enter correct data" });
         } else {
             const userExist = new Users({ username, phoneno, email, password });
